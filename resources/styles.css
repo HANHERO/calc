@@ -37,12 +37,12 @@
 }
 
 .anchorPlane {
-    -fx-pref-width: 400px;
-    -fx-pref-height: 634px;
+    -fx-pref-width: 398px;
+    -fx-pref-height: 624px;
 }
 
 .hBox {
-    -fx-pref-width: 400px;
+    -fx-pref-width: 398px;
     -fx-pref-height: 40px;
 }
 

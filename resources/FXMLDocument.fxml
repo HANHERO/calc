@@ -15,7 +15,7 @@
       <Button mnemonicParsing="false" onMouseClicked="#minimize" styleClass="minimizeButton, button"
               stylesheets="@styles.css">
          <HBox.margin>
-            <Insets left="123.0"/>
+            <Insets left="121.0"/>
          </HBox.margin>
       </Button>
       <Button mnemonicParsing="false" styleClass="fullScreenButton, button" stylesheets="@styles.css">
