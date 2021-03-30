@@ -1,9 +1,14 @@
-.button {
+*{
     -fx-background-color: e6e6e6;
+}
+.button {
+    -fx-pref-width: 57px;
+    -fx-pref-height: 40px;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
 }
 .minimizeButton {
+
     -fx-background-image: url('buttons/minimize.png');
 }
 .minimizeButton:hover{
@@ -29,4 +34,18 @@
 }
 .closeButton:pressed {
     -fx-background-image: url('buttons/closePresed.png');
+}
+
+.anchorPlane {
+    -fx-pref-width: 400px;
+    -fx-pref-height: 634px;
+}
+
+.hBox {
+    -fx-pref-width: 400px;
+    -fx-pref-height: 40px;
+}
+
+.label {
+    -fx-padding: 10px 5px 5px 16px;
 }
