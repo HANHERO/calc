@@ -1,0 +1,32 @@
+.button {
+    -fx-background-color: e6e6e6;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+.minimizeButton {
+    -fx-background-image: url('buttons/minimize.png');
+}
+.minimizeButton:hover{
+    -fx-background-image: url('buttons/minimizeHovered.png');
+}
+.minimizeButton:pressed{
+    -fx-background-image: url('buttons/minimizePressed.png');
+}
+.fullScreenButton {
+    -fx-background-image: url('buttons/fullScreen.png');
+}
+.fullScreenButton:hover {
+    -fx-background-image: url('buttons/fullScreenHovered.png');
+}
+.fullScreenButton:pressed{
+    -fx-background-image: url('buttons/fullScreenPressed.png');
+}
+.closeButton {
+    -fx-background-image: url('buttons/close.png');
+}
+.closeButton:hover {
+    -fx-background-image: url('buttons/closeHovered.png');
+}
+.closeButton:pressed {
+    -fx-background-image: url('buttons/closePresed.png');
+}
