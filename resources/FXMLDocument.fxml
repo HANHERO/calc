@@ -7,9 +7,7 @@
 
 <AnchorPane styleClass="anchorPlane" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
    <HBox onMouseDragged="#dragged" onMousePressed="#pressed" prefHeight="45.0" prefWidth="398.0">
-      <children>
-         <Label styleClass="label" text="Калькулятор" />
-      </children>
+      <Label styleClass="label" text="Калькулятор"/>
    </HBox>
    <Button layoutY="6.0" mnemonicParsing="false" onMouseClicked="#close" styleClass="closeButton" AnchorPane.bottomAnchor="584.0" AnchorPane.leftAnchor="341.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
    <Button layoutX="284.0" mnemonicParsing="false" styleClass="fullScreenButton" AnchorPane.topAnchor="0.0" />
@@ -21,7 +19,7 @@
    <Button layoutX="6.0" layoutY="501.0" mnemonicParsing="false" styleClass="bigButton, whiteButton" text="1" AnchorPane.bottomAnchor="68.0" AnchorPane.leftAnchor="6.0" />
    <Button layoutX="102.0" layoutY="505.0" mnemonicParsing="false" styleClass="bigButton, whiteButton" text="2" AnchorPane.bottomAnchor="68.0" AnchorPane.leftAnchor="104.0" />
    <Button layoutX="202.0" layoutY="500.0" mnemonicParsing="false" styleClass="bigButton, whiteButton" text="3" AnchorPane.bottomAnchor="68.0" AnchorPane.leftAnchor="202.0" />
-   <Button layoutX="300.0" layoutY="500.0" mnemonicParsing="false" styleClass="bigButton, greyButton" text="+" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="5.0" />
+   <Button layoutX="300.0" layoutY="500.0" mnemonicParsing="false" styleClass="bigButton, greyButton" text="+" AnchorPane.bottomAnchor="68.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="5.0" />
    <Button layoutX="6.0" layoutY="438.0" mnemonicParsing="false" styleClass="bigButton, whiteButton" text="4" AnchorPane.bottomAnchor="131.0" AnchorPane.leftAnchor="6.0" />
    <Button layoutX="6.0" layoutY="375.0" mnemonicParsing="false" styleClass="bigButton, whiteButton" text="7" AnchorPane.bottomAnchor="194.0" AnchorPane.leftAnchor="6.0" />
    <Button layoutX="104.0" layoutY="372.0" mnemonicParsing="false" styleClass="bigButton, whiteButton" text="8" AnchorPane.bottomAnchor="194.0" AnchorPane.leftAnchor="104.0" />
