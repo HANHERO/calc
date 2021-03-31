@@ -7,6 +7,9 @@
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
     -fx-background-radius: 0;
+    -fx-font-size: 24px;
+    -fx-font-family: "Segoe UI";
+    -fx-font-weight: bold;
 }
 .minimizeButton {
 
@@ -38,12 +41,12 @@
 }
 
 .anchorPlane {
-    -fx-pref-width: 398px;
-    -fx-pref-height: 624px;
+    -fx-pref-width: 400px;
+    -fx-pref-height: 625px;
 }
 
 .hBox {
-    -fx-pref-width: 398px;
+    -fx-pref-width: 400px;
     -fx-pref-height: 40px;
 }
 
