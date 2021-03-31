@@ -6,6 +6,7 @@
     -fx-pref-height: 40px;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
+    -fx-background-radius: 0;
 }
 .minimizeButton {
 
@@ -48,4 +49,33 @@
 
 .label {
     -fx-padding: 10px 5px 5px 16px;
+}
+
+.bigButton {
+    -fx-pref-width: 95px;
+    -fx-pref-height: 60px;
+}
+
+.whiteButton {
+    -fx-background-color: #fafafa;
+}
+.whiteButton:hover, .greyButton:hover{
+    -fx-background-color: #d1d1d1;
+}
+.whiteButton:pressed, .greyButton:pressed{
+    -fx-background-color: #bbbbbb;
+}
+
+.greyButton {
+    -fx-background-color: #f0f0f0;
+}
+
+.dkGreyButton {
+    -fx-background-color: #a3a3a3;
+}
+.dkGreyButton:hover {
+    -fx-background-color: #717171;
+}
+.dkGreyButton:pressed{
+    -fx-background-color: #404040;
 }
