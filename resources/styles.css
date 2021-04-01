@@ -7,37 +7,35 @@
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
     -fx-background-radius: 0;
-    -fx-font-size: 24px;
-    -fx-font-family: "Segoe UI";
-    -fx-font-weight: bold;
 }
 .minimizeButton {
-
     -fx-background-image: url('buttons/minimize.png');
 }
 .minimizeButton:hover{
-    -fx-background-image: url('buttons/minimizeHovered.png');
+    -fx-background-color: #cfcfcf;
 }
 .minimizeButton:pressed{
-    -fx-background-image: url('buttons/minimizePressed.png');
+    -fx-background-color: #b8b8b8;
 }
 .fullScreenButton {
     -fx-background-image: url('buttons/fullScreen.png');
 }
 .fullScreenButton:hover {
-    -fx-background-image: url('buttons/fullScreenHovered.png');
+    -fx-background-color: #cfcfcf;
 }
 .fullScreenButton:pressed{
-    -fx-background-image: url('buttons/fullScreenPressed.png');
+    -fx-background-color: #b8b8b8;
 }
 .closeButton {
     -fx-background-image: url('buttons/close.png');
 }
 .closeButton:hover {
     -fx-background-image: url('buttons/closeHovered.png');
+    -fx-background-color: #e81123;
 }
 .closeButton:pressed {
-    -fx-background-image: url('buttons/closePresed.png');
+    -fx-background-image: url('buttons/close.png');
+    -fx-background-color: #f1707a;
 }
 
 .anchorPlane {
@@ -58,14 +56,18 @@
     -fx-pref-width: 95px;
     -fx-pref-height: 60px;
 }
+.memButton {
+    -fx-pref-width: 63px;
+    -fx-pref-height: 37px;
+}
 
 .whiteButton {
     -fx-background-color: #fafafa;
 }
-.whiteButton:hover, .greyButton:hover{
+.whiteButton:hover, .greyButton:hover, .memButton:hover{
     -fx-background-color: #d1d1d1;
 }
-.whiteButton:pressed, .greyButton:pressed{
+.whiteButton:pressed, .greyButton:pressed, .memButton:pressed{
     -fx-background-color: #bbbbbb;
 }
 
@@ -81,4 +83,95 @@
 }
 .dkGreyButton:pressed{
     -fx-background-color: #404040;
+}
+
+#plusMinus{
+    -fx-background-image: url('buttons/plusMinus.png');
+}
+#zero{
+    -fx-background-image: url('buttons/zero.png');
+}
+#comma{
+    -fx-background-image: url("buttons/comma.png");
+}
+#equals{
+    -fx-background-image: url("buttons/equals.png");
+}
+#one{
+    -fx-background-image: url("buttons/one.png");
+}
+#two{
+    -fx-background-image: url("buttons/two.png");
+}
+#three{
+    -fx-background-image: url("buttons/three.png");
+}
+#plus{
+    -fx-background-image: url("buttons/plus.png");
+}
+#four{
+    -fx-background-image: url("buttons/four.png");
+}
+#five{
+    -fx-background-image: url("buttons/five.png");
+}
+#six{
+    -fx-background-image: url("buttons/six.png");
+}
+#minus{
+    -fx-background-image: url("buttons/minus.png");
+}
+#seven{
+    -fx-background-image: url("buttons/seven.png");
+}
+#eight{
+    -fx-background-image: url("buttons/eight.png");
+}
+#nine{
+    -fx-background-image: url("buttons/nine.png");
+}
+#multiply{
+    -fx-background-image: url("buttons/multiply.png");
+}
+#oneDividedX{
+    -fx-background-image: url("buttons/oneDividedX.png");
+}
+#square{
+    -fx-background-image: url("buttons/square.png");
+}
+#radical{
+    -fx-background-image: url("buttons/radical.png");
+}
+#divide{
+    -fx-background-image: url("buttons/divide.png");
+}
+#percent{
+    -fx-background-image: url("buttons/percent.png");
+}
+#CE{
+    -fx-background-image: url("buttons/CE.png");
+}
+#C{
+    -fx-background-image: url("buttons/C.png");
+}
+#del{
+    -fx-background-image: url("buttons/del.png");
+}
+#MC{
+    -fx-background-image: url("buttons/MC.png");
+}
+#MR{
+    -fx-background-image: url("buttons/MR.png");
+}
+#mPlus{
+    -fx-background-image: url("buttons/mPlus.png");
+}
+#mMinus{
+    -fx-background-image: url("buttons/mMinus.png");
+}
+#MS{
+    -fx-background-image: url("buttons/MS.png");
+}
+#mOption{
+    -fx-background-image: url("buttons/mOption.png");
 }
