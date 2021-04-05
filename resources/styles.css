@@ -1,12 +1,29 @@
 *{
     -fx-background-color: e6e6e6;
 }
+.typeOfCalc{
+    -fx-pref-width: 139px;
+    -fx-pref-height: 50px;
+    -fx-image: url('buttons/casual.png');
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+}
 .button {
     -fx-pref-width: 57px;
     -fx-pref-height: 40px;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
     -fx-background-radius: 0;
+}
+.button:hover{
+    -fx-background-color: #d1d1d1;
+}
+.button:pressed{
+    -fx-background-color: #bbbbbb;
+}
+.squareButton{
+    -fx-pref-width: 50px;
+    -fx-pref-height: 50px;
 }
 .minimizeButton {
     -fx-background-image: url('buttons/minimize.png');
@@ -63,12 +80,6 @@
 
 .whiteButton {
     -fx-background-color: #fafafa;
-}
-.whiteButton:hover, .greyButton:hover, .memButton:hover{
-    -fx-background-color: #d1d1d1;
-}
-.whiteButton:pressed, .greyButton:pressed, .memButton:pressed{
-    -fx-background-color: #bbbbbb;
 }
 
 .greyButton {
@@ -174,4 +185,13 @@
 }
 #mOption{
     -fx-background-image: url("buttons/mOption.png");
+}
+#option{
+    -fx-background-image: url("buttons/option.png");
+}
+#changeSize{
+    -fx-background-image: url("buttons/changeSize.png");
+}
+#history{
+    -fx-background-image: url("buttons/history.png");
 }
