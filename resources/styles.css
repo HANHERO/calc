@@ -15,6 +15,10 @@
     -fx-background-position: center;
     -fx-background-radius: 0;
 }
+.buttInMenu{
+    -fx-pref-width: 320px;
+    -fx-pref-height: 50px;
+}
 .button:hover{
     -fx-background-color: #d1d1d1;
 }
@@ -194,4 +198,8 @@
 }
 #history{
     -fx-background-image: url("buttons/history.png");
+}
+#menu{
+    -fx-pref-width: 0px;
+    -fx-pref-height: 0px;
 }
