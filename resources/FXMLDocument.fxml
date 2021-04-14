@@ -1,55 +1,122 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?language JavaScript?>
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
 
-<?import javafx.scene.control.ScrollPane?>
 <AnchorPane styleClass="anchorPlane" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
     <HBox onMouseDragged="#dragged" onMousePressed="#pressed" prefHeight="45.0" prefWidth="398.0">
-        <Label styleClass="label" text="Калькулятор" />
+        <Label fx:id="calcLabel" styleClass="label" text="Калькулятор" />
     </HBox>
     <Button layoutY="6.0" mnemonicParsing="false" onMouseClicked="#close" styleClass="closeButton" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
     <Button layoutX="284.0" mnemonicParsing="false" styleClass="fullScreenButton" AnchorPane.rightAnchor="57.0" AnchorPane.topAnchor="0.0" />
     <Button layoutX="227.0" mnemonicParsing="false" onMouseClicked="#minimize" styleClass="minimizeButton" AnchorPane.rightAnchor="114.0" AnchorPane.topAnchor="0.0" />
-    <Button id="plusMinus" layoutX="6.0" layoutY="564.0" mnemonicParsing="false" onMouseClicked="#plusMinusClicked" styleClass="bigButton, whiteButton" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="6.0" />
-    <Button id="zero" layoutX="104.0" layoutY="564.0" mnemonicParsing="false" onMouseClicked="#zeroClicked" styleClass="bigButton, whiteButton" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="104.0" />
-    <Button id="comma" layoutX="202.0" layoutY="564.0" mnemonicParsing="false" onMouseClicked="#commaClicked" styleClass="bigButton, whiteButton" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="202.0" />
-    <Button id="equals" layoutX="300.0" layoutY="564.0" mnemonicParsing="false" onMouseClicked="#equalsClicked" styleClass="bigButton, dkGreyButton" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="5.0" />
-    <Button id="one" layoutX="6.0" layoutY="501.0" mnemonicParsing="false" onMouseClicked="#oneClicked" styleClass="bigButton, whiteButton" AnchorPane.bottomAnchor="68.0" AnchorPane.leftAnchor="6.0" />
-    <Button id="two" layoutX="102.0" layoutY="505.0" mnemonicParsing="false" onMouseClicked="#twoClicked" styleClass="bigButton, whiteButton" AnchorPane.bottomAnchor="68.0" AnchorPane.leftAnchor="104.0" />
-    <Button id="three" layoutX="202.0" layoutY="500.0" mnemonicParsing="false" onMouseClicked="#threeClicked" styleClass="bigButton, whiteButton" AnchorPane.bottomAnchor="68.0" AnchorPane.leftAnchor="202.0" />
-    <Button id="plus" layoutX="300.0" layoutY="500.0" mnemonicParsing="false" onMouseClicked="#plusClicked" styleClass="bigButton, greyButton" AnchorPane.bottomAnchor="68.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="5.0" />
-    <Button id="four" layoutX="6.0" layoutY="438.0" mnemonicParsing="false" onMouseClicked="#fourClicked" styleClass="bigButton, whiteButton" AnchorPane.bottomAnchor="131.0" AnchorPane.leftAnchor="6.0" />
-    <Button id="seven" layoutX="6.0" layoutY="375.0" mnemonicParsing="false" onMouseClicked="#sevenClicked" styleClass="bigButton, whiteButton" AnchorPane.bottomAnchor="194.0" AnchorPane.leftAnchor="6.0" />
-    <Button id="eight" layoutX="104.0" layoutY="372.0" mnemonicParsing="false" onMouseClicked="#eightClicked" styleClass="bigButton, whiteButton" AnchorPane.bottomAnchor="194.0" AnchorPane.leftAnchor="104.0" />
-    <Button id="minus" layoutX="300.0" layoutY="436.0" mnemonicParsing="false" onMouseClicked="#minusClicked" styleClass="bigButton, greyButton" AnchorPane.bottomAnchor="131.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="5.0" />
-    <Button id="six" layoutX="202.0" layoutY="436.0" mnemonicParsing="false" onMouseClicked="#sixClicked" styleClass="bigButton, whiteButton" AnchorPane.bottomAnchor="131.0" AnchorPane.leftAnchor="202.0" />
-    <Button id="five" layoutX="104.0" layoutY="436.0" mnemonicParsing="false" onMouseClicked="#fiveClicked" styleClass="bigButton, whiteButton" AnchorPane.bottomAnchor="131.0" AnchorPane.leftAnchor="104.0" />
-    <Button id="oneDividedX" layoutX="6.0" layoutY="312.0" mnemonicParsing="false" onMouseClicked="#oneDividedX" styleClass="bigButton, greyButton" AnchorPane.bottomAnchor="257.0" AnchorPane.leftAnchor="6.0" />
-    <Button id="multiply" layoutX="300.0" layoutY="372.0" mnemonicParsing="false" onMouseClicked="#multiplyClicked" styleClass="bigButton, greyButton" AnchorPane.bottomAnchor="194.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="5.0" />
-    <Button id="nine" layoutX="202.0" layoutY="372.0" mnemonicParsing="false" onMouseClicked="#nineClicked" styleClass="bigButton, whiteButton" AnchorPane.bottomAnchor="194.0" AnchorPane.leftAnchor="202.0" />
-    <Button id="square" layoutX="104.0" layoutY="308.0" mnemonicParsing="false" onMouseClicked="#squareClicked" styleClass="bigButton, greyButton" AnchorPane.bottomAnchor="257.0" AnchorPane.leftAnchor="104.0" />
-    <Button id="radical" layoutX="202.0" layoutY="308.0" mnemonicParsing="false" onMouseClicked="#rootClicked" styleClass="bigButton, greyButton" AnchorPane.bottomAnchor="257.0" AnchorPane.leftAnchor="202.0" />
-    <Button id="divide" layoutX="300.0" layoutY="308.0" mnemonicParsing="false" onMouseClicked="#divideClicked" styleClass="bigButton, greyButton" AnchorPane.bottomAnchor="257.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="5.0" />
-    <Button id="CE" layoutX="104.0" layoutY="244.0" mnemonicParsing="false" onMouseClicked="#ceClicked" styleClass="bigButton, greyButton" AnchorPane.bottomAnchor="320.0" AnchorPane.leftAnchor="104.0" />
-    <Button id="percent" layoutX="6.0" layoutY="249.0" mnemonicParsing="false" onMouseClicked="#percentClicked" styleClass="bigButton, greyButton" AnchorPane.bottomAnchor="320.0" AnchorPane.leftAnchor="6.0" />
-    <Button id="C" layoutX="202.0" layoutY="244.0" mnemonicParsing="false" onMouseClicked="#cClicked" styleClass="bigButton, greyButton" AnchorPane.bottomAnchor="320.0" AnchorPane.leftAnchor="202.0" />
-    <Button id="del" layoutX="300.0" layoutY="244.0" mnemonicParsing="false" onMouseClicked="#delClicked" styleClass="bigButton, greyButton" AnchorPane.bottomAnchor="320.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="5.0" />
-    <Button id="MC" layoutX="6.0" layoutY="205.0" mnemonicParsing="false" onMouseClicked="#mcClicked" styleClass="memButton" AnchorPane.bottomAnchor="383.0" AnchorPane.leftAnchor="6.0" />
-    <Button id="MR" layoutX="71.0" layoutY="205.0" mnemonicParsing="false" onMouseClicked="#mrClicked" styleClass="memButton" AnchorPane.bottomAnchor="383.0" AnchorPane.leftAnchor="71.0" />
-    <Button id="mPlus" layoutX="202.0" layoutY="205.0" mnemonicParsing="false" onMouseClicked="#mPlusClicked" styleClass="memButton" AnchorPane.bottomAnchor="383.0" AnchorPane.leftAnchor="202.0" />
-    <Button id="mMinus" layoutX="136.0" layoutY="205.0" mnemonicParsing="false" onMouseClicked="#mMinusClicked" styleClass="memButton" AnchorPane.bottomAnchor="383.0" AnchorPane.leftAnchor="136.0" />
-    <Button id="MS" layoutX="267.0" layoutY="205.0" mnemonicParsing="false" onMouseClicked="#msClicked" styleClass="memButton" AnchorPane.bottomAnchor="383.0" AnchorPane.leftAnchor="267.0" />
-    <Button id="mOption" layoutX="332.0" layoutY="205.0" mnemonicParsing="false" onMouseClicked="#mOptionClicked" styleClass="memButton" AnchorPane.bottomAnchor="383.0" AnchorPane.leftAnchor="332.0" />
-    <Button id="option" layoutY="40.0" mnemonicParsing="false" onMouseClicked="#optionClicked" styleClass="squareButton" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="41.0" />
-    <Button id="history" layoutX="347.0" layoutY="40.0" mnemonicParsing="false" onMouseClicked="#historyClicked" styleClass="squareButton" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="41.0" />
+    <Button fx:id="plusMinus" layoutX="6.0" layoutY="564.0" mnemonicParsing="false" onAction="#plusMinusPressed" styleClass="bigButton, whiteButton" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="6.0" />
+    <Button fx:id="zero" layoutX="104.0" layoutY="564.0" mnemonicParsing="false" onAction="#zeroPressed" text="0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="104.0">
+      <styleClass>
+         <String fx:value="bigButton" />
+         <String fx:value="whiteButton" />
+      </styleClass></Button>
+    <Button fx:id="comma" layoutX="202.0" layoutY="564.0" mnemonicParsing="false" onAction="#commaPressed" text="," AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="202.0">
+      <styleClass>
+         <String fx:value="bigButton" />
+         <String fx:value="whiteButton" />
+      </styleClass></Button>
+    <Button fx:id="equals" layoutX="300.0" layoutY="564.0" mnemonicParsing="false" onAction="#equalsPressed" styleClass="bigButton, dkGreyButton" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="5.0" />
+    <Button fx:id="one" layoutX="6.0" layoutY="501.0" mnemonicParsing="false" onAction="#onePressed" text="1" AnchorPane.bottomAnchor="68.0" AnchorPane.leftAnchor="6.0">
+      <styleClass>
+         <String fx:value="bigButton" />
+         <String fx:value="whiteButton" />
+      </styleClass></Button>
+    <Button fx:id="two" layoutX="102.0" layoutY="505.0" mnemonicParsing="false" onAction="#twoPressed" text="2" AnchorPane.bottomAnchor="68.0" AnchorPane.leftAnchor="104.0">
+      <styleClass>
+         <String fx:value="bigButton" />
+         <String fx:value="whiteButton" />
+      </styleClass></Button>
+    <Button fx:id="three" layoutX="202.0" layoutY="500.0" mnemonicParsing="false" onAction="#threePressed" text="3" AnchorPane.bottomAnchor="68.0" AnchorPane.leftAnchor="202.0">
+      <styleClass>
+         <String fx:value="bigButton" />
+         <String fx:value="whiteButton" />
+      </styleClass></Button>
+    <Button fx:id="plus" layoutX="300.0" layoutY="500.0" mnemonicParsing="false" onAction="#plusPressed" styleClass="bigButton, greyButton" AnchorPane.bottomAnchor="68.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="5.0" />
+    <Button fx:id="four" layoutX="6.0" layoutY="438.0" mnemonicParsing="false" onAction="#fourPressed" text="4" AnchorPane.bottomAnchor="131.0" AnchorPane.leftAnchor="6.0">
+      <styleClass>
+         <String fx:value="bigButton" />
+         <String fx:value="whiteButton" />
+      </styleClass></Button>
+    <Button fx:id="seven" layoutX="6.0" layoutY="375.0" mnemonicParsing="false" onAction="#sevenPressed" text="7" AnchorPane.bottomAnchor="194.0" AnchorPane.leftAnchor="6.0">
+      <styleClass>
+         <String fx:value="bigButton" />
+         <String fx:value="whiteButton" />
+      </styleClass></Button>
+    <Button fx:id="eight" layoutX="104.0" layoutY="372.0" mnemonicParsing="false" onAction="#eightPressed" text="8" AnchorPane.bottomAnchor="194.0" AnchorPane.leftAnchor="104.0">
+      <styleClass>
+         <String fx:value="bigButton" />
+         <String fx:value="whiteButton" />
+      </styleClass></Button>
+    <Button fx:id="minus" layoutX="300.0" layoutY="436.0" mnemonicParsing="false" onAction="#minusPressed" styleClass="bigButton, greyButton" AnchorPane.bottomAnchor="131.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="5.0" />
+    <Button fx:id="six" layoutX="202.0" layoutY="436.0" mnemonicParsing="false" onAction="#sixPressed" text="6" AnchorPane.bottomAnchor="131.0" AnchorPane.leftAnchor="202.0">
+      <styleClass>
+         <String fx:value="bigButton" />
+         <String fx:value="whiteButton" />
+      </styleClass></Button>
+    <Button fx:id="five" layoutX="104.0" layoutY="436.0" mnemonicParsing="false" onAction="#fivePressed" text="5" AnchorPane.bottomAnchor="131.0" AnchorPane.leftAnchor="104.0">
+      <styleClass>
+         <String fx:value="bigButton" />
+         <String fx:value="whiteButton" />
+      </styleClass></Button>
+    <Button fx:id="oneDividedX" layoutX="6.0" layoutY="312.0" mnemonicParsing="false" onAction="#oneDividedXPressed" styleClass="bigButton, greyButton" AnchorPane.bottomAnchor="257.0" AnchorPane.leftAnchor="6.0" />
+    <Button fx:id="multiply" layoutX="300.0" layoutY="372.0" mnemonicParsing="false" onAction="#multiplyPressed" styleClass="bigButton, greyButton" AnchorPane.bottomAnchor="194.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="5.0" />
+    <Button fx:id="nine" layoutX="202.0" layoutY="372.0" mnemonicParsing="false" onAction="#ninePressed" text="9" AnchorPane.bottomAnchor="194.0" AnchorPane.leftAnchor="202.0">
+      <styleClass>
+         <String fx:value="bigButton" />
+         <String fx:value="whiteButton" />
+      </styleClass></Button>
+    <Button fx:id="square" layoutX="104.0" layoutY="308.0" mnemonicParsing="false" onAction="#squarePressed" styleClass="bigButton, greyButton" AnchorPane.bottomAnchor="257.0" AnchorPane.leftAnchor="104.0" />
+    <Button fx:id="radical" layoutX="202.0" layoutY="308.0" mnemonicParsing="false" onAction="#radicalPressed" styleClass="bigButton, greyButton" AnchorPane.bottomAnchor="257.0" AnchorPane.leftAnchor="202.0" />
+    <Button fx:id="divide" layoutX="300.0" layoutY="308.0" mnemonicParsing="false" onAction="#dividePressed" styleClass="bigButton, greyButton" AnchorPane.bottomAnchor="257.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="5.0" />
+    <Button fx:id="ce" layoutX="104.0" layoutY="244.0" mnemonicParsing="false" onAction="#cePressed" text="CE" AnchorPane.bottomAnchor="320.0" AnchorPane.leftAnchor="104.0">
+      <styleClass>
+         <String fx:value="bigButton" />
+         <String fx:value="greyButton" />
+      </styleClass></Button>
+    <Button fx:id="percent" layoutX="6.0" layoutY="249.0" mnemonicParsing="false" onAction="#percentPressed" styleClass="bigButton, greyButton" AnchorPane.bottomAnchor="320.0" AnchorPane.leftAnchor="6.0" />
+    <Button fx:id="c" layoutX="202.0" layoutY="244.0" mnemonicParsing="false" onAction="#cPressed" text="C" AnchorPane.bottomAnchor="320.0" AnchorPane.leftAnchor="202.0">
+      <styleClass>
+         <String fx:value="bigButton" />
+         <String fx:value="greyButton" />
+      </styleClass></Button>
+    <Button fx:id="del" layoutX="300.0" layoutY="244.0" mnemonicParsing="false" onAction="#delPressed" styleClass="bigButton, greyButton" AnchorPane.bottomAnchor="320.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="5.0" />
+    <Button fx:id="mc" disable="true" layoutX="6.0" layoutY="205.0" mnemonicParsing="false" onAction="#mcPressed" styleClass="memButton" text="MC" AnchorPane.bottomAnchor="383.0" AnchorPane.leftAnchor="6.0">
+      </Button>
+    <Button fx:id="mr" disable="true" layoutX="71.0" layoutY="205.0" mnemonicParsing="false" onAction="#mrPressed" styleClass="memButton" text="MR" AnchorPane.bottomAnchor="383.0" AnchorPane.leftAnchor="71.0" />
+    <Button fx:id="mMinus" layoutX="202.0" layoutY="205.0" mnemonicParsing="false" onAction="#mMinusPressed" styleClass="memButton" text="M-" AnchorPane.bottomAnchor="383.0" AnchorPane.leftAnchor="202.0" />
+    <Button fx:id="mPlus" layoutX="136.0" layoutY="205.0" mnemonicParsing="false" onAction="#mPlusPressed" styleClass="memButton" text="M+" AnchorPane.bottomAnchor="383.0" AnchorPane.leftAnchor="136.0" />
+    <Button fx:id="ms" layoutX="267.0" layoutY="205.0" mnemonicParsing="false" onAction="#msPressed" styleClass="memButton" text="MS" AnchorPane.bottomAnchor="383.0" AnchorPane.leftAnchor="267.0" />
+    <Button fx:id="mOption" disable="true" layoutX="332.0" layoutY="205.0" mnemonicParsing="false" styleClass="memButton" AnchorPane.bottomAnchor="383.0" AnchorPane.leftAnchor="332.0" />
+    <Button fx:id="option" layoutY="40.0" mnemonicParsing="false" styleClass="squareButton" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="41.0" />
+    <Button fx:id="history" layoutX="347.0" layoutY="40.0" mnemonicParsing="false" styleClass="squareButton" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="41.0" />
     <ImageView layoutX="50.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true" styleClass="typeOfCalc" AnchorPane.bottomAnchor="535.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="211.0" AnchorPane.topAnchor="41.0" />
-    <Button id="changeSize" layoutX="189.0" layoutY="40.0" mnemonicParsing="false" styleClass="squareButton" AnchorPane.topAnchor="41.0" />
-    <Label layoutX="38.0" layoutY="90.0" styleClass="textFieldOut" AnchorPane.bottomAnchor="423.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="118.0" />
-    <AnchorPane id="menu" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="91.0">
+    <Button fx:id="changeSize" layoutX="189.0" layoutY="40.0" mnemonicParsing="false" styleClass="squareButton" AnchorPane.topAnchor="41.0" />
+   <Label fx:id="secondaryLabel" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="6.0" layoutY="91.0" maxHeight="27.0" maxWidth="392.0" minHeight="20.0" minWidth="392.0" prefHeight="27.0" prefWidth="392.0" textFill="#656565" wrapText="true" AnchorPane.bottomAnchor="508.0" AnchorPane.topAnchor="91.0">
+      <padding>
+         <Insets right="19.0" />
+      </padding></Label>
+    <Label fx:id="mainLabel" alignment="CENTER_RIGHT" layoutX="38.0" layoutY="90.0" maxHeight="85.0" maxWidth="392.0" minHeight="85.0" minWidth="392.0" prefHeight="85.0" prefWidth="392.0" styleClass="textFieldOut" text="0" AnchorPane.bottomAnchor="423.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="118.0">
+      <font>
+         <Font name="Segoe UI Semibold" size="58.0" />
+      </font>
+      <padding>
+         <Insets right="11.0" top="-6.0" />
+      </padding></Label>
+    <AnchorPane fx:id="menu" prefHeight="200.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="91.0">
         <ScrollPane prefHeight="469.0" prefWidth="320.0" AnchorPane.bottomAnchor="67.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1000.0" prefWidth="320.0">
                 <Label layoutX="50.0" layoutY="340.0" prefHeight="50.0" text="Калькулятор" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />

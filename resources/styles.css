@@ -69,10 +69,6 @@
     -fx-pref-height: 40px;
 }
 
-.label {
-    -fx-padding: 10px 5px 5px 16px;
-}
-
 .bigButton {
     -fx-pref-width: 95px;
     -fx-pref-height: 60px;
@@ -80,14 +76,20 @@
 .memButton {
     -fx-pref-width: 63px;
     -fx-pref-height: 37px;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 15px;
 }
 
 .whiteButton {
     -fx-background-color: #fafafa;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 23px;
 }
 
 .greyButton {
     -fx-background-color: #f0f0f0;
+    -fx-font-family: "Segoe UI Symbol";
+    -fx-font-size: 19px;
 }
 
 .dkGreyButton {
@@ -99,51 +101,28 @@
 .dkGreyButton:pressed{
     -fx-background-color: #404040;
 }
+#secondaryLabel{
+-fx-font-family: "Segoe UI Historic";
+    -fx-font-size: 18px;
+}
+
+#calcLabel {
+    -fx-padding: 10px 5px 5px 16px;
+}
 
 #plusMinus{
     -fx-background-image: url('buttons/plusMinus.png');
 }
-#zero{
-    -fx-background-image: url('buttons/zero.png');
-}
-#comma{
-    -fx-background-image: url("buttons/comma.png");
-}
+
 #equals{
     -fx-background-image: url("buttons/equals.png");
 }
-#one{
-    -fx-background-image: url("buttons/one.png");
-}
-#two{
-    -fx-background-image: url("buttons/two.png");
-}
-#three{
-    -fx-background-image: url("buttons/three.png");
-}
+
 #plus{
     -fx-background-image: url("buttons/plus.png");
 }
-#four{
-    -fx-background-image: url("buttons/four.png");
-}
-#five{
-    -fx-background-image: url("buttons/five.png");
-}
-#six{
-    -fx-background-image: url("buttons/six.png");
-}
 #minus{
     -fx-background-image: url("buttons/minus.png");
-}
-#seven{
-    -fx-background-image: url("buttons/seven.png");
-}
-#eight{
-    -fx-background-image: url("buttons/eight.png");
-}
-#nine{
-    -fx-background-image: url("buttons/nine.png");
 }
 #multiply{
     -fx-background-image: url("buttons/multiply.png");
@@ -163,29 +142,8 @@
 #percent{
     -fx-background-image: url("buttons/percent.png");
 }
-#CE{
-    -fx-background-image: url("buttons/CE.png");
-}
-#C{
-    -fx-background-image: url("buttons/C.png");
-}
 #del{
     -fx-background-image: url("buttons/del.png");
-}
-#MC{
-    -fx-background-image: url("buttons/MC.png");
-}
-#MR{
-    -fx-background-image: url("buttons/MR.png");
-}
-#mPlus{
-    -fx-background-image: url("buttons/mPlus.png");
-}
-#mMinus{
-    -fx-background-image: url("buttons/mMinus.png");
-}
-#MS{
-    -fx-background-image: url("buttons/MS.png");
 }
 #mOption{
     -fx-background-image: url("buttons/mOption.png");
