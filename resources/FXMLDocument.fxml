@@ -19,7 +19,7 @@
     <Button layoutX="284.0" mnemonicParsing="false" styleClass="fullScreenButton" AnchorPane.rightAnchor="57.0" AnchorPane.topAnchor="0.0" />
     <Button layoutX="227.0" mnemonicParsing="false" onMouseClicked="#minimize" styleClass="minimizeButton" AnchorPane.rightAnchor="114.0" AnchorPane.topAnchor="0.0" />
     <Button fx:id="plusMinus" layoutX="6.0" layoutY="564.0" mnemonicParsing="false" onAction="#plusMinusPressed" styleClass="bigButton, whiteButton" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="6.0" />
-    <Button fx:id="zero" layoutX="104.0" layoutY="564.0" mnemonicParsing="false" onAction="#zeroPressed" text="0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="104.0">
+    <Button fx:id="zero" layoutX="104.0" layoutY="564.0" mnemonicParsing="false" onAction="#digitButtonPressed" text="0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="104.0">
       <styleClass>
          <String fx:value="bigButton" />
          <String fx:value="whiteButton" />
@@ -30,51 +30,51 @@
          <String fx:value="whiteButton" />
       </styleClass></Button>
     <Button fx:id="equals" layoutX="300.0" layoutY="564.0" mnemonicParsing="false" onAction="#equalsPressed" styleClass="bigButton, dkGreyButton" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="5.0" />
-    <Button fx:id="one" layoutX="6.0" layoutY="501.0" mnemonicParsing="false" onAction="#onePressed" text="1" AnchorPane.bottomAnchor="68.0" AnchorPane.leftAnchor="6.0">
+    <Button fx:id="one" layoutX="6.0" layoutY="501.0" mnemonicParsing="false" onAction="#digitButtonPressed" text="1" AnchorPane.bottomAnchor="68.0" AnchorPane.leftAnchor="6.0">
       <styleClass>
          <String fx:value="bigButton" />
          <String fx:value="whiteButton" />
       </styleClass></Button>
-    <Button fx:id="two" layoutX="102.0" layoutY="505.0" mnemonicParsing="false" onAction="#twoPressed" text="2" AnchorPane.bottomAnchor="68.0" AnchorPane.leftAnchor="104.0">
+    <Button fx:id="two" layoutX="102.0" layoutY="505.0" mnemonicParsing="false" onAction="#digitButtonPressed" text="2" AnchorPane.bottomAnchor="68.0" AnchorPane.leftAnchor="104.0">
       <styleClass>
          <String fx:value="bigButton" />
          <String fx:value="whiteButton" />
       </styleClass></Button>
-    <Button fx:id="three" layoutX="202.0" layoutY="500.0" mnemonicParsing="false" onAction="#threePressed" text="3" AnchorPane.bottomAnchor="68.0" AnchorPane.leftAnchor="202.0">
+    <Button fx:id="three" layoutX="202.0" layoutY="500.0" mnemonicParsing="false" onAction="#digitButtonPressed" text="3" AnchorPane.bottomAnchor="68.0" AnchorPane.leftAnchor="202.0">
       <styleClass>
          <String fx:value="bigButton" />
          <String fx:value="whiteButton" />
       </styleClass></Button>
     <Button fx:id="plus" layoutX="300.0" layoutY="500.0" mnemonicParsing="false" onAction="#plusPressed" styleClass="bigButton, greyButton" AnchorPane.bottomAnchor="68.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="5.0" />
-    <Button fx:id="four" layoutX="6.0" layoutY="438.0" mnemonicParsing="false" onAction="#fourPressed" text="4" AnchorPane.bottomAnchor="131.0" AnchorPane.leftAnchor="6.0">
+    <Button fx:id="four" layoutX="6.0" layoutY="438.0" mnemonicParsing="false" onAction="#digitButtonPressed" text="4" AnchorPane.bottomAnchor="131.0" AnchorPane.leftAnchor="6.0">
       <styleClass>
          <String fx:value="bigButton" />
          <String fx:value="whiteButton" />
       </styleClass></Button>
-    <Button fx:id="seven" layoutX="6.0" layoutY="375.0" mnemonicParsing="false" onAction="#sevenPressed" text="7" AnchorPane.bottomAnchor="194.0" AnchorPane.leftAnchor="6.0">
+    <Button fx:id="seven" layoutX="6.0" layoutY="375.0" mnemonicParsing="false" onAction="#digitButtonPressed" text="7" AnchorPane.bottomAnchor="194.0" AnchorPane.leftAnchor="6.0">
       <styleClass>
          <String fx:value="bigButton" />
          <String fx:value="whiteButton" />
       </styleClass></Button>
-    <Button fx:id="eight" layoutX="104.0" layoutY="372.0" mnemonicParsing="false" onAction="#eightPressed" text="8" AnchorPane.bottomAnchor="194.0" AnchorPane.leftAnchor="104.0">
+    <Button fx:id="eight" layoutX="104.0" layoutY="372.0" mnemonicParsing="false" onAction="#digitButtonPressed" text="8" AnchorPane.bottomAnchor="194.0" AnchorPane.leftAnchor="104.0">
       <styleClass>
          <String fx:value="bigButton" />
          <String fx:value="whiteButton" />
       </styleClass></Button>
     <Button fx:id="minus" layoutX="300.0" layoutY="436.0" mnemonicParsing="false" onAction="#minusPressed" styleClass="bigButton, greyButton" AnchorPane.bottomAnchor="131.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="5.0" />
-    <Button fx:id="six" layoutX="202.0" layoutY="436.0" mnemonicParsing="false" onAction="#sixPressed" text="6" AnchorPane.bottomAnchor="131.0" AnchorPane.leftAnchor="202.0">
+    <Button fx:id="six" layoutX="202.0" layoutY="436.0" mnemonicParsing="false" onAction="#digitButtonPressed" text="6" AnchorPane.bottomAnchor="131.0" AnchorPane.leftAnchor="202.0">
       <styleClass>
          <String fx:value="bigButton" />
          <String fx:value="whiteButton" />
       </styleClass></Button>
-    <Button fx:id="five" layoutX="104.0" layoutY="436.0" mnemonicParsing="false" onAction="#fivePressed" text="5" AnchorPane.bottomAnchor="131.0" AnchorPane.leftAnchor="104.0">
+    <Button fx:id="five" layoutX="104.0" layoutY="436.0" mnemonicParsing="false" onAction="#digitButtonPressed" text="5" AnchorPane.bottomAnchor="131.0" AnchorPane.leftAnchor="104.0">
       <styleClass>
          <String fx:value="bigButton" />
          <String fx:value="whiteButton" />
       </styleClass></Button>
     <Button fx:id="oneDividedX" layoutX="6.0" layoutY="312.0" mnemonicParsing="false" onAction="#oneDividedXPressed" styleClass="bigButton, greyButton" AnchorPane.bottomAnchor="257.0" AnchorPane.leftAnchor="6.0" />
     <Button fx:id="multiply" layoutX="300.0" layoutY="372.0" mnemonicParsing="false" onAction="#multiplyPressed" styleClass="bigButton, greyButton" AnchorPane.bottomAnchor="194.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="5.0" />
-    <Button fx:id="nine" layoutX="202.0" layoutY="372.0" mnemonicParsing="false" onAction="#ninePressed" text="9" AnchorPane.bottomAnchor="194.0" AnchorPane.leftAnchor="202.0">
+    <Button fx:id="nine" layoutX="202.0" layoutY="372.0" mnemonicParsing="false" onAction="#digitButtonPressed" text="9" AnchorPane.bottomAnchor="194.0" AnchorPane.leftAnchor="202.0">
       <styleClass>
          <String fx:value="bigButton" />
          <String fx:value="whiteButton" />

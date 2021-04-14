@@ -1,13 +1,15 @@
-*{
+* {
     -fx-background-color: e6e6e6;
 }
-.typeOfCalc{
+
+.typeOfCalc {
     -fx-pref-width: 139px;
     -fx-pref-height: 50px;
     -fx-image: url('buttons/casual.png');
     -fx-background-position: center;
     -fx-background-repeat: no-repeat;
 }
+
 .button {
     -fx-pref-width: 57px;
     -fx-pref-height: 40px;
@@ -15,46 +17,59 @@
     -fx-background-position: center;
     -fx-background-radius: 0;
 }
-.buttInMenu{
+
+.buttInMenu {
     -fx-pref-width: 320px;
     -fx-pref-height: 50px;
 }
-.button:hover{
+
+.button:hover {
     -fx-background-color: #d1d1d1;
 }
-.button:pressed{
+
+.button:pressed:hover {
     -fx-background-color: #bbbbbb;
 }
-.squareButton{
+
+.squareButton {
     -fx-pref-width: 50px;
     -fx-pref-height: 50px;
 }
+
 .minimizeButton {
     -fx-background-image: url('buttons/minimize.png');
 }
-.minimizeButton:hover{
+
+.minimizeButton:hover {
     -fx-background-color: #cfcfcf;
 }
-.minimizeButton:pressed{
+
+.minimizeButton:pressed:hover {
     -fx-background-color: #b8b8b8;
 }
+
 .fullScreenButton {
     -fx-background-image: url('buttons/fullScreen.png');
 }
+
 .fullScreenButton:hover {
     -fx-background-color: #cfcfcf;
 }
-.fullScreenButton:pressed{
+
+.fullScreenButton:pressed:hover {
     -fx-background-color: #b8b8b8;
 }
+
 .closeButton {
     -fx-background-image: url('buttons/close.png');
 }
+
 .closeButton:hover {
     -fx-background-image: url('buttons/closeHovered.png');
     -fx-background-color: #e81123;
 }
-.closeButton:pressed {
+
+.closeButton:pressed:hover {
     -fx-background-image: url('buttons/close.png');
     -fx-background-color: #f1707a;
 }
@@ -73,6 +88,7 @@
     -fx-pref-width: 95px;
     -fx-pref-height: 60px;
 }
+
 .memButton {
     -fx-pref-width: 63px;
     -fx-pref-height: 37px;
@@ -95,14 +111,17 @@
 .dkGreyButton {
     -fx-background-color: #a3a3a3;
 }
+
 .dkGreyButton:hover {
     -fx-background-color: #717171;
 }
-.dkGreyButton:pressed{
+
+.dkGreyButton:pressed:hover {
     -fx-background-color: #404040;
 }
-#secondaryLabel{
--fx-font-family: "Segoe UI Historic";
+
+#secondaryLabel {
+    -fx-font-family: "Segoe UI Historic";
     -fx-font-size: 18px;
 }
 
@@ -110,54 +129,67 @@
     -fx-padding: 10px 5px 5px 16px;
 }
 
-#plusMinus{
+#plusMinus {
     -fx-background-image: url('buttons/plusMinus.png');
 }
 
-#equals{
+#equals {
     -fx-background-image: url("buttons/equals.png");
 }
 
-#plus{
+#plus {
     -fx-background-image: url("buttons/plus.png");
 }
-#minus{
+
+#minus {
     -fx-background-image: url("buttons/minus.png");
 }
-#multiply{
+
+#multiply {
     -fx-background-image: url("buttons/multiply.png");
 }
-#oneDividedX{
+
+#oneDividedX {
     -fx-background-image: url("buttons/oneDividedX.png");
 }
-#square{
+
+#square {
     -fx-background-image: url("buttons/square.png");
 }
-#radical{
+
+#radical {
     -fx-background-image: url("buttons/radical.png");
 }
-#divide{
+
+#divide {
     -fx-background-image: url("buttons/divide.png");
 }
-#percent{
+
+#percent {
     -fx-background-image: url("buttons/percent.png");
 }
-#del{
+
+#del {
     -fx-background-image: url("buttons/del.png");
 }
-#mOption{
+
+#mOption {
     -fx-background-image: url("buttons/mOption.png");
 }
-#option{
+
+#option {
     -fx-background-image: url("buttons/option.png");
 }
-#changeSize{
+
+#changeSize {
     -fx-background-image: url("buttons/changeSize.png");
 }
-#history{
+
+#history {
     -fx-background-image: url("buttons/history.png");
 }
-#menu{
+
+#menu {
     -fx-pref-width: 0px;
     -fx-pref-height: 0px;
 }

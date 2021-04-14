@@ -16,6 +16,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
+    public Label calcLabel;
     private String buffer = "0";
     private boolean isCommaPressed = false;
     @FXML
@@ -124,55 +125,16 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    public void zeroPressed(ActionEvent actionEvent) {
-        if (!(new BigDecimal(buffer.replace(",", ".")).equals(BigDecimal.ZERO)) || isCommaPressed) {
-            addToBuffer("0");
+    public void digitButtonPressed(ActionEvent actionEvent) {
+        String source = actionEvent.getSource().toString();
+        String digitButton = source.substring(source.length() - 2, source.length() - 1);
+        if(digitButton.equals("0")){
+            if (!(new BigDecimal(buffer.replace(",", ".")).equals(BigDecimal.ZERO)) || isCommaPressed) {
+                addToBuffer(digitButton);
+            }
+        } else {
+            addToBuffer(digitButton);
         }
-    }
-
-    @FXML
-    public void onePressed(ActionEvent actionEvent) {
-        addToBuffer("1");
-    }
-
-    @FXML
-    public void twoPressed(ActionEvent actionEvent) {
-        addToBuffer("2");
-    }
-
-    @FXML
-    public void threePressed(ActionEvent actionEvent) {
-        addToBuffer("3");
-    }
-
-    @FXML
-    public void fourPressed(ActionEvent actionEvent) {
-        addToBuffer("4");
-    }
-
-    @FXML
-    public void fivePressed(ActionEvent actionEvent) {
-        addToBuffer("5");
-    }
-
-    @FXML
-    public void sixPressed(ActionEvent actionEvent) {
-        addToBuffer("6");
-    }
-
-    @FXML
-    public void sevenPressed(ActionEvent actionEvent) {
-        addToBuffer("7");
-    }
-
-    @FXML
-    public void eightPressed(ActionEvent actionEvent) {
-        addToBuffer("8");
-    }
-
-    @FXML
-    public void ninePressed(ActionEvent actionEvent) {
-        addToBuffer("9");
     }
 
     @FXML
@@ -232,7 +194,7 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    public void delPressed(ActionEvent actionEvent) {
+    public void delPressed() {
         if (buffer.endsWith(",")) {
             isCommaPressed = false;
         }
