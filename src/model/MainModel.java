@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 
 public class MainModel {
-    public BigDecimal calculate(BigDecimal firstValue, BigDecimal secondValue, Operations operation) {
+    public BigDecimal calculate(BigDecimal firstValue, BigDecimal secondValue, BinaryOperations operation) {
         BigDecimal result;
         switch (operation) {
             case PLUS:

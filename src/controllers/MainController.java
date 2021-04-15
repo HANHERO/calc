@@ -10,18 +10,16 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.MainModel;
-import model.Operations;
+import model.BinaryOperations;
 
 import java.math.BigDecimal;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
     public Label calcLabel;
     private String buffer = "0";
-    private Operations lastOperation;
+    private BinaryOperations lastOperation;
     private boolean isCommaPressed = false;
     @FXML
     private Label secondaryLabel;
@@ -133,7 +131,7 @@ public class MainController implements Initializable {
     public void digitButtonPressed(ActionEvent actionEvent) {
         String source = actionEvent.getSource().toString();
         String digitButton = source.substring(source.length() - 2, source.length() - 1);
-        if(digitButton.equals("0")){
+        if (digitButton.equals("0")) {
             if (!(new BigDecimal(buffer.replace(",", ".")).equals(BigDecimal.ZERO)) || isCommaPressed) {
                 addToBuffer(digitButton);
             }
@@ -156,7 +154,7 @@ public class MainController implements Initializable {
 
     @FXML
     public void equalsPressed() {
-        if(lastOperation != null){
+        if (lastOperation != null) {
             buffer = model.calculate(new BigDecimal(result.replace(",", ".")), new BigDecimal(buffer.replace(",", ".")), lastOperation).toString().replace(".", ",");
         }
         mainLabel.setText(buffer);
@@ -165,25 +163,25 @@ public class MainController implements Initializable {
 
     @FXML
     public void plusPressed() {
-        if(lastOperation != null){
+        if (lastOperation != null) {
             buffer = model.calculate(new BigDecimal(result.replace(",", ".")), new BigDecimal(buffer.replace(",", ".")), lastOperation).toString().replace(".", ",");
         }
         result = buffer;
         buffer = "0";
         mainLabel.setText(result);
-        lastOperation = Operations.PLUS;
+        lastOperation = BinaryOperations.PLUS;
 
     }
 
     @FXML
     public void minusPressed() {
-        if(lastOperation != null){
+        if (lastOperation != null) {
             buffer = model.calculate(new BigDecimal(result.replace(",", ".")), new BigDecimal(buffer.replace(",", ".")), lastOperation).toString().replace(".", ",");
         }
         result = buffer;
         buffer = "0";
         mainLabel.setText(result);
-        lastOperation = Operations.MINUS;
+        lastOperation = BinaryOperations.MINUS;
     }
 
     @FXML
@@ -191,18 +189,18 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    public void multiplyPressed (){
-        if(lastOperation != null){
+    public void multiplyPressed() {
+        if (lastOperation != null) {
             buffer = model.calculate(new BigDecimal(result.replace(",", ".")), new BigDecimal(buffer.replace(",", ".")), lastOperation).toString().replace(".", ",");
         }
         result = buffer;
         buffer = "0";
         mainLabel.setText(result);
-        lastOperation = Operations.MULTIPLY;
+        lastOperation = BinaryOperations.MULTIPLY;
     }
 
     @FXML
-    public void squarePressed(ActionEvent actionEvent) {
+    public void squarePressed() {
     }
 
     @FXML
@@ -210,14 +208,14 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    public void dividePressed (){
-        if(lastOperation != null){
+    public void dividePressed() {
+        if (lastOperation != null) {
             buffer = model.calculate(new BigDecimal(result.replace(",", ".")), new BigDecimal(buffer.replace(",", ".")), lastOperation).toString().replace(".", ",");
         }
         result = buffer;
         buffer = "0";
         mainLabel.setText(result);
-        lastOperation = Operations.DIVIDE;
+        lastOperation = BinaryOperations.DIVIDE;
     }
 
     @FXML
