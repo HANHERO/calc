@@ -10,14 +10,18 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.MainModel;
+import model.Operations;
 
 import java.math.BigDecimal;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
     public Label calcLabel;
     private String buffer = "0";
+    private Operations lastOperation;
     private boolean isCommaPressed = false;
     @FXML
     private Label secondaryLabel;
@@ -92,6 +96,7 @@ public class MainController implements Initializable {
     @FXML
     private AnchorPane menu;
     MainModel model = new MainModel();
+    String result = "0";
     double x, y;
 
     @FXML
@@ -121,7 +126,7 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    public void plusMinusPressed(ActionEvent actionEvent) {
+    public void plusMinusPressed() {
     }
 
     @FXML
@@ -150,15 +155,35 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    public void equalsPressed(ActionEvent actionEvent) {
+    public void equalsPressed() {
+        if(lastOperation != null){
+            buffer = model.calculate(new BigDecimal(result.replace(",", ".")), new BigDecimal(buffer.replace(",", ".")), lastOperation).toString().replace(".", ",");
+        }
+        mainLabel.setText(buffer);
+        lastOperation = null;
     }
 
     @FXML
-    public void plusPressed(ActionEvent actionEvent) {
+    public void plusPressed() {
+        if(lastOperation != null){
+            buffer = model.calculate(new BigDecimal(result.replace(",", ".")), new BigDecimal(buffer.replace(",", ".")), lastOperation).toString().replace(".", ",");
+        }
+        result = buffer;
+        buffer = "0";
+        mainLabel.setText(result);
+        lastOperation = Operations.PLUS;
+
     }
 
     @FXML
-    public void minusPressed(ActionEvent actionEvent) {
+    public void minusPressed() {
+        if(lastOperation != null){
+            buffer = model.calculate(new BigDecimal(result.replace(",", ".")), new BigDecimal(buffer.replace(",", ".")), lastOperation).toString().replace(".", ",");
+        }
+        result = buffer;
+        buffer = "0";
+        mainLabel.setText(result);
+        lastOperation = Operations.MINUS;
     }
 
     @FXML
@@ -166,7 +191,14 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    public void multiplyPressed(ActionEvent actionEvent) {
+    public void multiplyPressed (){
+        if(lastOperation != null){
+            buffer = model.calculate(new BigDecimal(result.replace(",", ".")), new BigDecimal(buffer.replace(",", ".")), lastOperation).toString().replace(".", ",");
+        }
+        result = buffer;
+        buffer = "0";
+        mainLabel.setText(result);
+        lastOperation = Operations.MULTIPLY;
     }
 
     @FXML
@@ -178,19 +210,31 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    public void dividePressed(ActionEvent actionEvent) {
+    public void dividePressed (){
+        if(lastOperation != null){
+            buffer = model.calculate(new BigDecimal(result.replace(",", ".")), new BigDecimal(buffer.replace(",", ".")), lastOperation).toString().replace(".", ",");
+        }
+        result = buffer;
+        buffer = "0";
+        mainLabel.setText(result);
+        lastOperation = Operations.DIVIDE;
     }
 
     @FXML
-    public void cePressed(ActionEvent actionEvent) {
+    public void cePressed() {
+        buffer = "0";
+        mainLabel.setText(buffer);
     }
 
     @FXML
-    public void percentPressed(ActionEvent actionEvent) {
+    public void percentPressed() {
+
     }
 
     @FXML
-    public void cPressed(ActionEvent actionEvent) {
+    public void cPressed() {
+        result = "0";
+        cePressed();
     }
 
     @FXML
@@ -238,7 +282,6 @@ public class MainController implements Initializable {
         } else {
             buffer += s;
         }
-
         mainLabel.setText(buffer);
     }
 }
