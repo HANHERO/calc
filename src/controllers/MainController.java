@@ -3,6 +3,7 @@ package controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -17,10 +18,12 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
-    public Label calcLabel;
     private String buffer = "0";
     private BinaryOperations lastOperation;
     private boolean isCommaPressed = false;
+    private boolean isMenuVisible = false;
+    @FXML
+    private Label calcLabel;
     @FXML
     private Label secondaryLabel;
     @FXML
@@ -93,33 +96,33 @@ public class MainController implements Initializable {
     private Button changeSize;
     @FXML
     private AnchorPane menu;
+
+    private Stage stage;
     MainModel model = new MainModel();
     String result = "0";
     double x, y;
 
     @FXML
     void dragged(MouseEvent event) {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setX(event.getScreenX() + x);
-        stage.setY(event.getScreenY() + y);
+        if (stage.getScene().getCursor() != Cursor.N_RESIZE) {
+            stage.setX(event.getScreenX() + x);
+            stage.setY(event.getScreenY() + y);
+        }
     }
 
     @FXML
     void pressed(MouseEvent event) {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         x = stage.getX() - event.getScreenX();
         y = stage.getY() - event.getScreenY();
     }
 
     @FXML
     void minimize(MouseEvent event) {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setIconified(true);
     }
 
     @FXML
     void close(MouseEvent event) {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
     }
 
@@ -274,6 +277,11 @@ public class MainController implements Initializable {
 
     }
 
+    public void initialize(Stage stage){
+        this.stage = stage;
+        menu.setVisible(false);
+    }
+
     private void addToBuffer(String s) {
         if (buffer.equals("0")) {
             buffer = s;
@@ -281,5 +289,15 @@ public class MainController implements Initializable {
             buffer += s;
         }
         mainLabel.setText(buffer);
+    }
+
+    public void optionOpenOrClose(ActionEvent actionEvent) {
+        if (!isMenuVisible) {
+            menu.setVisible(true);
+            isMenuVisible = true;
+        } else if (isMenuVisible){
+            menu.setVisible(false);
+            isMenuVisible = false;
+        }
     }
 }

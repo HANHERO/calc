@@ -1,5 +1,6 @@
 package view;
 
+import controllers.MainController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,12 +13,17 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("/FXMLDocument.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXMLDocument.fxml"));
+        Parent root = loader.load();
         primaryStage.setTitle("Калькулятор");
         primaryStage.setScene(new Scene(root, 400, 625));
         primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.setResizable(false);
         primaryStage.getIcons().add(new Image("buttons/icon.png"));
+
+        MainController controller = loader.getController();
+        controller.initialize(primaryStage);
+
         primaryStage.show();
     }
 

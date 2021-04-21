@@ -5,9 +5,9 @@ S
 #src/controllers/MainController.java,d\f\df55d2a7cf1e18de03c553345241caa4081d3739
 H
 src/model/MainModel.java,f\f\ffa6bb0e225161088035c2aa87ca7a946fe8669e
-D
-resources/styles.css,a\2\a2bbd8a63b94114ae3b6d9d4d03a8e4320c7dffc
 B
 src/view/Main.java,6\a\6a797d831c147f047b4dda41944e9e0bc35e26a4
-I
-src/model/Operations.java,2\b\2be4dba53e7137a2582d40e7c956b71f1222d345
+O
+src/model/BinaryOperations.java,0\f\0fbf58b527b0e03a2d01aace5494c83618298d7b
+N
+src/model/UnaryOperations.java,7\7\77e8786e9526ef5e8df0916a990c4448e5b72b33

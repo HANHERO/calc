@@ -177,9 +177,10 @@
     -fx-background-image: url("buttons/mOption.png");
 }
 
-#option {
+#option, #option1{
     -fx-background-image: url("buttons/option.png");
 }
+
 
 #changeSize {
     -fx-background-image: url("buttons/changeSize.png");
@@ -192,4 +193,67 @@
 #menu {
     -fx-pref-width: 0px;
     -fx-pref-height: 0px;
+}
+#calc {
+     -fx-background-image: url("buttons/options/calc.png");
+}
+#about {
+     -fx-background-image: url("buttons/options/about.png");
+}
+#casual{
+     -fx-background-image: url("buttons/options/casual.png");
+}
+#engineering{
+     -fx-background-image: url("buttons/options/engineering.png");
+}
+#graph{
+     -fx-background-image: url("buttons/options/graph.png");
+}
+#programming{
+     -fx-background-image: url("buttons/options/programming.png");
+}
+#date{
+     -fx-background-image: url("buttons/options/date.png");
+}
+#converter{
+     -fx-background-image: url("buttons/options/converter.png");
+}
+#currency{
+     -fx-background-image: url("buttons/options/currency.png");
+}
+#volume{
+     -fx-background-image: url("buttons/options/volume.png");
+}
+#length{
+     -fx-background-image: url("buttons/options/length.png");
+}
+#weight{
+     -fx-background-image: url("buttons/options/weight.png");
+}
+#temperature{
+     -fx-background-image: url("buttons/options/temperature.png");
+}
+#energy{
+     -fx-background-image: url("buttons/options/energy.png");
+}
+#area{
+     -fx-background-image: url("buttons/options/area.png");
+}
+#speed{
+     -fx-background-image: url("buttons/options/speed.png");
+}
+#time{
+     -fx-background-image: url("buttons/options/time.png");
+}
+#power{
+     -fx-background-image: url("buttons/options/power.png");
+}
+#data{
+     -fx-background-image: url("buttons/options/data.png");
+}
+#pressure{
+     -fx-background-image: url("buttons/options/pressure.png");
+}
+#angle{
+     -fx-background-image: url("buttons/options/angle.png");
 }
