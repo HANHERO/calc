@@ -4,7 +4,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
@@ -296,6 +295,13 @@ public class MainController implements Initializable {
             menu.setVisible(true);
             isMenuVisible = true;
         } else if (isMenuVisible){
+            menu.setVisible(false);
+            isMenuVisible = false;
+        }
+    }
+
+    public void clicked() {
+        if (isMenuVisible){
             menu.setVisible(false);
             isMenuVisible = false;
         }
