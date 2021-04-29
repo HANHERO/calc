@@ -1,5 +1,6 @@
 package controllers;
 
+import model.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -9,8 +10,6 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import model.MainModel;
-import model.BinaryOperations;
 
 import java.math.BigDecimal;
 import java.net.URL;
@@ -155,7 +154,7 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    public void equalsPressed() {
+    public void equalsPressed() throws DivisionByZeroException {
         if (lastOperation != null) {
             buffer = model.calculate(new BigDecimal(result.replace(",", ".")), new BigDecimal(buffer.replace(",", ".")), lastOperation).toString().replace(".", ",");
         }
@@ -164,7 +163,7 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    public void plusPressed() {
+    public void plusPressed() throws DivisionByZeroException {
         if (lastOperation != null) {
             buffer = model.calculate(new BigDecimal(result.replace(",", ".")), new BigDecimal(buffer.replace(",", ".")), lastOperation).toString().replace(".", ",");
         }
@@ -176,7 +175,7 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    public void minusPressed() {
+    public void minusPressed() throws DivisionByZeroException {
         if (lastOperation != null) {
             buffer = model.calculate(new BigDecimal(result.replace(",", ".")), new BigDecimal(buffer.replace(",", ".")), lastOperation).toString().replace(".", ",");
         }
@@ -191,7 +190,7 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    public void multiplyPressed() {
+    public void multiplyPressed() throws DivisionByZeroException {
         if (lastOperation != null) {
             buffer = model.calculate(new BigDecimal(result.replace(",", ".")), new BigDecimal(buffer.replace(",", ".")), lastOperation).toString().replace(".", ",");
         }
@@ -210,7 +209,7 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    public void dividePressed() {
+    public void dividePressed() throws DivisionByZeroException {
         if (lastOperation != null) {
             buffer = model.calculate(new BigDecimal(result.replace(",", ".")), new BigDecimal(buffer.replace(",", ".")), lastOperation).toString().replace(".", ",");
         }
@@ -290,7 +289,7 @@ public class MainController implements Initializable {
         mainLabel.setText(buffer);
     }
 
-    public void optionOpenOrClose(ActionEvent actionEvent) {
+    public void optionOpenOrClose() {
         if (!isMenuVisible) {
             menu.setVisible(true);
             isMenuVisible = true;
