@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 
 public class MainModel {
-    public BigDecimal calculate(BigDecimal firstValue, BigDecimal secondValue, BinaryOperations operation) throws DivisionByZeroException {
+    public BigDecimal calculate(BigDecimal firstValue, BigDecimal secondValue, BinaryOperations operation) {
         BigDecimal result;
         switch (operation) {
             case PLUS:
@@ -16,9 +16,6 @@ public class MainModel {
             case DIVIDE:
                 result = divide(firstValue, secondValue);
                 break;
-            case PERCENT:
-                result = percent(firstValue, secondValue);
-                break;
             case MULTIPLY:
                 result = multiply(firstValue, secondValue);
                 break;
@@ -27,7 +24,7 @@ public class MainModel {
         }
         return result;
     }
-    public BigDecimal calculate(BigDecimal firstValue, UnaryOperations operation) throws DivisionByZeroException {
+    public BigDecimal calculate(BigDecimal firstValue, UnaryOperations operation) {
         BigDecimal result;
         switch (operation) {
             case SQUARE:
@@ -53,7 +50,7 @@ public class MainModel {
     }
 
     private BigDecimal oneDividedX(BigDecimal firstValue) {
-        return divide(firstValue, BigDecimal.ONE);
+        return divide(BigDecimal.ONE, firstValue);
     }
 
     private BigDecimal sqrt(BigDecimal firstValue) {
@@ -80,12 +77,14 @@ public class MainModel {
         return firstValue.divide(secondValue, MathContext.DECIMAL128);
     }
 
-    private BigDecimal percent(BigDecimal firstValue, BigDecimal percentValue) throws DivisionByZeroException {
-        if (firstValue == null || percentValue == null) {
-            throw new NullPointerException("Parameter is null!");
+    public BigDecimal percent(BigDecimal firstValue, BigDecimal percentValue, BinaryOperations lastOperation) {
+        BigDecimal percentCoef;
+        if(lastOperation == BinaryOperations.PLUS || lastOperation == BinaryOperations.MINUS) {
+            percentCoef = divide(new BigDecimal("100"), percentValue).multiply(firstValue).round(MathContext.DECIMAL128);
+            firstValue = calculate(firstValue, percentCoef, lastOperation);
+        } else if (lastOperation == BinaryOperations.MULTIPLY || lastOperation == BinaryOperations.DIVIDE){
+            firstValue = calculate(firstValue, divide(new BigDecimal("100"), percentValue), lastOperation);
         }
-
-        firstValue = divide(new BigDecimal("100"), percentValue).multiply(firstValue).round(MathContext.DECIMAL128);
         return firstValue;
     }
 

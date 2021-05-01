@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#clicked" prefHeight="501.0" prefWidth="322.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
+   <children>
+      <GridPane layoutY="320.0" prefHeight="180.0" prefWidth="320.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="195.0">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="88.5" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="88.5" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="88.5" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="88.5" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Button fx:id="plusMinus" mnemonicParsing="false" onAction="#plusMinusPressed" onMouseClicked="#clicked" GridPane.rowIndex="5">
+               <GridPane.margin>
+                  <Insets bottom="4.0" left="4.0" />
+               </GridPane.margin>
+               <styleClass>
+                  <String fx:value="bigButton" />
+                  <String fx:value="whiteButton" />
+               </styleClass></Button>
+            <Button fx:id="zero" mnemonicParsing="false" onAction="#digitButtonPressed" onMouseClicked="#clicked" text="0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+               <GridPane.margin>
+                  <Insets bottom="4.0" left="3.0" />
+               </GridPane.margin>
+               <styleClass>
+                  <String fx:value="bigButton" />
+                  <String fx:value="whiteButton" />
+               </styleClass></Button>
+            <Button fx:id="comma" mnemonicParsing="false" onAction="#commaPressed" onMouseClicked="#clicked" text="," GridPane.columnIndex="2" GridPane.rowIndex="5">
+               <GridPane.margin>
+                  <Insets bottom="4.0" left="2.0" />
+               </GridPane.margin>
+               <styleClass>
+                  <String fx:value="bigButton" />
+                  <String fx:value="whiteButton" />
+               </styleClass></Button>
+            <Button fx:id="equals" mnemonicParsing="false" onAction="#equalsPressed" onMouseClicked="#clicked" GridPane.columnIndex="3" GridPane.rowIndex="5">
+               <GridPane.margin>
+                  <Insets bottom="4.0" right="4.0" />
+               </GridPane.margin>
+               <styleClass>
+                  <String fx:value="bigButton" />
+                  <String fx:value="dkGreyButton" />
+               </styleClass></Button>
+            <Button fx:id="one" mnemonicParsing="false" onAction="#digitButtonPressed" onMouseClicked="#clicked" text="1" GridPane.rowIndex="4">
+               <GridPane.margin>
+                  <Insets bottom="2.0" left="4.0" />
+               </GridPane.margin>
+               <styleClass>
+                  <String fx:value="bigButton" />
+                  <String fx:value="whiteButton" />
+               </styleClass></Button>
+            <Button fx:id="two" mnemonicParsing="false" onAction="#digitButtonPressed" onMouseClicked="#clicked" text="2" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <styleClass>
+                  <String fx:value="bigButton" />
+                  <String fx:value="whiteButton" />
+               </styleClass>
+               <GridPane.margin>
+                  <Insets bottom="2.0" left="3.0" />
+               </GridPane.margin></Button>
+            <Button fx:id="three" mnemonicParsing="false" onAction="#digitButtonPressed" onMouseClicked="#clicked" text="3" GridPane.columnIndex="2" GridPane.rowIndex="4">
+               <styleClass>
+                  <String fx:value="bigButton" />
+                  <String fx:value="whiteButton" />
+               </styleClass>
+               <GridPane.margin>
+                  <Insets bottom="2.0" left="2.0" />
+               </GridPane.margin></Button>
+            <Button fx:id="plus" mnemonicParsing="false" onAction="#plusPressed" onMouseClicked="#clicked" GridPane.columnIndex="3" GridPane.rowIndex="4">
+               <GridPane.margin>
+                  <Insets bottom="2.0" right="4.0" />
+               </GridPane.margin>
+               <styleClass>
+                  <String fx:value="bigButton" />
+                  <String fx:value="greyButton" />
+               </styleClass></Button>
+            <Button fx:id="four" mnemonicParsing="false" onAction="#digitButtonPressed" onMouseClicked="#clicked" text="4" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets left="4.0" />
+               </GridPane.margin>
+               <styleClass>
+                  <String fx:value="bigButton" />
+                  <String fx:value="whiteButton" />
+               </styleClass></Button>
+            <Button fx:id="five" mnemonicParsing="false" onAction="#digitButtonPressed" onMouseClicked="#clicked" text="5" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <styleClass>
+                  <String fx:value="bigButton" />
+                  <String fx:value="whiteButton" />
+               </styleClass>
+               <GridPane.margin>
+                  <Insets left="3.0" />
+               </GridPane.margin></Button>
+            <Button fx:id="six" mnemonicParsing="false" onAction="#digitButtonPressed" onMouseClicked="#clicked" text="6" GridPane.columnIndex="2" GridPane.rowIndex="3">
+               <styleClass>
+                  <String fx:value="bigButton" />
+                  <String fx:value="whiteButton" />
+               </styleClass>
+               <GridPane.margin>
+                  <Insets left="2.0" />
+               </GridPane.margin></Button>
+            <Button fx:id="minus" mnemonicParsing="false" onAction="#minusPressed" onMouseClicked="#clicked" GridPane.columnIndex="3" GridPane.rowIndex="3">
+               <styleClass>
+                  <String fx:value="bigButton" />
+                  <String fx:value="greyButton" />
+               </styleClass>
+               <GridPane.margin>
+                  <Insets right="4.0" />
+               </GridPane.margin></Button>
+            <Button fx:id="seven" mnemonicParsing="false" onAction="#digitButtonPressed" onMouseClicked="#clicked" text="7" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets left="4.0" />
+               </GridPane.margin>
+               <styleClass>
+                  <String fx:value="bigButton" />
+                  <String fx:value="whiteButton" />
+               </styleClass></Button>
+            <Button fx:id="eight" mnemonicParsing="false" onAction="#digitButtonPressed" onMouseClicked="#clicked" text="8" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <styleClass>
+                  <String fx:value="bigButton" />
+                  <String fx:value="whiteButton" />
+               </styleClass>
+               <GridPane.margin>
+                  <Insets left="3.0" />
+               </GridPane.margin></Button>
+            <Button fx:id="nine" mnemonicParsing="false" onAction="#digitButtonPressed" onMouseClicked="#clicked" text="9" GridPane.columnIndex="2" GridPane.rowIndex="2">
+               <styleClass>
+                  <String fx:value="bigButton" />
+                  <String fx:value="whiteButton" />
+               </styleClass>
+               <GridPane.margin>
+                  <Insets left="2.0" />
+               </GridPane.margin></Button>
+            <Button fx:id="multiply" mnemonicParsing="false" onAction="#multiplyPressed" onMouseClicked="#clicked" GridPane.columnIndex="3" GridPane.rowIndex="2">
+               <styleClass>
+                  <String fx:value="bigButton" />
+                  <String fx:value="greyButton" />
+               </styleClass>
+               <GridPane.margin>
+                  <Insets right="4.0" />
+               </GridPane.margin></Button>
+            <Button fx:id="oneDividedX" mnemonicParsing="false" onAction="#oneDividedXPressed" onMouseClicked="#clicked" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="4.0" />
+               </GridPane.margin>
+               <styleClass>
+                  <String fx:value="bigButton" />
+                  <String fx:value="greyButton" />
+               </styleClass></Button>
+            <Button fx:id="square" mnemonicParsing="false" onAction="#squarePressed" onMouseClicked="#clicked" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <styleClass>
+                  <String fx:value="bigButton" />
+                  <String fx:value="greyButton" />
+               </styleClass>
+               <GridPane.margin>
+                  <Insets left="3.0" />
+               </GridPane.margin></Button>
+            <Button fx:id="radical" mnemonicParsing="false" onAction="#radicalPressed" onMouseClicked="#clicked" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <styleClass>
+                  <String fx:value="bigButton" />
+                  <String fx:value="greyButton" />
+               </styleClass>
+               <GridPane.margin>
+                  <Insets left="2.0" />
+               </GridPane.margin></Button>
+            <Button fx:id="divide" mnemonicParsing="false" onAction="#dividePressed" onMouseClicked="#clicked" GridPane.columnIndex="3" GridPane.rowIndex="1">
+               <styleClass>
+                  <String fx:value="bigButton" />
+                  <String fx:value="greyButton" />
+               </styleClass>
+               <GridPane.margin>
+                  <Insets right="4.0" />
+               </GridPane.margin></Button>
+            <Button fx:id="percent" mnemonicParsing="false" onAction="#percentPressed" onMouseClicked="#clicked">
+               <GridPane.margin>
+                  <Insets left="4.0" />
+               </GridPane.margin>
+               <styleClass>
+                  <String fx:value="bigButton" />
+                  <String fx:value="greyButton" />
+               </styleClass></Button>
+            <Button fx:id="CE" mnemonicParsing="false" onAction="#cePressed" onMouseClicked="#clicked" text="CE" GridPane.columnIndex="1">
+               <styleClass>
+                  <String fx:value="bigButton" />
+                  <String fx:value="greyButton" />
+               </styleClass>
+               <GridPane.margin>
+                  <Insets left="3.0" />
+               </GridPane.margin></Button>
+            <Button fx:id="C" mnemonicParsing="false" onAction="#cPressed" onMouseClicked="#clicked" text="C" GridPane.columnIndex="2">
+               <styleClass>
+                  <String fx:value="bigButton" />
+                  <String fx:value="greyButton" />
+               </styleClass>
+               <GridPane.margin>
+                  <Insets left="2.0" />
+               </GridPane.margin></Button>
+            <Button fx:id="del" mnemonicParsing="false" onAction="#delPressed" onMouseClicked="#clicked" GridPane.columnIndex="3">
+               <styleClass>
+                  <String fx:value="bigButton" />
+                  <String fx:value="greyButton" />
+               </styleClass>
+               <GridPane.margin>
+                  <Insets right="4.0" />
+               </GridPane.margin></Button>
+         </children>
+      </GridPane>
+      <GridPane layoutY="105.0" prefHeight="90.0" prefWidth="322.0" AnchorPane.bottomAnchor="308.0" AnchorPane.topAnchor="165.0">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Button fx:id="mc" mnemonicParsing="false" onAction="#mcPressed" onMouseClicked="#clicked" styleClass="memButton" text="MC">
+               <opaqueInsets>
+                  <Insets left="4.0" />
+               </opaqueInsets></Button>
+            <Button fx:id="mr" mnemonicParsing="false" onAction="#mrPressed" onMouseClicked="#clicked" styleClass="memButton" text="MR" GridPane.columnIndex="1">
+               <opaqueInsets>
+                  <Insets left="2.0" />
+               </opaqueInsets></Button>
+            <Button fx:id="mPlus" mnemonicParsing="false" onAction="#mPlusPressed" onMouseClicked="#clicked" styleClass="memButton" text="M+" GridPane.columnIndex="2" />
+            <Button fx:id="mMinus" mnemonicParsing="false" onAction="#mMinusPressed" onMouseClicked="#clicked" styleClass="memButton" text="M-" GridPane.columnIndex="3" />
+            <Button fx:id="ms" mnemonicParsing="false" onAction="#msPressed" onMouseClicked="#clicked" styleClass="memButton" text="MS" GridPane.columnIndex="4" />
+            <Button fx:id="mOption" mnemonicParsing="false" onMouseClicked="#clicked" styleClass="memButton" GridPane.columnIndex="5" />
+         </children>
+      </GridPane>
+      <Label fx:id="mainLabel" alignment="CENTER_RIGHT" layoutX="5.0" layoutY="100.0" onMouseClicked="#clicked" prefHeight="58.0" prefWidth="313.0" styleClass="textFieldOut" text="0" AnchorPane.bottomAnchor="339.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="94.0">
+         <font>
+            <Font name="Segoe UI Semibold" size="46.0" />
+         </font>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </Label>
+      <Label layoutX="141.0" layoutY="77.0" onMouseClicked="#clicked" AnchorPane.bottomAnchor="406.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="74.0" />
+      <HBox layoutY="2.0" onMouseClicked="#clicked" onMouseDragged="#dragged" onMousePressed="#pressed" prefHeight="48.0" prefWidth="200.0" AnchorPane.bottomAnchor="469.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label fx:id="calcLabel" text="Калькулятор" />
+         </children>
+      </HBox>
+      <Button fx:id="closeButton" mnemonicParsing="false" onAction="#close" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <Button fx:id="fullScreenButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" AnchorPane.rightAnchor="46.0" AnchorPane.topAnchor="0.0" />
+      <Button fx:id="minimizeButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#minimize" AnchorPane.rightAnchor="92.0" AnchorPane.topAnchor="0.0" />
+      <Button fx:id="history" layoutX="280.0" layoutY="32.0" mnemonicParsing="false" onMouseClicked="#clicked" styleClass="squareButton" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="33.0" />
+      <ImageView fitHeight="40.0" fitWidth="111.0" layoutX="-60.0" layoutY="-23.0" onMouseClicked="#clicked" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="82.0" AnchorPane.topAnchor="33.0">
+         <image>
+            <Image url="@buttons/casual.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="changeSize" layoutX="135.0" layoutY="32.0" mnemonicParsing="false" onMouseClicked="#clicked" styleClass="squareButton" AnchorPane.leftAnchor="151.0" AnchorPane.topAnchor="33.0" />
+      <AnchorPane fx:id="menu" layoutX="-80.0" layoutY="-47.0" prefHeight="200.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="66.0" AnchorPane.topAnchor="33.0">
+         <children>
+            <Button id="about" mnemonicParsing="false" styleClass="buttInMenu" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+            <ScrollPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="54.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="47.0">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="800.0" prefWidth="256.0">
+                     <children>
+                        <Label id="calc" layoutY="6.0" prefHeight="40.0" prefWidth="256.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <Button id="casual" mnemonicParsing="false" prefHeight="40.0" prefWidth="256.0" styleClass="buttInMenu" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0" />
+                        <Button id="engineering" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" styleClass="buttInMenu" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0" />
+                        <Button id="graph" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" styleClass="buttInMenu" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="120.0" />
+                        <Button id="programming" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" styleClass="buttInMenu" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="160.0" />
+                        <Button id="date" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" styleClass="buttInMenu" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="200.0" />
+                        <Label id="converter" layoutX="10.0" layoutY="16.0" prefHeight="40.0" prefWidth="256.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="240.0" />
+                        <Button id="currency" layoutX="20.0" layoutY="20.0" mnemonicParsing="false" styleClass="buttInMenu" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="280.0" />
+                        <Button id="volume" layoutX="20.0" layoutY="20.0" mnemonicParsing="false" styleClass="buttInMenu" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="320.0" />
+                        <Button id="length" layoutX="20.0" layoutY="20.0" mnemonicParsing="false" styleClass="buttInMenu" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="360.0" />
+                        <Button id="weight" layoutX="20.0" layoutY="20.0" mnemonicParsing="false" styleClass="buttInMenu" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="400.0" />
+                        <Button id="temperature" layoutX="20.0" layoutY="20.0" mnemonicParsing="false" styleClass="buttInMenu" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="440.0" />
+                        <Button id="energy" layoutX="20.0" layoutY="20.0" mnemonicParsing="false" styleClass="buttInMenu" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="480.0" />
+                        <Button id="area" layoutX="20.0" layoutY="20.0" mnemonicParsing="false" styleClass="buttInMenu" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="520.0" />
+                        <Button id="speed" layoutX="20.0" layoutY="20.0" mnemonicParsing="false" styleClass="buttInMenu" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="560.0" />
+                        <Button id="time" layoutX="20.0" layoutY="20.0" mnemonicParsing="false" styleClass="buttInMenu" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="600.0" />
+                        <Button id="power" layoutX="20.0" layoutY="20.0" mnemonicParsing="false" styleClass="buttInMenu" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="640.0" />
+                        <Button id="data" layoutX="20.0" layoutY="20.0" mnemonicParsing="false" styleClass="buttInMenu" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="680.0" />
+                        <Button id="pressure" layoutX="20.0" layoutY="20.0" mnemonicParsing="false" styleClass="buttInMenu" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="720.0" />
+                        <Button id="angle" layoutX="20.0" layoutY="20.0" mnemonicParsing="false" styleClass="buttInMenu" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="760.0" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </ScrollPane>
+         </children>
+      </AnchorPane>
+      <Button fx:id="option1" layoutY="32.0" mnemonicParsing="false" onAction="#optionOpenOrClose" styleClass="squareButton" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="33.0" />
+   </children>
+</AnchorPane>

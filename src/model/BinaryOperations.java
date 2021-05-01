@@ -1,9 +1,8 @@
 package model;
 
-public enum BinaryOperations {
+public enum BinaryOperations implements Operation{
     PLUS,
     MINUS,
     MULTIPLY,
-    DIVIDE,
-    PERCENT
+    DIVIDE
 }

@@ -115,23 +115,26 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    void minimize(MouseEvent event) {
+    void minimize() {
         stage.setIconified(true);
     }
 
     @FXML
-    void close(MouseEvent event) {
+    void close() {
         stage.close();
     }
 
     @FXML
     public void plusMinusPressed() {
+        buffer = model.calculate(new BigDecimal(buffer.replace(",", ".")), UnaryOperations.NEGATIVE).toString().replace(".", ",");
+        mainLabel.setText(buffer);
     }
 
     @FXML
     public void digitButtonPressed(ActionEvent actionEvent) {
         String source = actionEvent.getSource().toString();
         String digitButton = source.substring(source.length() - 2, source.length() - 1);
+        System.out.println(digitButton);
         if (digitButton.equals("0")) {
             if (!(new BigDecimal(buffer.replace(",", ".")).equals(BigDecimal.ZERO)) || isCommaPressed) {
                 addToBuffer(digitButton);
@@ -154,7 +157,7 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    public void equalsPressed() throws DivisionByZeroException {
+    public void equalsPressed(){
         if (lastOperation != null) {
             buffer = model.calculate(new BigDecimal(result.replace(",", ".")), new BigDecimal(buffer.replace(",", ".")), lastOperation).toString().replace(".", ",");
         }
@@ -163,7 +166,7 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    public void plusPressed() throws DivisionByZeroException {
+    public void plusPressed() {
         if (lastOperation != null) {
             buffer = model.calculate(new BigDecimal(result.replace(",", ".")), new BigDecimal(buffer.replace(",", ".")), lastOperation).toString().replace(".", ",");
         }
@@ -175,7 +178,7 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    public void minusPressed() throws DivisionByZeroException {
+    public void minusPressed() {
         if (lastOperation != null) {
             buffer = model.calculate(new BigDecimal(result.replace(",", ".")), new BigDecimal(buffer.replace(",", ".")), lastOperation).toString().replace(".", ",");
         }
@@ -186,11 +189,13 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    public void oneDividedXPressed(ActionEvent actionEvent) {
+    public void oneDividedXPressed() {
+        buffer = model.calculate(new BigDecimal(buffer.replace(",", ".")), UnaryOperations.ONE_DIVIDED_X).toString().replace(".", ",");
+        mainLabel.setText(buffer);
     }
 
     @FXML
-    public void multiplyPressed() throws DivisionByZeroException {
+    public void multiplyPressed() {
         if (lastOperation != null) {
             buffer = model.calculate(new BigDecimal(result.replace(",", ".")), new BigDecimal(buffer.replace(",", ".")), lastOperation).toString().replace(".", ",");
         }
@@ -202,14 +207,22 @@ public class MainController implements Initializable {
 
     @FXML
     public void squarePressed() {
+        buffer = model.calculate(new BigDecimal(buffer.replace(",", ".")), UnaryOperations.SQUARE).toString().replace(".", ",");
+        result = buffer;
+        buffer = "0";
+        mainLabel.setText(result);
     }
 
     @FXML
-    public void radicalPressed(ActionEvent actionEvent) {
+    public void radicalPressed() {
+        buffer = model.calculate(new BigDecimal(buffer.replace(",", ".")), UnaryOperations.SQRT).toString().replace(".", ",");
+        result = buffer;
+        buffer = "0";
+        mainLabel.setText(result);
     }
 
     @FXML
-    public void dividePressed() throws DivisionByZeroException {
+    public void dividePressed() {
         if (lastOperation != null) {
             buffer = model.calculate(new BigDecimal(result.replace(",", ".")), new BigDecimal(buffer.replace(",", ".")), lastOperation).toString().replace(".", ",");
         }
@@ -227,7 +240,9 @@ public class MainController implements Initializable {
 
     @FXML
     public void percentPressed() {
-
+        result = model.percent(new BigDecimal(result.replace(",", ".")), new BigDecimal(buffer.replace(",", ".")), lastOperation).toString();
+        buffer = "0";
+        mainLabel.setText(result);
     }
 
     @FXML
