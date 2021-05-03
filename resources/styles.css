@@ -158,7 +158,7 @@
     -fx-background-image: url("buttons/square.png");
 }
 
-#radical {
+#sqrt {
     -fx-background-image: url("buttons/radical.png");
 }
 
@@ -257,4 +257,8 @@
 }
 #angle{
     -fx-background-image: url("buttons/options/angle.png");
+}
+
+.textFieldOut {
+
 }

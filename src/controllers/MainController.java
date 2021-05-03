@@ -1,5 +1,6 @@
 package controllers;
 
+import javafx.scene.text.Font;
 import model.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -63,7 +64,7 @@ public class MainController implements Initializable {
     @FXML
     private Button square;
     @FXML
-    private Button radical;
+    private Button sqrt;
     @FXML
     private Button divide;
     @FXML
@@ -126,8 +127,8 @@ public class MainController implements Initializable {
 
     @FXML
     public void plusMinusPressed() {
-        buffer = model.calculate(new BigDecimal(buffer.replace(",", ".")), UnaryOperations.NEGATIVE).toString().replace(".", ",");
-        mainLabel.setText(buffer);
+        buffer = model.calculate(new BigDecimal(buffer), UnaryOperations.NEGATIVE).toString();
+        setMainLabelText(buffer);
     }
 
     @FXML
@@ -136,7 +137,7 @@ public class MainController implements Initializable {
         String digitButton = source.substring(source.length() - 2, source.length() - 1);
         System.out.println(digitButton);
         if (digitButton.equals("0")) {
-            if (!(new BigDecimal(buffer.replace(",", ".")).equals(BigDecimal.ZERO)) || isCommaPressed) {
+            if (!(new BigDecimal(buffer).equals(BigDecimal.ZERO)) || isCommaPressed) {
                 addToBuffer(digitButton);
             }
         } else {
@@ -148,31 +149,31 @@ public class MainController implements Initializable {
     public void commaPressed(ActionEvent actionEvent) {
         if (!isCommaPressed) {
             if (mainLabel.getText().equals("0")) {
-                addToBuffer("0,");
+                addToBuffer("0.");
             } else {
-                addToBuffer(",");
+                addToBuffer(".");
             }
             isCommaPressed = true;
         }
     }
 
     @FXML
-    public void equalsPressed(){
+    public void equalsPressed() {
         if (lastOperation != null) {
-            buffer = model.calculate(new BigDecimal(result.replace(",", ".")), new BigDecimal(buffer.replace(",", ".")), lastOperation).toString().replace(".", ",");
+            buffer = model.calculate(new BigDecimal(result), new BigDecimal(buffer), lastOperation).toString();
         }
-        mainLabel.setText(buffer);
+        setMainLabelText(buffer);
         lastOperation = null;
     }
 
     @FXML
     public void plusPressed() {
         if (lastOperation != null) {
-            buffer = model.calculate(new BigDecimal(result.replace(",", ".")), new BigDecimal(buffer.replace(",", ".")), lastOperation).toString().replace(".", ",");
+            buffer = model.calculate(new BigDecimal(result), new BigDecimal(buffer), lastOperation).toString();
         }
         result = buffer;
         buffer = "0";
-        mainLabel.setText(result);
+        setMainLabelText(result);
         lastOperation = BinaryOperations.PLUS;
 
     }
@@ -180,69 +181,69 @@ public class MainController implements Initializable {
     @FXML
     public void minusPressed() {
         if (lastOperation != null) {
-            buffer = model.calculate(new BigDecimal(result.replace(",", ".")), new BigDecimal(buffer.replace(",", ".")), lastOperation).toString().replace(".", ",");
+            buffer = model.calculate(new BigDecimal(result), new BigDecimal(buffer), lastOperation).toString();
         }
         result = buffer;
         buffer = "0";
-        mainLabel.setText(result);
+        setMainLabelText(result);
         lastOperation = BinaryOperations.MINUS;
     }
 
     @FXML
     public void oneDividedXPressed() {
-        buffer = model.calculate(new BigDecimal(buffer.replace(",", ".")), UnaryOperations.ONE_DIVIDED_X).toString().replace(".", ",");
-        mainLabel.setText(buffer);
+        buffer = model.calculate(new BigDecimal(buffer), UnaryOperations.ONE_DIVIDED_X).toString();
+        setMainLabelText(buffer);
     }
 
     @FXML
     public void multiplyPressed() {
         if (lastOperation != null) {
-            buffer = model.calculate(new BigDecimal(result.replace(",", ".")), new BigDecimal(buffer.replace(",", ".")), lastOperation).toString().replace(".", ",");
+            buffer = model.calculate(new BigDecimal(result), new BigDecimal(buffer), lastOperation).toString();
         }
         result = buffer;
         buffer = "0";
-        mainLabel.setText(result);
+        setMainLabelText(result);
         lastOperation = BinaryOperations.MULTIPLY;
     }
 
     @FXML
     public void squarePressed() {
-        buffer = model.calculate(new BigDecimal(buffer.replace(",", ".")), UnaryOperations.SQUARE).toString().replace(".", ",");
+        buffer = model.calculate(new BigDecimal(buffer), UnaryOperations.SQUARE).toString();
         result = buffer;
         buffer = "0";
-        mainLabel.setText(result);
+        setMainLabelText(result);
     }
 
     @FXML
     public void radicalPressed() {
-        buffer = model.calculate(new BigDecimal(buffer.replace(",", ".")), UnaryOperations.SQRT).toString().replace(".", ",");
+        buffer = model.calculate(new BigDecimal(buffer), UnaryOperations.SQRT).toString();
         result = buffer;
         buffer = "0";
-        mainLabel.setText(result);
+        setMainLabelText(result);
     }
 
     @FXML
     public void dividePressed() {
         if (lastOperation != null) {
-            buffer = model.calculate(new BigDecimal(result.replace(",", ".")), new BigDecimal(buffer.replace(",", ".")), lastOperation).toString().replace(".", ",");
+            buffer = model.calculate(new BigDecimal(result), new BigDecimal(buffer), lastOperation).toString();
         }
         result = buffer;
         buffer = "0";
-        mainLabel.setText(result);
+        setMainLabelText(result);
         lastOperation = BinaryOperations.DIVIDE;
     }
 
     @FXML
     public void cePressed() {
         buffer = "0";
-        mainLabel.setText(buffer);
+        setMainLabelText(buffer);
     }
 
     @FXML
     public void percentPressed() {
-        result = model.percent(new BigDecimal(result.replace(",", ".")), new BigDecimal(buffer.replace(",", ".")), lastOperation).toString();
+        result = model.percent(new BigDecimal(result), new BigDecimal(buffer), lastOperation).toString();
         buffer = "0";
-        mainLabel.setText(result);
+        setMainLabelText(result);
     }
 
     @FXML
@@ -262,7 +263,7 @@ public class MainController implements Initializable {
         if (buffer.equals("")) {
             buffer = "0";
         }
-        mainLabel.setText(buffer);
+        setMainLabelText(buffer);
     }
 
     @FXML
@@ -290,32 +291,75 @@ public class MainController implements Initializable {
 
     }
 
-    public void initialize(Stage stage){
+    public void initialize(Stage stage) {
         this.stage = stage;
         menu.setVisible(false);
     }
 
     private void addToBuffer(String s) {
-        if (buffer.equals("0")) {
-            buffer = s;
-        } else {
-            buffer += s;
+        if (mainLabel.getText().length() < 21) {
+            if (buffer.equals("0")) {
+                buffer = s;
+            } else {
+                buffer += s;
+            }
+            setMainLabelText(buffer);
         }
-        mainLabel.setText(buffer);
     }
+
+    private void setMainLabelText(String text) {
+        if(text.length() == 16) {
+            text = new StringBuffer(text).insert(text.length() - 3, " ")
+                    .insert(text.length() - 6, " ")
+                    .insert(text.length() - 9, " ")
+                    .insert(text.length() - 12, " ")
+                    .insert(text.length() - 15, " ").toString();
+        } else if (text.length() < 16 && text.length() > 11){
+            text = new StringBuffer(text).insert(text.length() - 3, " ")
+                    .insert(text.length() - 6, " ")
+                    .insert(text.length() - 9, " ")
+                    .insert(text.length() - 12, " ").toString();
+        } else if (text.length() < 13 && text.length() > 8){
+            text = new StringBuffer(text).insert(text.length() - 3, " ")
+                    .insert(text.length() - 6, " ")
+                    .insert(text.length() - 9, " ").toString();
+        } else if (text.length() < 10 && text.length() > 5){
+            text = new StringBuffer(text).insert(text.length() - 3, " ")
+                    .insert(text.length() - 6, " ").toString();
+        } else if (text.length() < 7 && text.length() > 2){
+            text = new StringBuffer(text).insert(text.length() - 3, " ").toString();
+        }
+        mainLabel.setText(text.replace(".", ","));
+        if (mainLabel.getText().length() == 21) {
+            mainLabel.setFont(new Font("Segoe UI Semibold", 28));
+        } else if(mainLabel.getText().length() >= 19){
+            mainLabel.setFont(new Font("Segoe UI Semibold", 32));
+        } else if(mainLabel.getText().length() >= 18){
+            mainLabel.setFont(new Font("Segoe UI Semibold", 33));
+        } else if(mainLabel.getText().length() >= 17){
+            mainLabel.setFont(new Font("Segoe UI Semibold", 35));
+        } else if(mainLabel.getText().length() >= 15){
+            mainLabel.setFont(new Font("Segoe UI Semibold", 39));
+        } else if(mainLabel.getText().length() >= 14){
+            mainLabel.setFont(new Font("Segoe UI Semibold", 42));
+        } else {
+            mainLabel.setFont(new Font("Segoe UI Semibold", 46));
+        }
+    }
+
 
     public void optionOpenOrClose() {
         if (!isMenuVisible) {
             menu.setVisible(true);
             isMenuVisible = true;
-        } else if (isMenuVisible){
+        } else {
             menu.setVisible(false);
             isMenuVisible = false;
         }
     }
 
     public void clicked() {
-        if (isMenuVisible){
+        if (isMenuVisible) {
             menu.setVisible(false);
             isMenuVisible = false;
         }

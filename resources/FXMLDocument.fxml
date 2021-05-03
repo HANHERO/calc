@@ -79,7 +79,7 @@
          <String fx:value="whiteButton" />
       </styleClass></Button>
     <Button fx:id="square" layoutX="104.0" layoutY="308.0" mnemonicParsing="false" onAction="#squarePressed" onMouseClicked="#clicked" styleClass="bigButton, greyButton" AnchorPane.bottomAnchor="257.0" AnchorPane.leftAnchor="104.0" />
-    <Button fx:id="radical" layoutX="202.0" layoutY="308.0" mnemonicParsing="false" onAction="#radicalPressed" onMouseClicked="#clicked" styleClass="bigButton, greyButton" AnchorPane.bottomAnchor="257.0" AnchorPane.leftAnchor="202.0" />
+    <Button fx:id="sqrt" layoutX="202.0" layoutY="308.0" mnemonicParsing="false" onAction="#radicalPressed" onMouseClicked="#clicked" styleClass="bigButton, greyButton" AnchorPane.bottomAnchor="257.0" AnchorPane.leftAnchor="202.0" />
     <Button fx:id="divide" layoutX="300.0" layoutY="308.0" mnemonicParsing="false" onAction="#dividePressed" onMouseClicked="#clicked" styleClass="bigButton, greyButton" AnchorPane.bottomAnchor="257.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="5.0" />
     <Button fx:id="ce" layoutX="104.0" layoutY="244.0" mnemonicParsing="false" onAction="#cePressed" onMouseClicked="#clicked" text="CE" AnchorPane.bottomAnchor="320.0" AnchorPane.leftAnchor="104.0">
       <styleClass>
