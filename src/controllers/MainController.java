@@ -135,7 +135,7 @@ public class MainController implements Initializable {
     public void digitButtonPressed(ActionEvent actionEvent) {
         String source = actionEvent.getSource().toString();
         String digitButton = source.substring(source.length() - 2, source.length() - 1);
-        System.out.println(digitButton);
+        //System.out.println(digitButton);
         if (digitButton.equals("0")) {
             if (!(new BigDecimal(buffer).equals(BigDecimal.ZERO)) || isCommaPressed) {
                 addToBuffer(digitButton);
@@ -254,7 +254,7 @@ public class MainController implements Initializable {
 
     @FXML
     public void delPressed() {
-        if (buffer.endsWith(",")) {
+        if (buffer.endsWith(".")) {
             isCommaPressed = false;
         }
         if (!buffer.equals("")) {
@@ -308,28 +308,46 @@ public class MainController implements Initializable {
     }
 
     private void setMainLabelText(String text) {
-        if(text.length() == 16) {
-            text = new StringBuffer(text).insert(text.length() - 3, " ")
+        String[] wholeAndFractional;
+        String divisiblePart = "";
+        String indivisiblePart = "";
+        if(isCommaPressed){
+            wholeAndFractional = text.split("\\.");
+            divisiblePart = wholeAndFractional[0];
+            indivisiblePart = wholeAndFractional[1];
+        }else {
+            divisiblePart = text;
+        }
+        System.out.println(divisiblePart.length());
+        if(divisiblePart.length() == 16) {
+            divisiblePart = new StringBuffer(divisiblePart).insert(divisiblePart.length() - 3, " ")
                     .insert(text.length() - 6, " ")
                     .insert(text.length() - 9, " ")
                     .insert(text.length() - 12, " ")
                     .insert(text.length() - 15, " ").toString();
-        } else if (text.length() < 16 && text.length() > 11){
-            text = new StringBuffer(text).insert(text.length() - 3, " ")
+        } else if (divisiblePart.length() < 16 && text.length() > 11){
+            divisiblePart = new StringBuffer(divisiblePart).insert(divisiblePart.length() - 3, " ")
                     .insert(text.length() - 6, " ")
                     .insert(text.length() - 9, " ")
                     .insert(text.length() - 12, " ").toString();
-        } else if (text.length() < 13 && text.length() > 8){
-            text = new StringBuffer(text).insert(text.length() - 3, " ")
+        } else if (divisiblePart.length() < 13 && text.length() > 8){
+            divisiblePart = new StringBuffer(divisiblePart).insert(divisiblePart.length() - 3, " ")
                     .insert(text.length() - 6, " ")
                     .insert(text.length() - 9, " ").toString();
-        } else if (text.length() < 10 && text.length() > 5){
-            text = new StringBuffer(text).insert(text.length() - 3, " ")
+        } else if (divisiblePart.length() < 10 && text.length() > 5){
+            divisiblePart = new StringBuffer(divisiblePart).insert(divisiblePart.length() - 3, " ")
                     .insert(text.length() - 6, " ").toString();
-        } else if (text.length() < 7 && text.length() > 2){
-            text = new StringBuffer(text).insert(text.length() - 3, " ").toString();
+        } else if (divisiblePart.length() < 7 && text.length() > 2){
+            divisiblePart = new StringBuffer(divisiblePart).insert(divisiblePart.length() - 3, " ").toString();
         }
-        mainLabel.setText(text.replace(".", ","));
+
+
+        if(isCommaPressed){
+            mainLabel.setText(divisiblePart + "," + indivisiblePart);
+        }else {
+            mainLabel.setText(divisiblePart.replace(".", ","));
+        }
+
         if (mainLabel.getText().length() == 21) {
             mainLabel.setFont(new Font("Segoe UI Semibold", 28));
         } else if(mainLabel.getText().length() >= 19){
