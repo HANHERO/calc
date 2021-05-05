@@ -308,60 +308,58 @@ public class MainController implements Initializable {
     }
 
     private void setMainLabelText(String text) {
-        String[] wholeAndFractional;
-        String divisiblePart = "";
-        String indivisiblePart = "";
-        if(isCommaPressed){
-            wholeAndFractional = text.split("\\.");
-            divisiblePart = wholeAndFractional[0];
-            indivisiblePart = wholeAndFractional[1];
-        }else {
-            divisiblePart = text;
+        int indexOfComma;
+        int lengthOfWholePart;
+        if (text.contains(".")){
+            indexOfComma = text.indexOf(".");
+            lengthOfWholePart = text.length() - (text.length() - indexOfComma);
+        } else {
+            indexOfComma = text.length();
+            lengthOfWholePart = text.length();
         }
-        System.out.println(divisiblePart.length());
-        if(divisiblePart.length() == 16) {
-            divisiblePart = new StringBuffer(divisiblePart).insert(divisiblePart.length() - 3, " ")
-                    .insert(text.length() - 6, " ")
-                    .insert(text.length() - 9, " ")
-                    .insert(text.length() - 12, " ")
-                    .insert(text.length() - 15, " ").toString();
-        } else if (divisiblePart.length() < 16 && text.length() > 11){
-            divisiblePart = new StringBuffer(divisiblePart).insert(divisiblePart.length() - 3, " ")
-                    .insert(text.length() - 6, " ")
-                    .insert(text.length() - 9, " ")
-                    .insert(text.length() - 12, " ").toString();
-        } else if (divisiblePart.length() < 13 && text.length() > 8){
-            divisiblePart = new StringBuffer(divisiblePart).insert(divisiblePart.length() - 3, " ")
-                    .insert(text.length() - 6, " ")
-                    .insert(text.length() - 9, " ").toString();
-        } else if (divisiblePart.length() < 10 && text.length() > 5){
-            divisiblePart = new StringBuffer(divisiblePart).insert(divisiblePart.length() - 3, " ")
-                    .insert(text.length() - 6, " ").toString();
-        } else if (divisiblePart.length() < 7 && text.length() > 2){
-            divisiblePart = new StringBuffer(divisiblePart).insert(divisiblePart.length() - 3, " ").toString();
+        System.out.println(lengthOfWholePart);
+
+
+        if(lengthOfWholePart == 16) {
+            text = new StringBuilder(text).insert(indexOfComma - 3, " ")
+                    .insert(indexOfComma - 6, " ")
+                    .insert(indexOfComma - 9, " ")
+                    .insert(indexOfComma - 12, " ")
+                    .insert(indexOfComma - 15, " ").toString();
+        } else if (lengthOfWholePart < 16 && lengthOfWholePart > 11){
+            text = new StringBuilder(text).insert(indexOfComma - 3, " ")
+                    .insert(indexOfComma - 6, " ")
+                    .insert(indexOfComma - 9, " ")
+                    .insert(indexOfComma - 12, " ").toString();
+        } else if (lengthOfWholePart < 13 && lengthOfWholePart > 8){
+            text = new StringBuilder(text).insert(indexOfComma - 3, " ")
+                    .insert(indexOfComma - 6, " ")
+                    .insert(indexOfComma - 9, " ").toString();
+        } else if (lengthOfWholePart < 10 && lengthOfWholePart > 5){
+            text = new StringBuilder(text).insert(indexOfComma - 3, " ")
+                    .insert(indexOfComma - 6, " ").toString();
+        } else if (lengthOfWholePart < 7 && lengthOfWholePart > 2){
+            text = new StringBuilder(text).insert(indexOfComma - 3, " ").toString();
         }
 
 
-        if(isCommaPressed){
-            mainLabel.setText(divisiblePart + "," + indivisiblePart);
-        }else {
-            mainLabel.setText(divisiblePart.replace(".", ","));
-        }
+            mainLabel.setText(text.replace(".", ","));
+
 
         if (mainLabel.getText().length() == 21) {
-            mainLabel.setFont(new Font("Segoe UI Semibold", 28));
+            mainLabel.setFont(new Font("Segoe UI Semibold", 28)); //28
         } else if(mainLabel.getText().length() >= 19){
-            mainLabel.setFont(new Font("Segoe UI Semibold", 32));
+            mainLabel.setFont(new Font("Segoe UI Semibold", 32)); //32
         } else if(mainLabel.getText().length() >= 18){
-            mainLabel.setFont(new Font("Segoe UI Semibold", 33));
+            mainLabel.setFont(new Font("Segoe UI Semibold", 33)); //33
         } else if(mainLabel.getText().length() >= 17){
-            mainLabel.setFont(new Font("Segoe UI Semibold", 35));
+            mainLabel.setFont(new Font("Segoe UI Semibold", 35)); //35
         } else if(mainLabel.getText().length() >= 15){
-            mainLabel.setFont(new Font("Segoe UI Semibold", 39));
+            mainLabel.setFont(new Font("Segoe UI Semibold", 39)); //39
         } else if(mainLabel.getText().length() >= 14){
-            mainLabel.setFont(new Font("Segoe UI Semibold", 42));
+            mainLabel.setFont(new Font("Segoe UI Semibold", 42)); //42
         } else {
-            mainLabel.setFont(new Font("Segoe UI Semibold", 46));
+            mainLabel.setFont(new Font("Segoe UI Semibold", 46)); //46
         }
     }
 
