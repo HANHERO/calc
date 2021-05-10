@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 
 public class MainModel {
+    private BigDecimal memoryValue = BigDecimal.ZERO;
+
     public BigDecimal calculate(BigDecimal firstValue, BigDecimal secondValue, BinaryOperations operation) {
         BigDecimal result;
         switch (operation) {
@@ -88,4 +90,20 @@ public class MainModel {
         return firstValue;
     }
 
+    public void memoryMinus(BigDecimal buffer) {
+        memoryValue = minus(memoryValue, buffer);
+    }
+    public void memoryPlus(BigDecimal buffer) {
+        memoryValue = plus(memoryValue, buffer);
+    }
+
+    public BigDecimal getMemoryValue() {
+        return memoryValue;
+    }
+    public void setMemoryValue(BigDecimal currentValue) {
+        memoryValue = currentValue;
+    }
+    public void clearMemoryValue(){
+        memoryValue = BigDecimal.ZERO;
+    }
 }
