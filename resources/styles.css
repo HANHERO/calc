@@ -260,6 +260,35 @@
     -fx-background-image: url("buttons/options/angle.png");
 }
 
+.scroll-bar {
+    -fx-font-size: 5px;
+    -fx-padding: 0px;
+}
+.scroll-bar:hover {
+    -fx-font-size: 20px;
+}
+.scroll-bar:pressed {
+    -fx-font-size: 20px;
+}
+.scroll-bar:vertical .thumb{
+    -fx-background-color: #828282;
+    -fx-background-radius: 0;
+}
+.scroll-bar:hover > .increment-button > .increment-arrow,
+.scroll-bar:hover > .decrement-button > .decrement-arrow {
+    -fx-background-color: #909090;
+}
+.scroll-bar:vertical, .increment-button, .decrement-button {
+    -fx-pref-height: 20px;
+}
+.scroll-bar:vertical, .increment-button:hover, .decrement-button:hover {
+    -fx-pref-height: 20px;
+    -fx-background-color: #d3d3d3;
+}
+.scroll-bar:horizontal{
+    -fx-background-color: inherit;
+    -fx-font-size: 0px;
+}
 .textFieldOut {
 
 }

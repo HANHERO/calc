@@ -1,7 +1,7 @@
 package controllers;
 
+import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Font;
-import model.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import model.*;
 
 import java.math.BigDecimal;
 import java.net.URL;
@@ -22,18 +23,18 @@ public class MainController implements Initializable {
     private String buffer = "0";
     private BinaryOperations lastBinary;
     private UnaryOperations lastUnary;
+    private boolean isEqualsPressed = false;
     private boolean isCommaPressed = false;
-    private boolean isMenuVisible = false;
-    private DecimalFormat format = new DecimalFormat();
-    private DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+    private boolean isTypingNew = false;
+    private final DecimalFormat format = new DecimalFormat();
+    private final DecimalFormatSymbols symbols = new DecimalFormatSymbols();
     private static final String SYMBOL_EXP = "e";
     private static final char FLOAT_POINT = ',';
     private static final int MAX_DIGITS_IN_NUMBER = 17;
     private static final char BIG_NUMBER_SEPARATOR = ' ';
     private static final String DEFAULT_PATTERN = "#,##0.###;-#,##0.###";
+    //private static final String DEFAULT_PATTERN = "0.##############E0;-0.##############E0";
 
-    @FXML
-    private Label calcLabel;
     @FXML
     private Label secondaryLabel;
     @FXML
@@ -146,7 +147,6 @@ public class MainController implements Initializable {
     public void digitButtonPressed(ActionEvent actionEvent) {
         String source = actionEvent.getSource().toString();
         String digitButton = source.substring(source.length() - 2, source.length() - 1);
-        //System.out.println(digitButton);
         if (digitButton.equals("0")) {
             if (!(new BigDecimal(buffer).equals(BigDecimal.ZERO)) || isCommaPressed) {
                 addToBuffer(digitButton);
@@ -171,31 +171,40 @@ public class MainController implements Initializable {
     @FXML
     public void equalsPressed() {
         if (lastBinary != null) {
-            buffer = model.calculate(new BigDecimal(result), new BigDecimal(buffer), lastBinary).toString();
+            result = model.calculate(new BigDecimal(result), new BigDecimal(buffer), lastBinary).toString();
         }
-        setMainLabelText(buffer);
-        lastBinary = null;
+        setMainLabelText(result);
+        isCommaPressed = false;
+        isTypingNew = true;
+        isEqualsPressed = true;
     }
 
     @FXML
     public void plusPressed() {
+        if (isEqualsPressed){
+            lastBinary = null;
+        }
         if (lastBinary != null) {
             buffer = model.calculate(new BigDecimal(result), new BigDecimal(buffer), lastBinary).toString();
         }
         result = buffer;
-        buffer = "0";
+        isTypingNew = true;
+        isCommaPressed = false;
         setMainLabelText(result);
         lastBinary = BinaryOperations.PLUS;
-
     }
 
     @FXML
     public void minusPressed() {
+        if (isEqualsPressed){
+            lastBinary = null;
+        }
         if (lastBinary != null) {
             buffer = model.calculate(new BigDecimal(result), new BigDecimal(buffer), lastBinary).toString();
         }
         result = buffer;
-        buffer = "0";
+        isTypingNew = true;
+        isCommaPressed = false;
         setMainLabelText(result);
         lastBinary = BinaryOperations.MINUS;
     }
@@ -205,15 +214,20 @@ public class MainController implements Initializable {
         buffer = model.calculate(new BigDecimal(buffer), UnaryOperations.ONE_DIVIDED_X).toString();
         lastUnary = UnaryOperations.ONE_DIVIDED_X;
         setMainLabelText(buffer);
+        isTypingNew = true;
     }
 
     @FXML
     public void multiplyPressed() {
+        if (isEqualsPressed){
+            lastBinary = null;
+        }
         if (lastBinary != null) {
             buffer = model.calculate(new BigDecimal(result), new BigDecimal(buffer), lastBinary).toString();
         }
         result = buffer;
-        buffer = "0";
+        isTypingNew = true;
+        isCommaPressed = false;
         setMainLabelText(result);
         lastBinary = BinaryOperations.MULTIPLY;
     }
@@ -223,7 +237,7 @@ public class MainController implements Initializable {
         buffer = model.calculate(new BigDecimal(buffer), UnaryOperations.SQUARE).toString();
         lastUnary = UnaryOperations.SQUARE;
         result = buffer;
-        buffer = "0";
+        isTypingNew = true;
         setMainLabelText(result);
     }
 
@@ -232,17 +246,21 @@ public class MainController implements Initializable {
         buffer = model.calculate(new BigDecimal(buffer), UnaryOperations.SQRT).toString();
         lastUnary = UnaryOperations.SQRT;
         result = buffer;
-        buffer = "0";
+        isTypingNew = true;
         setMainLabelText(result);
     }
 
     @FXML
     public void dividePressed() {
+        if (isEqualsPressed){
+            lastBinary = null;
+        }
         if (lastBinary != null) {
             buffer = model.calculate(new BigDecimal(result), new BigDecimal(buffer), lastBinary).toString();
         }
         result = buffer;
-        buffer = "0";
+        isTypingNew = true;
+        isCommaPressed = false;
         setMainLabelText(result);
         lastBinary = BinaryOperations.DIVIDE;
     }
@@ -256,7 +274,7 @@ public class MainController implements Initializable {
     @FXML
     public void percentPressed() {
         result = model.percent(new BigDecimal(result), new BigDecimal(buffer), lastBinary).toString();
-        buffer = "0";
+        isTypingNew = true;
         setMainLabelText(result);
     }
 
@@ -268,21 +286,23 @@ public class MainController implements Initializable {
 
     @FXML
     public void delPressed() {
-        if (buffer.endsWith(".")) {
-            isCommaPressed = false;
+        if (!isTypingNew) {
+            if (buffer.endsWith(".")) {
+                isCommaPressed = false;
+            }
+            if (!buffer.equals("")) {
+                buffer = buffer.substring(0, buffer.length() - 1);
+            }
+            if (buffer.equals("")) {
+                buffer = "0";
+            }
+            setMainLabelText(buffer);
         }
-        if (!buffer.equals("")) {
-            buffer = buffer.substring(0, buffer.length() - 1);
-        }
-        if (buffer.equals("")) {
-            buffer = "0";
-        }
-        setMainLabelText(buffer);
     }
 
     @FXML
     public void mcPressed() {
-        setMemButtonsDisable(true);
+        setDisableMemButtons(true);
         model.clearMemoryValue();
     }
 
@@ -294,23 +314,23 @@ public class MainController implements Initializable {
 
     @FXML
     public void mMinusPressed() {
-        setMemButtonsDisable(false);
+        setDisableMemButtons(false);
         model.memoryMinus(new BigDecimal(buffer));
-        buffer = "0";
+        isTypingNew = true;
     }
 
     @FXML
     public void mPlusPressed() {
-        setMemButtonsDisable(false);
+        setDisableMemButtons(false);
         model.memoryPlus(new BigDecimal(buffer));
-        buffer = "0";
+        isTypingNew = true;
     }
 
     @FXML
     public void msPressed() {
-        setMemButtonsDisable(false);
+        setDisableMemButtons(false);
         model.setMemoryValue(new BigDecimal(buffer));
-        buffer = "0";
+        isTypingNew = true;
     }
 
     @Override
@@ -321,16 +341,33 @@ public class MainController implements Initializable {
     public void initialize(Stage stage) {
         this.stage = stage;
         menu.setVisible(false);
-        setMemButtonsDisable(true);
+        setDisableMemButtons(true);
     }
 
-    private void setMemButtonsDisable(boolean isEnable){
-        mc.setDisable(isEnable);
-        mr.setDisable(isEnable);
-        mOption.setDisable(isEnable);
+    private void setDisableAllOperations(boolean isDisable) {
+        percent.setDisable(isDisable);
+        oneDividedX.setDisable(isDisable);
+        square.setDisable(isDisable);
+        sqrt.setDisable(isDisable);
+        divide.setDisable(isDisable);
+        multiply.setDisable(isDisable);
+        minus.setDisable(isDisable);
+        plus.setDisable(isDisable);
+        plusMinus.setDisable(isDisable);
+        comma.setDisable(isDisable);
+    }
+
+    private void setDisableMemButtons(boolean isDisable) {
+        mc.setDisable(isDisable);
+        mr.setDisable(isDisable);
+        mOption.setDisable(isDisable);
     }
 
     private void addToBuffer(String s) {
+        if (isTypingNew) {
+            buffer = "0";
+            isTypingNew = false;
+        }
         if (mainLabel.getText().length() < 21) {
             if (buffer.equals("0")) {
                 buffer = s;
@@ -342,20 +379,23 @@ public class MainController implements Initializable {
     }
 
     private void setMainLabelText(String text) {
+        System.out.println(text);
         symbols.setDecimalSeparator(FLOAT_POINT);
         symbols.setGroupingSeparator(BIG_NUMBER_SEPARATOR);
         format.setGroupingSize(3);
         format.setGroupingUsed(true);
         BigDecimal val = new BigDecimal(text);
-        String pattern = DEFAULT_PATTERN;
-        String exponentialSymbolSign = SYMBOL_EXP;
-
+        String pattern = "0";
+        System.out.println(countDigitsAfterDecimalPoint(text));
 
         int minDigits = 0;
         int maxDigits = MAX_DIGITS_IN_NUMBER - 1;
 
+        if (countDigitsAfterDecimalPoint(text) > 15 && isTypingNew) {
+            pattern = "#.###############E0;-#.###############E0";
+        }
 
-        symbols.setExponentSeparator(exponentialSymbolSign);
+        symbols.setExponentSeparator(SYMBOL_EXP);
         format.setDecimalFormatSymbols(symbols);
         format.applyPattern(pattern);
 
@@ -381,21 +421,30 @@ public class MainController implements Initializable {
         }
     }
 
+    private int countDigitsAfterDecimalPoint(String number) {
+        int result = 0;
+        if (isCommaPressed) {
+            try {
+                result = number.split("\\.")[1].length();
+            } catch (ArrayIndexOutOfBoundsException ignored) {
+            }
+        }
+        return result;
+    }
+
 
     public void optionOpenOrClose() {
-        if (!isMenuVisible) {
-            menu.setVisible(true);
-            isMenuVisible = true;
-        } else {
-            menu.setVisible(false);
-            isMenuVisible = false;
-        }
+        menu.setVisible(!menu.isVisible());
     }
 
     public void clicked() {
-        if (isMenuVisible) {
+        if (menu.isVisible()) {
             menu.setVisible(false);
-            isMenuVisible = false;
         }
+    }
+
+    @FXML
+    public void handleKeyPressed(KeyEvent keyEvent) {
+
     }
 }
