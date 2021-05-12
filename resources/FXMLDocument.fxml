@@ -142,5 +142,5 @@
         </ScrollPane>
         <Button id="about" layoutX="3.0" layoutY="485.0" mnemonicParsing="false" styleClass="buttInMenu" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
     </AnchorPane>
-   <Button fx:id="option1" layoutY="41.0" mnemonicParsing="false" onAction="#optionOpenOrClose" styleClass="squareButton" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="41.0" />
+   <Button fx:id="option" layoutY="41.0" mnemonicParsing="false" onAction="#optionOpenOrClose" styleClass="squareButton" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="41.0" />
 </AnchorPane>

@@ -1,5 +1,7 @@
 package controllers;
 
+import javafx.event.EventHandler;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Font;
 import javafx.event.ActionEvent;
@@ -14,29 +16,30 @@ import javafx.stage.Stage;
 import model.*;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
+    public Label historyLabel;
     private String buffer = "0";
     private BinaryOperations lastBinary;
     private UnaryOperations lastUnary;
     private boolean isEqualsPressed = false;
     private boolean isCommaPressed = false;
     private boolean isTypingNew = false;
+    private boolean isSignHas = false;
     private final DecimalFormat format = new DecimalFormat();
     private final DecimalFormatSymbols symbols = new DecimalFormatSymbols();
     private static final String SYMBOL_EXP = "e";
     private static final char FLOAT_POINT = ',';
-    private static final int MAX_DIGITS_IN_NUMBER = 17;
+    private static final int MAX_DIGITS_IN_NUMBER = 16;
     private static final char BIG_NUMBER_SEPARATOR = ' ';
     private static final String DEFAULT_PATTERN = "#,##0.###;-#,##0.###";
-    //private static final String DEFAULT_PATTERN = "0.##############E0;-0.##############E0";
 
-    @FXML
-    private Label secondaryLabel;
+
     @FXML
     private Label mainLabel;
     @FXML
@@ -171,9 +174,9 @@ public class MainController implements Initializable {
     @FXML
     public void equalsPressed() {
         if (lastBinary != null) {
-            result = model.calculate(new BigDecimal(result), new BigDecimal(buffer), lastBinary).toString();
+            buffer = model.calculate(new BigDecimal(result), new BigDecimal(buffer), lastBinary).toString();
         }
-        setMainLabelText(result);
+        setMainLabelText(buffer);
         isCommaPressed = false;
         isTypingNew = true;
         isEqualsPressed = true;
@@ -181,32 +184,30 @@ public class MainController implements Initializable {
 
     @FXML
     public void plusPressed() {
-        if (isEqualsPressed){
-            lastBinary = null;
-        }
-        if (lastBinary != null) {
-            buffer = model.calculate(new BigDecimal(result), new BigDecimal(buffer), lastBinary).toString();
-        }
-        result = buffer;
-        isTypingNew = true;
-        isCommaPressed = false;
-        setMainLabelText(result);
+        sendToCalculate();
         lastBinary = BinaryOperations.PLUS;
+        updateHistory();
     }
 
     @FXML
     public void minusPressed() {
-        if (isEqualsPressed){
-            lastBinary = null;
-        }
-        if (lastBinary != null) {
-            buffer = model.calculate(new BigDecimal(result), new BigDecimal(buffer), lastBinary).toString();
-        }
-        result = buffer;
-        isTypingNew = true;
-        isCommaPressed = false;
-        setMainLabelText(result);
+        sendToCalculate();
         lastBinary = BinaryOperations.MINUS;
+        updateHistory();
+    }
+
+    @FXML
+    public void dividePressed() {
+        sendToCalculate();
+        lastBinary = BinaryOperations.DIVIDE;
+        updateHistory();
+    }
+
+    @FXML
+    public void multiplyPressed() {
+        sendToCalculate();
+        lastBinary = BinaryOperations.MULTIPLY;
+        updateHistory();
     }
 
     @FXML
@@ -215,21 +216,6 @@ public class MainController implements Initializable {
         lastUnary = UnaryOperations.ONE_DIVIDED_X;
         setMainLabelText(buffer);
         isTypingNew = true;
-    }
-
-    @FXML
-    public void multiplyPressed() {
-        if (isEqualsPressed){
-            lastBinary = null;
-        }
-        if (lastBinary != null) {
-            buffer = model.calculate(new BigDecimal(result), new BigDecimal(buffer), lastBinary).toString();
-        }
-        result = buffer;
-        isTypingNew = true;
-        isCommaPressed = false;
-        setMainLabelText(result);
-        lastBinary = BinaryOperations.MULTIPLY;
     }
 
     @FXML
@@ -250,19 +236,21 @@ public class MainController implements Initializable {
         setMainLabelText(result);
     }
 
-    @FXML
-    public void dividePressed() {
-        if (isEqualsPressed){
-            lastBinary = null;
+
+    private void sendToCalculate() {
+        if (!isSignHas) {
+            if (isEqualsPressed) {
+                lastBinary = null;
+            }
+            if (lastBinary != null) {
+                buffer = model.calculate(new BigDecimal(result), new BigDecimal(buffer), lastBinary).toString();
+            }
+            result = buffer;
+            isTypingNew = true;
+            isCommaPressed = false;
+            setMainLabelText(buffer);
         }
-        if (lastBinary != null) {
-            buffer = model.calculate(new BigDecimal(result), new BigDecimal(buffer), lastBinary).toString();
-        }
-        result = buffer;
-        isTypingNew = true;
-        isCommaPressed = false;
-        setMainLabelText(result);
-        lastBinary = BinaryOperations.DIVIDE;
+        isSignHas = true;
     }
 
     @FXML
@@ -342,6 +330,81 @@ public class MainController implements Initializable {
         this.stage = stage;
         menu.setVisible(false);
         setDisableMemButtons(true);
+        symbols.setDecimalSeparator(FLOAT_POINT);
+        symbols.setGroupingSeparator(BIG_NUMBER_SEPARATOR);
+        format.setGroupingSize(3);
+        format.setGroupingUsed(true);
+        this.stage.getScene().setOnKeyPressed(keyEvent -> {
+            switch (keyEvent.getCode()) {
+                case NUMPAD0:
+                case DIGIT0:
+                    zero.fire();
+                    break;
+                case NUMPAD1:
+                case DIGIT1:
+                    one.fire();
+                    break;
+                case NUMPAD2:
+                case DIGIT2:
+                    two.fire();
+                    break;
+                case NUMPAD3:
+                case DIGIT3:
+                    three.fire();
+                    break;
+                case NUMPAD4:
+                case DIGIT4:
+                    four.fire();
+                    break;
+                case NUMPAD5:
+                case DIGIT5:
+                    five.fire();
+                    break;
+                case NUMPAD6:
+                case DIGIT6:
+                    six.fire();
+                    break;
+                case NUMPAD7:
+                case DIGIT7:
+                    seven.fire();
+                    break;
+                case NUMPAD8:
+                case DIGIT8:
+                    eight.fire();
+                    break;
+                case NUMPAD9:
+                case DIGIT9:
+                    nine.fire();
+                    break;
+                case MULTIPLY:
+                    multiply.fire();
+                    break;
+                case ADD:
+                    plus.fire();
+                    break;
+                case SUBTRACT:
+                    minus.fire();
+                    break;
+                case DIVIDE:
+                    divide.fire();
+                    break;
+                case DECIMAL:
+                    comma.fire();
+                    break;
+                case BACK_SPACE:
+                    del.fire();
+                    break;
+                case ENTER:
+                    equals.fire();
+                    break;
+                case ESCAPE:
+                    c.fire();
+                    break;
+                case DELETE:
+                    ce.fire();
+                    break;
+            }
+        });
     }
 
     private void setDisableAllOperations(boolean isDisable) {
@@ -374,35 +437,37 @@ public class MainController implements Initializable {
             } else {
                 buffer += s;
             }
+            isSignHas = false;
             setMainLabelText(buffer);
         }
     }
 
     private void setMainLabelText(String text) {
-        System.out.println(text);
-        symbols.setDecimalSeparator(FLOAT_POINT);
-        symbols.setGroupingSeparator(BIG_NUMBER_SEPARATOR);
-        format.setGroupingSize(3);
-        format.setGroupingUsed(true);
+        if (text.contains(".")) {
+            text = removeZeros(text);
+        }
         BigDecimal val = new BigDecimal(text);
-        String pattern = "0";
+        String pattern = DEFAULT_PATTERN;
         System.out.println(countDigitsAfterDecimalPoint(text));
 
         int minDigits = 0;
         int maxDigits = MAX_DIGITS_IN_NUMBER - 1;
 
-        if (countDigitsAfterDecimalPoint(text) > 15 && isTypingNew) {
-            pattern = "#.###############E0;-#.###############E0";
+        if (countDigitsAfterDecimalPoint(text) > 15) {
+            pattern = "0.###############E0;-0.###############E0";
         }
 
         symbols.setExponentSeparator(SYMBOL_EXP);
         format.setDecimalFormatSymbols(symbols);
+        format.setRoundingMode(RoundingMode.CEILING);
         format.applyPattern(pattern);
 
         format.setMinimumFractionDigits(minDigits);
         format.setMaximumFractionDigits(maxDigits);
-        mainLabel.setText(format.format(val));
-
+        String formattedText = format.format(val);
+        System.out.println(formattedText);
+        mainLabel.setText(formattedText);
+        System.out.println(mainLabel.getText());
 
         if (mainLabel.getText().length() == 21) {
             mainLabel.setFont(new Font("Segoe UI Semibold", 28)); //28
@@ -421,15 +486,27 @@ public class MainController implements Initializable {
         }
     }
 
+    private void updateHistory() {
+        String history = buffer + lastBinary.sign;
+        historyLabel.setText(history);
+    }
+
     private int countDigitsAfterDecimalPoint(String number) {
         int result = 0;
-        if (isCommaPressed) {
+        if (number.contains(".")) {
             try {
                 result = number.split("\\.")[1].length();
             } catch (ArrayIndexOutOfBoundsException ignored) {
             }
         }
         return result;
+    }
+
+    private String removeZeros(String number) {
+        while (number.charAt(number.length() - 1) == '0') {
+            number = number.substring(0, number.length() - 1);
+        }
+        return number;
     }
 
 

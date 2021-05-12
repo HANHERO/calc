@@ -179,7 +179,7 @@
     -fx-background-image: url("buttons/mOption.png");
 }
 
-#option, #option1{
+#option, #option{
     -fx-background-image: url("buttons/option.png");
 }
 

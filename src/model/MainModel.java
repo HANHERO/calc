@@ -96,7 +96,6 @@ public class MainModel {
     public void memoryPlus(BigDecimal buffer) {
         memoryValue = plus(memoryValue, buffer);
     }
-
     public BigDecimal getMemoryValue() {
         return memoryValue;
     }
