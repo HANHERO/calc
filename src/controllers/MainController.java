@@ -1,8 +1,5 @@
 package controllers;
 
-import javafx.event.EventHandler;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Font;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -102,12 +99,6 @@ public class MainController implements Initializable {
     private Button ms;
     @FXML
     private Button mOption;
-    @FXML
-    private Button option;
-    @FXML
-    private Button history;
-    @FXML
-    private Button changeSize;
     @FXML
     private AnchorPane menu;
 
@@ -518,10 +509,5 @@ public class MainController implements Initializable {
         if (menu.isVisible()) {
             menu.setVisible(false);
         }
-    }
-
-    @FXML
-    public void handleKeyPressed(KeyEvent keyEvent) {
-
     }
 }
