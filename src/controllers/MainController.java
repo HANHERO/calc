@@ -1,6 +1,5 @@
 package controllers;
 
-import javafx.scene.text.Font;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,6 +11,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.*;
 
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.net.URL;
@@ -20,6 +21,7 @@ import java.text.DecimalFormatSymbols;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
+    private int fontSize = 46;
     public Label historyLabel;
     private String buffer = "0";
     private BinaryOperations lastBinary;
@@ -439,7 +441,6 @@ public class MainController implements Initializable {
         }
         BigDecimal val = new BigDecimal(text);
         String pattern = DEFAULT_PATTERN;
-        System.out.println(countDigitsAfterDecimalPoint(text));
 
         int minDigits = 0;
         int maxDigits = MAX_DIGITS_IN_NUMBER - 1;
@@ -455,26 +456,28 @@ public class MainController implements Initializable {
 
         format.setMinimumFractionDigits(minDigits);
         format.setMaximumFractionDigits(maxDigits);
-        String formattedText = format.format(val);
-        System.out.println(formattedText);
-        mainLabel.setText(formattedText);
-        System.out.println(mainLabel.getText());
+        mainLabel.setText(format.format(val));
 
-        if (mainLabel.getText().length() == 21) {
-            mainLabel.setFont(new Font("Segoe UI Semibold", 28)); //28
-        } else if (mainLabel.getText().length() >= 19) {
-            mainLabel.setFont(new Font("Segoe UI Semibold", 32)); //32
-        } else if (mainLabel.getText().length() >= 18) {
-            mainLabel.setFont(new Font("Segoe UI Semibold", 33)); //33
-        } else if (mainLabel.getText().length() >= 17) {
-            mainLabel.setFont(new Font("Segoe UI Semibold", 35)); //35
-        } else if (mainLabel.getText().length() >= 15) {
-            mainLabel.setFont(new Font("Segoe UI Semibold", 39)); //39
-        } else if (mainLabel.getText().length() >= 14) {
-            mainLabel.setFont(new Font("Segoe UI Semibold", 42)); //42
-        } else {
-            mainLabel.setFont(new Font("Segoe UI Semibold", 46)); //46
+        fontSize = resizeMainLabelFont(fontSize);
+
+        mainLabel.setFont(new javafx.scene.text.Font("Segoe UI Semibold", fontSize));
+    }
+
+    private int resizeMainLabelFont(int fontSize) {
+        int size = fontSize;
+        int maxTextSizeInPx = 300;
+
+        BufferedImage img = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
+        FontMetrics fm = img.getGraphics().getFontMetrics(new Font("Segoe UI Semibold", Font.PLAIN, size));
+
+        while (fm.stringWidth(mainLabel.getText()) < maxTextSizeInPx && size < 46) {
+            fm = img.getGraphics().getFontMetrics(new Font("Segoe UI Semibold", Font.PLAIN, ++size));
         }
+
+        while (fm.stringWidth(mainLabel.getText()) > maxTextSizeInPx) {
+            fm = img.getGraphics().getFontMetrics(new Font("Segoe UI Semibold", Font.PLAIN, --size));
+        }
+        return size;
     }
 
     private void updateHistory() {

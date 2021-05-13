@@ -86,8 +86,8 @@
 }
 
 .bigButton {
-    -fx-pref-width: 76px;
-    -fx-pref-height: 48px;
+    -fx-pref-width: 80px;
+    -fx-pref-height: 50px;
 }
 
 .memButton {
