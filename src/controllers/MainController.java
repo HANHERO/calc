@@ -273,8 +273,7 @@ public class MainController implements Initializable {
             }
             if (!buffer.equals("")) {
                 buffer = buffer.substring(0, buffer.length() - 1);
-            }
-            if (buffer.equals("")) {
+            } else {
                 buffer = "0";
             }
             setMainLabelText(buffer);
@@ -497,12 +496,12 @@ public class MainController implements Initializable {
     }
 
     private String removeZeros(String number) {
-        while (number.charAt(number.length() - 1) == '0') {
-            number = number.substring(0, number.length() - 1);
+        String noZero = number;
+        while (noZero.endsWith("0")) {
+            noZero = noZero.substring(0, noZero.length() - 1);
         }
-        return number;
+        return noZero;
     }
-
 
     public void optionOpenOrClose() {
         menu.setVisible(!menu.isVisible());
