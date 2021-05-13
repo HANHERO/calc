@@ -16,7 +16,7 @@ public class Main extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view.fxml"));
         Parent root = loader.load();
         primaryStage.setTitle("Калькулятор");
-        primaryStage.setScene(new Scene(root, 322, 500));
+        primaryStage.setScene(new Scene(root, 322, 501));
         primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.setResizable(false);
         primaryStage.getIcons().add(new Image("buttons/icon.png"));

@@ -37,6 +37,8 @@ public class MainController implements Initializable {
     private static final int MAX_DIGITS_IN_NUMBER = 16;
     private static final char BIG_NUMBER_SEPARATOR = ' ';
     private static final String DEFAULT_PATTERN = "#,##0.###;-#,##0.###";
+    private static final BigDecimal MAX_NUMBER = new BigDecimal("1E10000");
+    private static final BigDecimal MIN_NUMBER = new BigDecimal("1E-10000");
 
 
     @FXML
@@ -437,6 +439,13 @@ public class MainController implements Initializable {
     private void setMainLabelText(String text) {
         if (text.contains(".")) {
             text = removeZeros(text);
+        }
+        if (new BigDecimal(text).compareTo(MAX_NUMBER) > 0 || new BigDecimal(text).compareTo(MIN_NUMBER) < 0){
+            mainLabel.setFont(new javafx.scene.text.Font("Segoe UI Semibold", 43));
+            mainLabel.setText("Переполнение");
+            setDisableAllOperations(true);
+            setDisableMemButtons(true);
+            return;
         }
         BigDecimal val = new BigDecimal(text);
         String pattern = DEFAULT_PATTERN;
