@@ -168,13 +168,16 @@ public class MainController implements Initializable {
 
     @FXML
     public void equalsPressed() {
-        if (lastBinary != null) {
-            buffer = model.calculate(new BigDecimal(result), new BigDecimal(buffer), lastBinary).toString();
-        }
-        setMainLabelText(buffer);
         isCommaPressed = false;
         isTypingNew = true;
         isEqualsPressed = true;
+
+        if (lastBinary != null) {
+            result = model.calculate(new BigDecimal(result), new BigDecimal(buffer), lastBinary).toString();
+        }
+        updateHistory();
+        setMainLabelText(result);
+
     }
 
     @FXML
@@ -217,33 +220,33 @@ public class MainController implements Initializable {
     public void squarePressed() {
         buffer = model.calculate(new BigDecimal(buffer), UnaryOperations.SQUARE).toString();
         lastUnary = UnaryOperations.SQUARE;
-        result = buffer;
         isTypingNew = true;
-        setMainLabelText(result);
+        setMainLabelText(buffer);
     }
 
     @FXML
     public void radicalPressed() {
         buffer = model.calculate(new BigDecimal(buffer), UnaryOperations.SQRT).toString();
         lastUnary = UnaryOperations.SQRT;
-        result = buffer;
         isTypingNew = true;
-        setMainLabelText(result);
+        setMainLabelText(buffer);
     }
 
 
     private void sendToCalculate() {
         if (!isSignHas) {
-            if (isEqualsPressed) {
+            if(isEqualsPressed){
                 lastBinary = null;
+                System.out.println("Зашло");
+                isEqualsPressed = false;
             }
+
             if (lastBinary != null) {
                 result = model.calculate(new BigDecimal(result), new BigDecimal(buffer), lastBinary).toString();
             }
-            result = buffer;
             isTypingNew = true;
             isCommaPressed = false;
-            setMainLabelText(buffer);
+            setMainLabelText(result);
         }
         isSignHas = true;
     }
@@ -499,7 +502,7 @@ public class MainController implements Initializable {
     }
 
     private void updateHistory() {
-        String history = buffer + lastBinary.sign;
+        String history = result + lastBinary.sign;
         historyLabel.setText(history);
     }
 
