@@ -37,7 +37,7 @@ public class MainController implements Initializable {
     private static final int MAX_DIGITS_IN_NUMBER = 16;
     private static final char BIG_NUMBER_SEPARATOR = ' ';
     private static final String DEFAULT_PATTERN = "#,##0.###;-#,##0.###";
-    private static final BigDecimal MAX_NUMBER = new BigDecimal("1E10000");
+    private static final BigDecimal MAX_NUMBER = new BigDecimal("1E+10000");
     private static final BigDecimal MIN_NUMBER = new BigDecimal("1E-10000");
 
 
@@ -238,7 +238,7 @@ public class MainController implements Initializable {
                 lastBinary = null;
             }
             if (lastBinary != null) {
-                buffer = model.calculate(new BigDecimal(result), new BigDecimal(buffer), lastBinary).toString();
+                result = model.calculate(new BigDecimal(result), new BigDecimal(buffer), lastBinary).toString();
             }
             result = buffer;
             isTypingNew = true;
@@ -250,6 +250,7 @@ public class MainController implements Initializable {
 
     @FXML
     public void cePressed() {
+        setDisableAllOperations(false);
         buffer = "0";
         setMainLabelText(buffer);
     }
@@ -264,6 +265,7 @@ public class MainController implements Initializable {
     @FXML
     public void cPressed() {
         result = "0";
+        isCommaPressed = false;
         cePressed();
     }
 
@@ -437,17 +439,18 @@ public class MainController implements Initializable {
     }
 
     private void setMainLabelText(String text) {
+        BigDecimal val = new BigDecimal(text);
         if (text.contains(".")) {
             text = removeZeros(text);
         }
-        if (new BigDecimal(text).compareTo(MAX_NUMBER) > 0 || new BigDecimal(text).compareTo(MIN_NUMBER) < 0){
+        if (val.compareTo(MAX_NUMBER) > 0 || (val.compareTo(MIN_NUMBER) < 0 && val.compareTo(BigDecimal.ZERO) > 0)) {
             mainLabel.setFont(new javafx.scene.text.Font("Segoe UI Semibold", 43));
             mainLabel.setText("Переполнение");
             setDisableAllOperations(true);
             setDisableMemButtons(true);
             return;
         }
-        BigDecimal val = new BigDecimal(text);
+
         String pattern = DEFAULT_PATTERN;
 
         int minDigits = 0;
@@ -456,8 +459,15 @@ public class MainController implements Initializable {
         if (countDigitsAfterDecimalPoint(text) > 15) {
             pattern = "0.###############E0;-0.###############E0";
         }
+        countDigitsBeforeDecimalPoint(val.toString());
 
+        if (countDigitsBeforeDecimalPoint(text) > 16) {
+            pattern = "0.E0;-0.E0";
+        }
         symbols.setExponentSeparator(SYMBOL_EXP);
+        if (val.compareTo(BigDecimal.ONE) > 0) {
+            symbols.setExponentSeparator("e+");
+        }
         format.setDecimalFormatSymbols(symbols);
         format.setRoundingMode(RoundingMode.CEILING);
         format.applyPattern(pattern);
@@ -491,6 +501,19 @@ public class MainController implements Initializable {
     private void updateHistory() {
         String history = buffer + lastBinary.sign;
         historyLabel.setText(history);
+    }
+
+    private int countDigitsBeforeDecimalPoint(String number) {
+        int result = 0;
+        if (number.contains(".")) {
+            try {
+                result = number.split("\\.")[0].length();
+            } catch (ArrayIndexOutOfBoundsException ignored) {
+            }
+        } else {
+            result = number.length();
+        }
+        return result;
     }
 
     private int countDigitsAfterDecimalPoint(String number) {
