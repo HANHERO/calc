@@ -10,6 +10,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.*;
+import org.w3c.dom.ls.LSOutput;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -32,6 +33,7 @@ public class MainController implements Initializable {
     private boolean isSignHas = false;
     private final DecimalFormat format = new DecimalFormat();
     private final DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+    private String displayedInMainLabel = "0";
     private static final String SYMBOL_EXP = "e";
     private static final char FLOAT_POINT = ',';
     private static final int MAX_DIGITS_IN_NUMBER = 16;
@@ -136,7 +138,7 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    public void plusMinusPressed() {
+    public void plusMinusPressed() throws ArithmeticException {
         buffer = model.calculate(new BigDecimal(buffer), UnaryOperations.NEGATIVE).toString();
         setMainLabelText(buffer);
     }
@@ -167,20 +169,6 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    public void equalsPressed() {
-        isCommaPressed = false;
-        isTypingNew = true;
-        isEqualsPressed = true;
-
-        if (lastBinary != null) {
-            result = model.calculate(new BigDecimal(result), new BigDecimal(buffer), lastBinary).toString();
-        }
-        updateHistory();
-        setMainLabelText(result);
-
-    }
-
-    @FXML
     public void plusPressed() {
         sendToCalculate();
         lastBinary = BinaryOperations.PLUS;
@@ -208,47 +196,68 @@ public class MainController implements Initializable {
         updateHistory();
     }
 
+    private void sendToCalculate() {
+        if (!isSignHas) {
+            if (isEqualsPressed) {
+                buffer = result;
+                lastBinary = null;
+                isEqualsPressed = false;
+            }
+
+            if (lastBinary != null) {
+                try {
+                    result = model.calculate(new BigDecimal(result), new BigDecimal(buffer), lastBinary).toString();
+                } catch (ArithmeticException ex){
+                    setMainLabelText(ex.getMessage());
+                    System.out.println("Вы ввели ноль в качестве делителя");
+                }
+            } else {
+                result = buffer;
+            }
+
+            isTypingNew = true;
+            isCommaPressed = false;
+            setMainLabelText(result);
+        }
+        isSignHas = true;
+    }
+
     @FXML
-    public void oneDividedXPressed() {
-        buffer = model.calculate(new BigDecimal(buffer), UnaryOperations.ONE_DIVIDED_X).toString();
+    public void equalsPressed() throws ArithmeticException {
+        isCommaPressed = false;
+        isTypingNew = true;
+        isEqualsPressed = true;
+
+        if (lastBinary != null) {
+            result = model.calculate(new BigDecimal(result), new BigDecimal(buffer), lastBinary).toString();
+        }
+        updateHistory();
+        setMainLabelText(result);
+    }
+
+    @FXML
+    public void oneDividedXPressed() throws ArithmeticException {
+        System.out.println(displayedInMainLabel);
+        buffer = model.calculate(new BigDecimal(displayedInMainLabel), UnaryOperations.ONE_DIVIDED_X).toString();
         lastUnary = UnaryOperations.ONE_DIVIDED_X;
         setMainLabelText(buffer);
         isTypingNew = true;
     }
 
     @FXML
-    public void squarePressed() {
-        buffer = model.calculate(new BigDecimal(buffer), UnaryOperations.SQUARE).toString();
+    public void squarePressed() throws ArithmeticException {
+        buffer = model.calculate(new BigDecimal(displayedInMainLabel), UnaryOperations.SQUARE).toString();
         lastUnary = UnaryOperations.SQUARE;
         isTypingNew = true;
         setMainLabelText(buffer);
     }
 
     @FXML
-    public void radicalPressed() {
-        buffer = model.calculate(new BigDecimal(buffer), UnaryOperations.SQRT).toString();
+    public void radicalPressed() throws ArithmeticException {
+        buffer = model.calculate(new BigDecimal(displayedInMainLabel), UnaryOperations.SQRT).toString();
         lastUnary = UnaryOperations.SQRT;
         isTypingNew = true;
         setMainLabelText(buffer);
-    }
-
-
-    private void sendToCalculate() {
-        if (!isSignHas) {
-            if(isEqualsPressed){
-                lastBinary = null;
-                System.out.println("Зашло");
-                isEqualsPressed = false;
-            }
-
-            if (lastBinary != null) {
-                result = model.calculate(new BigDecimal(result), new BigDecimal(buffer), lastBinary).toString();
-            }
-            isTypingNew = true;
-            isCommaPressed = false;
-            setMainLabelText(result);
-        }
-        isSignHas = true;
     }
 
     @FXML
@@ -259,7 +268,7 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    public void percentPressed() {
+    public void percentPressed() throws ArithmeticException {
         result = model.percent(new BigDecimal(result), new BigDecimal(buffer), lastBinary).toString();
         isTypingNew = true;
         setMainLabelText(result);
@@ -269,6 +278,7 @@ public class MainController implements Initializable {
     public void cPressed() {
         result = "0";
         isCommaPressed = false;
+        clearHistory();
         cePressed();
     }
 
@@ -278,7 +288,7 @@ public class MainController implements Initializable {
             if (buffer.endsWith(".")) {
                 isCommaPressed = false;
             }
-            if (!buffer.equals("")) {
+            if (!buffer.equals("") && buffer.length() != 1) {
                 buffer = buffer.substring(0, buffer.length() - 1);
             } else {
                 buffer = "0";
@@ -430,7 +440,7 @@ public class MainController implements Initializable {
             buffer = "0";
             isTypingNew = false;
         }
-        if (mainLabel.getText().length() < 21) {
+        if (((countDigitsBeforeDecimalPoint(buffer) + countDigitsAfterDecimalPoint(buffer)) < 16) || s.equals(".")) {
             if (buffer.equals("0")) {
                 buffer = s;
             } else {
@@ -442,6 +452,7 @@ public class MainController implements Initializable {
     }
 
     private void setMainLabelText(String text) {
+        displayedInMainLabel = text;
         BigDecimal val = new BigDecimal(text);
         if (text.contains(".")) {
             text = removeZeros(text);
@@ -458,9 +469,13 @@ public class MainController implements Initializable {
 
         int minDigits = 0;
         int maxDigits = MAX_DIGITS_IN_NUMBER - 1;
-
+        if(countDigitsBeforeDecimalPoint(text) < 17){
+            pattern = DEFAULT_PATTERN;
+        }
         if (countDigitsAfterDecimalPoint(text) > 15) {
             pattern = "0.###############E0;-0.###############E0";
+        } else if (text.endsWith(".")) {
+            pattern = "#,###.";
         }
         countDigitsBeforeDecimalPoint(val.toString());
 
@@ -504,6 +519,9 @@ public class MainController implements Initializable {
     private void updateHistory() {
         String history = result + lastBinary.sign;
         historyLabel.setText(history);
+    }
+    private void clearHistory(){
+        historyLabel.setText("");
     }
 
     private int countDigitsBeforeDecimalPoint(String number) {

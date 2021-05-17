@@ -6,7 +6,7 @@ import java.math.MathContext;
 public class MainModel {
     private BigDecimal memoryValue = BigDecimal.ZERO;
 
-    public BigDecimal calculate(BigDecimal firstValue, BigDecimal secondValue, BinaryOperations operation) {
+    public BigDecimal calculate(BigDecimal firstValue, BigDecimal secondValue, BinaryOperations operation) throws ArithmeticException {
         BigDecimal result;
         switch (operation) {
             case PLUS:
@@ -26,7 +26,7 @@ public class MainModel {
         }
         return result;
     }
-    public BigDecimal calculate(BigDecimal firstValue, UnaryOperations operation) {
+    public BigDecimal calculate(BigDecimal firstValue, UnaryOperations operation) throws ArithmeticException {
         BigDecimal result;
         switch (operation) {
             case SQUARE:
@@ -51,7 +51,7 @@ public class MainModel {
         return firstValue.negate();
     }
 
-    private BigDecimal oneDividedX(BigDecimal firstValue) {
+    private BigDecimal oneDividedX(BigDecimal firstValue) throws ArithmeticException {
         return divide(BigDecimal.ONE, firstValue);
     }
 
@@ -75,11 +75,14 @@ public class MainModel {
         return firstValue.multiply(secondValue, MathContext.DECIMAL128);
     }
 
-    private BigDecimal divide(BigDecimal firstValue, BigDecimal secondValue) {
+    private BigDecimal divide(BigDecimal firstValue, BigDecimal secondValue) throws ArithmeticException{
+        if (secondValue.equals(BigDecimal.ZERO)){
+            throw new ArithmeticException("Деление на ноль невозможно");
+        }
         return firstValue.divide(secondValue, MathContext.DECIMAL128);
     }
 
-    public BigDecimal percent(BigDecimal firstValue, BigDecimal percentValue, BinaryOperations lastOperation) {
+    public BigDecimal percent(BigDecimal firstValue, BigDecimal percentValue, BinaryOperations lastOperation) throws ArithmeticException {
         BigDecimal percentCoef;
         if(lastOperation == BinaryOperations.PLUS || lastOperation == BinaryOperations.MINUS) {
             percentCoef = divide(new BigDecimal("100"), percentValue).multiply(firstValue).round(MathContext.DECIMAL128);
