@@ -1,6 +1,5 @@
 package controllers;
 
-import javafx.css.PseudoClass;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -11,7 +10,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.*;
-import org.w3c.dom.ls.LSOutput;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -20,9 +18,11 @@ import java.math.RoundingMode;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
+    private String history = "";
     private int fontSize = 46;
     public Label historyLabel;
     private String buffer = "0";
@@ -148,7 +148,7 @@ public class MainController implements Initializable {
     public void digitButtonPressed(ActionEvent actionEvent) {
         String source = actionEvent.getSource().toString();
         String digitButton = source.substring(source.length() - 2, source.length() - 1);
-        if(isEqualsPressed){
+        if (isEqualsPressed) {
             cPressed();
         }
         if (digitButton.equals("0")) {
@@ -164,7 +164,7 @@ public class MainController implements Initializable {
     public void commaPressed() {
         if (!isCommaPressed) {
             isCommaPressed = true;
-            if(isEqualsPressed){
+            if (isEqualsPressed) {
                 cPressed();
                 isEqualsPressed = false;
             }
@@ -180,28 +180,28 @@ public class MainController implements Initializable {
     public void plusPressed() {
         sendToCalculate();
         lastBinary = BinaryOperations.PLUS;
-        updateHistory();
+        updateHistory(result + lastBinary.sign);
     }
 
     @FXML
     public void minusPressed() {
         sendToCalculate();
         lastBinary = BinaryOperations.MINUS;
-        updateHistory();
+        updateHistory(result + lastBinary.sign);
     }
 
     @FXML
     public void dividePressed() {
         sendToCalculate();
         lastBinary = BinaryOperations.DIVIDE;
-        updateHistory();
+        updateHistory(result + lastBinary.sign);
     }
 
     @FXML
     public void multiplyPressed() {
         sendToCalculate();
         lastBinary = BinaryOperations.MULTIPLY;
-        updateHistory();
+        updateHistory(result + lastBinary.sign);
     }
 
     private void sendToCalculate() {
@@ -216,13 +216,7 @@ public class MainController implements Initializable {
             }
 
             if (lastBinary != null) {
-                if (buffer.equals("0") && lastBinary == BinaryOperations.DIVIDE) {
-                    setMainLabelText("Деление на ноль невозможно");
-                    return;
-                } else {
-                    result = model.calculate(new BigDecimal(result), new BigDecimal(buffer), lastBinary).toString();
-                }
-
+                result = model.calculate(new BigDecimal(result), new BigDecimal(buffer), lastBinary).toString();
             } else {
                 result = buffer;
             }
@@ -241,9 +235,11 @@ public class MainController implements Initializable {
         isEqualsPressed = true;
 
         if (lastBinary != null) {
+            updateHistory(result + lastBinary.sign + buffer + " = ");
             result = model.calculate(new BigDecimal(result), new BigDecimal(buffer), lastBinary).toString();
+        } else {
+            result = buffer;
         }
-        updateHistory();
         setMainLabelText(result);
     }
 
@@ -485,7 +481,7 @@ public class MainController implements Initializable {
             pattern = "0.###############E0;-0.###############E0";
         } else if (text.endsWith(".")) {
             pattern = "#,###.;-#,###.";
-        } else if (text.contains(".") && text.endsWith("0")){
+        } else if (text.contains(".") && text.endsWith("0")) {
             pattern = "#,##0.0000;-#,##0.0000";
 
         }
@@ -530,13 +526,14 @@ public class MainController implements Initializable {
         return size;
     }
 
-    private void updateHistory() {
-        String history = result + lastBinary.sign;
-        historyLabel.setText(history);
+    private void updateHistory(String update) {
+        history += update;
+        historyLabel.setText(update);
     }
 
     private void clearHistory() {
-        historyLabel.setText("");
+        history = "";
+        historyLabel.setText(history);
     }
 
     private int countDigitsBeforeDecimalPoint(String number) {
