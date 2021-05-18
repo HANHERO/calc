@@ -1,5 +1,6 @@
 package controllers;
 
+import javafx.css.PseudoClass;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -147,6 +148,9 @@ public class MainController implements Initializable {
     public void digitButtonPressed(ActionEvent actionEvent) {
         String source = actionEvent.getSource().toString();
         String digitButton = source.substring(source.length() - 2, source.length() - 1);
+        if(isEqualsPressed){
+            cPressed();
+        }
         if (digitButton.equals("0")) {
             if (!(new BigDecimal(buffer).equals(BigDecimal.ZERO)) || isCommaPressed) {
                 addToBuffer(digitButton);
@@ -160,6 +164,10 @@ public class MainController implements Initializable {
     public void commaPressed() {
         if (!isCommaPressed) {
             isCommaPressed = true;
+            if(isEqualsPressed){
+                cPressed();
+                isEqualsPressed = false;
+            }
             if (mainLabel.getText().equals("0")) {
                 addToBuffer("0.");
             } else {
@@ -197,6 +205,9 @@ public class MainController implements Initializable {
     }
 
     private void sendToCalculate() {
+        if (buffer.contains(".")) {
+            buffer = removeZeros(buffer);
+        }
         if (!isSignHas) {
             if (isEqualsPressed) {
                 buffer = result;
@@ -205,12 +216,13 @@ public class MainController implements Initializable {
             }
 
             if (lastBinary != null) {
-                try {
+                if (buffer.equals("0") && lastBinary == BinaryOperations.DIVIDE) {
+                    setMainLabelText("Деление на ноль невозможно");
+                    return;
+                } else {
                     result = model.calculate(new BigDecimal(result), new BigDecimal(buffer), lastBinary).toString();
-                } catch (ArithmeticException ex){
-                    setMainLabelText(ex.getMessage());
-                    System.out.println("Вы ввели ноль в качестве делителя");
                 }
+
             } else {
                 result = buffer;
             }
@@ -223,7 +235,7 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    public void equalsPressed() throws ArithmeticException {
+    public void equalsPressed() {
         isCommaPressed = false;
         isTypingNew = true;
         isEqualsPressed = true;
@@ -236,8 +248,7 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    public void oneDividedXPressed() throws ArithmeticException {
-        System.out.println(displayedInMainLabel);
+    public void oneDividedXPressed() {
         buffer = model.calculate(new BigDecimal(displayedInMainLabel), UnaryOperations.ONE_DIVIDED_X).toString();
         lastUnary = UnaryOperations.ONE_DIVIDED_X;
         setMainLabelText(buffer);
@@ -245,7 +256,7 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    public void squarePressed() throws ArithmeticException {
+    public void squarePressed() {
         buffer = model.calculate(new BigDecimal(displayedInMainLabel), UnaryOperations.SQUARE).toString();
         lastUnary = UnaryOperations.SQUARE;
         isTypingNew = true;
@@ -253,7 +264,7 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    public void radicalPressed() throws ArithmeticException {
+    public void radicalPressed() {
         buffer = model.calculate(new BigDecimal(displayedInMainLabel), UnaryOperations.SQRT).toString();
         lastUnary = UnaryOperations.SQRT;
         isTypingNew = true;
@@ -268,7 +279,7 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    public void percentPressed() throws ArithmeticException {
+    public void percentPressed() {
         result = model.percent(new BigDecimal(result), new BigDecimal(buffer), lastBinary).toString();
         isTypingNew = true;
         setMainLabelText(result);
@@ -278,6 +289,7 @@ public class MainController implements Initializable {
     public void cPressed() {
         result = "0";
         isCommaPressed = false;
+        isEqualsPressed = false;
         clearHistory();
         cePressed();
     }
@@ -454,9 +466,6 @@ public class MainController implements Initializable {
     private void setMainLabelText(String text) {
         displayedInMainLabel = text;
         BigDecimal val = new BigDecimal(text);
-        if (text.contains(".")) {
-            text = removeZeros(text);
-        }
         if (val.compareTo(MAX_NUMBER) > 0 || (val.compareTo(MIN_NUMBER) < 0 && val.compareTo(BigDecimal.ZERO) > 0)) {
             mainLabel.setFont(new javafx.scene.text.Font("Segoe UI Semibold", 43));
             mainLabel.setText("Переполнение");
@@ -469,13 +478,19 @@ public class MainController implements Initializable {
 
         int minDigits = 0;
         int maxDigits = MAX_DIGITS_IN_NUMBER - 1;
-        if(countDigitsBeforeDecimalPoint(text) < 17){
+        if (countDigitsBeforeDecimalPoint(text) < 17) {
             pattern = DEFAULT_PATTERN;
         }
         if (countDigitsAfterDecimalPoint(text) > 15) {
             pattern = "0.###############E0;-0.###############E0";
         } else if (text.endsWith(".")) {
-            pattern = "#,###.";
+            pattern = "#,###.;-#,###.";
+        } else if (text.contains(".") && text.endsWith("0")){
+            pattern = "#,##0.0000;-#,##0.0000";
+
+        }
+        if (lastUnary == UnaryOperations.SQRT) {
+            pattern = "0.###############;-0.###############";
         }
         countDigitsBeforeDecimalPoint(val.toString());
 
@@ -486,16 +501,15 @@ public class MainController implements Initializable {
         if (val.compareTo(BigDecimal.ONE) > 0) {
             symbols.setExponentSeparator("e+");
         }
+
+
         format.setDecimalFormatSymbols(symbols);
         format.setRoundingMode(RoundingMode.CEILING);
         format.applyPattern(pattern);
-
         format.setMinimumFractionDigits(minDigits);
         format.setMaximumFractionDigits(maxDigits);
         mainLabel.setText(format.format(val));
-
         fontSize = resizeMainLabelFont(fontSize);
-
         mainLabel.setFont(new javafx.scene.text.Font("Segoe UI Semibold", fontSize));
     }
 
@@ -520,7 +534,8 @@ public class MainController implements Initializable {
         String history = result + lastBinary.sign;
         historyLabel.setText(history);
     }
-    private void clearHistory(){
+
+    private void clearHistory() {
         historyLabel.setText("");
     }
 
@@ -550,7 +565,7 @@ public class MainController implements Initializable {
 
     private String removeZeros(String number) {
         String noZero = number;
-        while (noZero.endsWith("0")) {
+        while (noZero.endsWith("0") || noZero.endsWith(".")) {
             noZero = noZero.substring(0, noZero.length() - 1);
         }
         return noZero;

@@ -1,10 +1,10 @@
 package model;
 
-public enum BinaryOperations implements Operation{
-    PLUS(" + "),
-    MINUS(" - "),
-    MULTIPLY(" × "),
-    DIVIDE(" ÷ ");
+public enum BinaryOperations{
+    PLUS("+"),
+    MINUS("-"),
+    MULTIPLY("×"),
+    DIVIDE("÷");
 
     public String sign;
     BinaryOperations(String sign){
