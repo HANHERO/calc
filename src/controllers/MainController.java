@@ -149,6 +149,7 @@ public class MainController implements Initializable {
         String source = actionEvent.getSource().toString();
         String digitButton = source.substring(source.length() - 2, source.length() - 1);
         if (isEqualsPressed) {
+            System.out.println("зашло");
             cPressed();
         }
         if (digitButton.equals("0")) {
@@ -205,6 +206,7 @@ public class MainController implements Initializable {
     }
 
     private void sendToCalculate() {
+        isEqualsPressed = false;
         if (buffer.contains(".")) {
             buffer = removeZeros(buffer);
         }
@@ -212,7 +214,6 @@ public class MainController implements Initializable {
             if (isEqualsPressed) {
                 buffer = result;
                 lastBinary = null;
-                isEqualsPressed = false;
             }
 
             if (lastBinary != null) {
@@ -286,6 +287,8 @@ public class MainController implements Initializable {
         result = "0";
         isCommaPressed = false;
         isEqualsPressed = false;
+        lastBinary = null;
+        lastUnary = null;
         clearHistory();
         cePressed();
     }
