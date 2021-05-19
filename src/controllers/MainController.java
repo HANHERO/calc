@@ -18,9 +18,11 @@ import java.math.RoundingMode;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
+    private ArrayList<Object> historyList = new ArrayList<>();
     private String history = "";
     private int fontSize = 46;
     public Label historyLabel;
@@ -41,6 +43,7 @@ public class MainController implements Initializable {
     private static final String DEFAULT_PATTERN = "#,##0.###;-#,##0.###";
     private static final BigDecimal MAX_NUMBER = new BigDecimal("1E+10000");
     private static final BigDecimal MIN_NUMBER = new BigDecimal("1E-10000");
+    private String numberBeforeUnaryOperation = "";
 
 
     @FXML
@@ -179,32 +182,37 @@ public class MainController implements Initializable {
     public void plusPressed() {
         sendToCalculate();
         lastBinary = BinaryOperations.PLUS;
-        updateHistory(result + lastBinary.sign);
+        sendToHistory("");
+        showHistory();
     }
 
     @FXML
     public void minusPressed() {
         sendToCalculate();
         lastBinary = BinaryOperations.MINUS;
-        updateHistory(result + lastBinary.sign);
+        sendToHistory("");
+        showHistory();
     }
 
     @FXML
     public void dividePressed() {
         sendToCalculate();
         lastBinary = BinaryOperations.DIVIDE;
-        updateHistory(result + lastBinary.sign);
+        sendToHistory("");
+        showHistory();
     }
 
     @FXML
     public void multiplyPressed() {
         sendToCalculate();
         lastBinary = BinaryOperations.MULTIPLY;
-        updateHistory(result + lastBinary.sign);
+        sendToHistory("");
+        showHistory();
     }
 
     private void sendToCalculate() {
         isEqualsPressed = false;
+        numberBeforeUnaryOperation = "";
         if (buffer.contains(".")) {
             buffer = removeZeros(buffer);
         }
@@ -213,15 +221,18 @@ public class MainController implements Initializable {
                 buffer = result;
                 lastBinary = null;
             }
-
             if (lastBinary != null) {
                 result = model.calculate(new BigDecimal(result), new BigDecimal(buffer), lastBinary).toString();
             } else {
                 result = buffer;
             }
-
             isTypingNew = true;
             isCommaPressed = false;
+            if(lastUnary == null){
+                historyList = new ArrayList<>();
+                changeToHistoryFormat(result);
+            }
+            lastUnary = null;
             setMainLabelText(result);
         }
         isSignHas = true;
@@ -234,7 +245,7 @@ public class MainController implements Initializable {
         isEqualsPressed = true;
 
         if (lastBinary != null) {
-            updateHistory(result + lastBinary.sign + buffer + " = ");
+            changeToHistoryFormat(result);
             result = model.calculate(new BigDecimal(result), new BigDecimal(buffer), lastBinary).toString();
         } else {
             result = buffer;
@@ -244,26 +255,82 @@ public class MainController implements Initializable {
 
     @FXML
     public void oneDividedXPressed() {
+        if (numberBeforeUnaryOperation.equals("")) {
+            numberBeforeUnaryOperation = buffer;
+        }
         buffer = model.calculate(new BigDecimal(displayedInMainLabel), UnaryOperations.ONE_DIVIDED_X).toString();
         lastUnary = UnaryOperations.ONE_DIVIDED_X;
         setMainLabelText(buffer);
         isTypingNew = true;
+        changeToHistoryFormat(numberBeforeUnaryOperation);
+        showHistory();
     }
+
 
     @FXML
     public void squarePressed() {
+        if (numberBeforeUnaryOperation.equals("")) {
+            numberBeforeUnaryOperation = buffer;
+        }
         buffer = model.calculate(new BigDecimal(displayedInMainLabel), UnaryOperations.SQUARE).toString();
         lastUnary = UnaryOperations.SQUARE;
         isTypingNew = true;
         setMainLabelText(buffer);
+        changeToHistoryFormat(numberBeforeUnaryOperation);
+        showHistory();
     }
 
     @FXML
     public void radicalPressed() {
+        if (numberBeforeUnaryOperation.equals("")) {
+            numberBeforeUnaryOperation = buffer;
+        }
         buffer = model.calculate(new BigDecimal(displayedInMainLabel), UnaryOperations.SQRT).toString();
         lastUnary = UnaryOperations.SQRT;
         isTypingNew = true;
         setMainLabelText(buffer);
+        changeToHistoryFormat(numberBeforeUnaryOperation);
+        showHistory();
+    }
+    private void changeToHistoryFormat(String historyForm) {
+        if (lastUnary != null) {
+            numberBeforeUnaryOperation = lastUnary.sign + "( " + historyForm + " )";
+        } else {
+            numberBeforeUnaryOperation = historyForm;
+        }
+        sendToHistory(numberBeforeUnaryOperation);
+    }
+
+    private void sendToHistory(String numberBeforeUnaryOperation) {
+        if (historyList.isEmpty()) {
+            historyList.add(0, numberBeforeUnaryOperation);
+        } else if (historyList.size() == 1 && !isSignHas) {
+            historyList.remove(0);
+            historyList.add(0, this.numberBeforeUnaryOperation);
+        } else if (historyList.size() == 1) {
+            historyList.add(1, lastBinary);
+        } else if (historyList.size() == 2 && isSignHas) {
+            historyList.remove(1);
+            historyList.add(1, lastBinary);
+        } else if (historyList.size() == 2){
+            historyList.add(2, numberBeforeUnaryOperation);
+        } else if (historyList.size() == 3 && !isSignHas){
+            historyList.remove(2);
+            historyList.add(2, numberBeforeUnaryOperation);
+        } /*else if (historyList. )*/
+    }
+
+    private void showHistory() {
+        int historySize = historyList.size();
+        if (historySize == 1) {
+            historyLabel.setText((String) historyList.get(0));
+        } else if (historySize == 2) {
+            historyLabel.setText(historyList.get(0) + ((BinaryOperations) historyList.get(1)).sign);
+        } else if (historySize == 3) {
+            historyLabel.setText(historyList.get(0) + ((BinaryOperations) historyList.get(1)).sign + historyList.get(2));
+        } else if (historySize == 3 && isEqualsPressed) {
+            historyLabel.setText(historyList.get(0) + ((BinaryOperations) historyList.get(1)).sign + historyList.get(2) + " = ");
+        }
     }
 
     @FXML
@@ -527,10 +594,6 @@ public class MainController implements Initializable {
         return size;
     }
 
-    private void updateHistory(String update) {
-        history += update;
-        historyLabel.setText(update);
-    }
 
     private void clearHistory() {
         history = "";
