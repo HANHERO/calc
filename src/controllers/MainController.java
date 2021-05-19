@@ -22,11 +22,11 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
-    private ArrayList<Object> historyList = new ArrayList<>();
-    private String history = "";
+    private ArrayList<Object> history = new ArrayList<>();
     private int fontSize = 46;
     public Label historyLabel;
     private String buffer = "0";
+    private boolean isNewHistoryForNext = false;
     private BinaryOperations lastBinary;
     private UnaryOperations lastUnary;
     private boolean isEqualsPressed = false;
@@ -43,7 +43,7 @@ public class MainController implements Initializable {
     private static final String DEFAULT_PATTERN = "#,##0.###;-#,##0.###";
     private static final BigDecimal MAX_NUMBER = new BigDecimal("1E+10000");
     private static final BigDecimal MIN_NUMBER = new BigDecimal("1E-10000");
-    private String numberBeforeUnaryOperation = "";
+    private String unaryExpression = "";
 
 
     @FXML
@@ -182,7 +182,7 @@ public class MainController implements Initializable {
     public void plusPressed() {
         sendToCalculate();
         lastBinary = BinaryOperations.PLUS;
-        sendToHistory("");
+        addToHistory("");
         showHistory();
     }
 
@@ -190,7 +190,7 @@ public class MainController implements Initializable {
     public void minusPressed() {
         sendToCalculate();
         lastBinary = BinaryOperations.MINUS;
-        sendToHistory("");
+        addToHistory("");
         showHistory();
     }
 
@@ -198,7 +198,7 @@ public class MainController implements Initializable {
     public void dividePressed() {
         sendToCalculate();
         lastBinary = BinaryOperations.DIVIDE;
-        sendToHistory("");
+        addToHistory("");
         showHistory();
     }
 
@@ -206,13 +206,16 @@ public class MainController implements Initializable {
     public void multiplyPressed() {
         sendToCalculate();
         lastBinary = BinaryOperations.MULTIPLY;
-        sendToHistory("");
+        addToHistory("");
         showHistory();
     }
 
     private void sendToCalculate() {
+        if (unaryExpression.equals("")) {
+            addToHistory(buffer);
+        }
+        unaryExpression = "";
         isEqualsPressed = false;
-        numberBeforeUnaryOperation = "";
         if (buffer.contains(".")) {
             buffer = removeZeros(buffer);
         }
@@ -226,14 +229,17 @@ public class MainController implements Initializable {
             } else {
                 result = buffer;
             }
+            if (isNewHistoryForNext) {
+                clearHistory();
+                addToHistory(result);
+            }
             isTypingNew = true;
             isCommaPressed = false;
-            if(lastUnary == null){
-                historyList = new ArrayList<>();
-                changeToHistoryFormat(result);
-            }
             lastUnary = null;
             setMainLabelText(result);
+            if (lastUnary == null) {
+                isNewHistoryForNext = true;
+            }
         }
         isSignHas = true;
     }
@@ -243,94 +249,131 @@ public class MainController implements Initializable {
         isCommaPressed = false;
         isTypingNew = true;
         isEqualsPressed = true;
+        isNewHistoryForNext = true;
+        if (unaryExpression.equals("")) {
+            addToHistory(buffer);
+        }
+        showHistory();
+
 
         if (lastBinary != null) {
-            changeToHistoryFormat(result);
             result = model.calculate(new BigDecimal(result), new BigDecimal(buffer), lastBinary).toString();
         } else {
             result = buffer;
+        }
+        if (history.size() == 1) {
+            history.set(0, result);
+        } else if (history.size() == 3) {
+            history.set(0, result);
+            history.set(2, buffer);
         }
         setMainLabelText(result);
     }
 
     @FXML
     public void oneDividedXPressed() {
-        if (numberBeforeUnaryOperation.equals("")) {
-            numberBeforeUnaryOperation = buffer;
+        if (isNewHistoryForNext) {
+            System.out.println("pfikj");
+            clearHistory();
+            unaryExpression = result;
+            isNewHistoryForNext = false;
+        } else if (unaryExpression.equals("")) {
+            unaryExpression = buffer;
         }
         buffer = model.calculate(new BigDecimal(displayedInMainLabel), UnaryOperations.ONE_DIVIDED_X).toString();
         lastUnary = UnaryOperations.ONE_DIVIDED_X;
+        createUnaryExpression();
         setMainLabelText(buffer);
         isTypingNew = true;
-        changeToHistoryFormat(numberBeforeUnaryOperation);
         showHistory();
     }
 
 
     @FXML
     public void squarePressed() {
-        if (numberBeforeUnaryOperation.equals("")) {
-            numberBeforeUnaryOperation = buffer;
+        if (isNewHistoryForNext) {
+            clearHistory();
+            unaryExpression = result;
+            isNewHistoryForNext = false;
+        } else if (unaryExpression.equals("")) {
+            unaryExpression = buffer;
         }
+
         buffer = model.calculate(new BigDecimal(displayedInMainLabel), UnaryOperations.SQUARE).toString();
         lastUnary = UnaryOperations.SQUARE;
+        createUnaryExpression();
         isTypingNew = true;
         setMainLabelText(buffer);
-        changeToHistoryFormat(numberBeforeUnaryOperation);
         showHistory();
     }
 
     @FXML
     public void radicalPressed() {
-        if (numberBeforeUnaryOperation.equals("")) {
-            numberBeforeUnaryOperation = buffer;
+        if (isNewHistoryForNext) {
+            clearHistory();
+            unaryExpression = result;
+            isNewHistoryForNext = false;
+        } else if (unaryExpression.equals("")) {
+            unaryExpression = buffer;
         }
         buffer = model.calculate(new BigDecimal(displayedInMainLabel), UnaryOperations.SQRT).toString();
         lastUnary = UnaryOperations.SQRT;
+        createUnaryExpression();
         isTypingNew = true;
         setMainLabelText(buffer);
-        changeToHistoryFormat(numberBeforeUnaryOperation);
         showHistory();
     }
-    private void changeToHistoryFormat(String historyForm) {
-        if (lastUnary != null) {
-            numberBeforeUnaryOperation = lastUnary.sign + "( " + historyForm + " )";
-        } else {
-            numberBeforeUnaryOperation = historyForm;
-        }
-        sendToHistory(numberBeforeUnaryOperation);
+
+    private void createUnaryExpression() {
+        unaryExpression = lastUnary.sign + "( " + unaryExpression + " )";
+        addToHistory(unaryExpression);
+
     }
 
-    private void sendToHistory(String numberBeforeUnaryOperation) {
-        if (historyList.isEmpty()) {
-            historyList.add(0, numberBeforeUnaryOperation);
-        } else if (historyList.size() == 1 && !isSignHas) {
-            historyList.remove(0);
-            historyList.add(0, this.numberBeforeUnaryOperation);
-        } else if (historyList.size() == 1) {
-            historyList.add(1, lastBinary);
-        } else if (historyList.size() == 2 && isSignHas) {
-            historyList.remove(1);
-            historyList.add(1, lastBinary);
-        } else if (historyList.size() == 2){
-            historyList.add(2, numberBeforeUnaryOperation);
-        } else if (historyList.size() == 3 && !isSignHas){
-            historyList.remove(2);
-            historyList.add(2, numberBeforeUnaryOperation);
-        } /*else if (historyList. )*/
+    private void addToHistory(String expression) {
+        int historySize = history.size();
+        if (history.isEmpty()) {
+            history.add(0, expression);
+        } else if (historySize == 1 && !isSignHas) {
+            history.set(0, expression);
+        }
+        if (historySize == 1 && isSignHas) {
+            history.add(lastBinary);
+        } else if (historySize == 2 && isSignHas) {
+            history.set(1, lastBinary);
+        }
+        if (lastUnary != null) {
+            if (historySize == 2) {
+                history.add(2, expression);
+            } else if (historySize == 3) {
+                history.set(2, expression);
+            }
+        } else if (isEqualsPressed) {
+            if (historySize == 2) {
+                history.add(2, expression);
+            }
+        }
     }
 
     private void showHistory() {
-        int historySize = historyList.size();
-        if (historySize == 1) {
-            historyLabel.setText((String) historyList.get(0));
-        } else if (historySize == 2) {
-            historyLabel.setText(historyList.get(0) + ((BinaryOperations) historyList.get(1)).sign);
+        int historySize = history.size();
+        if (historySize == 3 && isEqualsPressed) {
+            historyLabel.setText(history.get(0) + ((BinaryOperations) history.get(1)).sign + history.get(2) + " = ");
         } else if (historySize == 3) {
-            historyLabel.setText(historyList.get(0) + ((BinaryOperations) historyList.get(1)).sign + historyList.get(2));
-        } else if (historySize == 3 && isEqualsPressed) {
-            historyLabel.setText(historyList.get(0) + ((BinaryOperations) historyList.get(1)).sign + historyList.get(2) + " = ");
+            historyLabel.setText(history.get(0) + ((BinaryOperations) history.get(1)).sign + history.get(2));
+        } else if (historySize == 2) {
+            historyLabel.setText(history.get(0) + ((BinaryOperations) history.get(1)).sign);
+        } else if (historySize == 1 && isEqualsPressed) {
+            historyLabel.setText(history.get(0) + " = ");
+        } else if (historySize == 1) {
+            historyLabel.setText((String) history.get(0));
         }
+    }
+
+    private void clearHistory() {
+        history.clear();
+        unaryExpression = "";
+        historyLabel.setText("");
     }
 
     @FXML
@@ -592,12 +635,6 @@ public class MainController implements Initializable {
             fm = img.getGraphics().getFontMetrics(new Font("Segoe UI Semibold", Font.PLAIN, --size));
         }
         return size;
-    }
-
-
-    private void clearHistory() {
-        history = "";
-        historyLabel.setText(history);
     }
 
     private int countDigitsBeforeDecimalPoint(String number) {
