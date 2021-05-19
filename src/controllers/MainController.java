@@ -148,7 +148,6 @@ public class MainController implements Initializable {
         String source = actionEvent.getSource().toString();
         String digitButton = source.substring(source.length() - 2, source.length() - 1);
         if (isEqualsPressed) {
-            System.out.println("зашло");
             cPressed();
         }
         if (digitButton.equals("0")) {
