@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 public class Clicker {
     private final Robot bot = new Robot();
-    private final HashMap<String, String> mapOfKeysCoordinates= new HashMap<String, String>();
+    private final HashMap<String, String> mapOfKeysCoordinates= new HashMap<>();
     public Clicker() throws AWTException {
         fillTheMapOfKeysCoordinates();
     }
@@ -54,17 +54,16 @@ public class Clicker {
         int coordinateX = Integer.parseInt(coordinates[0]);
         int coordinateY = Integer.parseInt(coordinates[1]);
         bot.mouseMove(coordinateX, coordinateY);
-        bot.delay(100);
+        bot.delay(50);
         bot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+        bot.delay(50);
         bot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
     }
 
     public void clickNumber(int number) {
         String stringNumber = number + "";
         for (int i = 0; i < stringNumber.length(); i++) {
-            System.out.println(stringNumber.substring(i, i + 1));
             click(stringNumber.substring(i, i + 1));
         }
-
     }
 }

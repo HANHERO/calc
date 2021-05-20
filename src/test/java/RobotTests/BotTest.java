@@ -17,11 +17,12 @@ public class BotTest {
     }
     @BeforeClass
     public static void setUps(){
-        Main.main(null);
+        new Thread(() -> Main.main(null)).start();
     }
 
     @Test
-    public void testTest(){
+    public void testTest() throws InterruptedException {
+        Thread.sleep(3000);
         clicker.clickNumber(152);
         clicker.click("plus");
         clicker.clickNumber(165);
@@ -32,7 +33,7 @@ public class BotTest {
         clicker.click("equals");
         clicker.clickNumber(3423);
         clicker.click("divide");
-        clicker.click("sqrt");
+        clicker.click("square");
         clicker.click("plus");
         clicker.clickNumber(754);
         clicker.click("equals");
