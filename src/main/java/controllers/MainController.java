@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
-    private ArrayList<Object> history = new ArrayList<>();
+    private final ArrayList<Object> history = new ArrayList<>();
     private int fontSize = 46;
     public Label historyLabel;
     private String buffer = "0";
@@ -273,7 +273,6 @@ public class MainController implements Initializable {
     @FXML
     public void oneDividedXPressed() {
         if (isNewHistoryForNext) {
-            System.out.println("pfikj");
             clearHistory();
             unaryExpression = result;
             isNewHistoryForNext = false;
