@@ -7,45 +7,21 @@ public class MainModel {
     private BigDecimal memoryValue = BigDecimal.ZERO;
 
     public BigDecimal calculate(BigDecimal firstValue, BigDecimal secondValue, BinaryOperations operation) {
-        BigDecimal result;
-        switch (operation) {
-            case PLUS:
-                result = plus(firstValue, secondValue);
-                break;
-            case MINUS:
-                result = minus(firstValue, secondValue);
-                break;
-            case DIVIDE:
-                result = divide(firstValue, secondValue);
-                break;
-            case MULTIPLY:
-                result = multiply(firstValue, secondValue);
-                break;
-            default:
-                throw new IllegalArgumentException("Operation does not exist " + operation);
-        }
-        return result;
+        return switch (operation) {
+            case PLUS -> plus(firstValue, secondValue);
+            case MINUS -> minus(firstValue, secondValue);
+            case DIVIDE -> divide(firstValue, secondValue);
+            case MULTIPLY -> multiply(firstValue, secondValue);
+        };
     }
 
     public BigDecimal calculate(BigDecimal firstValue, UnaryOperations operation) {
-        BigDecimal result;
-        switch (operation) {
-            case SQUARE:
-                result = square(firstValue);
-                break;
-            case SQRT:
-                result = sqrt(firstValue);
-                break;
-            case ONE_DIVIDED_X:
-                result = oneDividedX(firstValue);
-                break;
-            case NEGATIVE:
-                result = negative(firstValue);
-                break;
-            default:
-                throw new IllegalArgumentException("Operation does not exist " + operation);
-        }
-        return result;
+        return switch (operation) {
+            case SQUARE -> square(firstValue);
+            case SQRT -> sqrt(firstValue);
+            case ONE_DIVIDED_X -> oneDividedX(firstValue);
+            case NEGATIVE -> negative(firstValue);
+        };
     }
 
     private BigDecimal negative(BigDecimal firstValue) {

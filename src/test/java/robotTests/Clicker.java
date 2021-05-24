@@ -1,4 +1,4 @@
-package RobotTests;
+package robotTests;
 
 import java.awt.*;
 import java.awt.event.InputEvent;

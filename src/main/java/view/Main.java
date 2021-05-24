@@ -12,7 +12,7 @@ import javafx.stage.StageStyle;
 public class Main extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view.fxml"));
         Parent root = loader.load();
         primaryStage.setTitle("Калькулятор");
@@ -20,10 +20,8 @@ public class Main extends Application {
         primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.setResizable(false);
         primaryStage.getIcons().add(new Image("buttons/icon.png"));
-
         MainController controller = loader.getController();
         controller.initialize(primaryStage);
-
         primaryStage.show();
     }
 

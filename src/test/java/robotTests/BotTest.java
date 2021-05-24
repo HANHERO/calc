@@ -1,13 +1,14 @@
-package RobotTests;
+package robotTests;
+
 
 import org.junit.BeforeClass;
 import org.junit.Test;
-import view.Main;
 
 import java.awt.*;
 
 public class BotTest {
     Clicker clicker;
+
     {
         try {
             clicker = new Clicker();
@@ -15,9 +16,10 @@ public class BotTest {
             e.printStackTrace();
         }
     }
+
     @BeforeClass
-    public static void setUps(){
-        new Thread(() -> Main.main(null)).start();
+    public static void setUps() {
+       // new Thread(() -> Main.main(new String[]{})).start();
     }
 
     @Test

@@ -47,69 +47,69 @@ public class MainController implements Initializable {
 
 
     @FXML
-    private Label mainLabel;
+    public Label mainLabel;
     @FXML
-    private Button plusMinus;
+    public Button plusMinus;
     @FXML
-    private Button zero;
+    public Button zero;
     @FXML
-    private Button comma;
+    public Button comma;
     @FXML
-    private Button equals;
+    public Button equals;
     @FXML
-    private Button one;
+    public Button one;
     @FXML
-    private Button two;
+    public Button two;
     @FXML
-    private Button three;
+    public Button three;
     @FXML
-    private Button plus;
+    public Button plus;
     @FXML
-    private Button four;
+    public Button four;
     @FXML
-    private Button seven;
+    public Button seven;
     @FXML
-    private Button eight;
+    public Button eight;
     @FXML
-    private Button minus;
+    public Button minus;
     @FXML
-    private Button six;
+    public Button six;
     @FXML
-    private Button five;
+    public Button five;
     @FXML
-    private Button oneDividedX;
+    public Button oneDividedX;
     @FXML
-    private Button multiply;
+    public Button multiply;
     @FXML
-    private Button nine;
+    public Button nine;
     @FXML
-    private Button square;
+    public Button square;
     @FXML
-    private Button sqrt;
+    public Button sqrt;
     @FXML
-    private Button divide;
+    public Button divide;
     @FXML
-    private Button ce;
+    public Button ce;
     @FXML
-    private Button percent;
+    public Button percent;
     @FXML
-    private Button c;
+    public Button c;
     @FXML
-    private Button del;
+    public Button del;
     @FXML
-    private Button mc;
+    public Button mc;
     @FXML
-    private Button mr;
+    public Button mr;
     @FXML
-    private Button mPlus;
+    public Button mPlus;
     @FXML
-    private Button mMinus;
+    public Button mMinus;
     @FXML
-    private Button ms;
+    public Button ms;
     @FXML
-    private Button mOption;
+    public Button mOption;
     @FXML
-    private AnchorPane menu;
+    public AnchorPane menu;
 
     private Stage stage;
     MainModel model = new MainModel();
@@ -117,7 +117,7 @@ public class MainController implements Initializable {
     double x, y;
 
     @FXML
-    void dragged(MouseEvent event) {
+    public void dragged(MouseEvent event) {
         if (stage.getScene().getCursor() != Cursor.N_RESIZE) {
             stage.setX(event.getScreenX() + x);
             stage.setY(event.getScreenY() + y);
@@ -125,18 +125,18 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    void pressed(MouseEvent event) {
+    public void pressed(MouseEvent event) {
         x = stage.getX() - event.getScreenX();
         y = stage.getY() - event.getScreenY();
     }
 
     @FXML
-    void minimize() {
+    public void minimize() {
         stage.setIconified(true);
     }
 
     @FXML
-    void close() {
+    public void close() {
         stage.close();
     }
 
@@ -463,73 +463,25 @@ public class MainController implements Initializable {
         format.setGroupingUsed(true);
         this.stage.getScene().setOnKeyPressed(keyEvent -> {
             switch (keyEvent.getCode()) {
-                case NUMPAD0:
-                case DIGIT0:
-                    zero.fire();
-                    break;
-                case NUMPAD1:
-                case DIGIT1:
-                    one.fire();
-                    break;
-                case NUMPAD2:
-                case DIGIT2:
-                    two.fire();
-                    break;
-                case NUMPAD3:
-                case DIGIT3:
-                    three.fire();
-                    break;
-                case NUMPAD4:
-                case DIGIT4:
-                    four.fire();
-                    break;
-                case NUMPAD5:
-                case DIGIT5:
-                    five.fire();
-                    break;
-                case NUMPAD6:
-                case DIGIT6:
-                    six.fire();
-                    break;
-                case NUMPAD7:
-                case DIGIT7:
-                    seven.fire();
-                    break;
-                case NUMPAD8:
-                case DIGIT8:
-                    eight.fire();
-                    break;
-                case NUMPAD9:
-                case DIGIT9:
-                    nine.fire();
-                    break;
-                case MULTIPLY:
-                    multiply.fire();
-                    break;
-                case ADD:
-                    plus.fire();
-                    break;
-                case SUBTRACT:
-                    minus.fire();
-                    break;
-                case DIVIDE:
-                    divide.fire();
-                    break;
-                case DECIMAL:
-                    comma.fire();
-                    break;
-                case BACK_SPACE:
-                    del.fire();
-                    break;
-                case ENTER:
-                    equals.fire();
-                    break;
-                case ESCAPE:
-                    c.fire();
-                    break;
-                case DELETE:
-                    ce.fire();
-                    break;
+                case NUMPAD0, DIGIT0 -> zero.fire();
+                case NUMPAD1, DIGIT1 -> one.fire();
+                case NUMPAD2, DIGIT2 -> two.fire();
+                case NUMPAD3, DIGIT3 -> three.fire();
+                case NUMPAD4, DIGIT4 -> four.fire();
+                case NUMPAD5, DIGIT5 -> five.fire();
+                case NUMPAD6, DIGIT6 -> six.fire();
+                case NUMPAD7, DIGIT7 -> seven.fire();
+                case NUMPAD8, DIGIT8 -> eight.fire();
+                case NUMPAD9, DIGIT9 -> nine.fire();
+                case MULTIPLY -> multiply.fire();
+                case ADD -> plus.fire();
+                case SUBTRACT -> minus.fire();
+                case DIVIDE -> divide.fire();
+                case DECIMAL -> comma.fire();
+                case BACK_SPACE -> del.fire();
+                case ENTER -> equals.fire();
+                case ESCAPE -> c.fire();
+                case DELETE -> ce.fire();
             }
         });
     }
