@@ -392,6 +392,8 @@ public class MainController implements Initializable {
     @FXML
     public void cPressed() {
         result = "0";
+        unaryExpression = "";
+        isSignHas = false;
         isCommaPressed = false;
         isEqualsPressed = false;
         lastBinary = null;
