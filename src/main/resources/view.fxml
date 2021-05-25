@@ -192,7 +192,7 @@
             <Insets bottom="2.0" left="1.0" right="1.0" top="1.0" />
          </GridPane.margin>
       </Button>
-      <Button fx:id="sqrt" focusTraversable="false" mnemonicParsing="false" onAction="#radicalPressed" onMouseClicked="#clicked" GridPane.columnIndex="2" GridPane.rowIndex="1">
+      <Button fx:id="sqrt" focusTraversable="false" mnemonicParsing="false" onAction="#rootPressed" onMouseClicked="#clicked" GridPane.columnIndex="2" GridPane.rowIndex="1">
          <styleClass>
             <String fx:value="bigButton" />
             <String fx:value="greyButton" />
