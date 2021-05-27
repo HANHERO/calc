@@ -158,8 +158,10 @@ public class MainController implements Initializable {
             isEqualsPressed = false;
         }
         if (digitButton.equals("0")) {
-            if (!(new BigDecimal(buffer).equals(BigDecimal.ZERO)) || isCommaPressed) {
+            if (/*!(new BigDecimal(buffer).equals(BigDecimal.ZERO))*/ !buffer.equals("0") || isCommaPressed) {
                 addToBuffer(digitButton);
+            } else {
+                buffer = "0";
             }
         } else {
             addToBuffer(digitButton);
@@ -176,8 +178,10 @@ public class MainController implements Initializable {
             }
             if (isTypingNew) {
                 addToBuffer("0.");
-            } else {
+            } else if (!buffer.equals("0")) {
                 addToBuffer(".");
+            } else {
+                addToBuffer("0.");
             }
         }
     }
@@ -409,11 +413,7 @@ public class MainController implements Initializable {
             buffer = model.getPercentCoef().toString();
             history.add(buffer);
             showHistory();
-            System.out.println(result);
-            System.out.println(buffer);
             setMainLabelText(buffer);
-        } else {
-            return;
         }
     }
 
