@@ -5,6 +5,11 @@ import java.math.MathContext;
 
 public class MainModel {
     private BigDecimal memoryValue = BigDecimal.ZERO;
+    private BigDecimal percentCoef;
+
+    public BigDecimal getPercentCoef(){
+        return percentCoef;
+    }
 
     public BigDecimal calculate(BigDecimal firstValue, BigDecimal secondValue, BinaryOperations operation) {
         return switch (operation) {
@@ -57,12 +62,12 @@ public class MainModel {
     }
 
     public BigDecimal percent(BigDecimal firstValue, BigDecimal percentValue, BinaryOperations lastOperation) {
-        BigDecimal percentCoef;
         if (lastOperation == BinaryOperations.PLUS || lastOperation == BinaryOperations.MINUS) {
-            percentCoef = divide(new BigDecimal("100"), percentValue).multiply(firstValue).round(MathContext.DECIMAL128);
+            percentCoef = divide(percentValue, new BigDecimal("100")).multiply(firstValue).round(MathContext.DECIMAL128);
             firstValue = calculate(firstValue, percentCoef, lastOperation);
         } else if (lastOperation == BinaryOperations.MULTIPLY || lastOperation == BinaryOperations.DIVIDE) {
-            firstValue = calculate(firstValue, divide(new BigDecimal("100"), percentValue), lastOperation);
+            percentCoef = divide(percentValue, new BigDecimal("100"));
+            firstValue = calculate(firstValue, percentCoef, lastOperation);
         }
         return firstValue;
     }

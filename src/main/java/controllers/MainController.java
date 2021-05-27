@@ -29,9 +29,11 @@ public class MainController implements Initializable {
     private boolean isNewHistoryForNext = false;
     private BinaryOperations lastBinary;
     private UnaryOperations lastUnary;
+    private boolean isPercentLast = false;
     private boolean isEqualsPressed = false;
     private boolean isCommaPressed = false;
-    private boolean isTypingNew = false;
+    private boolean isTypingNew = true;
+    private boolean isTyping = true;
     private boolean isSignHas = false;
     private final DecimalFormat format = new DecimalFormat();
     private final DecimalFormatSymbols symbols = new DecimalFormatSymbols();
@@ -40,7 +42,7 @@ public class MainController implements Initializable {
     private static final char FLOAT_POINT = ',';
     private static final int MAX_DIGITS_IN_NUMBER = 16;
     private static final char BIG_NUMBER_SEPARATOR = ' ';
-    private static final String DEFAULT_PATTERN = "#,##0.###;-#,##0.###";
+    private static final String DEFAULT_PATTERN = "#,##0.#;-#,##0.#";
     private static final BigDecimal MAX_NUMBER = new BigDecimal("1E+10000");
     private static final BigDecimal MIN_NUMBER = new BigDecimal("1E-10000");
     private String unaryExpression = "";
@@ -150,17 +152,10 @@ public class MainController implements Initializable {
     public void digitButtonPressed(ActionEvent actionEvent) {
         String source = actionEvent.getSource().toString();
         String digitButton = source.substring(source.length() - 2, source.length() - 1);
+        isTyping = true;
         if (isEqualsPressed) {
-            //result = "0";
-            unaryExpression = "";
-            isSignHas = false;
-            isCommaPressed = false;
+            cPressed();
             isEqualsPressed = false;
-            //lastBinary = null;
-            lastUnary = null;
-            clearHistory();
-            setDisableAllOperations(false);
-            setMainLabelText(buffer);
         }
         if (digitButton.equals("0")) {
             if (!(new BigDecimal(buffer).equals(BigDecimal.ZERO)) || isCommaPressed) {
@@ -179,7 +174,7 @@ public class MainController implements Initializable {
                 cPressed();
                 isEqualsPressed = false;
             }
-            if (mainLabel.getText().equals("0")) {
+            if (isTypingNew) {
                 addToBuffer("0.");
             } else {
                 addToBuffer(".");
@@ -220,7 +215,7 @@ public class MainController implements Initializable {
     }
 
     private void sendToCalculate() {
-        if(isEqualsPressed){
+        if (isEqualsPressed) {
             lastBinary = null;
             isEqualsPressed = false;
         }
@@ -232,13 +227,16 @@ public class MainController implements Initializable {
                 buffer = result;
                 lastBinary = null;
             }
-            if (lastBinary != null) {
+            if (lastBinary != null && !isPercentLast) {
                 result = model.calculate(new BigDecimal(result), new BigDecimal(buffer), lastBinary).toString();
+            } else if (isPercentLast) {
+                isPercentLast = false;
             } else {
                 result = whatOnScreen;
             }
 
             isTypingNew = true;
+            isTyping = false;
             isCommaPressed = false;
 
             if (unaryExpression.equals("")) {
@@ -257,6 +255,7 @@ public class MainController implements Initializable {
     public void equalsPressed() {
         isCommaPressed = false;
         isTypingNew = true;
+        isTyping = false;
         isEqualsPressed = true;
         isNewHistoryForNext = true;
         if (unaryExpression.equals("")) {
@@ -265,8 +264,10 @@ public class MainController implements Initializable {
         showHistory();
 
 
-        if (lastBinary != null) {
+        if (lastBinary != null && !isPercentLast) {
             result = model.calculate(new BigDecimal(result), new BigDecimal(buffer), lastBinary).toString();
+        } else if (isPercentLast) {
+            isPercentLast = false;
         } else {
             result = buffer;
         }
@@ -285,7 +286,8 @@ public class MainController implements Initializable {
             clearHistory();
             unaryExpression = whatOnScreen;
             isNewHistoryForNext = false;
-        } if (unaryExpression.equals("")) {
+        }
+        if (unaryExpression.equals("")) {
             unaryExpression = buffer;
         }
         buffer = model.calculate(new BigDecimal(whatOnScreen), UnaryOperations.ONE_DIVIDED_X).toString();
@@ -293,6 +295,7 @@ public class MainController implements Initializable {
         createUnaryExpression();
         setMainLabelText(buffer);
         isTypingNew = true;
+        isTyping = false;
         showHistory();
     }
 
@@ -303,7 +306,8 @@ public class MainController implements Initializable {
             clearHistory();
             unaryExpression = whatOnScreen;
             isNewHistoryForNext = false;
-        } if (unaryExpression.equals("")) {
+        }
+        if (unaryExpression.equals("")) {
             unaryExpression = buffer;
         }
 
@@ -311,6 +315,7 @@ public class MainController implements Initializable {
         lastUnary = UnaryOperations.SQUARE;
         createUnaryExpression();
         isTypingNew = true;
+        isTyping = false;
         setMainLabelText(buffer);
         showHistory();
     }
@@ -321,13 +326,15 @@ public class MainController implements Initializable {
             clearHistory();
             unaryExpression = whatOnScreen;
             isNewHistoryForNext = false;
-        } if (unaryExpression.equals("")) {
+        }
+        if (unaryExpression.equals("")) {
             unaryExpression = buffer;
         }
         buffer = model.calculate(new BigDecimal(whatOnScreen), UnaryOperations.SQRT).toString();
         lastUnary = UnaryOperations.SQRT;
         createUnaryExpression();
         isTypingNew = true;
+        isTyping = false;
         setMainLabelText(buffer);
         showHistory();
     }
@@ -388,14 +395,26 @@ public class MainController implements Initializable {
     public void cePressed() {
         setDisableAllOperations(false);
         buffer = "0";
+        isTyping = false;
         setMainLabelText(buffer);
     }
 
     @FXML
     public void percentPressed() {
-        result = model.percent(new BigDecimal(result), new BigDecimal(buffer), lastBinary).toString();
-        isTypingNew = true;
-        setMainLabelText(result);
+        if (!isPercentLast) {
+            isPercentLast = true;
+            result = model.percent(new BigDecimal(result), new BigDecimal(buffer), lastBinary).toString();
+            isTypingNew = true;
+            isTyping = false;
+            buffer = model.getPercentCoef().toString();
+            history.add(buffer);
+            showHistory();
+            System.out.println(result);
+            System.out.println(buffer);
+            setMainLabelText(buffer);
+        } else {
+            return;
+        }
     }
 
     @FXML
@@ -421,6 +440,7 @@ public class MainController implements Initializable {
                 buffer = buffer.substring(0, buffer.length() - 1);
             } else {
                 buffer = "0";
+                isTyping = false;
             }
             setMainLabelText(buffer);
         }
@@ -443,6 +463,7 @@ public class MainController implements Initializable {
         setDisableMemButtons(false);
         model.memoryMinus(new BigDecimal(buffer));
         isTypingNew = true;
+        isTyping = false;
     }
 
     @FXML
@@ -450,6 +471,7 @@ public class MainController implements Initializable {
         setDisableMemButtons(false);
         model.memoryPlus(new BigDecimal(buffer));
         isTypingNew = true;
+        isTyping = false;
     }
 
     @FXML
@@ -457,11 +479,11 @@ public class MainController implements Initializable {
         setDisableMemButtons(false);
         model.setMemoryValue(new BigDecimal(buffer));
         isTypingNew = true;
+        isTyping = false;
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
     }
 
     public void initialize(Stage stage) {
@@ -550,13 +572,12 @@ public class MainController implements Initializable {
         if (countDigitsBeforeDecimalPoint(text) < 17) {
             pattern = DEFAULT_PATTERN;
         }
-        if (countDigitsAfterDecimalPoint(text) > 15) {
+        if (countDigitsAfterDecimalPoint(text) > 16) {
             pattern = "0.###############E0;-0.###############E0";
         } else if (text.endsWith(".")) {
             pattern = "#,###.;-#,###.";
-        } else if (text.contains(".") && text.endsWith("0")) {
-            pattern = "#,##0.0000;-#,##0.0000";
-
+        } else if (text.contains(".") && isTyping) {
+            pattern = "#,###.;-#,###.";
         }
         if (lastUnary == UnaryOperations.SQRT) {
             pattern = "0.###############;-0.###############";
@@ -571,13 +592,18 @@ public class MainController implements Initializable {
             symbols.setExponentSeparator("e+");
         }
 
-
         format.setDecimalFormatSymbols(symbols);
         format.setRoundingMode(RoundingMode.CEILING);
         format.applyPattern(pattern);
         format.setMinimumFractionDigits(minDigits);
         format.setMaximumFractionDigits(maxDigits);
-        mainLabel.setText(format.format(val));
+
+        if (text.contains(".") && isTyping) {
+            int numberOfZeros = calculateZeros(text);
+            mainLabel.setText(format.format(val) + "0".repeat(Math.max(0, numberOfZeros)));
+        } else {
+            mainLabel.setText(format.format(val));
+        }
         fontSize = resizeMainLabelFont(fontSize);
         mainLabel.setFont(new javafx.scene.text.Font("Segoe UI Semibold", fontSize));
     }
@@ -625,10 +651,19 @@ public class MainController implements Initializable {
 
     private String removeZeros(String number) {
         String noZero = number;
-        while (noZero.endsWith("0") || noZero.endsWith(".")) {
+        while ((noZero.endsWith("0") || noZero.endsWith(".")) && number.contains(".")) {
             noZero = noZero.substring(0, noZero.length() - 1);
         }
         return noZero;
+    }
+
+    private int calculateZeros(String number) {
+        int numberOfZeros = 0;
+        while (number.endsWith("0")) {
+            number = number.substring(0, number.length() - 1);
+            numberOfZeros++;
+        }
+        return numberOfZeros;
     }
 
     public void optionOpenOrClose() {
