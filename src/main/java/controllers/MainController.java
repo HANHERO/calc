@@ -158,7 +158,7 @@ public class MainController implements Initializable {
             isEqualsPressed = false;
         }
         if (digitButton.equals("0")) {
-            if (/*!(new BigDecimal(buffer).equals(BigDecimal.ZERO))*/ !buffer.equals("0") || isCommaPressed) {
+            if (!buffer.equals("0") || isCommaPressed) {
                 addToBuffer(digitButton);
             } else {
                 buffer = "0";
@@ -543,15 +543,28 @@ public class MainController implements Initializable {
             buffer = "0";
             isTypingNew = false;
         }
-        if (((countDigitsBeforeDecimalPoint(buffer) + countDigitsAfterDecimalPoint(buffer)) < 16) || s.equals(".")) {
-            if (buffer.equals("0")) {
-                buffer = s;
-            } else {
-                buffer += s;
+        if (new BigDecimal(buffer).compareTo(BigDecimal.ONE) < 0 || new BigDecimal(buffer).compareTo(new BigDecimal("-1")) < 0) {
+            if (((countDigitsBeforeDecimalPoint(buffer) + countDigitsAfterDecimalPoint(buffer)) < 17) || s.equals(".")) {
+                if (buffer.equals("0")) {
+                    buffer = s;
+                } else {
+                    buffer += s;
+                }
+                isSignHas = false;
+                setMainLabelText(buffer);
             }
-            isSignHas = false;
-            setMainLabelText(buffer);
+        } else {
+            if (((countDigitsBeforeDecimalPoint(buffer) + countDigitsAfterDecimalPoint(buffer)) < 16) || s.equals(".")) {
+                if (buffer.equals("0")) {
+                    buffer = s;
+                } else {
+                    buffer += s;
+                }
+                isSignHas = false;
+                setMainLabelText(buffer);
+            }
         }
+
     }
 
     private void setMainLabelText(String text) {
@@ -568,15 +581,13 @@ public class MainController implements Initializable {
         String pattern = DEFAULT_PATTERN;
 
         int minDigits = 0;
-        int maxDigits = MAX_DIGITS_IN_NUMBER - 1;
+        int maxDigits = MAX_DIGITS_IN_NUMBER /*-1*/;
         if (countDigitsBeforeDecimalPoint(text) < 17) {
             pattern = DEFAULT_PATTERN;
         }
         if (countDigitsAfterDecimalPoint(text) > 16) {
             pattern = "0.###############E0;-0.###############E0";
-        } else if (text.endsWith(".")) {
-            pattern = "#,###.;-#,###.";
-        } else if (text.contains(".") && isTyping) {
+        } else if (text.endsWith(".") || (text.contains(".") && isTyping)) {
             pattern = "#,###.;-#,###.";
         }
         if (lastUnary == UnaryOperations.SQRT) {
