@@ -7,7 +7,7 @@ public class MainModel {
     private BigDecimal memoryValue = BigDecimal.ZERO;
     private BigDecimal percentCoef;
 
-    public BigDecimal getPercentCoef(){
+    public BigDecimal getPercentCoef() {
         return percentCoef;
     }
 
@@ -38,7 +38,13 @@ public class MainModel {
     }
 
     private BigDecimal sqrt(BigDecimal firstValue) {
-        return firstValue.sqrt(MathContext.DECIMAL128);
+        BigDecimal sqrtResult;
+        if (firstValue.compareTo(BigDecimal.ZERO) >= 0) {
+            sqrtResult = firstValue.sqrt(MathContext.DECIMAL128);
+        } else {
+            sqrtResult = new BigDecimal("-1");
+        }
+        return sqrtResult;
     }
 
     private BigDecimal square(BigDecimal firstValue) {

@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
+    @FXML
     private final ArrayList<Object> history = new ArrayList<>();
     private int fontSize = 46;
     public Label historyLabel;
@@ -143,12 +144,6 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    public void plusMinusPressed() throws ArithmeticException {
-        buffer = model.calculate(new BigDecimal(buffer), UnaryOperations.NEGATIVE).toString();
-        setMainLabelText(buffer);
-    }
-
-    @FXML
     public void digitButtonPressed(ActionEvent actionEvent) {
         String source = actionEvent.getSource().toString();
         String digitButton = source.substring(source.length() - 2, source.length() - 1);
@@ -191,6 +186,7 @@ public class MainController implements Initializable {
         sendToCalculate();
         lastBinary = BinaryOperations.PLUS;
         addToHistory("");
+        history.set(1, lastBinary);
         showHistory();
     }
 
@@ -199,6 +195,7 @@ public class MainController implements Initializable {
         sendToCalculate();
         lastBinary = BinaryOperations.MINUS;
         addToHistory("");
+        history.set(1, lastBinary);
         showHistory();
     }
 
@@ -207,6 +204,7 @@ public class MainController implements Initializable {
         sendToCalculate();
         lastBinary = BinaryOperations.DIVIDE;
         addToHistory("");
+        history.set(1, lastBinary);
         showHistory();
     }
 
@@ -215,6 +213,7 @@ public class MainController implements Initializable {
         sendToCalculate();
         lastBinary = BinaryOperations.MULTIPLY;
         addToHistory("");
+        history.set(1, lastBinary);
         showHistory();
     }
 
@@ -222,6 +221,7 @@ public class MainController implements Initializable {
         if (isEqualsPressed) {
             lastBinary = null;
             isEqualsPressed = false;
+            buffer = result;
         }
         if (buffer.contains(".")) {
             buffer = removeZeros(buffer);
@@ -237,6 +237,7 @@ public class MainController implements Initializable {
                 isPercentLast = false;
             } else {
                 result = whatOnScreen;
+                buffer = result;
             }
 
             isTypingNew = true;
@@ -245,7 +246,7 @@ public class MainController implements Initializable {
 
             if (unaryExpression.equals("")) {
                 clearHistory();
-                addToHistory(result);
+                addToHistory(formatterForHistory(result));
             } else {
                 unaryExpression = "";
                 lastUnary = null;
@@ -263,7 +264,7 @@ public class MainController implements Initializable {
         isEqualsPressed = true;
         isNewHistoryForNext = true;
         if (unaryExpression.equals("")) {
-            addToHistory(buffer);
+            addToHistory(formatterForHistory(buffer));
         }
         showHistory();
 
@@ -276,23 +277,48 @@ public class MainController implements Initializable {
             result = buffer;
         }
         if (history.size() == 1) {
-            history.set(0, result);
+            history.set(0, formatterForHistory(result));
         } else if (history.size() == 3) {
-            history.set(0, result);
-            history.set(2, buffer);
+            history.set(1, lastBinary);
+            showHistory();
+            history.set(2, formatterForHistory(buffer));
+            history.set(0, formatterForHistory(result));
         }
         setMainLabelText(result);
     }
 
     @FXML
+    public void plusMinusPressed() throws ArithmeticException {
+        buffer = model.calculate(new BigDecimal(buffer), UnaryOperations.NEGATIVE).toString();
+        if (isEqualsPressed || !unaryExpression.equals("")) {
+            isEqualsPressed = false;
+            if (isNewHistoryForNext) {
+                unaryExpression = formatterForHistory(whatOnScreen);
+                isNewHistoryForNext = false;
+            }
+            if (unaryExpression.equals("")) {
+                unaryExpression = formatterForHistory(buffer);
+            }
+            buffer = model.calculate(new BigDecimal(whatOnScreen), UnaryOperations.NEGATIVE).toString();
+            lastUnary = UnaryOperations.NEGATIVE;
+            createUnaryExpression();
+            setMainLabelText(buffer);
+            isTypingNew = true;
+            isTyping = false;
+            showHistory();
+        }
+        setMainLabelText(buffer);
+    }
+
+    @FXML
     public void oneDividedXPressed() {
+        isEqualsPressed = false;
         if (isNewHistoryForNext) {
-            clearHistory();
-            unaryExpression = whatOnScreen;
+            unaryExpression = formatterForHistory(whatOnScreen);
             isNewHistoryForNext = false;
         }
         if (unaryExpression.equals("")) {
-            unaryExpression = buffer;
+            unaryExpression = formatterForHistory(buffer);
         }
         buffer = model.calculate(new BigDecimal(whatOnScreen), UnaryOperations.ONE_DIVIDED_X).toString();
         lastUnary = UnaryOperations.ONE_DIVIDED_X;
@@ -303,16 +329,15 @@ public class MainController implements Initializable {
         showHistory();
     }
 
-
     @FXML
     public void squarePressed() {
+        isEqualsPressed = false;
         if (isNewHistoryForNext) {
-            clearHistory();
-            unaryExpression = whatOnScreen;
+            unaryExpression = formatterForHistory(whatOnScreen);
             isNewHistoryForNext = false;
         }
         if (unaryExpression.equals("")) {
-            unaryExpression = buffer;
+            unaryExpression = formatterForHistory(buffer);
         }
 
         buffer = model.calculate(new BigDecimal(whatOnScreen), UnaryOperations.SQUARE).toString();
@@ -326,21 +351,28 @@ public class MainController implements Initializable {
 
     @FXML
     public void rootPressed() {
+        isEqualsPressed = false;
         if (isNewHistoryForNext) {
-            clearHistory();
-            unaryExpression = whatOnScreen;
+            unaryExpression = formatterForHistory(whatOnScreen);
             isNewHistoryForNext = false;
         }
         if (unaryExpression.equals("")) {
-            unaryExpression = buffer;
+            unaryExpression = formatterForHistory(buffer);
         }
         buffer = model.calculate(new BigDecimal(whatOnScreen), UnaryOperations.SQRT).toString();
         lastUnary = UnaryOperations.SQRT;
         createUnaryExpression();
         isTypingNew = true;
         isTyping = false;
-        setMainLabelText(buffer);
         showHistory();
+        if (buffer.equals("-1")) {
+            mainLabel.setText("Неверный ввод");
+            fontSize = resizeMainLabelFont(fontSize);
+            mainLabel.setFont(new javafx.scene.text.Font("Segoe UI Semibold", fontSize));
+            setDisableAllOperations(true);
+        } else {
+            setMainLabelText(buffer);
+        }
     }
 
     private void createUnaryExpression() {
@@ -378,9 +410,11 @@ public class MainController implements Initializable {
         int historySize = history.size();
         if (historySize == 3 && isEqualsPressed) {
             historyLabel.setText(history.get(0) + ((BinaryOperations) history.get(1)).sign + history.get(2) + " = ");
+        } else if (historySize == 3 && lastUnary != null) {
+            historyLabel.setText(history.get(0).toString() + ((BinaryOperations) history.get(1)).sign + history.get(2).toString());
         } else if (historySize == 3) {
-            historyLabel.setText(history.get(0) + ((BinaryOperations) history.get(1)).sign + history.get(2));
-        } else if (historySize == 2) {
+            historyLabel.setText(history.get(0).toString() + ((BinaryOperations) history.get(1)).sign);
+        } else if (historySize == 2 && !isEqualsPressed) {
             historyLabel.setText(history.get(0) + ((BinaryOperations) history.get(1)).sign);
         } else if (historySize == 1 && isEqualsPressed) {
             historyLabel.setText(history.get(0) + " = ");
@@ -411,7 +445,7 @@ public class MainController implements Initializable {
             isTypingNew = true;
             isTyping = false;
             buffer = model.getPercentCoef().toString();
-            history.add(buffer);
+            history.add(formatterForHistory(buffer));
             showHistory();
             setMainLabelText(buffer);
         }
@@ -567,15 +601,19 @@ public class MainController implements Initializable {
 
     }
 
-    private void setMainLabelText(String text) {
-        whatOnScreen = text;
+    private String formatterForHistory(String text) {
+        return formatter(text).replace(" ", "");
+    }
+
+    private String formatter(String text) {
         BigDecimal val = new BigDecimal(text);
+        String formattedResult = "";
         if (val.compareTo(MAX_NUMBER) > 0 || (val.compareTo(MIN_NUMBER) < 0 && val.compareTo(BigDecimal.ZERO) > 0)) {
             mainLabel.setFont(new javafx.scene.text.Font("Segoe UI Semibold", 43));
             mainLabel.setText("Переполнение");
             setDisableAllOperations(true);
             setDisableMemButtons(true);
-            return;
+            return "";
         }
 
         String pattern = DEFAULT_PATTERN;
@@ -608,12 +646,20 @@ public class MainController implements Initializable {
         format.applyPattern(pattern);
         format.setMinimumFractionDigits(minDigits);
         format.setMaximumFractionDigits(maxDigits);
-
         if (text.contains(".") && isTyping) {
             int numberOfZeros = calculateZeros(text);
-            mainLabel.setText(format.format(val) + "0".repeat(Math.max(0, numberOfZeros)));
+            formattedResult = format.format(val) + "0".repeat(Math.max(0, numberOfZeros));
         } else {
-            mainLabel.setText(format.format(val));
+            formattedResult = format.format(val);
+        }
+        return formattedResult;
+    }
+
+    private void setMainLabelText(String text) {
+        whatOnScreen = text;
+        String formattedText = formatter(text);
+        if (!formattedText.equals("")) {
+            mainLabel.setText(formatter(text));
         }
         fontSize = resizeMainLabelFont(fontSize);
         mainLabel.setFont(new javafx.scene.text.Font("Segoe UI Semibold", fontSize));
