@@ -1,3 +1,4 @@
+/*
 package robotTests;
 
 import org.junit.Test;
@@ -181,3 +182,4 @@ public class FontSizeTest extends TestingSandBox {
         clicker.click("c");
     }
 }
+*/

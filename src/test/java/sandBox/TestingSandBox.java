@@ -23,8 +23,8 @@ public class TestingSandBox extends ApplicationTest {
         release(new KeyCode[]{});
         release(new MouseButton[]{});
     }
-    public <T extends Node> T find(final String query){
+    /*public <T extends Node> T find(final String query){
         return (T) lookup(query).queryAll().iterator().next();
-    }
+    }*/
 
 }

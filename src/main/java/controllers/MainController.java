@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.OverrunStyle;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -48,7 +49,10 @@ public class MainController implements Initializable {
     private static final BigDecimal MIN_NUMBER = new BigDecimal("1E-10000");
     private String unaryExpression = "";
 
-
+    @FXML
+    public Button historyLeftMover;
+    @FXML
+    public Button historyRightMover;
     @FXML
     public Label mainLabel;
     @FXML
@@ -291,7 +295,6 @@ public class MainController implements Initializable {
     public void plusMinusPressed() throws ArithmeticException {
         buffer = model.calculate(new BigDecimal(buffer), UnaryOperations.NEGATIVE).toString();
         if (isEqualsPressed || !unaryExpression.equals("")) {
-            isEqualsPressed = false;
             if (isNewHistoryForNext) {
                 unaryExpression = formatterForHistory(whatOnScreen);
                 isNewHistoryForNext = false;
@@ -312,7 +315,6 @@ public class MainController implements Initializable {
 
     @FXML
     public void oneDividedXPressed() {
-        isEqualsPressed = false;
         if (isNewHistoryForNext) {
             unaryExpression = formatterForHistory(whatOnScreen);
             isNewHistoryForNext = false;
@@ -331,7 +333,6 @@ public class MainController implements Initializable {
 
     @FXML
     public void squarePressed() {
-        isEqualsPressed = false;
         if (isNewHistoryForNext) {
             unaryExpression = formatterForHistory(whatOnScreen);
             isNewHistoryForNext = false;
@@ -351,7 +352,6 @@ public class MainController implements Initializable {
 
     @FXML
     public void rootPressed() {
-        isEqualsPressed = false;
         if (isNewHistoryForNext) {
             unaryExpression = formatterForHistory(whatOnScreen);
             isNewHistoryForNext = false;
@@ -376,6 +376,10 @@ public class MainController implements Initializable {
     }
 
     private void createUnaryExpression() {
+        if(isEqualsPressed){
+            history.clear();
+            isEqualsPressed = false;
+        }
         unaryExpression = lastUnary.sign + "( " + unaryExpression + " )";
         addToHistory(unaryExpression);
 
@@ -528,6 +532,8 @@ public class MainController implements Initializable {
         symbols.setGroupingSeparator(BIG_NUMBER_SEPARATOR);
         format.setGroupingSize(3);
         format.setGroupingUsed(true);
+        //historyLeftMover.setVisible(false);
+        //historyRightMover.setVisible(false);
         this.stage.getScene().setOnKeyPressed(keyEvent -> {
             switch (keyEvent.getCode()) {
                 case NUMPAD0, DIGIT0 -> zero.fire();
@@ -628,9 +634,9 @@ public class MainController implements Initializable {
         } else if (text.endsWith(".") || (text.contains(".") && isTyping)) {
             pattern = "#,###.;-#,###.";
         }
-        if (lastUnary == UnaryOperations.SQRT) {
+        /*if (lastUnary == UnaryOperations.SQRT) {
             pattern = "0.###############;-0.###############";
-        }
+        }*/
         countDigitsBeforeDecimalPoint(val.toString());
 
         if (countDigitsBeforeDecimalPoint(text) > 16) {
@@ -730,6 +736,18 @@ public class MainController implements Initializable {
     public void clicked() {
         if (menu.isVisible()) {
             menu.setVisible(false);
+        }
+    }
+
+    public void moveHistoryLeft() {
+        if(historyLabel.getTextOverrun().equals(OverrunStyle.LEADING_ELLIPSIS)){
+            historyLabel.setTextOverrun(OverrunStyle.ELLIPSIS);
+        }
+    }
+
+    public void moveHistoryRight() {
+        if(historyLabel.getTextOverrun().equals(OverrunStyle.ELLIPSIS)){
+            historyLabel.setTextOverrun(OverrunStyle.LEADING_ELLIPSIS);
         }
     }
 }
