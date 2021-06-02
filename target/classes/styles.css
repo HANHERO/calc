@@ -1,0 +1,317 @@
+* {
+    -fx-background-color: e6e6e6;
+    -fx-background-size: contain;
+}
+
+.typeOfCalc {
+    -fx-pref-width: 111px;
+    -fx-pref-height: 40px;
+    -fx-image: url('buttons/casual.png');
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+}
+
+.button {
+    -fx-pref-width: 46px;
+    -fx-pref-height: 32px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-radius: 0;
+}
+
+.buttInMenu {
+    -fx-pref-width: 256px;
+    -fx-pref-height: 40px;
+}
+
+.button:hover {
+    -fx-background-color: #d1d1d1;
+}
+
+.button:pressed:hover {
+    -fx-background-color: #bbbbbb;
+}
+
+.squareButton {
+    -fx-pref-width: 40px;
+    -fx-pref-height: 40px;
+}
+
+#minimizeButton {
+    -fx-background-image: url('buttons/minimize.png');
+}
+
+#minimizeButton:hover {
+    -fx-background-color: #cfcfcf;
+}
+
+#minimizeButton:pressed:hover {
+    -fx-background-color: #b8b8b8;
+}
+
+#fullScreenButton {
+    -fx-background-image: url('buttons/fullScreen.png');
+}
+
+#fullScreenButton:hover {
+    -fx-background-color: #cfcfcf;
+}
+
+#fullScreenButton:pressed:hover {
+    -fx-background-color: #b8b8b8;
+}
+
+#closeButton {
+    -fx-background-image: url('buttons/close.png');
+}
+
+#closeButton:hover {
+    -fx-background-image: url('buttons/closeHovered.png');
+    -fx-background-color: #e81123;
+}
+
+#closeButton:pressed:hover {
+    -fx-background-image: url('buttons/close.png');
+    -fx-background-color: #f1707a;
+}
+
+.anchorPlane {
+    -fx-pref-width: 320px;
+    -fx-pref-height: 500px;
+}
+
+.hBox {
+    -fx-pref-width: 320px;
+    -fx-pref-height: 32px;
+}
+
+.bigButton {
+    -fx-pref-width: 80px;
+    -fx-pref-height: 50px;
+}
+
+.memButton {
+    -fx-pref-width: 50px;
+    -fx-pref-height: 30px;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 12px;
+}
+
+.whiteButton {
+    -fx-background-color: #fafafa;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 18px;
+}
+
+.greyButton {
+    -fx-background-color: #f0f0f0;
+    -fx-font-family: "Segoe UI Symbol";
+    -fx-font-size: 15px;
+}
+
+.dkGreyButton {
+    -fx-background-color: #a3a3a3;
+}
+
+.dkGreyButton:hover {
+    -fx-background-color: #717171;
+}
+
+.dkGreyButton:pressed:hover {
+    -fx-background-color: #404040;
+}
+
+#secondaryLabel {
+    -fx-font-family: "Segoe UI Historic";
+    -fx-font-size: 14px;
+}
+
+
+#calcLabel {
+    -fx-padding: 8px 4px 4px 13px;
+}
+
+#plusMinus {
+    -fx-background-image: url('buttons/plusMinus.png');
+}
+
+#equals {
+    -fx-background-image: url("buttons/equals.png");
+}
+
+#plus {
+    -fx-background-image: url("buttons/plus.png");
+}
+
+#minus {
+    -fx-background-image: url("buttons/minus.png");
+}
+
+#multiply {
+    -fx-background-image: url("buttons/multiply.png");
+}
+
+#oneDividedX {
+    -fx-background-image: url("buttons/oneDividedX.png");
+}
+
+#square {
+    -fx-background-image: url("buttons/square.png");
+}
+
+#sqrt {
+    -fx-background-image: url("buttons/radical.png");
+}
+
+#divide {
+    -fx-background-image: url("buttons/divide.png");
+}
+
+#percent {
+    -fx-background-image: url("buttons/percent.png");
+}
+
+#del {
+    -fx-background-image: url("buttons/del.png");
+}
+
+#mOption {
+    -fx-background-image: url("buttons/mOption.png");
+}
+
+#option, #option{
+    -fx-background-image: url("buttons/option.png");
+}
+
+
+#changeSize {
+    -fx-background-image: url("buttons/changeSize.png");
+}
+
+#history {
+    -fx-background-image: url("buttons/history.png");
+}
+
+#menu {
+    -fx-pref-width: 0px;
+    -fx-pref-height: 0px;
+}
+#calc {
+    -fx-background-image: url("buttons/options/calc.png");
+}
+#about {
+    -fx-background-image: url("buttons/options/about.png");
+}
+#casual{
+    -fx-background-image: url("buttons/options/casual.png");
+}
+#engineering{
+    -fx-background-image: url("buttons/options/engineering.png");
+}
+#graph{
+    -fx-background-image: url("buttons/options/graph.png");
+}
+#programming{
+    -fx-background-image: url("buttons/options/programming.png");
+}
+#date{
+    -fx-background-image: url("buttons/options/date.png");
+}
+#converter{
+    -fx-background-image: url("buttons/options/converter.png");
+}
+#currency{
+    -fx-background-image: url("buttons/options/currency.png");
+}
+#volume{
+    -fx-background-image: url("buttons/options/volume.png");
+}
+#length{
+    -fx-background-image: url("buttons/options/length.png");
+}
+#weight{
+    -fx-background-image: url("buttons/options/weight.png");
+}
+#temperature{
+    -fx-background-image: url("buttons/options/temperature.png");
+}
+#energy{
+    -fx-background-image: url("buttons/options/energy.png");
+}
+#area{
+    -fx-background-image: url("buttons/options/area.png");
+}
+#speed{
+    -fx-background-image: url("buttons/options/speed.png");
+}
+#time{
+    -fx-background-image: url("buttons/options/time.png");
+}
+#power{
+    -fx-background-image: url("buttons/options/power.png");
+}
+#data{
+    -fx-background-image: url("buttons/options/data.png");
+}
+#pressure{
+    -fx-background-image: url("buttons/options/pressure.png");
+}
+#angle{
+    -fx-background-image: url("buttons/options/angle.png");
+}
+
+.scroll-bar {
+    -fx-font-size: 5px;
+    -fx-padding: 0px;
+}
+.scroll-bar:hover {
+    -fx-font-size: 20px;
+}
+.scroll-bar:pressed {
+    -fx-font-size: 20px;
+}
+.scroll-bar:vertical .thumb{
+    -fx-background-color: #828282;
+    -fx-background-radius: 0;
+}
+.scroll-bar:hover > .increment-button > .increment-arrow,
+.scroll-bar:hover > .decrement-button > .decrement-arrow {
+    -fx-background-color: #909090;
+}
+.scroll-bar:vertical, .increment-button, .decrement-button {
+    -fx-pref-height: 20px;
+}
+.scroll-bar:vertical, .increment-button:hover, .decrement-button:hover {
+    -fx-pref-height: 20px;
+    -fx-background-color: #d3d3d3;
+}
+.scroll-bar:horizontal{
+    -fx-background-color: inherit;
+    -fx-font-size: 0px;
+}
+
+.historyMover{
+    -fx-width: 15px;
+    -fx-height: 15px;
+}
+
+#historyLeftMover:hover, #historyLeftMover:pressed{
+   /* -fx-background-size: inherit;*/
+    -fx-background-image: url("buttons/historyLeftMoverHoveredPresed.png");
+}
+#historyRightMover:hover, #historyRightMover:pressed{
+    /*-fx-background-size: inherit;*/
+    -fx-background-image: url("buttons/historyRightMoverHoveredPresed.png");
+}
+
+#historyLeftMover{
+    -fx-background-image: url("buttons/historyLeftMover.png");
+}
+
+#historyRightMover{
+    -fx-background-image: url("buttons/historyRightMover.png");
+}
+
+.textFieldOut {
+
+}
