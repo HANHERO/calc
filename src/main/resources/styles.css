@@ -289,6 +289,29 @@
     -fx-background-color: inherit;
     -fx-font-size: 0px;
 }
+
+.historyMover{
+    -fx-width: 15px;
+    -fx-height: 15px;
+}
+
+#historyLeftMover:hover, #historyLeftMover:pressed{
+   /* -fx-background-size: inherit;*/
+    -fx-background-image: url("buttons/historyLeftMoverHoveredPresed.png");
+}
+#historyRightMover:hover, #historyRightMover:pressed{
+    /*-fx-background-size: inherit;*/
+    -fx-background-image: url("buttons/historyRightMoverHoveredPresed.png");
+}
+
+#historyLeftMover{
+    -fx-background-image: url("buttons/historyLeftMover.png");
+}
+
+#historyRightMover{
+    -fx-background-image: url("buttons/historyRightMover.png");
+}
+
 .textFieldOut {
 
 }

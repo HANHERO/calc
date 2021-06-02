@@ -7,6 +7,7 @@ import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.OverrunStyle;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -25,6 +26,7 @@ import java.util.ResourceBundle;
 public class MainController implements Initializable {
     @FXML
     private final ArrayList<Object> history = new ArrayList<>();
+    public ScrollPane scrollPaneHistory;
     private int fontSize = 46;
     public Label historyLabel;
     private String buffer = "0";
@@ -376,7 +378,7 @@ public class MainController implements Initializable {
     }
 
     private void createUnaryExpression() {
-        if(isEqualsPressed){
+        if (isEqualsPressed) {
             history.clear();
             isEqualsPressed = false;
         }
@@ -425,12 +427,18 @@ public class MainController implements Initializable {
         } else if (historySize == 1) {
             historyLabel.setText((String) history.get(0));
         }
+        if(historyLabel.getWidth() > 260){
+            historyLeftMover.setVisible(true);
+        }
+
     }
 
     private void clearHistory() {
         history.clear();
         unaryExpression = "";
         historyLabel.setText("");
+        historyLeftMover.setVisible(false);
+        historyRightMover.setVisible(false);
     }
 
     @FXML
@@ -740,14 +748,27 @@ public class MainController implements Initializable {
     }
 
     public void moveHistoryLeft() {
-        if(historyLabel.getTextOverrun().equals(OverrunStyle.LEADING_ELLIPSIS)){
-            historyLabel.setTextOverrun(OverrunStyle.ELLIPSIS);
+        double present = scrollPaneHistory.getHvalue();
+        double max = scrollPaneHistory.getHmax();
+        double moveLeft = scrollPaneHistory.getHvalue() + 0.35;
+
+        scrollPaneHistory.setHvalue(moveLeft);
+        historyRightMover.setVisible(true);
+
+        if (present == max) {
+            historyLeftMover.setVisible(false);
         }
     }
 
     public void moveHistoryRight() {
-        if(historyLabel.getTextOverrun().equals(OverrunStyle.ELLIPSIS)){
-            historyLabel.setTextOverrun(OverrunStyle.LEADING_ELLIPSIS);
+        double moveRight = scrollPaneHistory.getHvalue() - 0.35;
+        double present = scrollPaneHistory.getHvalue();
+
+        scrollPaneHistory.setHvalue(moveRight);
+        historyLeftMover.setVisible(true);
+
+        if (present == 0) {
+            historyRightMover.setVisible(false);
         }
     }
 }

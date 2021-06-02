@@ -2,6 +2,7 @@
 
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -306,11 +307,21 @@
          <Insets />
       </opaqueInsets>
    </Label>
-   <Label fx:id="historyLabel" alignment="CENTER_RIGHT" contentDisplay="RIGHT" ellipsisString="" onMouseClicked="#clicked" prefHeight="25.0" prefWidth="315.0" textAlignment="RIGHT" textFill="#202020" textOverrun="LEADING_ELLIPSIS" AnchorPane.bottomAnchor="406.0" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="74.0">
-      <font>
-         <Font name="Segoe UI Light" size="14.0" />
-      </font>
-   </Label>
+   <ScrollPane fx:id="scrollPaneHistory" cache="true" fitToHeight="true" hbarPolicy="NEVER" nodeOrientation="RIGHT_TO_LEFT" pannable="true" vbarPolicy="NEVER" vmax="0.0" AnchorPane.bottomAnchor="406.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="74.0">
+      <padding>
+         <Insets left="17.0" right="17.0" />
+      </padding>
+      <content>
+         <Label fx:id="historyLabel" contentDisplay="RIGHT" ellipsisString="" onMouseClicked="#clicked" textAlignment="RIGHT" textFill="#202020">
+            <font>
+               <Font name="Segoe UI Light" size="14.0" />
+            </font>
+            <cursor>
+               <Cursor fx:constant="DEFAULT" />
+            </cursor>
+         </Label>
+      </content>
+   </ScrollPane>
    <HBox layoutY="2.0" onMouseClicked="#clicked" onMouseDragged="#dragged" onMousePressed="#pressed" prefHeight="48.0" prefWidth="200.0" AnchorPane.bottomAnchor="469.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <children>
          <Label fx:id="calcLabel" text="Калькулятор" />
@@ -360,6 +371,6 @@
       </children>
    </AnchorPane>
    <Button fx:id="option" focusTraversable="false" layoutY="32.0" mnemonicParsing="false" onAction="#optionOpenOrClose" styleClass="squareButton" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="33.0" />
-   <Button fx:id="historyLeftMover" layoutX="2.0" layoutY="71.0" mnemonicParsing="false" onAction="#moveHistoryLeft" styleClass="historyMover" text="&lt;" AnchorPane.bottomAnchor="406.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="301.0" AnchorPane.topAnchor="74.0" />
-   <Button fx:id="historyRightMover" layoutX="279.0" layoutY="68.0" mnemonicParsing="false" onAction="#moveHistoryRight" styleClass="historyMover" text="&gt;" AnchorPane.bottomAnchor="406.0" AnchorPane.leftAnchor="301.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="74.0" />
+   <Button fx:id="historyLeftMover" layoutX="2.0" layoutY="71.0" mnemonicParsing="false" onAction="#moveHistoryLeft" prefHeight="20.0" prefWidth="20.0" styleClass="historyMover" visible="false" AnchorPane.bottomAnchor="408.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="306.0" AnchorPane.topAnchor="76.0" />
+   <Button fx:id="historyRightMover" layoutX="279.0" layoutY="68.0" mnemonicParsing="false" onAction="#moveHistoryRight" prefHeight="20.0" prefWidth="20.0" styleClass="historyMover" visible="false" AnchorPane.bottomAnchor="408.0" AnchorPane.leftAnchor="306.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="76.0" />
 </AnchorPane>
