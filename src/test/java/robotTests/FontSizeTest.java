@@ -1,4 +1,4 @@
-/*
+
 package robotTests;
 
 import org.junit.Test;
@@ -168,7 +168,6 @@ public class FontSizeTest extends TestingSandBox {
         expressionTest("11111111111111", 45);
         expressionTest("111111111111111", 41);
         expressionTest("1111111111111111", 38);
-
     }
 
     public void expressionTest(String number, int size) {
@@ -182,4 +181,3 @@ public class FontSizeTest extends TestingSandBox {
         clicker.click("c");
     }
 }
-*/

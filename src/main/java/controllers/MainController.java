@@ -6,7 +6,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.OverrunStyle;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -284,11 +283,14 @@ public class MainController implements Initializable {
         }
         if (history.size() == 1) {
             history.set(0, formatterForHistory(result));
-        } else if (history.size() == 3) {
+        } else if (history.size() == 3 && unaryExpression.equals("")) {
+            history.set(1, lastBinary);
+            history.set(2, formatterForHistory(buffer));
+            showHistory();
+            history.set(0, formatterForHistory(result));
+        } else {
             history.set(1, lastBinary);
             showHistory();
-            history.set(2, formatterForHistory(buffer));
-            history.set(0, formatterForHistory(result));
         }
         setMainLabelText(result);
     }
@@ -315,8 +317,7 @@ public class MainController implements Initializable {
         setMainLabelText(buffer);
     }
 
-    @FXML
-    public void oneDividedXPressed() {
+    private void sendToUnary() {
         if (isNewHistoryForNext) {
             unaryExpression = formatterForHistory(whatOnScreen);
             isNewHistoryForNext = false;
@@ -324,6 +325,14 @@ public class MainController implements Initializable {
         if (unaryExpression.equals("")) {
             unaryExpression = formatterForHistory(buffer);
         }
+        if(isTyping){
+            unaryExpression = whatOnScreen;
+        }
+    }
+
+    @FXML
+    public void oneDividedXPressed() {
+        sendToUnary();
         buffer = model.calculate(new BigDecimal(whatOnScreen), UnaryOperations.ONE_DIVIDED_X).toString();
         lastUnary = UnaryOperations.ONE_DIVIDED_X;
         createUnaryExpression();
@@ -335,14 +344,7 @@ public class MainController implements Initializable {
 
     @FXML
     public void squarePressed() {
-        if (isNewHistoryForNext) {
-            unaryExpression = formatterForHistory(whatOnScreen);
-            isNewHistoryForNext = false;
-        }
-        if (unaryExpression.equals("")) {
-            unaryExpression = formatterForHistory(buffer);
-        }
-
+        sendToUnary();
         buffer = model.calculate(new BigDecimal(whatOnScreen), UnaryOperations.SQUARE).toString();
         lastUnary = UnaryOperations.SQUARE;
         createUnaryExpression();
@@ -354,13 +356,7 @@ public class MainController implements Initializable {
 
     @FXML
     public void rootPressed() {
-        if (isNewHistoryForNext) {
-            unaryExpression = formatterForHistory(whatOnScreen);
-            isNewHistoryForNext = false;
-        }
-        if (unaryExpression.equals("")) {
-            unaryExpression = formatterForHistory(buffer);
-        }
+        sendToUnary();
         buffer = model.calculate(new BigDecimal(whatOnScreen), UnaryOperations.SQRT).toString();
         lastUnary = UnaryOperations.SQRT;
         createUnaryExpression();
@@ -540,8 +536,6 @@ public class MainController implements Initializable {
         symbols.setGroupingSeparator(BIG_NUMBER_SEPARATOR);
         format.setGroupingSize(3);
         format.setGroupingUsed(true);
-        //historyLeftMover.setVisible(false);
-        //historyRightMover.setVisible(false);
         this.stage.getScene().setOnKeyPressed(keyEvent -> {
             switch (keyEvent.getCode()) {
                 case NUMPAD0, DIGIT0 -> zero.fire();
@@ -592,7 +586,7 @@ public class MainController implements Initializable {
             isTypingNew = false;
         }
         if (new BigDecimal(buffer).compareTo(BigDecimal.ONE) < 0 || new BigDecimal(buffer).compareTo(new BigDecimal("-1")) < 0) {
-            if (((countDigitsBeforeDecimalPoint(buffer) + countDigitsAfterDecimalPoint(buffer)) < 17) || s.equals(".")) {
+            if (((countDigitsBeforeDecimalPoint(buffer) + countDigitsAfterDecimalPoint(buffer)) < 16) || s.equals(".")) {
                 if (buffer.equals("0")) {
                     buffer = s;
                 } else {
@@ -612,7 +606,6 @@ public class MainController implements Initializable {
                 setMainLabelText(buffer);
             }
         }
-
     }
 
     private String formatterForHistory(String text) {
@@ -629,12 +622,12 @@ public class MainController implements Initializable {
             setDisableMemButtons(true);
             return "";
         }
-
-        String pattern = DEFAULT_PATTERN;
+        String pattern;
 
         int minDigits = 0;
-        int maxDigits = MAX_DIGITS_IN_NUMBER /*-1*/;
-        if (countDigitsBeforeDecimalPoint(text) < 17) {
+        int maxDigits = MAX_DIGITS_IN_NUMBER -1;
+
+        /*if (countDigitsBeforeDecimalPoint(text) < 17) {
             pattern = DEFAULT_PATTERN;
         }
         if (countDigitsAfterDecimalPoint(text) > 16) {
@@ -642,13 +635,21 @@ public class MainController implements Initializable {
         } else if (text.endsWith(".") || (text.contains(".") && isTyping)) {
             pattern = "#,###.;-#,###.";
         }
-        /*if (lastUnary == UnaryOperations.SQRT) {
+        if (lastUnary == UnaryOperations.SQRT) {
             pattern = "0.###############;-0.###############";
         }*/
-        countDigitsBeforeDecimalPoint(val.toString());
 
-        if (countDigitsBeforeDecimalPoint(text) > 16) {
+        if (val.compareTo(BigDecimal.ZERO) == 0) {
+            pattern = DEFAULT_PATTERN;
+        } else if (val.compareTo(new BigDecimal("1E16")) >= 0 ) {
             pattern = "0.E0;-0.E0";
+        } else if (val.compareTo(new BigDecimal("-1E16")) <= 0) {
+            pattern = "0.E0;-0.E0";
+        } else {
+            pattern = DEFAULT_PATTERN;
+        }
+        if (text.contains(".") && isTyping){
+            pattern = "#,##0.";
         }
         symbols.setExponentSeparator(SYMBOL_EXP);
         if (val.compareTo(BigDecimal.ONE) > 0) {
@@ -656,10 +657,11 @@ public class MainController implements Initializable {
         }
 
         format.setDecimalFormatSymbols(symbols);
-        format.setRoundingMode(RoundingMode.CEILING);
+        format.setRoundingMode(RoundingMode.FLOOR);
         format.applyPattern(pattern);
         format.setMinimumFractionDigits(minDigits);
         format.setMaximumFractionDigits(maxDigits);
+
         if (text.contains(".") && isTyping) {
             int numberOfZeros = calculateZeros(text);
             formattedResult = format.format(val) + "0".repeat(Math.max(0, numberOfZeros));
