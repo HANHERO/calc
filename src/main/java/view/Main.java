@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class Main extends Application {
 
@@ -16,7 +17,7 @@ public class Main extends Application {
         Parent root = loader.load();
         primaryStage.setTitle("Калькулятор");
         primaryStage.setScene(new Scene(root, 322, 501));
-        //primaryStage.initStyle(StageStyle.UNDECORATED);
+        primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.setResizable(false);
         primaryStage.getIcons().add(new Image("buttons/icon.png"));
         MainController controller = loader.getController();
