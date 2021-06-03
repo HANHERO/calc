@@ -15,6 +15,7 @@ import model.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.net.URL;
 import java.text.DecimalFormat;
@@ -641,9 +642,11 @@ public class MainController implements Initializable {
 
         if (val.compareTo(BigDecimal.ZERO) == 0) {
             pattern = DEFAULT_PATTERN;
-        } else if (val.compareTo(new BigDecimal("1E16")) >= 0 ) {
+        } else if (val.compareTo(new BigDecimal("1E16")) >= 0 ||
+                (val.compareTo(new BigDecimal("9E-6")) <= 0 && val.compareTo(new BigDecimal(BigInteger.ZERO)) > 0)) {
             pattern = "0.E0;-0.E0";
-        } else if (val.compareTo(new BigDecimal("-1E16")) <= 0) {
+        } else if (val.compareTo(new BigDecimal("-1E16")) <= 0 ||
+                (val.compareTo(new BigDecimal("-9E-6")) >= 0 && val.compareTo(new BigDecimal(BigInteger.ZERO)) < 0)) {
             pattern = "0.E0;-0.E0";
         } else {
             pattern = DEFAULT_PATTERN;
