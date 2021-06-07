@@ -327,7 +327,7 @@ public class MainController implements Initializable {
             unaryExpression = formatterForHistory(buffer);
         }
         if(isTyping){
-            unaryExpression = whatOnScreen;
+            unaryExpression = formatterForHistory(whatOnScreen);
         }
     }
 
@@ -610,7 +610,7 @@ public class MainController implements Initializable {
     }
 
     private String formatterForHistory(String text) {
-        return formatter(text).replace(" ", "");
+        return formatter(text).replace(" ", "").replace(".", ",");
     }
 
     private String formatter(String text) {
@@ -628,25 +628,13 @@ public class MainController implements Initializable {
         int minDigits = 0;
         int maxDigits = MAX_DIGITS_IN_NUMBER -1;
 
-        /*if (countDigitsBeforeDecimalPoint(text) < 17) {
-            pattern = DEFAULT_PATTERN;
-        }
-        if (countDigitsAfterDecimalPoint(text) > 16) {
-            pattern = "0.###############E0;-0.###############E0";
-        } else if (text.endsWith(".") || (text.contains(".") && isTyping)) {
-            pattern = "#,###.;-#,###.";
-        }
-        if (lastUnary == UnaryOperations.SQRT) {
-            pattern = "0.###############;-0.###############";
-        }*/
-
         if (val.compareTo(BigDecimal.ZERO) == 0) {
             pattern = DEFAULT_PATTERN;
         } else if (val.compareTo(new BigDecimal("1E16")) >= 0 ||
-                (val.compareTo(new BigDecimal("9E-6")) <= 0 && val.compareTo(new BigDecimal(BigInteger.ZERO)) > 0)) {
+                (val.compareTo(new BigDecimal("9E-4")) <= 0 && val.compareTo(new BigDecimal(BigInteger.ZERO)) > 0)) {
             pattern = "0.E0;-0.E0";
         } else if (val.compareTo(new BigDecimal("-1E16")) <= 0 ||
-                (val.compareTo(new BigDecimal("-9E-6")) >= 0 && val.compareTo(new BigDecimal(BigInteger.ZERO)) < 0)) {
+                (val.compareTo(new BigDecimal("-9E-4")) >= 0 && val.compareTo(new BigDecimal(BigInteger.ZERO)) < 0)) {
             pattern = "0.E0;-0.E0";
         } else {
             pattern = DEFAULT_PATTERN;

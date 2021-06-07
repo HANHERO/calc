@@ -33,7 +33,7 @@ public class Clicker {
         mapOfKeysCoordinates.put("*", "890 427");
 
         mapOfKeysCoordinates.put("1/", "648 375");
-        mapOfKeysCoordinates.put("square", "729 375");
+        mapOfKeysCoordinates.put("sqr", "729 375");
         mapOfKeysCoordinates.put("sqrt", "804 375");
         mapOfKeysCoordinates.put("/", "890 375");
 

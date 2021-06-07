@@ -24,12 +24,12 @@ public class InputTests extends TestingSandBox {
         inputTest("9999999999999999", "9 999 999 999 999 999");
 
         expressionTest("(10) + (15) - (9) sqrt =", "22", "25 - √( 9 ) = ");
-        expressionTest("(9) sqrt + (3) square =", "12", "√( 9 ) + sqr( 3 ) = ");
+        expressionTest("(9) sqrt + (3) sqr =", "12", "√( 9 ) + sqr( 3 ) = ");
         expressionTest("(9) sqrt + (12) =", "15", "√( 9 ) + 12 = ");
         expressionTest("(9) + = = = = = = = = =", "90", "81 + 9 = ");
         expressionTest("(9) + (1) =", "10", "9 + 1 = ");
-        expressionTest("(9) sqrt square sqrt square sqrt =", "3", "√( sqr( √( sqr( √( 9 ) ) ) ) ) = ");
-        expressionTest("(9) sqrt square sqrt square sqrt = =", "3", "3 = ");
+        expressionTest("(9) sqrt sqr sqrt sqr sqrt =", "3", "√( sqr( √( sqr( √( 9 ) ) ) ) ) = ");
+        expressionTest("(9) sqrt sqr sqrt sqr sqrt = =", "3", "3 = ");
         expressionTest("1 +", "1", "1 + ");
         expressionTest("1 -", "1", "1 - ");
         expressionTest("1 /", "1", "1 ÷ ");
