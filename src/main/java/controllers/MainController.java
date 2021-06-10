@@ -173,11 +173,12 @@ public class MainController implements Initializable {
     public void commaPressed() {
         if (!isCommaPressed) {
             isCommaPressed = true;
+            isTyping = true;
             if (isEqualsPressed) {
                 cPressed();
                 isEqualsPressed = false;
             }
-            if (isTypingNew) {
+            if (isTypingNew || buffer.equals("")) {
                 addToBuffer("0.");
             } else if (!buffer.equals("0")) {
                 addToBuffer(".");
@@ -326,7 +327,7 @@ public class MainController implements Initializable {
         if (unaryExpression.equals("")) {
             unaryExpression = formatterForHistory(buffer);
         }
-        if(isTyping){
+        if (isTyping) {
             unaryExpression = formatterForHistory(whatOnScreen);
         }
     }
@@ -424,7 +425,7 @@ public class MainController implements Initializable {
         } else if (historySize == 1) {
             historyLabel.setText((String) history.get(0));
         }
-        if(historyLabel.getWidth() > 260){
+        if (historyLabel.getWidth() > 260) {
             historyLeftMover.setVisible(true);
         }
 
@@ -442,7 +443,7 @@ public class MainController implements Initializable {
     public void cePressed() {
         setDisableAllOperations(false);
         buffer = "0";
-        isTyping = false;
+        isTyping = true;
         setMainLabelText(buffer);
     }
 
@@ -478,6 +479,10 @@ public class MainController implements Initializable {
         if (!isTypingNew) {
             if (buffer.endsWith(".")) {
                 isCommaPressed = false;
+            }
+            if (buffer.length() == 2 && buffer.contains("-")) {
+                buffer = "0";
+                isTyping = false;
             }
             if (!buffer.equals("") && buffer.length() != 1) {
                 buffer = buffer.substring(0, buffer.length() - 1);
@@ -582,30 +587,26 @@ public class MainController implements Initializable {
     }
 
     private void addToBuffer(String s) {
+        int digitsAfterComma = 16;
         if (isTypingNew) {
             buffer = "0";
             isTypingNew = false;
         }
-        if (new BigDecimal(buffer).compareTo(BigDecimal.ONE) < 0 || new BigDecimal(buffer).compareTo(new BigDecimal("-1")) < 0) {
-            if (((countDigitsBeforeDecimalPoint(buffer) + countDigitsAfterDecimalPoint(buffer)) < 16) || s.equals(".")) {
-                if (buffer.equals("0")) {
-                    buffer = s;
-                } else {
-                    buffer += s;
-                }
-                isSignHas = false;
-                setMainLabelText(buffer);
+
+        if (buffer.contains(".")) {
+            if (new BigDecimal(buffer.split("\\.")[0]).equals(BigDecimal.ZERO)) {
+                digitsAfterComma = 17;
             }
-        } else {
-            if (((countDigitsBeforeDecimalPoint(buffer) + countDigitsAfterDecimalPoint(buffer)) < 16) || s.equals(".")) {
-                if (buffer.equals("0")) {
-                    buffer = s;
-                } else {
-                    buffer += s;
-                }
-                isSignHas = false;
-                setMainLabelText(buffer);
+        }
+        if (((countDigitsBeforeDecimalPoint(buffer) + countDigitsAfterDecimalPoint(buffer)) < digitsAfterComma) || s.equals(".")) {
+            if (buffer.equals("0")) {
+                buffer = s;
+            } else {
+                buffer += s;
             }
+            isSignHas = false;
+
+            setMainLabelText(buffer);
         }
     }
 
@@ -626,7 +627,10 @@ public class MainController implements Initializable {
         String pattern;
 
         int minDigits = 0;
-        int maxDigits = MAX_DIGITS_IN_NUMBER -1;
+        int maxDigits = MAX_DIGITS_IN_NUMBER - 1;
+        if (val.compareTo(BigDecimal.ONE) < 1 && val.compareTo(new BigDecimal(-1)) > -1) {
+            maxDigits = MAX_DIGITS_IN_NUMBER;
+        }
 
         if (val.compareTo(BigDecimal.ZERO) == 0) {
             pattern = DEFAULT_PATTERN;
@@ -639,7 +643,7 @@ public class MainController implements Initializable {
         } else {
             pattern = DEFAULT_PATTERN;
         }
-        if (text.contains(".") && isTyping){
+        if (text.contains(".") && isTyping) {
             pattern = "#,##0.";
         }
         symbols.setExponentSeparator(SYMBOL_EXP);

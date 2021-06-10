@@ -13,15 +13,32 @@ public class InputTests extends TestingSandBox {
     public InputTests() throws AWTException {
         clicker = new Clicker();
     }
+
     @Test
     public void scenarios() {
-        inputTest("1234", "1 234");
-        inputTest("23", "23");
-        inputTest("1232314", "1 232 314");
-        inputTest("543422", "543 422");
-        inputTest("1232314", "1 232 314");
-        inputTest("1596321,324", "1 596 321,324");
-        inputTest("9999999999999999", "9 999 999 999 999 999");
+        expressionTest("(1234)", "1 234", "");
+        expressionTest("(23)", "23", "");
+        expressionTest("(1232314)", "1 232 314", "");
+        expressionTest("(543422)", "543 422", "");
+        expressionTest("(1232314)", "1 232 314", "");
+        expressionTest("(1596321,324)", "1 596 321,324", "");
+        expressionTest("(9999999999999999)", "9 999 999 999 999 999", "");
+
+        expressionTest("(1234) plusMinus", "-1 234", "");
+        expressionTest("(23) plusMinus", "-23", "");
+        expressionTest("(1232314) plusMinus", "-1 232 314", "");
+        expressionTest("(543422) plusMinus", "-543 422", "");
+        expressionTest("(1232314) plusMinus", "-1 232 314", "");
+        expressionTest("(1596321,324) plusMinus", "-1 596 321,324", "");
+        expressionTest("(9999999999999999) plusMinus", "-9 999 999 999 999 999", "");
+
+        expressionTest("(1234) plusMinus plusMinus", "1 234", "");
+        expressionTest("(23) plusMinus plusMinus", "23", "");
+        expressionTest("(1232314) plusMinus plusMinus", "1 232 314", "");
+        expressionTest("(543422) plusMinus plusMinus", "543 422", "");
+        expressionTest("(1232314) plusMinus plusMinus", "1 232 314", "");
+        expressionTest("(1596321,324) plusMinus plusMinus", "1 596 321,324", "");
+        expressionTest("(9999999999999999) plusMinus plusMinus", "9 999 999 999 999 999", "");
 
         expressionTest("(10) + (15) - (9) sqrt =", "22", "25 - √( 9 ) = ");
         expressionTest("(9) sqrt + (3) sqr =", "12", "√( 9 ) + sqr( 3 ) = ");
@@ -30,14 +47,73 @@ public class InputTests extends TestingSandBox {
         expressionTest("(9) + (1) =", "10", "9 + 1 = ");
         expressionTest("(9) sqrt sqr sqrt sqr sqrt =", "3", "√( sqr( √( sqr( √( 9 ) ) ) ) ) = ");
         expressionTest("(9) sqrt sqr sqrt sqr sqrt = =", "3", "3 = ");
+
         expressionTest("1 +", "1", "1 + ");
         expressionTest("1 -", "1", "1 - ");
         expressionTest("1 /", "1", "1 ÷ ");
         expressionTest("1 *", "1", "1 × ");
-    }
-    public void inputTest(String numberToInput, String excepted) {
-        clicker.clickNumber(numberToInput);
-        mainLabelTest(excepted, "");
+
+
+        expressionTest("(,)", "0,", "");
+        expressionTest("(,1)", "0,1", "");
+        expressionTest("(,1111111111111111)", "0,1111111111111111", "");
+
+        expressionTest("(,)", "0,", "");
+        expressionTest("(,1,,)", "0,1", "");
+        expressionTest("(,1111,,11111,1111111)", "0,1111111111111111", "");
+
+        expressionTest("(,,,)", "0,", "");
+        expressionTest("(,,,1)", "0,1", "");
+        expressionTest("(,,,1111111111111111)", "0,1111111111111111", "");
+
+        expressionTest("(2,)", "2,", "");
+        expressionTest("(2,1)", "2,1", "");
+        expressionTest("(2,1111111111111111)", "2,111111111111111", "");
+
+        expressionTest("(2,,,)", "2,", "");
+        expressionTest("(2,,,1)", "2,1", "");
+        expressionTest("(2,,,1111111111111111)", "2,111111111111111", "");
+
+        expressionTest("(2) + (,)", "0,", "2 + ");
+        expressionTest("(2) + (,1)", "0,1", "2 + ");
+        expressionTest("(2) + (,1111111111111111)", "0,1111111111111111", "2 + ");
+
+        expressionTest("(2) + (,,,)", "0,", "2 + ");
+        expressionTest("(2) + (,,,1)", "0,1", "2 + ");
+        expressionTest("(2) + (,,,1111111111111111)", "0,1111111111111111", "2 + ");
+
+
+        expressionTest("(0)", "0", "");
+        expressionTest("(000)", "0", "");
+        expressionTest("(00000000000000000000)", "0", "");
+
+        expressionTest("(000236)", "236", "");
+        expressionTest("(000,0000000000000000)", "0,0000000000000000", "");
+        expressionTest("(0000000000000000000,0000000000000000)", "0,0000000000000000", "");
+        expressionTest("(0000000000000000000,1625595262626261)", "0,1625595262626261", "");
+
+
+        expressionTest("(1,00000000000000)", "1,00000000000000", "");
+        expressionTest("(0,000000000000001)", "0,000000000000001", "");
+        expressionTest("(1,00000000000001)", "1,00000000000001", "");
+        expressionTest("(1,0000000000000012)", "1,000000000000001", "");
+        expressionTest("(0,00000000000000123456)", "0,0000000000000012", "");
+
+
+        expressionTest("del", "0", "");
+        expressionTest("(0) del", "0", "");
+        expressionTest("(1) del", "0", "");
+        expressionTest("(1) plusMinus del", "0", "");
+
+        expressionTest("(1234) del", "123", "");
+        expressionTest("(1234) del del", "12", "");
+        expressionTest("(1234) del del del", "1", "");
+
+        expressionTest("(1234,2) del", "1 234,", "");
+        expressionTest("(1234,2) del del", "1 234", "");
+        expressionTest("(1234) + (123654) del del", "1 236", "1234 + ");
+
+
     }
 
     public void expressionTest(String expression, String mainLabelExcepted, String historyLabelExcepted) {
