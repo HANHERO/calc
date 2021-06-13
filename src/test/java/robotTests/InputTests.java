@@ -15,7 +15,7 @@ public class InputTests extends TestingSandBox {
     }
 
     @Test
-    public void scenarios() {
+    public void scenarios() throws InterruptedException {
         expressionTest("(1234)", "1 234", "");
         expressionTest("(23)", "23", "");
         expressionTest("(1232314)", "1 232 314", "");
@@ -39,14 +39,6 @@ public class InputTests extends TestingSandBox {
         expressionTest("(1232314) plusMinus plusMinus", "1 232 314", "");
         expressionTest("(1596321,324) plusMinus plusMinus", "1 596 321,324", "");
         expressionTest("(9999999999999999) plusMinus plusMinus", "9 999 999 999 999 999", "");
-
-        expressionTest("(10) + (15) - (9) sqrt =", "22", "25 - √( 9 ) = ");
-        expressionTest("(9) sqrt + (3) sqr =", "12", "√( 9 ) + sqr( 3 ) = ");
-        expressionTest("(9) sqrt + (12) =", "15", "√( 9 ) + 12 = ");
-        expressionTest("(9) + = = = = = = = = =", "90", "81 + 9 = ");
-        expressionTest("(9) + (1) =", "10", "9 + 1 = ");
-        expressionTest("(9) sqrt sqr sqrt sqr sqrt =", "3", "√( sqr( √( sqr( √( 9 ) ) ) ) ) = ");
-        expressionTest("(9) sqrt sqr sqrt sqr sqrt = =", "3", "3 = ");
 
         expressionTest("1 +", "1", "1 + ");
         expressionTest("1 -", "1", "1 - ");
@@ -101,6 +93,7 @@ public class InputTests extends TestingSandBox {
 
 
         expressionTest("del", "0", "");
+        expressionTest("(9999999999999999) del del del del del del del del del del del del del del del del", "0", "");
         expressionTest("(0) del", "0", "");
         expressionTest("(1) del", "0", "");
         expressionTest("(1) plusMinus del", "0", "");
@@ -111,13 +104,33 @@ public class InputTests extends TestingSandBox {
 
         expressionTest("(1234,2) del", "1 234,", "");
         expressionTest("(1234,2) del del", "1 234", "");
+
         expressionTest("(1234) + (123654) del del", "1 236", "1234 + ");
+        expressionTest("(1234) - (123654) del del", "1 236", "1234 - ");
+        expressionTest("(1234) / (123654) del del", "1 236", "1234 ÷ ");
+        expressionTest("(1234) * (123654) del del", "1 236", "1234 × ");
+        expressionTest("(2) sqr", "4", "sqr( 2 )");
+        expressionTest("(2) sqr sqr", "16", "sqr( sqr( 2 ) )");
+        expressionTest("(2) sqr sqr sqrt", "4", "√( sqr( sqr( 2 ) ) )");
+        expressionTest("(2) sqr sqr sqrt sqrt", "2", "√( √( sqr( sqr( 2 ) ) ) )");
+        expressionTest("(2) sqr + (3)", "3", "sqr( 2 ) + ");
+        expressionTest("(3) + (2) sqr", "4", "3 + sqr( 2 )");
+        expressionTest("(2) sqr + (9) sqrt", "3", "sqr( 2 ) + √( 9 )");
+
+        expressionTest("(10) + (15) - (9) sqrt =", "22", "25 - √( 9 ) = ");
+        expressionTest("(9) sqrt + (3) sqr =", "12", "√( 9 ) + sqr( 3 ) = ");
+        expressionTest("(9) sqrt + (12) =", "15", "√( 9 ) + 12 = ");
+        expressionTest("(9) + = = = = = = = = =", "90", "81 + 9 = ");
+        expressionTest("(9) + (1) =", "10", "9 + 1 = ");
+        expressionTest("(9) sqrt sqr sqrt sqr sqrt =", "3", "√( sqr( √( sqr( √( 9 ) ) ) ) ) = ");
+        expressionTest("(9) sqrt sqr sqrt sqr sqrt = =", "3", "3 = ");
 
 
     }
 
-    public void expressionTest(String expression, String mainLabelExcepted, String historyLabelExcepted) {
+    public void expressionTest(String expression, String mainLabelExcepted, String historyLabelExcepted) throws InterruptedException {
         clicker.clickExpression(expression);
+        Thread.sleep(400);
         mainLabelTest(mainLabelExcepted, historyLabelExcepted);
     }
 
