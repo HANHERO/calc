@@ -12,7 +12,7 @@ public class Sqrt {
     MainModel testModel = new MainModel();
 
     @Test
-    public void scenarios() {
+    public void sqrtScenarios() {
         assertSQRT("0", "0");
         assertSQRT("1", "1");
         assertSQRT("2", "1.414213562373095048801688724209698");
