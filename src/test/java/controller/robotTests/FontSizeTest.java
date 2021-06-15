@@ -1,8 +1,8 @@
 
-package robotTests;
+package controller.robotTests;
 
 import org.junit.Test;
-import sandBox.TestingSandBox;
+import controller.sandBox.TestingSandBox;
 
 import java.awt.*;
 

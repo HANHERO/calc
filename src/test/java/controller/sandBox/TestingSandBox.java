@@ -1,6 +1,5 @@
-package sandBox;
+package controller.sandBox;
 
-import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import org.junit.After;

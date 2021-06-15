@@ -1,4 +1,4 @@
-package robotTests;
+package controller.robotTests;
 
 import java.awt.*;
 import java.awt.event.InputEvent;
