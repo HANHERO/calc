@@ -450,6 +450,12 @@ public class MainController implements Initializable {
     @FXML
     public void percentPressed() {
         if (!isPercentLast) {
+            if (lastBinary == null){
+                historyLabel.setText("0");
+                setMainLabelText("0");
+                isTypingNew = true;
+                return;
+            }
             isPercentLast = true;
             result = model.percent(new BigDecimal(result), new BigDecimal(buffer), lastBinary).toString();
             isTypingNew = true;
