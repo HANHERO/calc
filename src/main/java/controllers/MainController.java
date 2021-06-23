@@ -7,6 +7,8 @@ import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -777,6 +779,12 @@ public class MainController implements Initializable {
     }
 
     public void fullScreen() {
-        stage.setFullScreen(true);
+        if (stage.isMaximized()) {
+            stage.setMaximized(false);
+            fullScreenButton.setStyle("-fx-background-image: url('buttons/fullScreen.png')");
+        } else {
+            stage.setMaximized(true);
+            fullScreenButton.setStyle("-fx-background-image: url('buttons/notFullScreen.png')");
+        }
     }
 }
