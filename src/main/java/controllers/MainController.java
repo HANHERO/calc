@@ -453,7 +453,7 @@ public class MainController implements Initializable {
     @FXML
     public void percentPressed() {
         if (!isPercentLast) {
-            if (lastBinary == null){
+            if (lastBinary == null) {
                 historyLabel.setText("0");
                 setMainLabelText("0");
                 isTypingNew = true;

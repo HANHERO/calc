@@ -10,7 +10,6 @@ import view.Main;
 
 import java.util.concurrent.TimeoutException;
 
-
 public class TestingSandBox extends ApplicationTest {
     @Before
     public void setUpClass() throws Exception{
@@ -22,5 +21,4 @@ public class TestingSandBox extends ApplicationTest {
         release(new KeyCode[]{});
         release(new MouseButton[]{});
     }
-
 }

@@ -10,6 +10,7 @@ import static org.testfx.api.FxAssert.verifyThat;
 
 public class FontSizeTest extends TestingSandBox {
     Clicker clicker;
+
     public FontSizeTest() throws AWTException {
         clicker = new Clicker();
     }
@@ -175,7 +176,7 @@ public class FontSizeTest extends TestingSandBox {
         mainLabelTest(size);
     }
 
-    public void mainLabelTest(int size){
+    public void mainLabelTest(int size) {
         String mainLabel = "#mainLabel";
         verifyThat(mainLabel, (javafx.scene.control.Label label) -> label.getFont().getSize() == size);
         clicker.click("c");

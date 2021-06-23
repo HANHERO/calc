@@ -47,7 +47,6 @@ public class UnaryOperationTest extends TestingSandBox {
         expressionTest("(10) plusMinus =", "-10", "-10 = ");
     }
 
-
     public void expressionTest(String expression, String mainLabelExcepted, String historyLabelExcepted) {
         clicker.clickExpression(expression);
         mainLabelTest(mainLabelExcepted, historyLabelExcepted);

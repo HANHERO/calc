@@ -1,7 +1,6 @@
 package controller.robotTests;
 
 import javafx.scene.control.Label;
-import org.junit.Ignore;
 import org.junit.Test;
 import controller.sandBox.TestingSandBox;
 

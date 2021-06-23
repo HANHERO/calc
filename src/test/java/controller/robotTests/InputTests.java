@@ -10,6 +10,7 @@ import static org.testfx.api.FxAssert.verifyThat;
 
 public class InputTests extends TestingSandBox {
     Clicker clicker;
+
     public InputTests() throws AWTException {
         clicker = new Clicker();
     }
@@ -44,7 +45,6 @@ public class InputTests extends TestingSandBox {
         expressionTest("1 -", "1", "1 - ");
         expressionTest("1 /", "1", "1 ÷ ");
         expressionTest("1 *", "1", "1 × ");
-
 
         expressionTest("(,)", "0,", "");
         expressionTest("(,1)", "0,1", "");
@@ -105,7 +105,7 @@ public class InputTests extends TestingSandBox {
 
         expressionTest("(2) sqr", "4", "sqr( 2 )");
         expressionTest("(2) sqr sqr", "16", "sqr( sqr( 2 ) )");
-        
+
         expressionTest("(16) sqrt", "4", "√( 16 )");
         expressionTest("(16) sqrt sqrt", "2", "√( √( 16 ) )");
 
@@ -125,8 +125,6 @@ public class InputTests extends TestingSandBox {
         expressionTest("(9) + (1) =", "10", "9 + 1 = ");
         expressionTest("(9) sqrt sqr sqrt sqr sqrt =", "3", "√( sqr( √( sqr( √( 9 ) ) ) ) ) = ");
         expressionTest("(9) sqrt sqr sqrt sqr sqrt = =", "3", "3 = ");
-
-
     }
 
     public void expressionTest(String expression, String mainLabelExcepted, String historyLabelExcepted) {
@@ -134,7 +132,7 @@ public class InputTests extends TestingSandBox {
         mainLabelTest(mainLabelExcepted, historyLabelExcepted);
     }
 
-    public void mainLabelTest(String mainLabelExcepted, String historyLabelExcepted){
+    public void mainLabelTest(String mainLabelExcepted, String historyLabelExcepted) {
         String mainLabel = "#mainLabel";
         String historyLabel = "#historyLabel";
         verifyThat(historyLabel, (Label label) -> label.getText().equals(historyLabelExcepted));

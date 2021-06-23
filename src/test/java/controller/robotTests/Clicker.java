@@ -6,12 +6,13 @@ import java.util.HashMap;
 
 public class Clicker {
     private final Robot bot = new Robot();
-    private final HashMap<String, String> mapOfKeysCoordinates= new HashMap<>();
+    private final HashMap<String, String> mapOfKeysCoordinates = new HashMap<>();
+
     public Clicker() throws AWTException {
         fillTheMapOfKeysCoordinates();
     }
 
-    private void fillTheMapOfKeysCoordinates(){
+    private void fillTheMapOfKeysCoordinates() {
         mapOfKeysCoordinates.put("plusMinus", "648 579");
         mapOfKeysCoordinates.put("0", "729 579");
         mapOfKeysCoordinates.put(",", "804 579");
@@ -49,8 +50,8 @@ public class Clicker {
         mapOfKeysCoordinates.put("ms", "890 288");
     }
 
-    public void click(String whatToClick){
-        String [] coordinates = mapOfKeysCoordinates.get(whatToClick).split(" ");
+    public void click(String whatToClick) {
+        String[] coordinates = mapOfKeysCoordinates.get(whatToClick).split(" ");
         int coordinateX = Integer.parseInt(coordinates[0]);
         int coordinateY = Integer.parseInt(coordinates[1]);
         bot.mouseMove(coordinateX, coordinateY);
@@ -66,8 +67,8 @@ public class Clicker {
         bot.delay(18);
     }
 
-    public void clickExpression(String expression){
-        String [] mass = expression.split(" ");
+    public void clickExpression(String expression) {
+        String[] mass = expression.split(" ");
         for (String s : mass) {
             if (s.charAt(0) == '(' && s.charAt(s.length() - 1) == ')') {
                 clickNumber(s.substring(1, s.length() - 1));
