@@ -129,9 +129,8 @@ public class InputTests extends TestingSandBox {
 
     }
 
-    public void expressionTest(String expression, String mainLabelExcepted, String historyLabelExcepted) throws InterruptedException {
+    public void expressionTest(String expression, String mainLabelExcepted, String historyLabelExcepted) {
         clicker.clickExpression(expression);
-        Thread.sleep(400);
         mainLabelTest(mainLabelExcepted, historyLabelExcepted);
     }
 

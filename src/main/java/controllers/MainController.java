@@ -27,6 +27,7 @@ public class MainController implements Initializable {
     @FXML
     private final ArrayList<Object> history = new ArrayList<>();
     public ScrollPane scrollPaneHistory;
+    public Button fullScreenButton;
     private int fontSize = 46;
     public Label historyLabel;
     private String buffer = "0";
@@ -773,5 +774,9 @@ public class MainController implements Initializable {
         if (present == 0) {
             historyRightMover.setVisible(false);
         }
+    }
+
+    public void fullScreen() {
+        stage.setFullScreen(true);
     }
 }
