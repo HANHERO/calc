@@ -102,18 +102,21 @@
 
 .whiteButton {
     -fx-background-color: #fafafa;
-    -fx-font-family: "Segoe UI Semibold";
+    /*-fx-font-family: "Segoe UI Semibold";*/
+    -fx-font-family: 'Calculator MDL2 Assets';
     -fx-font-size: 18px;
 }
 
 .greyButton {
     -fx-background-color: #f0f0f0;
-    -fx-font-family: "Segoe UI Symbol";
+    /*-fx-font-family: "Segoe UI Symbol";*/
     -fx-font-size: 15px;
+    -fx-font-family: 'Calculator MDL2 Assets'
 }
 
 .dkGreyButton {
     -fx-background-color: #a3a3a3;
+    -fx-font-family: 'Calculator MDL2 Assets'
 }
 
 .dkGreyButton:hover {
@@ -129,7 +132,6 @@
     -fx-font-size: 14px;
 }
 
-
 #calcLabel {
     -fx-padding: 8px 4px 4px 13px;
 }
@@ -138,45 +140,10 @@
     -fx-background-image: url('buttons/plusMinus.png');
 }
 
-#equals {
-    -fx-font-family: 'Calculator MDL2 Assets';
-}
-
-#plus {
-    -fx-font-family: 'Calculator MDL2 Assets';
-}
-
-#minus {
-    -fx-font-family: 'Calculator MDL2 Assets';
-}
-
-#multiply {
-    -fx-font-family: 'Calculator MDL2 Assets';
-}
-
-#oneDividedX {
-    -fx-font-family: 'Calculator MDL2 Assets';
-}
-
-#square {
-    -fx-font-family: 'Calculator MDL2 Assets';
-}
-
 #sqrt {
     -fx-background-image: url("buttons/radical.png");
 }
 
-#divide {
-    -fx-font-family: 'Calculator MDL2 Assets';
-}
-
-#percent {
-    -fx-font-family: 'Calculator MDL2 Assets';
-}
-
-#del {
-    -fx-font-family: 'Calculator MDL2 Assets';
-}
 
 #mOption {
     -fx-background-image: url("buttons/mOption.png");
