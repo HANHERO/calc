@@ -198,7 +198,7 @@ public class Negate {
 
     private void zeroAssertNegate() {
         assertEquals("0", testModel.calculate(new BigDecimal("0"), UnaryOperations.NEGATIVE).toString());
-        assertEquals("0", testModel.calculate(new BigDecimal( "-" + "0"), UnaryOperations.NEGATIVE).toString());
+        assertEquals("0", testModel.calculate(new BigDecimal( "-0"), UnaryOperations.NEGATIVE).toString());
     }
 
     private void assertNegate(String number) {

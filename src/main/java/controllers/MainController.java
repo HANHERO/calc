@@ -42,6 +42,7 @@ public class MainController implements Initializable {
     private boolean isTypingNew = true;
     private boolean isTyping = true;
     private boolean isSignHas = false;
+    private boolean isFullScreen = false;
     private final DecimalFormat format = new DecimalFormat();
     private final DecimalFormatSymbols symbols = new DecimalFormatSymbols();
     private String whatOnScreen = "0";
@@ -142,7 +143,7 @@ public class MainController implements Initializable {
         y = stage.getY() - event.getScreenY();
     }
 
-    private void fillTextButtonsArray(){
+    private void fillTextButtonsArray() {
         textButtons.add(one);
         textButtons.add(two);
         textButtons.add(three);
@@ -601,7 +602,7 @@ public class MainController implements Initializable {
                 case DELETE -> CE.fire();
             }
         });
-        Resize r = new Resize(stage, textButtons);
+        ResizeWindow r = new ResizeWindow(stage, textButtons);
         Scene scene = stage.getScene();
         scene.setOnMouseMoved(r);
         scene.setOnMousePressed(r);
@@ -719,7 +720,7 @@ public class MainController implements Initializable {
 
     private int resizeMainLabelFont(int fontSize) {
         int size = fontSize;
-        int maxTextSizeInPx = 300;
+        double maxTextSizeInPx = mainLabel.getWidth() - 20;
 
         BufferedImage img = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
         FontMetrics fm = img.getGraphics().getFontMetrics(new Font("Segoe UI Semibold", Font.PLAIN, size));
@@ -809,7 +810,7 @@ public class MainController implements Initializable {
             historyRightMover.setVisible(false);
         }
     }
-
+    Double lastSizeOfFontMainLabel;
     public void fullScreen() {
         if (stage.isMaximized()) {
             stage.setMaximized(false);
@@ -817,13 +818,17 @@ public class MainController implements Initializable {
             for (Button textButton : textButtons) {
                 textButton.setStyle("-fx-font-size: 16px");
             }
-
+            mainLabel.setFont(new javafx.scene.text.Font("Segoe UI Semibold", lastSizeOfFontMainLabel));
+            isFullScreen = false;
         } else {
             stage.setMaximized(true);
             fullScreenButton.setStyle("-fx-background-image: url('buttons/notFullScreen.png')");
+            lastSizeOfFontMainLabel = mainLabel.getFont().getSize();
+            fontSize = 80;
             for (Button textButton : textButtons) {
                 textButton.setStyle("-fx-font-size: 24px");
             }
+            isFullScreen = true;
         }
     }
 }

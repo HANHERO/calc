@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
-public class Resize implements EventHandler<MouseEvent> {
+public class ResizeWindow implements EventHandler<MouseEvent> {
 
     private static final double border = 10;
     private double lastWight;
@@ -29,9 +29,8 @@ public class Resize implements EventHandler<MouseEvent> {
     private final double stageMinHeight;
     private final Scene scene;
     private final ArrayList<Button> textButtons;
-    private double textButtonsFontSize;
 
-    Resize(Stage stage, ArrayList<Button> textButtons) {
+    ResizeWindow(Stage stage, ArrayList<Button> textButtons) {
         this.stage = stage;
         stageMinWidth = stage.getMinWidth();
         stageMinHeight = stage.getMinHeight();
@@ -163,7 +162,7 @@ public class Resize implements EventHandler<MouseEvent> {
 
     private void setHeight(double height) {
         stage.setHeight(height);
-        textButtonsFontSize = 18 + (stage.getHeight() - 500) * 0.016;
+        double textButtonsFontSize = 18 + (stage.getHeight() - 500) * 0.016;
         for (Button textButton : textButtons) {
             textButton.setStyle("-fx-font-size: " + textButtonsFontSize + "px");
         }
