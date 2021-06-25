@@ -42,7 +42,6 @@ public class MainController implements Initializable {
     private boolean isTypingNew = true;
     private boolean isTyping = true;
     private boolean isSignHas = false;
-    private boolean isFullScreen = false;
     private final DecimalFormat format = new DecimalFormat();
     private final DecimalFormatSymbols symbols = new DecimalFormatSymbols();
     private String whatOnScreen = "0";
@@ -573,7 +572,6 @@ public class MainController implements Initializable {
         this.stage = stage;
         menu.setVisible(false);
         setDisableMemButtons(true);
-        /*javafx.scene.text.Font.loadFont(MainController.class.getResource("font.ttf").toExternalForm(), 18);*/
         symbols.setDecimalSeparator(FLOAT_POINT);
         symbols.setGroupingSeparator(BIG_NUMBER_SEPARATOR);
         format.setGroupingSize(3);
@@ -719,20 +717,23 @@ public class MainController implements Initializable {
     }
 
     private int resizeMainLabelFont(int fontSize) {
-        int size = fontSize;
-        double maxTextSizeInPx = mainLabel.getWidth() - 20;
+        if (!stage.isMaximized()) {
+            int size = fontSize;
+            double maxTextSizeInPx = mainLabel.getWidth() - 20;
 
-        BufferedImage img = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
-        FontMetrics fm = img.getGraphics().getFontMetrics(new Font("Segoe UI Semibold", Font.PLAIN, size));
+            BufferedImage img = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
+            FontMetrics fm = img.getGraphics().getFontMetrics(new Font("Segoe UI Semibold", Font.PLAIN, size));
 
-        while (fm.stringWidth(mainLabel.getText()) < maxTextSizeInPx && size < 46) {
-            fm = img.getGraphics().getFontMetrics(new Font("Segoe UI Semibold", Font.PLAIN, ++size));
+            while (fm.stringWidth(mainLabel.getText()) < maxTextSizeInPx && size < 46) {
+                fm = img.getGraphics().getFontMetrics(new Font("Segoe UI Semibold", Font.PLAIN, ++size));
+            }
+
+            while (fm.stringWidth(mainLabel.getText()) > maxTextSizeInPx) {
+                fm = img.getGraphics().getFontMetrics(new Font("Segoe UI Semibold", Font.PLAIN, --size));
+            }
+            return size;
         }
-
-        while (fm.stringWidth(mainLabel.getText()) > maxTextSizeInPx) {
-            fm = img.getGraphics().getFontMetrics(new Font("Segoe UI Semibold", Font.PLAIN, --size));
-        }
-        return size;
+        return 72;
     }
 
     private int countDigitsBeforeDecimalPoint(String number) {
@@ -818,17 +819,15 @@ public class MainController implements Initializable {
             for (Button textButton : textButtons) {
                 textButton.setStyle("-fx-font-size: 16px");
             }
-            mainLabel.setFont(new javafx.scene.text.Font("Segoe UI Semibold", lastSizeOfFontMainLabel));
-            isFullScreen = false;
+            mainLabel.setFont(new javafx.scene.text.Font("Segoe UI Semibold", resizeMainLabelFont(fontSize)));
         } else {
             stage.setMaximized(true);
             fullScreenButton.setStyle("-fx-background-image: url('buttons/notFullScreen.png')");
             lastSizeOfFontMainLabel = mainLabel.getFont().getSize();
-            fontSize = 80;
+            mainLabel.setFont(new javafx.scene.text.Font("Segoe UI Semibold", resizeMainLabelFont(fontSize)));
             for (Button textButton : textButtons) {
                 textButton.setStyle("-fx-font-size: 24px");
             }
-            isFullScreen = true;
         }
     }
 }
