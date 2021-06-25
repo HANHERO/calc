@@ -1,6 +1,9 @@
+@font-face {
+    src: url('font.ttf');
+}
 * {
-    -fx-background-color: e6e6e6;
-    -fx-background-size: contain;
+-fx-background-color: e6e6e6;
+-fx-background-size: contain;
 }
 
 .typeOfCalc {
@@ -136,27 +139,27 @@
 }
 
 #equals {
-    -fx-background-image: url("buttons/equals.png");
+    -fx-font-family: 'Calculator MDL2 Assets';
 }
 
 #plus {
-    -fx-background-image: url("buttons/plus.png");
+    -fx-font-family: 'Calculator MDL2 Assets';
 }
 
 #minus {
-    -fx-background-image: url("buttons/minus.png");
+    -fx-font-family: 'Calculator MDL2 Assets';
 }
 
 #multiply {
-    -fx-background-image: url("buttons/multiply.png");
+    -fx-font-family: 'Calculator MDL2 Assets';
 }
 
 #oneDividedX {
-    -fx-background-image: url("buttons/oneDividedX.png");
+    -fx-font-family: 'Calculator MDL2 Assets';
 }
 
 #square {
-    -fx-background-image: url("buttons/square.png");
+    -fx-font-family: 'Calculator MDL2 Assets';
 }
 
 #sqrt {
@@ -164,25 +167,25 @@
 }
 
 #divide {
-    -fx-background-image: url("buttons/divide.png");
+    -fx-font-family: 'Calculator MDL2 Assets';
 }
 
 #percent {
-    -fx-background-image: url("buttons/percent.png");
+    -fx-font-family: 'Calculator MDL2 Assets';
 }
 
 #del {
-    -fx-background-image: url("buttons/del.png");
+    -fx-font-family: 'Calculator MDL2 Assets';
 }
 
 #mOption {
     -fx-background-image: url("buttons/mOption.png");
+    -fx-background-size: 52px;
 }
 
-#option, #option{
+#option {
     -fx-background-image: url("buttons/option.png");
 }
-
 
 #changeSize {
     -fx-background-image: url("buttons/changeSize.png");
@@ -192,71 +195,87 @@
     -fx-background-image: url("buttons/history.png");
 }
 
-#menu {
-    -fx-pref-width: 0px;
-    -fx-pref-height: 0px;
-}
 #calc {
     -fx-background-image: url("buttons/options/calc.png");
 }
+
 #about {
     -fx-background-image: url("buttons/options/about.png");
 }
-#casual{
+
+#casual {
     -fx-background-image: url("buttons/options/casual.png");
 }
-#engineering{
+
+#engineering {
     -fx-background-image: url("buttons/options/engineering.png");
 }
-#graph{
+
+#graph {
     -fx-background-image: url("buttons/options/graph.png");
 }
-#programming{
+
+#programming {
     -fx-background-image: url("buttons/options/programming.png");
 }
-#date{
+
+#date {
     -fx-background-image: url("buttons/options/date.png");
 }
-#converter{
+
+#converter {
     -fx-background-image: url("buttons/options/converter.png");
 }
-#currency{
+
+#currency {
     -fx-background-image: url("buttons/options/currency.png");
 }
-#volume{
+
+#volume {
     -fx-background-image: url("buttons/options/volume.png");
 }
-#length{
+
+#length {
     -fx-background-image: url("buttons/options/length.png");
 }
-#weight{
+
+#weight {
     -fx-background-image: url("buttons/options/weight.png");
 }
-#temperature{
+
+#temperature {
     -fx-background-image: url("buttons/options/temperature.png");
 }
-#energy{
+
+#energy {
     -fx-background-image: url("buttons/options/energy.png");
 }
-#area{
+
+#area {
     -fx-background-image: url("buttons/options/area.png");
 }
-#speed{
+
+#speed {
     -fx-background-image: url("buttons/options/speed.png");
 }
-#time{
+
+#time {
     -fx-background-image: url("buttons/options/time.png");
 }
-#power{
+
+#power {
     -fx-background-image: url("buttons/options/power.png");
 }
-#data{
+
+#data {
     -fx-background-image: url("buttons/options/data.png");
 }
-#pressure{
+
+#pressure {
     -fx-background-image: url("buttons/options/pressure.png");
 }
-#angle{
+
+#angle {
     -fx-background-image: url("buttons/options/angle.png");
 }
 
@@ -264,54 +283,56 @@
     -fx-font-size: 5px;
     -fx-padding: 0px;
 }
+
 .scroll-bar:hover {
     -fx-font-size: 20px;
 }
+
 .scroll-bar:pressed {
     -fx-font-size: 20px;
 }
-.scroll-bar:vertical .thumb{
+
+.scroll-bar:vertical .thumb {
     -fx-background-color: #828282;
     -fx-background-radius: 0;
 }
+
 .scroll-bar:hover > .increment-button > .increment-arrow,
 .scroll-bar:hover > .decrement-button > .decrement-arrow {
     -fx-background-color: #909090;
 }
+
 .scroll-bar:vertical, .increment-button, .decrement-button {
     -fx-pref-height: 20px;
 }
+
 .scroll-bar:vertical, .increment-button:hover, .decrement-button:hover {
     -fx-pref-height: 20px;
     -fx-background-color: #d3d3d3;
 }
-.scroll-bar:horizontal{
+
+.scroll-bar:horizontal {
     -fx-background-color: inherit;
     -fx-font-size: 0px;
 }
 
-.historyMover{
+.historyMover {
     -fx-width: 15px;
     -fx-height: 15px;
 }
 
-#historyLeftMover:hover, #historyLeftMover:pressed{
-   /* -fx-background-size: inherit;*/
+#historyLeftMover:hover, #historyLeftMover:pressed {
     -fx-background-image: url("buttons/historyLeftMoverHoveredPresed.png");
 }
-#historyRightMover:hover, #historyRightMover:pressed{
-    /*-fx-background-size: inherit;*/
+
+#historyRightMover:hover, #historyRightMover:pressed {
     -fx-background-image: url("buttons/historyRightMoverHoveredPresed.png");
 }
 
-#historyLeftMover{
+#historyLeftMover {
     -fx-background-image: url("buttons/historyLeftMover.png");
 }
 
-#historyRightMover{
+#historyRightMover {
     -fx-background-image: url("buttons/historyRightMover.png");
-}
-
-.textFieldOut {
-
 }

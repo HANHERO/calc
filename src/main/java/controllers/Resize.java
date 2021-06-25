@@ -3,8 +3,11 @@ package controllers;
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
 
 public class Resize implements EventHandler<MouseEvent> {
 
@@ -21,16 +24,19 @@ public class Resize implements EventHandler<MouseEvent> {
     private boolean moveV;
     private boolean resizeH = false;
     private boolean resizeV = false;
-    private Stage stage;
-    private double stageMinWidth;
-    private double stageMinHeight;
-    private Scene scene;
+    private final Stage stage;
+    private final double stageMinWidth;
+    private final double stageMinHeight;
+    private final Scene scene;
+    private final ArrayList<Button> textButtons;
+    private double textButtonsFontSize;
 
-    Resize(Stage stage) {
+    Resize(Stage stage, ArrayList<Button> textButtons) {
         this.stage = stage;
         stageMinWidth = stage.getMinWidth();
         stageMinHeight = stage.getMinHeight();
         scene = stage.getScene();
+        this.textButtons = textButtons;
 
     }
 
@@ -157,5 +163,9 @@ public class Resize implements EventHandler<MouseEvent> {
 
     private void setHeight(double height) {
         stage.setHeight(height);
+        textButtonsFontSize = 18 + (stage.getHeight() - 500) * 0.016;
+        for (Button textButton : textButtons) {
+            textButton.setStyle("-fx-font-size: " + textButtonsFontSize + "px");
+        }
     }
 }

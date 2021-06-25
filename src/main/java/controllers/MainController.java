@@ -4,7 +4,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -28,6 +27,7 @@ import java.util.ResourceBundle;
 public class MainController implements Initializable {
     @FXML
     private final ArrayList<Object> history = new ArrayList<>();
+    private final ArrayList<Button> textButtons = new ArrayList<>();
     public ScrollPane scrollPaneHistory;
     public Button fullScreenButton;
     private int fontSize = 46;
@@ -101,11 +101,11 @@ public class MainController implements Initializable {
     @FXML
     public Button divide;
     @FXML
-    public Button ce;
+    public Button CE;
     @FXML
     public Button percent;
     @FXML
-    public Button c;
+    public Button C;
     @FXML
     public Button del;
     @FXML
@@ -140,6 +140,31 @@ public class MainController implements Initializable {
     public void pressed(MouseEvent event) {
         x = stage.getX() - event.getScreenX();
         y = stage.getY() - event.getScreenY();
+    }
+
+    private void fillTextButtonsArray(){
+        textButtons.add(one);
+        textButtons.add(two);
+        textButtons.add(three);
+        textButtons.add(four);
+        textButtons.add(five);
+        textButtons.add(six);
+        textButtons.add(seven);
+        textButtons.add(eight);
+        textButtons.add(nine);
+        textButtons.add(comma);
+        textButtons.add(zero);
+        textButtons.add(C);
+        textButtons.add(CE);
+        textButtons.add(del);
+        textButtons.add(oneDividedX);
+        textButtons.add(square);
+        textButtons.add(percent);
+        textButtons.add(divide);
+        textButtons.add(multiply);
+        textButtons.add(minus);
+        textButtons.add(plus);
+        textButtons.add(equals);
     }
 
     @FXML
@@ -547,10 +572,12 @@ public class MainController implements Initializable {
         this.stage = stage;
         menu.setVisible(false);
         setDisableMemButtons(true);
+        /*javafx.scene.text.Font.loadFont(MainController.class.getResource("font.ttf").toExternalForm(), 18);*/
         symbols.setDecimalSeparator(FLOAT_POINT);
         symbols.setGroupingSeparator(BIG_NUMBER_SEPARATOR);
         format.setGroupingSize(3);
         format.setGroupingUsed(true);
+        fillTextButtonsArray();
         this.stage.getScene().setOnKeyPressed(keyEvent -> {
             switch (keyEvent.getCode()) {
                 case NUMPAD0, DIGIT0 -> zero.fire();
@@ -570,11 +597,11 @@ public class MainController implements Initializable {
                 case DECIMAL -> comma.fire();
                 case BACK_SPACE -> del.fire();
                 case ENTER -> equals.fire();
-                case ESCAPE -> c.fire();
-                case DELETE -> ce.fire();
+                case ESCAPE -> C.fire();
+                case DELETE -> CE.fire();
             }
         });
-        Resize r = new Resize(stage);
+        Resize r = new Resize(stage, textButtons);
         Scene scene = stage.getScene();
         scene.setOnMouseMoved(r);
         scene.setOnMousePressed(r);
@@ -787,9 +814,16 @@ public class MainController implements Initializable {
         if (stage.isMaximized()) {
             stage.setMaximized(false);
             fullScreenButton.setStyle("-fx-background-image: url('buttons/fullScreen.png')");
+            for (Button textButton : textButtons) {
+                textButton.setStyle("-fx-font-size: 16px");
+            }
+
         } else {
             stage.setMaximized(true);
             fullScreenButton.setStyle("-fx-background-image: url('buttons/notFullScreen.png')");
+            for (Button textButton : textButtons) {
+                textButton.setStyle("-fx-font-size: 24px");
+            }
         }
     }
 }
