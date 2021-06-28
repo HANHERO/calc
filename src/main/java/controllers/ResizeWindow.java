@@ -158,6 +158,7 @@ public class ResizeWindow implements EventHandler<MouseEvent> {
 
     private void setWight(double wight) {
         stage.setWidth(wight);
+        ResizeFont.resizeMainLabelFont();
     }
 
     private void setHeight(double height) {

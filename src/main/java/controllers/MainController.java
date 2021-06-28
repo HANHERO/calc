@@ -13,8 +13,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.*;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
@@ -30,7 +28,7 @@ public class MainController implements Initializable {
     private final ArrayList<Button> textButtons = new ArrayList<>();
     public ScrollPane scrollPaneHistory;
     public Button fullScreenButton;
-    private int fontSize = 46;
+    private double fontSize = 46;
     public Label historyLabel;
     private String buffer = "0";
     private boolean isNewHistoryForNext = false;
@@ -53,6 +51,7 @@ public class MainController implements Initializable {
     private static final BigDecimal MAX_NUMBER = new BigDecimal("1E+10000");
     private static final BigDecimal MIN_NUMBER = new BigDecimal("1E-10000");
     private String unaryExpression = "";
+    private ResizeFont resizeFont;
 
     @FXML
     public Button historyLeftMover;
@@ -395,8 +394,8 @@ public class MainController implements Initializable {
         showHistory();
         if (buffer.equals("-1")) {
             mainLabel.setText("Неверный ввод");
-            fontSize = resizeMainLabelFont(fontSize);
-            mainLabel.setFont(new javafx.scene.text.Font("Segoe UI Semibold", fontSize));
+            ResizeFont.resizeMainLabelFont();
+            //mainLabel.setFont(new javafx.scene.text.Font("Segoe UI Semibold", fontSize));
             setDisableAllOperations(true);
         } else {
             setMainLabelText(buffer);
@@ -577,6 +576,7 @@ public class MainController implements Initializable {
         format.setGroupingSize(3);
         format.setGroupingUsed(true);
         fillTextButtonsArray();
+        resizeFont = new ResizeFont(stage, mainLabel);
         this.stage.getScene().setOnKeyPressed(keyEvent -> {
             switch (keyEvent.getCode()) {
                 case NUMPAD0, DIGIT0 -> zero.fire();
@@ -656,7 +656,7 @@ public class MainController implements Initializable {
 
     private String formatter(String text) {
         BigDecimal val = new BigDecimal(text);
-        String formattedResult = "";
+        String formattedResult;
         if (val.compareTo(MAX_NUMBER) > 0 || (val.compareTo(MIN_NUMBER) < 0 && val.compareTo(BigDecimal.ZERO) > 0)) {
             mainLabel.setFont(new javafx.scene.text.Font("Segoe UI Semibold", 43));
             mainLabel.setText("Переполнение");
@@ -712,11 +712,10 @@ public class MainController implements Initializable {
         if (!formattedText.equals("")) {
             mainLabel.setText(formatter(text));
         }
-        fontSize = resizeMainLabelFont(fontSize);
-        mainLabel.setFont(new javafx.scene.text.Font("Segoe UI Semibold", fontSize));
+        ResizeFont.resizeMainLabelFont();
     }
 
-    private int resizeMainLabelFont(int fontSize) {
+    /*private int resizeMainLabelFont(int fontSize) {
         if (!stage.isMaximized()) {
             int size = fontSize;
             double maxTextSizeInPx = mainLabel.getWidth() - 20;
@@ -734,7 +733,7 @@ public class MainController implements Initializable {
             return size;
         }
         return 72;
-    }
+    }*/
 
     private int countDigitsBeforeDecimalPoint(String number) {
         int result = 0;
@@ -811,7 +810,6 @@ public class MainController implements Initializable {
             historyRightMover.setVisible(false);
         }
     }
-    Double lastSizeOfFontMainLabel;
     public void fullScreen() {
         if (stage.isMaximized()) {
             stage.setMaximized(false);
@@ -819,12 +817,11 @@ public class MainController implements Initializable {
             for (Button textButton : textButtons) {
                 textButton.setStyle("-fx-font-size: 16px");
             }
-            mainLabel.setFont(new javafx.scene.text.Font("Segoe UI Semibold", resizeMainLabelFont(fontSize)));
+            ResizeFont.resizeMainLabelFont();
         } else {
             stage.setMaximized(true);
             fullScreenButton.setStyle("-fx-background-image: url('buttons/notFullScreen.png')");
-            lastSizeOfFontMainLabel = mainLabel.getFont().getSize();
-            mainLabel.setFont(new javafx.scene.text.Font("Segoe UI Semibold", resizeMainLabelFont(fontSize)));
+            ResizeFont.resizeMainLabelFont();
             for (Button textButton : textButtons) {
                 textButton.setStyle("-fx-font-size: 24px");
             }
