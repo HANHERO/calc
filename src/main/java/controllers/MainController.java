@@ -14,11 +14,7 @@ import javafx.stage.Stage;
 import model.*;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.math.RoundingMode;
 import java.net.URL;
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -28,7 +24,6 @@ public class MainController implements Initializable {
     private final ArrayList<Button> textButtons = new ArrayList<>();
     public ScrollPane scrollPaneHistory;
     public Button fullScreenButton;
-    private double fontSize = 46;
     public Label historyLabel;
     private String buffer = "0";
     private boolean isNewHistoryForNext = false;
@@ -40,16 +35,7 @@ public class MainController implements Initializable {
     private boolean isTypingNew = true;
     private boolean isTyping = true;
     private boolean isSignHas = false;
-    private final DecimalFormat format = new DecimalFormat();
-    private final DecimalFormatSymbols symbols = new DecimalFormatSymbols();
     private String whatOnScreen = "0";
-    private static final String SYMBOL_EXP = "e";
-    private static final char FLOAT_POINT = ',';
-    private static final int MAX_DIGITS_IN_NUMBER = 16;
-    private static final char BIG_NUMBER_SEPARATOR = ' ';
-    private static final String DEFAULT_PATTERN = "#,##0.#;-#,##0.#";
-    private static final BigDecimal MAX_NUMBER = new BigDecimal("1E+10000");
-    private static final BigDecimal MIN_NUMBER = new BigDecimal("1E-10000");
     private String unaryExpression = "";
 
     @FXML
@@ -394,7 +380,6 @@ public class MainController implements Initializable {
         if (buffer.equals("-1")) {
             mainLabel.setText("Неверный ввод");
             ResizeFont.resizeMainLabelFont();
-            //mainLabel.setFont(new javafx.scene.text.Font("Segoe UI Semibold", fontSize));
             setDisableAllOperations(true);
         } else {
             setMainLabelText(buffer);
@@ -570,10 +555,6 @@ public class MainController implements Initializable {
         this.stage = stage;
         menu.setVisible(false);
         setDisableMemButtons(true);
-        symbols.setDecimalSeparator(FLOAT_POINT);
-        symbols.setGroupingSeparator(BIG_NUMBER_SEPARATOR);
-        format.setGroupingSize(3);
-        format.setGroupingUsed(true);
         fillTextButtonsArray();
         ResizeFont.init(stage, mainLabel);
         this.stage.getScene().setOnKeyPressed(keyEvent -> {
@@ -650,71 +631,21 @@ public class MainController implements Initializable {
     }
 
     private String formatterForHistory(String text) {
-        return formatter(text).replace(" ", "").replace(".", ",");
+        return sendToFormatter(text).replace(" ", "").replace(".", ",");
     }
 
-    private String formatter(String text) {
-        return OutputFormatter.format(new BigDecimal(text), true);
-        /*BigDecimal val = new BigDecimal(text);
-        String formattedResult;
-        if (val.compareTo(MAX_NUMBER) > 0 || (val.compareTo(MIN_NUMBER) < 0 && val.compareTo(BigDecimal.ZERO) > 0)) {
-            mainLabel.setFont(new javafx.scene.text.Font("Segoe UI Semibold", 43));
-            mainLabel.setText("Переполнение");
-            setDisableAllOperations(true);
-            setDisableMemButtons(true);
-            return "";
-        }
-        String pattern;
-
-        int minDigits = 0;
-        int maxDigits = MAX_DIGITS_IN_NUMBER - 1;
-        if (val.compareTo(BigDecimal.ONE) < 1 && val.compareTo(new BigDecimal(-1)) > -1) {
-            maxDigits = MAX_DIGITS_IN_NUMBER;
-        }
-
-        if (val.compareTo(BigDecimal.ZERO) == 0) {
-            pattern = DEFAULT_PATTERN;
-        } else if (val.compareTo(new BigDecimal("1E16")) >= 0 ||
-                (val.compareTo(new BigDecimal("9E-4")) <= 0 && val.compareTo(new BigDecimal(BigInteger.ZERO)) > 0)) {
-            pattern = "0.E0;-0.E0";
-        } else if (val.compareTo(new BigDecimal("-1E16")) <= 0 ||
-                (val.compareTo(new BigDecimal("-9E-4")) >= 0 && val.compareTo(new BigDecimal(BigInteger.ZERO)) < 0)) {
-            pattern = "0.E0;-0.E0";
-        } else {
-            pattern = DEFAULT_PATTERN;
-        }
-        if (text.contains(".") && isTyping) {
-            pattern = "#,##0.";
-        }
-        symbols.setExponentSeparator(SYMBOL_EXP);
-        if (val.compareTo(BigDecimal.ONE) > 0) {
-            symbols.setExponentSeparator("e+");
-        }
-
-        format.setDecimalFormatSymbols(symbols);
-        format.setRoundingMode(RoundingMode.FLOOR);
-        format.applyPattern(pattern);
-        format.setMinimumFractionDigits(minDigits);
-        format.setMaximumFractionDigits(maxDigits);
-
-        if (text.contains(".") && isTyping) {
-            int numberOfZeros = calculateZeros(text);
-            formattedResult = format.format(val) + "0".repeat(Math.max(0, numberOfZeros));
-        } else {
-            formattedResult = format.format(val);
-        }
-        return formattedResult
-        */
+    private String sendToFormatter(String text) {
+        return OutputFormatter.format(text);
     }
 
     private void setMainLabelText(String text) {
         whatOnScreen = text;
         String formattedText = InputFormatter.formatter(text);
         if (!formattedText.equals("")) {
-            if(isTyping) {
+            if (isTyping) {
                 mainLabel.setText(formattedText);
-            }else {
-                mainLabel.setText(OutputFormatter.format(new BigDecimal(text), true));
+            } else {
+                mainLabel.setText(OutputFormatter.format(text));
             }
         }
         ResizeFont.resizeMainLabelFont();
@@ -752,15 +683,6 @@ public class MainController implements Initializable {
         return noZero;
     }
 
-    private int calculateZeros(String number) {
-        int numberOfZeros = 0;
-        while (number.endsWith("0")) {
-            number = number.substring(0, number.length() - 1);
-            numberOfZeros++;
-        }
-        return numberOfZeros;
-    }
-
     public void optionOpenOrClose() {
         menu.setVisible(!menu.isVisible());
     }
@@ -795,6 +717,7 @@ public class MainController implements Initializable {
             historyRightMover.setVisible(false);
         }
     }
+
     public void fullScreen() {
         if (stage.isMaximized()) {
             stage.setMaximized(false);

@@ -57,7 +57,7 @@ public class Clicker {
         bot.mouseMove(coordinateX, coordinateY);
         bot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
         bot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
-        bot.delay(10);
+        bot.delay(15);
     }
 
     public void clickNumber(String number) {
