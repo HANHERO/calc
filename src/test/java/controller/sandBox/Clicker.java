@@ -57,14 +57,14 @@ public class Clicker {
         bot.mouseMove(coordinateX, coordinateY);
         bot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
         bot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
-        bot.delay(15);
+        bot.delay(20);
     }
 
     public void clickNumber(String number) {
         for (int i = 0; i < number.length(); i++) {
             click(number.charAt(i) + "");
         }
-        bot.delay(15);
+        bot.delay(20);
     }
 
     public void clickExpression(String expression) {

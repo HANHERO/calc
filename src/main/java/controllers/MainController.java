@@ -453,6 +453,7 @@ public class MainController implements Initializable {
     @FXML
     public void cePressed() {
         setDisableAllOperations(false);
+        isCommaPressed = false;
         buffer = "0";
         isTyping = true;
         setMainLabelText(buffer);
@@ -483,7 +484,6 @@ public class MainController implements Initializable {
         result = "0";
         unaryExpression = "";
         isSignHas = false;
-        isCommaPressed = false;
         isEqualsPressed = false;
         lastBinary = null;
         lastUnary = null;
@@ -631,11 +631,7 @@ public class MainController implements Initializable {
     }
 
     private String formatterForHistory(String text) {
-        return sendToFormatter(text).replace(" ", "").replace(".", ",");
-    }
-
-    private String sendToFormatter(String text) {
-        return OutputFormatter.format(text);
+        return OutputFormatter.format(text).replace(" ", "");
     }
 
     private void setMainLabelText(String text) {
