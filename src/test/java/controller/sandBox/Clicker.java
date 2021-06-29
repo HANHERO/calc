@@ -64,7 +64,7 @@ public class Clicker {
         for (int i = 0; i < number.length(); i++) {
             click(number.charAt(i) + "");
         }
-        bot.delay(10);
+        bot.delay(15);
     }
 
     public void clickExpression(String expression) {

@@ -6,8 +6,6 @@ import controller.sandBox.TestingSandBox;
 
 import java.awt.*;
 
-import static org.testfx.api.FxAssert.verifyThat;
-
 public class BinaryOperationTest extends TestingSandBox {
 
     Clicker clicker;
@@ -49,7 +47,7 @@ public class BinaryOperationTest extends TestingSandBox {
         expressionTest("(212) / (3) / (17) / (32) / (43) / (1) / (43) / (2) = = =", "8,781906488934135e-6", "1,756381297786827e-5 ÷ 2 = ");
         expressionTest("(12) / (1) / (100) / (256) / (326) / (100)", "100", "1,437883435582822e-6 ÷ ");
         expressionTest("(10) / = = = =", "0,001", "0,01 ÷ 10 = ");
-        expressionTest("(9) / (1) / (5) / (5) / (658) =", "5,4711246200607902e-4", "0,36 ÷ 658 = ");
+        expressionTest("(9) / (1) / (5) / (5) / (658) =", "5,47112462006079e-4", "0,36 ÷ 658 = ");
     }
 
     @Test

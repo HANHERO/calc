@@ -9,7 +9,8 @@ import java.awt.image.BufferedImage;
 public class ResizeFont {
     static Stage stage;
     static Label mainLabel;
-    ResizeFont(Stage stage, Label label){
+
+    public static void init(Stage stage, Label label){
         mainLabel = label;
         ResizeFont.stage = stage;
     }
@@ -36,4 +37,5 @@ public class ResizeFont {
             mainLabel.setFont(new javafx.scene.text.Font("Segoe UI Semibold", 72));
         }
     }
+    private ResizeFont(){}
 }

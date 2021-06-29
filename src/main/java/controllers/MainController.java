@@ -51,7 +51,6 @@ public class MainController implements Initializable {
     private static final BigDecimal MAX_NUMBER = new BigDecimal("1E+10000");
     private static final BigDecimal MIN_NUMBER = new BigDecimal("1E-10000");
     private String unaryExpression = "";
-    private ResizeFont resizeFont;
 
     @FXML
     public Button historyLeftMover;
@@ -576,7 +575,7 @@ public class MainController implements Initializable {
         format.setGroupingSize(3);
         format.setGroupingUsed(true);
         fillTextButtonsArray();
-        resizeFont = new ResizeFont(stage, mainLabel);
+        ResizeFont.init(stage, mainLabel);
         this.stage.getScene().setOnKeyPressed(keyEvent -> {
             switch (keyEvent.getCode()) {
                 case NUMPAD0, DIGIT0 -> zero.fire();
@@ -655,7 +654,8 @@ public class MainController implements Initializable {
     }
 
     private String formatter(String text) {
-        BigDecimal val = new BigDecimal(text);
+        return OutputFormatter.format(new BigDecimal(text), true);
+        /*BigDecimal val = new BigDecimal(text);
         String formattedResult;
         if (val.compareTo(MAX_NUMBER) > 0 || (val.compareTo(MIN_NUMBER) < 0 && val.compareTo(BigDecimal.ZERO) > 0)) {
             mainLabel.setFont(new javafx.scene.text.Font("Segoe UI Semibold", 43));
@@ -703,37 +703,22 @@ public class MainController implements Initializable {
         } else {
             formattedResult = format.format(val);
         }
-        return formattedResult;
+        return formattedResult
+        */
     }
 
     private void setMainLabelText(String text) {
         whatOnScreen = text;
-        String formattedText = formatter(text);
+        String formattedText = InputFormatter.formatter(text);
         if (!formattedText.equals("")) {
-            mainLabel.setText(formatter(text));
+            if(isTyping) {
+                mainLabel.setText(formattedText);
+            }else {
+                mainLabel.setText(OutputFormatter.format(new BigDecimal(text), true));
+            }
         }
         ResizeFont.resizeMainLabelFont();
     }
-
-    /*private int resizeMainLabelFont(int fontSize) {
-        if (!stage.isMaximized()) {
-            int size = fontSize;
-            double maxTextSizeInPx = mainLabel.getWidth() - 20;
-
-            BufferedImage img = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
-            FontMetrics fm = img.getGraphics().getFontMetrics(new Font("Segoe UI Semibold", Font.PLAIN, size));
-
-            while (fm.stringWidth(mainLabel.getText()) < maxTextSizeInPx && size < 46) {
-                fm = img.getGraphics().getFontMetrics(new Font("Segoe UI Semibold", Font.PLAIN, ++size));
-            }
-
-            while (fm.stringWidth(mainLabel.getText()) > maxTextSizeInPx) {
-                fm = img.getGraphics().getFontMetrics(new Font("Segoe UI Semibold", Font.PLAIN, --size));
-            }
-            return size;
-        }
-        return 72;
-    }*/
 
     private int countDigitsBeforeDecimalPoint(String number) {
         int result = 0;
