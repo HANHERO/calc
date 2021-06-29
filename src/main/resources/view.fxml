@@ -69,7 +69,7 @@
                       <String fx:value="whiteButton" />
                   </styleClass>
               </Button>
-              <Button fx:id="equals" text="" focusTraversable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#equalsPressed" onMouseClicked="#clicked" GridPane.columnIndex="3" GridPane.rowIndex="5">
+              <Button fx:id="equals" focusTraversable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#equalsPressed" onMouseClicked="#clicked" text="" GridPane.columnIndex="3" GridPane.rowIndex="5">
                   <GridPane.margin>
                       <Insets bottom="4.0" left="1.0" right="4.0" top="1.0" />
                   </GridPane.margin>
@@ -105,7 +105,7 @@
                       <Insets bottom="2.0" left="1.0" right="1.0" top="1.0" />
                   </GridPane.margin>
               </Button>
-              <Button fx:id="plus" text="" focusTraversable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#plusPressed" onMouseClicked="#clicked" GridPane.columnIndex="3" GridPane.rowIndex="4">
+              <Button fx:id="plus" focusTraversable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#plusPressed" onMouseClicked="#clicked" text="" GridPane.columnIndex="3" GridPane.rowIndex="4">
                   <GridPane.margin>
                       <Insets bottom="2.0" left="1.0" right="4.0" top="1.0" />
                   </GridPane.margin>
@@ -141,7 +141,7 @@
                       <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                   </GridPane.margin>
               </Button>
-              <Button fx:id="minus" focusTraversable="false" text="" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#minusPressed" onMouseClicked="#clicked" GridPane.columnIndex="3" GridPane.rowIndex="3">
+              <Button fx:id="minus" focusTraversable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#minusPressed" onMouseClicked="#clicked" text="" GridPane.columnIndex="3" GridPane.rowIndex="3">
                   <styleClass>
                       <String fx:value="bigButton" />
                       <String fx:value="greyButton" />
@@ -177,7 +177,7 @@
                       <Insets bottom="2.0" left="1.0" right="1.0" top="1.0" />
                   </GridPane.margin>
               </Button>
-              <Button fx:id="multiply" text="" focusTraversable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#multiplyPressed" onMouseClicked="#clicked" GridPane.columnIndex="3" GridPane.rowIndex="2">
+              <Button fx:id="multiply" focusTraversable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#multiplyPressed" onMouseClicked="#clicked" text="" GridPane.columnIndex="3" GridPane.rowIndex="2">
                   <styleClass>
                       <String fx:value="bigButton" />
                       <String fx:value="greyButton" />
@@ -186,7 +186,7 @@
                       <Insets bottom="2.0" left="1.0" right="4.0" top="1.0" />
                   </GridPane.margin>
               </Button>
-              <Button fx:id="oneDividedX" text="" focusTraversable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#oneDividedXPressed" onMouseClicked="#clicked" GridPane.rowIndex="1">
+              <Button fx:id="oneDividedX" focusTraversable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#oneDividedXPressed" onMouseClicked="#clicked" text="" GridPane.rowIndex="1">
                   <GridPane.margin>
                       <Insets bottom="2.0" left="5.0" right="1.0" top="1.0" />
                   </GridPane.margin>
@@ -195,7 +195,7 @@
                       <String fx:value="greyButton" />
                   </styleClass>
               </Button>
-              <Button fx:id="square" text="" focusTraversable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#squarePressed" onMouseClicked="#clicked" GridPane.columnIndex="1" GridPane.rowIndex="1">
+              <Button fx:id="square" focusTraversable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#squarePressed" onMouseClicked="#clicked" text="" GridPane.columnIndex="1" GridPane.rowIndex="1">
                   <styleClass>
                       <String fx:value="bigButton" />
                       <String fx:value="greyButton" />
@@ -213,7 +213,7 @@
                       <Insets bottom="2.0" left="1.0" right="1.0" top="1.0" />
                   </GridPane.margin>
               </Button>
-              <Button fx:id="divide" text="" focusTraversable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#dividePressed" onMouseClicked="#clicked" GridPane.columnIndex="3" GridPane.rowIndex="1">
+              <Button fx:id="divide" focusTraversable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#dividePressed" onMouseClicked="#clicked" text="" GridPane.columnIndex="3" GridPane.rowIndex="1">
                   <styleClass>
                       <String fx:value="bigButton" />
                       <String fx:value="greyButton" />
@@ -389,6 +389,6 @@
         </children>
     </AnchorPane>
     <Button fx:id="option" focusTraversable="false" layoutY="32.0" mnemonicParsing="false" onAction="#optionOpenOrClose" styleClass="squareButton" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="33.0" />
-    <Button fx:id="historyLeftMover" maxHeight="15.0" maxWidth="14.0" minHeight="15.0" minWidth="14.0" mnemonicParsing="false" onAction="#moveHistoryLeft" prefHeight="15.0" prefWidth="14.0" styleClass="historyMover" visible="false" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="76.0" />
-    <Button fx:id="historyRightMover" maxHeight="16.0" maxWidth="14.0" minHeight="16.0" minWidth="14.0" mnemonicParsing="false" onAction="#moveHistoryRight" prefHeight="16.0" prefWidth="14.0" styleClass="historyMover" visible="false" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="76.0" />
+    <Button fx:id="historyLeftMover" focusTraversable="false" maxHeight="15.0" maxWidth="14.0" minHeight="15.0" minWidth="14.0" mnemonicParsing="false" onAction="#moveHistoryLeft" prefHeight="15.0" prefWidth="14.0" styleClass="historyMover" visible="false" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="76.0" />
+    <Button fx:id="historyRightMover" focusTraversable="false" maxHeight="16.0" maxWidth="14.0" minHeight="16.0" minWidth="14.0" mnemonicParsing="false" onAction="#moveHistoryRight" prefHeight="16.0" prefWidth="14.0" styleClass="historyMover" visible="false" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="76.0" />
 </AnchorPane>

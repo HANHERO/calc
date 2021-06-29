@@ -1,6 +1,6 @@
 package controller.robotTests;
 
-import javafx.scene.control.Label;
+import controller.sandBox.Clicker;
 import org.junit.Test;
 import controller.sandBox.TestingSandBox;
 
@@ -49,10 +49,11 @@ public class UnaryOperationTest extends TestingSandBox {
 
     public void expressionTest(String expression, String mainLabelExcepted, String historyLabelExcepted) {
         clicker.clickExpression(expression);
-        mainLabelTest(mainLabelExcepted, historyLabelExcepted);
+        mainLabelAndHistoryTest(mainLabelExcepted, historyLabelExcepted);
     }
 
-    public void mainLabelTest(String mainLabelExcepted, String historyLabelExcepted) {
+    /*public void mainLabelTest(String mainLabelExcepted, String historyLabelExcepted) {
+        FXTestUtils.awaitEvents();
         String mainLabel = "#mainLabel";
         String historyLabel = "#historyLabel";
         verifyThat(historyLabel, (Label label) -> label.getText().equals(historyLabelExcepted));
@@ -60,5 +61,5 @@ public class UnaryOperationTest extends TestingSandBox {
         clicker.click("c");
         verifyThat(mainLabel, (Label label) -> label.getText().equals("0"));
         verifyThat(historyLabel, (Label label) -> label.getText().equals(""));
-    }
+    }*/
 }

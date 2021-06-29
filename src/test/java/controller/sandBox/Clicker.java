@@ -1,4 +1,4 @@
-package controller.robotTests;
+package controller.sandBox;
 
 import java.awt.*;
 import java.awt.event.InputEvent;
@@ -57,14 +57,14 @@ public class Clicker {
         bot.mouseMove(coordinateX, coordinateY);
         bot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
         bot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
-        bot.delay(20);
+        bot.delay(10);
     }
 
     public void clickNumber(String number) {
         for (int i = 0; i < number.length(); i++) {
             click(number.charAt(i) + "");
         }
-        bot.delay(20);
+        bot.delay(10);
     }
 
     public void clickExpression(String expression) {
