@@ -346,36 +346,36 @@ public class MainController implements Initializable {
 
     @FXML
     public void oneDividedXPressed() {
+        isTypingNew = true;
+        isTyping = false;
         sendToUnary();
         buffer = model.calculate(new BigDecimal(whatOnScreen), UnaryOperations.ONE_DIVIDED_X).toString();
         lastUnary = UnaryOperations.ONE_DIVIDED_X;
         createUnaryExpression();
         setMainLabelText(buffer);
-        isTypingNew = true;
-        isTyping = false;
         showHistory();
     }
 
     @FXML
     public void squarePressed() {
+        isTypingNew = true;
+        isTyping = false;
         sendToUnary();
         buffer = model.calculate(new BigDecimal(whatOnScreen), UnaryOperations.SQUARE).toString();
         lastUnary = UnaryOperations.SQUARE;
         createUnaryExpression();
-        isTypingNew = true;
-        isTyping = false;
         setMainLabelText(buffer);
         showHistory();
     }
 
     @FXML
     public void rootPressed() {
+        isTypingNew = true;
+        isTyping = false;
         sendToUnary();
         buffer = model.calculate(new BigDecimal(whatOnScreen), UnaryOperations.SQRT).toString();
         lastUnary = UnaryOperations.SQRT;
         createUnaryExpression();
-        isTypingNew = true;
-        isTyping = false;
         showHistory();
         if (buffer.equals("-1")) {
             mainLabel.setText("Неверный ввод");
@@ -640,14 +640,13 @@ public class MainController implements Initializable {
 
     private void setMainLabelText(String text) {
         whatOnScreen = text;
-        String formattedText = InputFormatter.formatter(text);
-        if (!formattedText.equals("")) {
-            if (isTyping) {
-                mainLabel.setText(formattedText);
-            } else {
-                mainLabel.setText(OutputFormatter.format(text));
-            }
+
+        if (isTyping) {
+            mainLabel.setText(InputFormatter.formatter(text));
+        } else {
+            mainLabel.setText(OutputFormatter.format(text));
         }
+
         ResizeFont.resizeMainLabelFont();
     }
 

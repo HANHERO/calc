@@ -8,7 +8,6 @@ import java.text.DecimalFormatSymbols;
 import java.text.Format;
 
 public class OutputFormatter {
-
     private static final int MAX_PLAIN_SCALE = 16;
     private static final int MAX_OUTPUT_PRECISION = 19;
     private static final String EXHIBITOR_SYMBOL = "e";
