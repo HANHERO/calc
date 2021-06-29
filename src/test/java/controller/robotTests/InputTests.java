@@ -131,15 +131,4 @@ public class InputTests extends TestingSandBox {
         clicker.clickExpression(expression);
         mainLabelAndHistoryTest(mainLabelExcepted, historyLabelExcepted);
     }
-
-    /*public void mainLabelTest(String mainLabelExcepted, String historyLabelExcepted) {
-        FXTestUtils.awaitEvents();
-        String mainLabel = "#mainLabel";
-        String historyLabel = "#historyLabel";
-        verifyThat(historyLabel, (Label label) -> label.getText().equals(historyLabelExcepted));
-        verifyThat(mainLabel, (Label label) -> label.getText().equals(mainLabelExcepted));
-        clicker.click("c");
-        verifyThat(mainLabel, (Label label) -> label.getText().equals("0"));
-        verifyThat(historyLabel, (Label label) -> label.getText().equals(""));
-    }*/
 }

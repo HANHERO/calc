@@ -176,11 +176,4 @@ public class FontSizeTest extends TestingSandBox {
         clicker.clickNumber(number);
         mainLabelTest(size);
     }
-
-    /*public void mainLabelTest(int size) {
-        FXTestUtils.awaitEvents();
-        String mainLabel = "#mainLabel";
-        verifyThat(mainLabel, (javafx.scene.control.Label label) -> label.getFont().getSize() == size);
-        clicker.click("c");
-    }*/
 }
