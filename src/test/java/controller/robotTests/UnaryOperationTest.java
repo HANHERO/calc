@@ -6,8 +6,6 @@ import controller.sandBox.TestingSandBox;
 
 import java.awt.*;
 
-import static org.testfx.api.FxAssert.verifyThat;
-
 public class UnaryOperationTest extends TestingSandBox {
     Clicker clicker;
 
