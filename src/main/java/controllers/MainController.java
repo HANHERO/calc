@@ -520,13 +520,14 @@ public class MainController implements Initializable {
     @FXML
     public void mrPressed() {
         buffer = model.getMemoryValue().toString();
+        isTyping = false;
         setMainLabelText(buffer);
     }
 
     @FXML
     public void mMinusPressed() {
         setDisableMemButtons(false);
-        model.memoryMinus(new BigDecimal(buffer));
+        model.memoryMinus(new BigDecimal(whatOnScreen));
         isTypingNew = true;
         isTyping = false;
     }
@@ -534,7 +535,7 @@ public class MainController implements Initializable {
     @FXML
     public void mPlusPressed() {
         setDisableMemButtons(false);
-        model.memoryPlus(new BigDecimal(buffer));
+        model.memoryPlus(new BigDecimal(whatOnScreen));
         isTypingNew = true;
         isTyping = false;
     }
@@ -542,7 +543,7 @@ public class MainController implements Initializable {
     @FXML
     public void msPressed() {
         setDisableMemButtons(false);
-        model.setMemoryValue(new BigDecimal(buffer));
+        model.setMemoryValue(new BigDecimal(whatOnScreen));
         isTypingNew = true;
         isTyping = false;
     }
@@ -636,13 +637,14 @@ public class MainController implements Initializable {
 
     private void setMainLabelText(String text) {
         whatOnScreen = text;
-
         if (isTyping) {
             mainLabel.setText(InputFormatter.formatter(text));
         } else {
             mainLabel.setText(OutputFormatter.format(text));
         }
-
+        if (mainLabel.getText().equals("Переполнение") || mainLabel.getText().equals("Деление на ноль невозможно")){
+            setDisableAllOperations(true);
+        }
         ResizeFont.resizeMainLabelFont();
     }
 

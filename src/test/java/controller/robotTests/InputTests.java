@@ -14,7 +14,7 @@ public class InputTests extends TestingSandBox {
     }
 
     @Test
-    public void scenarios() throws InterruptedException {
+    public void scenarios() {
         expressionTest("(1234)", "1 234", "");
         expressionTest("(23)", "23", "");
         expressionTest("(1232314)", "1 232 314", "");

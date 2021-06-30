@@ -7,16 +7,20 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class ResizeFont {
-    static Stage stage;
-    static Label mainLabel;
+    private static Stage stage;
+    private static Label mainLabel;
 
-    public static void init(Stage stage, Label label){
+    private ResizeFont() {
+    }
+
+    public static void init(Stage stage, Label label) {
         mainLabel = label;
         ResizeFont.stage = stage;
     }
+
     public static void resizeMainLabelFont() {
         if (!stage.isMaximized()) {
-            if(mainLabel.getFont().getSize() == 72){
+            if (mainLabel.getFont().getSize() == 72) {
                 mainLabel.setFont(new javafx.scene.text.Font("Segoe UI Semibold", 46));
             }
             double size = mainLabel.getFont().getSize();
@@ -37,5 +41,4 @@ public class ResizeFont {
             mainLabel.setFont(new javafx.scene.text.Font("Segoe UI Semibold", 72));
         }
     }
-    private ResizeFont(){}
 }
