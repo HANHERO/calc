@@ -95,7 +95,6 @@ public class MainModel {
 
     public void memoryMinus(BigDecimal buffer) throws OverflowException {
         memoryValue = calculate(memoryValue, buffer, BinaryOperations.MINUS);
-        System.out.println(memoryValue);
     }
 
     public void memoryPlus(BigDecimal buffer) throws OverflowException {

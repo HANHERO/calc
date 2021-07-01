@@ -28,20 +28,13 @@ public class OutputFormatter {
         OUTPUT_FORMAT = new DecimalFormat(NUMBER_PATTERN, symbols);
     }
 
-    public static String format(String text) {//9,999999999999999e9999 5e9983
+    public static String format(String text) {
         if (text.equals("Переполнение")){
             return text;
         }
         BigDecimal resultNumber = new BigDecimal(text);
         resultNumber = resultNumber.stripTrailingZeros();
         resultNumber = rounding(resultNumber);
-
-        if (resultNumber.compareTo(new BigDecimal("9.999999999999999400000000000000000E9999")) > 0 ||
-                resultNumber.compareTo(new BigDecimal("-9.999999999999999400000000000000000E9999")) < 0 ||
-                (resultNumber.compareTo(new BigDecimal("1E-9999")) < 0 && resultNumber.compareTo(BigDecimal.ZERO) > 0) ||
-                (resultNumber.compareTo(new BigDecimal("-1E-9999")) > 0 && resultNumber.compareTo(BigDecimal.ZERO) < 0)) {
-            return "Переполнение";
-        }
 
         String result;
         int scale = resultNumber.scale();
