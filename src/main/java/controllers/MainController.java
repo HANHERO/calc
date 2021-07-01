@@ -16,12 +16,13 @@ import model.*;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
     @FXML
-    private final ArrayList<Object> history = new ArrayList<>();
-    private final ArrayList<Button> textButtons = new ArrayList<>();
+    private final List<Object> history = new ArrayList<>();
+    private final List<Button> textButtons = new ArrayList<>();
     public ScrollPane scrollPaneHistory;
     public Button fullScreenButton;
     public Label historyLabel;

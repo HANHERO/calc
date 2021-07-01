@@ -21,7 +21,7 @@ public class BinaryOperationTest extends TestingSandBox {
                 "sqr sqr sqr sqr * (10) sqr sqr sqr sqr sqr sqr sqr sqr sqr * (10) sqr sqr sqr sqr sqr sqr sqr " +
                 "sqr * (9999999999999999) = m+ c (10) sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr * (10) sqr sqr sqr sqr sqr sqr " +
                 "sqr sqr sqr sqr * (10) sqr sqr sqr sqr sqr sqr sqr sqr sqr * (10) sqr sqr sqr sqr sqr sqr sqr " +
-                "sqr * (0,4) = m+ c mr", "9,999999999999999e+9999", "");
+                "sqr * (0,4) = m+ c mr mc", "9,999999999999999e+9999", "");
 
         expressionTest("(10) sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr * (10) sqr sqr sqr sqr sqr sqr " +  //max - smallest(1e-9999)
                 "sqr sqr sqr sqr * (10) sqr sqr sqr sqr sqr sqr sqr sqr sqr * (10) sqr sqr sqr sqr sqr sqr sqr " +
@@ -29,13 +29,13 @@ public class BinaryOperationTest extends TestingSandBox {
                 "sqr sqr sqr sqr * (10) sqr sqr sqr sqr sqr sqr sqr sqr sqr * (10) sqr sqr sqr sqr sqr sqr sqr " +
                 "sqr * (0,4) = m+ c (0,1) sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr * (0,1) sqr sqr sqr sqr sqr " +
                 "sqr sqr sqr sqr sqr * (0,1) sqr sqr sqr sqr sqr sqr sqr sqr sqr * (0,1) sqr sqr sqr sqr sqr sqr sqr sqr " +
-                "* (0,000000000000001) = m- c mr", "9,999999999999999e+9999", "");
+                "* (0,000000000000001) = m- c mr mc", "9,999999999999999e+9999", "");
 
         expressionTest("(10) sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr * (10) sqr sqr sqr sqr sqr sqr " + //min
                 "sqr sqr sqr sqr * (10) sqr sqr sqr sqr sqr sqr sqr sqr sqr * (10) sqr sqr sqr sqr sqr sqr sqr " +
                 "sqr * (9999999999999999) = m+ c (10) sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr * (10) sqr sqr sqr sqr sqr sqr " +
                 "sqr sqr sqr sqr * (10) sqr sqr sqr sqr sqr sqr sqr sqr sqr * (10) sqr sqr sqr sqr sqr sqr sqr " +
-                "sqr * (0,4) = m+ c mr plusMinus", "-9,999999999999999e+9999", "");
+                "sqr * (0,4) = m+ c mr plusMinus mc", "-9,999999999999999e+9999", "");
 
         expressionTest("(10) sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr * (10) sqr sqr sqr sqr sqr sqr " +  //min + smallest(1e-9999)
                 "sqr sqr sqr sqr * (10) sqr sqr sqr sqr sqr sqr sqr sqr sqr * (10) sqr sqr sqr sqr sqr sqr sqr " +
@@ -43,15 +43,15 @@ public class BinaryOperationTest extends TestingSandBox {
                 "sqr sqr sqr sqr * (10) sqr sqr sqr sqr sqr sqr sqr sqr sqr * (10) sqr sqr sqr sqr sqr sqr sqr " +
                 "sqr * (0,4) = m+ c mr plusMinus mc m+ c (0,1) sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr * (0,1) sqr sqr sqr sqr sqr " +
                 "sqr sqr sqr sqr sqr * (0,1) sqr sqr sqr sqr sqr sqr sqr sqr sqr * (0,1) sqr sqr sqr sqr sqr sqr sqr sqr " +
-                "* (0,000000000000001) = m+ c mr", "-9,999999999999999e+9999", "");
+                "* (0,000000000000001) = m+ c mr mc", "-9,999999999999999e+9999", "");
 
         expressionTest("(0,1) sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr * (0,1) sqr sqr sqr sqr sqr " + //smallest positive
                 "sqr sqr sqr sqr sqr * (0,1) sqr sqr sqr sqr sqr sqr sqr sqr sqr * (0,1) sqr sqr sqr sqr sqr sqr sqr sqr " +
-                "* (0,000000000000001) = m+ c mr", "1e-9999", "");
+                "* (0,000000000000001) = m+ c mr mc", "1e-9999", "");
 
         expressionTest("(0,1) sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr * (0,1) sqr sqr sqr sqr sqr " + //smallest negative
                 "sqr sqr sqr sqr sqr * (0,1) sqr sqr sqr sqr sqr sqr sqr sqr sqr * (0,1) sqr sqr sqr sqr sqr sqr sqr sqr " +
-                "* (0,000000000000001) = m+ c mr plusMinus", "-1e-9999", "");
+                "* (0,000000000000001) = m+ c mr plusMinus mc", "-1e-9999", "");
 
 
         expressionTest("(10) + (15) + (9) =", "34", "25 + 9 = ");

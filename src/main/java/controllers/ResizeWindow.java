@@ -8,6 +8,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ResizeWindow implements EventHandler<MouseEvent> {
 
@@ -28,9 +29,9 @@ public class ResizeWindow implements EventHandler<MouseEvent> {
     private final double stageMinWidth;
     private final double stageMinHeight;
     private final Scene scene;
-    private final ArrayList<Button> textButtons;
+    private final List<Button> textButtons;
 
-    ResizeWindow(Stage stage, ArrayList<Button> textButtons) {
+    ResizeWindow(Stage stage, List<Button> textButtons) {
         this.stage = stage;
         stageMinWidth = stage.getMinWidth();
         stageMinHeight = stage.getMinHeight();
