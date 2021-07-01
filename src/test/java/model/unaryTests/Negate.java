@@ -1,6 +1,7 @@
 package model.unaryTests;
 
 import model.MainModel;
+import model.OverflowException;
 import model.UnaryOperations;
 import org.junit.Test;
 
@@ -11,7 +12,7 @@ import static org.junit.Assert.assertEquals;
 public class Negate {
     MainModel testModel = new MainModel();
     @Test
-    public void negateScenarios(){
+    public void negateScenarios() throws OverflowException {
         zeroAssertNegate();
         assertNegate("1");
         assertNegate("2");
@@ -196,12 +197,12 @@ public class Negate {
         assertNegate("1E-9999");
     }
 
-    private void zeroAssertNegate() {
+    private void zeroAssertNegate() throws OverflowException {
         assertEquals("0", testModel.calculate(new BigDecimal("0"), UnaryOperations.NEGATIVE).toString());
         assertEquals("0", testModel.calculate(new BigDecimal( "-0"), UnaryOperations.NEGATIVE).toString());
     }
 
-    private void assertNegate(String number) {
+    private void assertNegate(String number) throws OverflowException {
         assertEquals("-" + number, testModel.calculate(new BigDecimal(number), UnaryOperations.NEGATIVE).toString());
         assertEquals(number, testModel.calculate(new BigDecimal("-" + number), UnaryOperations.NEGATIVE).toString());
 

@@ -201,7 +201,7 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    public void plusPressed() {
+    public void plusPressed() throws OverflowException {
         sendToCalculate();
         lastBinary = BinaryOperations.PLUS;
         addToHistory("");
@@ -210,7 +210,7 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    public void minusPressed() {
+    public void minusPressed() throws OverflowException {
         sendToCalculate();
         lastBinary = BinaryOperations.MINUS;
         addToHistory("");
@@ -219,7 +219,7 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    public void dividePressed() {
+    public void dividePressed() throws OverflowException {
         sendToCalculate();
         lastBinary = BinaryOperations.DIVIDE;
         addToHistory("");
@@ -228,7 +228,7 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    public void multiplyPressed() {
+    public void multiplyPressed() throws OverflowException {
         sendToCalculate();
         lastBinary = BinaryOperations.MULTIPLY;
         addToHistory("");
@@ -236,7 +236,7 @@ public class MainController implements Initializable {
         showHistory();
     }
 
-    private void sendToCalculate() {
+    private void sendToCalculate() throws OverflowException {
         if (isEqualsPressed) {
             lastBinary = null;
             isEqualsPressed = false;
@@ -289,7 +289,11 @@ public class MainController implements Initializable {
 
 
         if (lastBinary != null && !isPercentLast) {
-            result = model.calculate(new BigDecimal(result), new BigDecimal(buffer), lastBinary).toString();
+            try {
+                result = model.calculate(new BigDecimal(result), new BigDecimal(buffer), lastBinary).toString();
+            } catch (OverflowException e) {
+                setMainLabelText("Переполнение");
+            }
         } else if (isPercentLast) {
             isPercentLast = false;
         } else {
@@ -310,7 +314,7 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    public void plusMinusPressed() throws ArithmeticException {
+    public void plusMinusPressed() throws ArithmeticException, OverflowException {
         buffer = model.calculate(new BigDecimal(buffer), UnaryOperations.NEGATIVE).toString();
         if (isEqualsPressed || !unaryExpression.equals("")) {
             if (isNewHistoryForNext) {
@@ -345,7 +349,7 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    public void oneDividedXPressed() {
+    public void oneDividedXPressed() throws OverflowException {
         isTypingNew = true;
         isTyping = false;
         sendToUnary();
@@ -361,7 +365,11 @@ public class MainController implements Initializable {
         isTypingNew = true;
         isTyping = false;
         sendToUnary();
-        buffer = model.calculate(new BigDecimal(whatOnScreen), UnaryOperations.SQUARE).toString();
+        try {
+            buffer = model.calculate(new BigDecimal(whatOnScreen), UnaryOperations.SQUARE).toString();
+        } catch (OverflowException e) {
+            setMainLabelText("Переполнение");
+        }
         lastUnary = UnaryOperations.SQUARE;
         createUnaryExpression();
         setMainLabelText(buffer);
@@ -369,7 +377,7 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    public void rootPressed() {
+    public void rootPressed() throws OverflowException {
         isTypingNew = true;
         isTyping = false;
         sendToUnary();
@@ -460,7 +468,7 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    public void percentPressed() {
+    public void percentPressed() throws OverflowException {
         if (!isPercentLast) {
             if (lastBinary == null) {
                 historyLabel.setText("0");
@@ -525,7 +533,7 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    public void mMinusPressed() {
+    public void mMinusPressed() throws OverflowException {
         setDisableMemButtons(false);
         model.memoryMinus(new BigDecimal(whatOnScreen));
         isTypingNew = true;
@@ -533,7 +541,7 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    public void mPlusPressed() {
+    public void mPlusPressed() throws OverflowException {
         setDisableMemButtons(false);
         model.memoryPlus(new BigDecimal(whatOnScreen));
         isTypingNew = true;

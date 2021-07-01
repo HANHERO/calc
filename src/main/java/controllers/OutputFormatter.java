@@ -29,14 +29,17 @@ public class OutputFormatter {
     }
 
     public static String format(String text) {//9,999999999999999e9999 5e9983
+        if (text.equals("Переполнение")){
+            return text;
+        }
         BigDecimal resultNumber = new BigDecimal(text);
         resultNumber = resultNumber.stripTrailingZeros();
         resultNumber = rounding(resultNumber);
 
-        if (resultNumber.compareTo(new BigDecimal("9.9999999999999995E9999")) > 0 ||
-                resultNumber.compareTo(new BigDecimal("-9.9999999999999995E9999")) < 0 ||
-                (resultNumber.compareTo(new BigDecimal("9.999999999999999E-9999")) < 0 && resultNumber.compareTo(BigDecimal.ZERO) > 0) ||
-                (resultNumber.compareTo(new BigDecimal("-9.999999999999999E-9999")) > 0 && resultNumber.compareTo(BigDecimal.ZERO) < 0)) {
+        if (resultNumber.compareTo(new BigDecimal("9.999999999999999400000000000000000E9999")) > 0 ||
+                resultNumber.compareTo(new BigDecimal("-9.999999999999999400000000000000000E9999")) < 0 ||
+                (resultNumber.compareTo(new BigDecimal("1E-9999")) < 0 && resultNumber.compareTo(BigDecimal.ZERO) > 0) ||
+                (resultNumber.compareTo(new BigDecimal("-1E-9999")) > 0 && resultNumber.compareTo(BigDecimal.ZERO) < 0)) {
             return "Переполнение";
         }
 

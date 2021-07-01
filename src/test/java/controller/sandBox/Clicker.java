@@ -43,11 +43,11 @@ public class Clicker {
         mapOfKeysCoordinates.put("c", "804 322");
         mapOfKeysCoordinates.put("del", "890 322");
 
-        mapOfKeysCoordinates.put("mc", "648 288");
-        mapOfKeysCoordinates.put("mr", "729 288");
-        mapOfKeysCoordinates.put("m+", "804 288");
-        mapOfKeysCoordinates.put("m-", "890 288");
-        mapOfKeysCoordinates.put("ms", "890 288");
+        mapOfKeysCoordinates.put("mc", "637 288");
+        mapOfKeysCoordinates.put("mr", "689 288");
+        mapOfKeysCoordinates.put("m+", "745 288");
+        mapOfKeysCoordinates.put("m-", "799 288");
+        mapOfKeysCoordinates.put("ms", "850 288");
     }
 
     public void click(String whatToClick) {

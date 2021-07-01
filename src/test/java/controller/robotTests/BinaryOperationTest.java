@@ -17,22 +17,41 @@ public class BinaryOperationTest extends TestingSandBox {
     @Test
     public void plusScenarios() {
         /////////////////////////////////// max/min
-        expressionTest("(9999999999999999) * (1000000000000000) = = = = = = = = = = = = = = = = = = = = = = = =" +
-                        " = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = " +
-                        "= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =" +
-                        " = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = " +
-                        "= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =" +
-                        " = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = " +
-                        "= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =" +
-                        " = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = " +
-                        "= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =" +
-                        " = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =" +
-                        " = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =" +
-                        " = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =" +
-                        " = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =" +
-                        " = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =" +
-                        " = = = = = = = = = = = = = = = = = = = = = * (10) = = = = = = = = = m+"
-                , "9,999999999999999e+9999", "9,999999999999999e+9998 × 10 = ");
+        expressionTest("(10) sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr * (10) sqr sqr sqr sqr sqr sqr " +  //max
+                "sqr sqr sqr sqr * (10) sqr sqr sqr sqr sqr sqr sqr sqr sqr * (10) sqr sqr sqr sqr sqr sqr sqr " +
+                "sqr * (9999999999999999) = m+ c (10) sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr * (10) sqr sqr sqr sqr sqr sqr " +
+                "sqr sqr sqr sqr * (10) sqr sqr sqr sqr sqr sqr sqr sqr sqr * (10) sqr sqr sqr sqr sqr sqr sqr " +
+                "sqr * (0,4) = m+ c mr", "9,999999999999999e+9999", "");
+
+        expressionTest("(10) sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr * (10) sqr sqr sqr sqr sqr sqr " +  //max - smallest(1e-9999)
+                "sqr sqr sqr sqr * (10) sqr sqr sqr sqr sqr sqr sqr sqr sqr * (10) sqr sqr sqr sqr sqr sqr sqr " +
+                "sqr * (9999999999999999) = m+ c (10) sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr * (10) sqr sqr sqr sqr sqr sqr " +
+                "sqr sqr sqr sqr * (10) sqr sqr sqr sqr sqr sqr sqr sqr sqr * (10) sqr sqr sqr sqr sqr sqr sqr " +
+                "sqr * (0,4) = m+ c (0,1) sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr * (0,1) sqr sqr sqr sqr sqr " +
+                "sqr sqr sqr sqr sqr * (0,1) sqr sqr sqr sqr sqr sqr sqr sqr sqr * (0,1) sqr sqr sqr sqr sqr sqr sqr sqr " +
+                "* (0,000000000000001) = m- c mr", "9,999999999999999e+9999", "");
+
+        expressionTest("(10) sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr * (10) sqr sqr sqr sqr sqr sqr " + //min
+                "sqr sqr sqr sqr * (10) sqr sqr sqr sqr sqr sqr sqr sqr sqr * (10) sqr sqr sqr sqr sqr sqr sqr " +
+                "sqr * (9999999999999999) = m+ c (10) sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr * (10) sqr sqr sqr sqr sqr sqr " +
+                "sqr sqr sqr sqr * (10) sqr sqr sqr sqr sqr sqr sqr sqr sqr * (10) sqr sqr sqr sqr sqr sqr sqr " +
+                "sqr * (0,4) = m+ c mr plusMinus", "-9,999999999999999e+9999", "");
+
+        expressionTest("(10) sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr * (10) sqr sqr sqr sqr sqr sqr " +  //min + smallest(1e-9999)
+                "sqr sqr sqr sqr * (10) sqr sqr sqr sqr sqr sqr sqr sqr sqr * (10) sqr sqr sqr sqr sqr sqr sqr " +
+                "sqr * (9999999999999999) = m+ c (10) sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr * (10) sqr sqr sqr sqr sqr sqr " +
+                "sqr sqr sqr sqr * (10) sqr sqr sqr sqr sqr sqr sqr sqr sqr * (10) sqr sqr sqr sqr sqr sqr sqr " +
+                "sqr * (0,4) = m+ c mr plusMinus mc m+ c (0,1) sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr * (0,1) sqr sqr sqr sqr sqr " +
+                "sqr sqr sqr sqr sqr * (0,1) sqr sqr sqr sqr sqr sqr sqr sqr sqr * (0,1) sqr sqr sqr sqr sqr sqr sqr sqr " +
+                "* (0,000000000000001) = m+ c mr", "-9,999999999999999e+9999", "");
+
+        expressionTest("(0,1) sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr * (0,1) sqr sqr sqr sqr sqr " + //smallest positive
+                "sqr sqr sqr sqr sqr * (0,1) sqr sqr sqr sqr sqr sqr sqr sqr sqr * (0,1) sqr sqr sqr sqr sqr sqr sqr sqr " +
+                "* (0,000000000000001) = m+ c mr", "1e-9999", "");
+
+        expressionTest("(0,1) sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr * (0,1) sqr sqr sqr sqr sqr " + //smallest negative
+                "sqr sqr sqr sqr sqr * (0,1) sqr sqr sqr sqr sqr sqr sqr sqr sqr * (0,1) sqr sqr sqr sqr sqr sqr sqr sqr " +
+                "* (0,000000000000001) = m+ c mr plusMinus", "-1e-9999", "");
 
 
         expressionTest("(10) + (15) + (9) =", "34", "25 + 9 = ");

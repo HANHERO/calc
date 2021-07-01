@@ -1,6 +1,7 @@
 package model.unaryTests;
 
 import model.MainModel;
+import model.OverflowException;
 import model.UnaryOperations;
 import org.junit.Test;
 
@@ -12,7 +13,7 @@ public class OneDividedX {
     MainModel testModel = new MainModel();
 
     @Test
-    public void oneDividedXScenarios() {
+    public void oneDividedXScenarios() throws OverflowException {
         assertOneDividedX("1", "1");
         assertOneDividedX("2", "0.5");
         assertOneDividedX("3", "0.3333333333333333333333333333333333");
@@ -452,7 +453,7 @@ public class OneDividedX {
         assertOneDividedX("0.0000000000000001", "1E+16");
     }
 
-    private void assertOneDividedX(String number, String expectedAnswer) {
+    private void assertOneDividedX(String number, String expectedAnswer) throws OverflowException {
         assertEquals(expectedAnswer, testModel.calculate(new BigDecimal(number), UnaryOperations.ONE_DIVIDED_X).toString());
         assertEquals("-" + expectedAnswer, testModel.calculate(new BigDecimal("-" + number), UnaryOperations.ONE_DIVIDED_X).toString());
     }
