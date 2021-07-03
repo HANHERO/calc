@@ -38,6 +38,13 @@ public class MainController implements Initializable {
     private boolean isSignHas = false;
     private String whatOnScreen = "0";
     private String unaryExpression = "";
+    private static final BigDecimal MAX_VALUE = new BigDecimal("9.999999999999999E+9999");
+    private static final BigDecimal NEAREST_TO_ZERO_POSITIVE_VALUE = new BigDecimal("1E-9999");
+    private static final BigDecimal NEAREST_TO_ZERO_NEGATIVE_VALUE = new BigDecimal("-1E-9999");
+    private static final BigDecimal MIN_VALUE = new BigDecimal("-9.99999999999999E+9999");
+    private static final String DIVISION_BY_ZERO = "Деление на ноль невозможно";
+    private static final String NEGATIVE_SQRT = "Неверный ввод";
+    private static final String OVERFLOW = "Переполнение";
 
     @FXML
     public Button historyLeftMover;
@@ -202,7 +209,7 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    public void plusPressed() throws OverflowException {
+    public void plusPressed() {
         sendToCalculate();
         lastBinary = BinaryOperations.PLUS;
         addToHistory("");
@@ -211,7 +218,7 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    public void minusPressed() throws OverflowException {
+    public void minusPressed() {
         sendToCalculate();
         lastBinary = BinaryOperations.MINUS;
         addToHistory("");
@@ -220,7 +227,7 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    public void dividePressed() throws OverflowException {
+    public void dividePressed() {
         sendToCalculate();
         lastBinary = BinaryOperations.DIVIDE;
         addToHistory("");
@@ -229,7 +236,7 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    public void multiplyPressed() throws OverflowException {
+    public void multiplyPressed() {
         sendToCalculate();
         lastBinary = BinaryOperations.MULTIPLY;
         addToHistory("");
@@ -237,7 +244,7 @@ public class MainController implements Initializable {
         showHistory();
     }
 
-    private void sendToCalculate() throws OverflowException {
+    private void sendToCalculate() {
         if (isEqualsPressed) {
             lastBinary = null;
             isEqualsPressed = false;
@@ -252,12 +259,18 @@ public class MainController implements Initializable {
                 lastBinary = null;
             }
             if (lastBinary != null && !isPercentLast) {
-                result = model.calculate(new BigDecimal(result), new BigDecimal(buffer), lastBinary).toString();
+                try {
+                    result = model.calculate(new BigDecimal(result), new BigDecimal(buffer), lastBinary).toString();
+                    setMainLabelText(result);
+                } catch (DivisionByZeroException e) {
+                    showExceptionMessage(DIVISION_BY_ZERO);
+                }
             } else if (isPercentLast) {
                 isPercentLast = false;
             } else {
                 result = whatOnScreen;
                 buffer = result;
+                setMainLabelText(result);
             }
 
             isTypingNew = true;
@@ -271,7 +284,7 @@ public class MainController implements Initializable {
                 unaryExpression = "";
                 lastUnary = null;
             }
-            setMainLabelText(result);
+
         }
         isSignHas = true;
     }
@@ -290,15 +303,19 @@ public class MainController implements Initializable {
 
 
         if (lastBinary != null && !isPercentLast) {
+
             try {
                 result = model.calculate(new BigDecimal(result), new BigDecimal(buffer), lastBinary).toString();
-            } catch (OverflowException e) {
-                setMainLabelText("Переполнение");
+                setMainLabelText(result);
+            } catch (DivisionByZeroException e) {
+                showExceptionMessage(DIVISION_BY_ZERO);
             }
+
         } else if (isPercentLast) {
             isPercentLast = false;
         } else {
             result = buffer;
+            setMainLabelText(result);
         }
         if (history.size() == 1) {
             history.set(0, formatterForHistory(result));
@@ -311,12 +328,18 @@ public class MainController implements Initializable {
             history.set(1, lastBinary);
             showHistory();
         }
-        setMainLabelText(result);
+
     }
 
     @FXML
-    public void plusMinusPressed() throws ArithmeticException, OverflowException {
-        buffer = model.calculate(new BigDecimal(buffer), UnaryOperations.NEGATIVE).toString();
+    public void plusMinusPressed() {
+        try {
+            buffer = model.calculate(new BigDecimal(buffer), UnaryOperations.NEGATIVE).toString();
+        } catch (DivisionByZeroException e) {
+            showExceptionMessage(DIVISION_BY_ZERO);
+        } catch (NegativeSqrtException e) {
+            showExceptionMessage(NEGATIVE_SQRT);
+        }
         if (isEqualsPressed || !unaryExpression.equals("")) {
             if (isNewHistoryForNext) {
                 unaryExpression = formatterForHistory(whatOnScreen);
@@ -325,7 +348,13 @@ public class MainController implements Initializable {
             if (unaryExpression.equals("")) {
                 unaryExpression = formatterForHistory(buffer);
             }
-            buffer = model.calculate(new BigDecimal(whatOnScreen), UnaryOperations.NEGATIVE).toString();
+            try {
+                buffer = model.calculate(new BigDecimal(whatOnScreen), UnaryOperations.NEGATIVE).toString();
+            } catch (DivisionByZeroException e) {
+                showExceptionMessage(DIVISION_BY_ZERO);
+            } catch (NegativeSqrtException e) {
+                showExceptionMessage(NEGATIVE_SQRT);
+            }
             lastUnary = UnaryOperations.NEGATIVE;
             createUnaryExpression();
             setMainLabelText(buffer);
@@ -350,14 +379,20 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    public void oneDividedXPressed() throws OverflowException {
+    public void oneDividedXPressed() {
         isTypingNew = true;
         isTyping = false;
         sendToUnary();
-        buffer = model.calculate(new BigDecimal(whatOnScreen), UnaryOperations.ONE_DIVIDED_X).toString();
+        try {
+            buffer = model.calculate(new BigDecimal(whatOnScreen), UnaryOperations.ONE_DIVIDED_X).toString();
+            setMainLabelText(buffer);
+        } catch (DivisionByZeroException e) {
+            showExceptionMessage(DIVISION_BY_ZERO);
+        } catch (NegativeSqrtException e) {
+            showExceptionMessage(NEGATIVE_SQRT);
+        }
         lastUnary = UnaryOperations.ONE_DIVIDED_X;
         createUnaryExpression();
-        setMainLabelText(buffer);
         showHistory();
     }
 
@@ -368,32 +403,35 @@ public class MainController implements Initializable {
         sendToUnary();
         try {
             buffer = model.calculate(new BigDecimal(whatOnScreen), UnaryOperations.SQUARE).toString();
-        } catch (OverflowException e) {
-            setMainLabelText("Переполнение");
+            setMainLabelText(buffer);
+        } catch (DivisionByZeroException e) {
+            showExceptionMessage(DIVISION_BY_ZERO);
+        } catch (NegativeSqrtException e) {
+            showExceptionMessage(NEGATIVE_SQRT);
         }
         lastUnary = UnaryOperations.SQUARE;
         createUnaryExpression();
-        setMainLabelText(buffer);
         showHistory();
     }
 
     @FXML
-    public void rootPressed() throws OverflowException {
+    public void rootPressed() {
         isTypingNew = true;
         isTyping = false;
         sendToUnary();
-        buffer = model.calculate(new BigDecimal(whatOnScreen), UnaryOperations.SQRT).toString();
+        try {
+            buffer = model.calculate(new BigDecimal(whatOnScreen), UnaryOperations.SQRT).toString();
+            setMainLabelText(buffer);
+        } catch (DivisionByZeroException e) {
+            showExceptionMessage(DIVISION_BY_ZERO);
+        } catch (NegativeSqrtException e) {
+            showExceptionMessage(NEGATIVE_SQRT);
+        }
         lastUnary = UnaryOperations.SQRT;
         createUnaryExpression();
         showHistory();
-        if (buffer.equals("-1")) {
-            mainLabel.setText("Неверный ввод");
-            ResizeFont.resizeMainLabelFont();
-            setDisableAllOperations(true);
-        } else {
-            setMainLabelText(buffer);
-        }
     }
+
 
     private void createUnaryExpression() {
         if (isEqualsPressed) {
@@ -469,7 +507,7 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    public void percentPressed() throws OverflowException {
+    public void percentPressed() {
         if (!isPercentLast) {
             if (lastBinary == null) {
                 historyLabel.setText("0");
@@ -478,7 +516,11 @@ public class MainController implements Initializable {
                 return;
             }
             isPercentLast = true;
-            result = model.percent(new BigDecimal(result), new BigDecimal(buffer), lastBinary).toString();
+            try {
+                result = model.percent(new BigDecimal(result), new BigDecimal(buffer), lastBinary).toString();
+            } catch (DivisionByZeroException e) {
+                showExceptionMessage(DIVISION_BY_ZERO);
+            }
             isTypingNew = true;
             isTyping = false;
             buffer = model.getPercentCoef().toString();
@@ -534,17 +576,25 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    public void mMinusPressed() throws OverflowException {
+    public void mMinusPressed() {
         setDisableMemButtons(false);
-        model.memoryMinus(new BigDecimal(whatOnScreen));
+        try {
+            model.memoryMinus(new BigDecimal(whatOnScreen));
+        } catch (DivisionByZeroException e) {
+            showExceptionMessage(DIVISION_BY_ZERO);
+        }
         isTypingNew = true;
         isTyping = false;
     }
 
     @FXML
-    public void mPlusPressed() throws OverflowException {
+    public void mPlusPressed() {
         setDisableMemButtons(false);
-        model.memoryPlus(new BigDecimal(whatOnScreen));
+        try {
+            model.memoryPlus(new BigDecimal(whatOnScreen));
+        } catch (DivisionByZeroException e) {
+            showExceptionMessage(DIVISION_BY_ZERO);
+        }
         isTypingNew = true;
         isTyping = false;
     }
@@ -608,6 +658,7 @@ public class MainController implements Initializable {
         plus.setDisable(isDisable);
         plusMinus.setDisable(isDisable);
         comma.setDisable(isDisable);
+        equals.setDisable(isDisable);
     }
 
     private void setDisableMemButtons(boolean isDisable) {
@@ -649,11 +700,14 @@ public class MainController implements Initializable {
         if (isTyping) {
             mainLabel.setText(InputFormatter.formatter(text));
         } else {
-            mainLabel.setText(OutputFormatter.format(text));
+            try {
+                checkOverflow(text);
+                mainLabel.setText(OutputFormatter.format(text));
+            } catch (OverflowException e) {
+                showExceptionMessage(OVERFLOW);
+            }
         }
-        if (mainLabel.getText().equals("Переполнение") || mainLabel.getText().equals("Деление на ноль невозможно")){
-            setDisableAllOperations(true);
-        }
+
         ResizeFont.resizeMainLabelFont();
     }
 
@@ -739,6 +793,27 @@ public class MainController implements Initializable {
             for (Button textButton : textButtons) {
                 textButton.setStyle("-fx-font-size: 24px");
             }
+        }
+    }
+
+    private void showExceptionMessage(String message) {
+        setDisableAllOperations(true);
+        setDisableMemButtons(true);
+        mainLabel.setText(message);
+        ResizeFont.resizeMainLabelFont();
+    }
+
+    private void checkOverflow(String number) throws OverflowException {
+        if (new BigDecimal(number).compareTo(MAX_VALUE) > 0) {
+            throw new OverflowException();
+        } else if (new BigDecimal(number).compareTo(MIN_VALUE) < 0) {
+            throw new OverflowException();
+        } else if (new BigDecimal(number).compareTo(NEAREST_TO_ZERO_POSITIVE_VALUE) < 0 &&
+                new BigDecimal(number).compareTo(BigDecimal.ZERO) > 0) {
+            throw new OverflowException();
+        } else if (new BigDecimal(number).compareTo(NEAREST_TO_ZERO_NEGATIVE_VALUE) > 0 &&
+                new BigDecimal(number).compareTo(BigDecimal.ZERO) < 0) {
+            throw new OverflowException();
         }
     }
 }

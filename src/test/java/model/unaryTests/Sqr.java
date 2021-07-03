@@ -1,7 +1,9 @@
 package model.unaryTests;
 
+import model.DivisionByZeroException;
 import model.MainModel;
-import model.OverflowException;
+import controllers.OverflowException;
+import model.NegativeSqrtException;
 import model.UnaryOperations;
 import org.junit.Test;
 
@@ -13,7 +15,7 @@ public class Sqr {
     MainModel testModel = new MainModel();
 
     @Test
-    public void sqrScenarios() throws OverflowException {
+    public void sqrScenarios() throws OverflowException, DivisionByZeroException, NegativeSqrtException {
         assertSQR("0", "0");
         assertSQR("1", "1");
         assertSQR("2", "4");
@@ -200,7 +202,7 @@ public class Sqr {
         assertSQR("0.0000000000000001", "1E-32");
     }
 
-    private void assertSQR(String number, String expectedAnswer) throws OverflowException {
+    private void assertSQR(String number, String expectedAnswer) throws DivisionByZeroException, NegativeSqrtException {
         assertEquals(expectedAnswer, testModel.calculate(new BigDecimal(number), UnaryOperations.SQUARE).toString());
         assertEquals(expectedAnswer, testModel.calculate(new BigDecimal("-" + number), UnaryOperations.SQUARE).toString());
     }

@@ -1,5 +1,7 @@
 package model;
 
+import controllers.OverflowException;
+
 import java.math.BigDecimal;
 import java.math.MathContext;
 
@@ -12,35 +14,23 @@ public class MainModel {
         return percentCoef;
     }
 
-    public BigDecimal calculate(BigDecimal firstValue, BigDecimal secondValue, BinaryOperations operation) throws OverflowException {
+    public BigDecimal calculate(BigDecimal firstValue, BigDecimal secondValue, BinaryOperations operation) throws DivisionByZeroException {
         result = switch (operation) {
             case PLUS -> plus(firstValue, secondValue);
             case MINUS -> minus(firstValue, secondValue);
             case DIVIDE -> divide(firstValue, secondValue);
             case MULTIPLY -> multiply(firstValue, secondValue);
         };
-        if (result.compareTo(new BigDecimal("9.9999999999999994E9999")) > 0 ||
-                result.compareTo(new BigDecimal("-9.9999999999999994E9999")) < 0 ||
-                (result.compareTo(new BigDecimal("1E-9999")) < 0 && result.compareTo(BigDecimal.ZERO) > 0) ||
-                (result.compareTo(new BigDecimal("-1E-9999")) > 0 && result.compareTo(BigDecimal.ZERO) < 0)) {
-            throw new OverflowException();
-        }
         return result;
     }
 
-    public BigDecimal calculate(BigDecimal firstValue, UnaryOperations operation) throws OverflowException {
+    public BigDecimal calculate(BigDecimal firstValue, UnaryOperations operation) throws DivisionByZeroException, NegativeSqrtException {
         result = switch (operation) {
             case SQUARE -> square(firstValue);
             case SQRT -> sqrt(firstValue);
             case ONE_DIVIDED_X -> oneDividedX(firstValue);
             case NEGATIVE -> negative(firstValue);
         };
-        if (result.compareTo(new BigDecimal("9.9999999999999994E9999")) > 0 ||
-                result.compareTo(new BigDecimal("-9.9999999999999994E9999")) < 0 ||
-                (result.compareTo(new BigDecimal("1E-9999")) < 0 && result.compareTo(BigDecimal.ZERO) > 0) ||
-                (result.compareTo(new BigDecimal("-1E-9999")) > 0 && result.compareTo(BigDecimal.ZERO) < 0)) {
-            throw new OverflowException();
-        }
         return result;
     }
 
@@ -48,18 +38,15 @@ public class MainModel {
         return firstValue.negate();
     }
 
-    private BigDecimal oneDividedX(BigDecimal firstValue) {
+    private BigDecimal oneDividedX(BigDecimal firstValue) throws DivisionByZeroException {
         return divide(BigDecimal.ONE, firstValue);
     }
 
-    private BigDecimal sqrt(BigDecimal firstValue) {
-        BigDecimal sqrtResult;
-        if (firstValue.compareTo(BigDecimal.ZERO) >= 0) {
-            sqrtResult = firstValue.sqrt(MathContext.DECIMAL128);
-        } else {
-            sqrtResult = new BigDecimal("-1");
+    private BigDecimal sqrt(BigDecimal firstValue) throws NegativeSqrtException {
+        if (firstValue.compareTo(BigDecimal.ZERO) < 0) {
+            throw new NegativeSqrtException();
         }
-        return sqrtResult;
+        return firstValue.sqrt(MathContext.DECIMAL128);
     }
 
     private BigDecimal square(BigDecimal firstValue) {
@@ -78,11 +65,18 @@ public class MainModel {
         return firstValue.multiply(secondValue);
     }
 
-    private BigDecimal divide(BigDecimal firstValue, BigDecimal secondValue) {
-        return firstValue.divide(secondValue, MathContext.DECIMAL128);
+    private BigDecimal divide(BigDecimal firstValue, BigDecimal secondValue) throws DivisionByZeroException {
+        BigDecimal result;
+        if (!secondValue.equals(BigDecimal.ZERO)){
+            System.out.println(firstValue);
+            result = firstValue.divide(secondValue, MathContext.DECIMAL128);
+        } else {
+            throw new DivisionByZeroException();
+        }
+        return result;
     }
 
-    public BigDecimal percent(BigDecimal firstValue, BigDecimal percentValue, BinaryOperations lastOperation) throws OverflowException {
+    public BigDecimal percent(BigDecimal firstValue, BigDecimal percentValue, BinaryOperations lastOperation) throws DivisionByZeroException {
         if (lastOperation == BinaryOperations.PLUS || lastOperation == BinaryOperations.MINUS) {
             percentCoef = divide(percentValue, new BigDecimal("100")).multiply(firstValue);
             firstValue = calculate(firstValue, percentCoef, lastOperation);
@@ -93,11 +87,11 @@ public class MainModel {
         return firstValue;
     }
 
-    public void memoryMinus(BigDecimal buffer) throws OverflowException {
+    public void memoryMinus(BigDecimal buffer) throws DivisionByZeroException {
         memoryValue = calculate(memoryValue, buffer, BinaryOperations.MINUS);
     }
 
-    public void memoryPlus(BigDecimal buffer) throws OverflowException {
+    public void memoryPlus(BigDecimal buffer) throws DivisionByZeroException {
         memoryValue = calculate(memoryValue, buffer, BinaryOperations.PLUS);
     }
 

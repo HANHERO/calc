@@ -29,9 +29,6 @@ public class OutputFormatter {
     }
 
     public static String format(String text) {
-        if (text.equals("Переполнение")){
-            return text;
-        }
         BigDecimal resultNumber = new BigDecimal(text);
         resultNumber = resultNumber.stripTrailingZeros();
         resultNumber = rounding(resultNumber);
