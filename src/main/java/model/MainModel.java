@@ -68,7 +68,6 @@ public class MainModel {
     private BigDecimal divide(BigDecimal firstValue, BigDecimal secondValue) throws DivisionByZeroException {
         BigDecimal result;
         if (!secondValue.equals(BigDecimal.ZERO)){
-            System.out.println(firstValue);
             result = firstValue.divide(secondValue, MathContext.DECIMAL128);
         } else {
             throw new DivisionByZeroException();

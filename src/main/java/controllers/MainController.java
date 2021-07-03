@@ -41,7 +41,7 @@ public class MainController implements Initializable {
     private static final BigDecimal MAX_VALUE = new BigDecimal("9.999999999999999E+9999");
     private static final BigDecimal NEAREST_TO_ZERO_POSITIVE_VALUE = new BigDecimal("1E-9999");
     private static final BigDecimal NEAREST_TO_ZERO_NEGATIVE_VALUE = new BigDecimal("-1E-9999");
-    private static final BigDecimal MIN_VALUE = new BigDecimal("-9.99999999999999E+9999");
+    private static final BigDecimal MIN_VALUE = new BigDecimal("-9.999999999999999E+9999");
     private static final String DIVISION_BY_ZERO = "Деление на ноль невозможно";
     private static final String NEGATIVE_SQRT = "Неверный ввод";
     private static final String OVERFLOW = "Переполнение";
@@ -261,6 +261,9 @@ public class MainController implements Initializable {
             if (lastBinary != null && !isPercentLast) {
                 try {
                     result = model.calculate(new BigDecimal(result), new BigDecimal(buffer), lastBinary).toString();
+                    isTypingNew = true;
+                    isTyping = false;
+                    isCommaPressed = false;
                     setMainLabelText(result);
                 } catch (DivisionByZeroException e) {
                     showExceptionMessage(DIVISION_BY_ZERO);
@@ -270,12 +273,12 @@ public class MainController implements Initializable {
             } else {
                 result = whatOnScreen;
                 buffer = result;
+                isTypingNew = true;
+                isTyping = false;
+                isCommaPressed = false;
                 setMainLabelText(result);
             }
 
-            isTypingNew = true;
-            isTyping = false;
-            isCommaPressed = false;
 
             if (unaryExpression.equals("")) {
                 clearHistory();
@@ -301,9 +304,7 @@ public class MainController implements Initializable {
         }
         showHistory();
 
-
         if (lastBinary != null && !isPercentLast) {
-
             try {
                 result = model.calculate(new BigDecimal(result), new BigDecimal(buffer), lastBinary).toString();
                 setMainLabelText(result);
@@ -312,6 +313,7 @@ public class MainController implements Initializable {
             }
 
         } else if (isPercentLast) {
+            setMainLabelText(result);
             isPercentLast = false;
         } else {
             result = buffer;
@@ -515,18 +517,18 @@ public class MainController implements Initializable {
                 isTypingNew = true;
                 return;
             }
-            isPercentLast = true;
             try {
+                isPercentLast = true;
                 result = model.percent(new BigDecimal(result), new BigDecimal(buffer), lastBinary).toString();
+                isTypingNew = true;
+                isTyping = false;
+                buffer = model.getPercentCoef().toString();
+                history.add(formatterForHistory(buffer));
+                showHistory();
+                setMainLabelText(buffer);
             } catch (DivisionByZeroException e) {
                 showExceptionMessage(DIVISION_BY_ZERO);
             }
-            isTypingNew = true;
-            isTyping = false;
-            buffer = model.getPercentCoef().toString();
-            history.add(formatterForHistory(buffer));
-            showHistory();
-            setMainLabelText(buffer);
         }
     }
 
