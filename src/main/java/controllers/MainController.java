@@ -30,6 +30,7 @@ public class MainController implements Initializable {
     private boolean isNewHistoryForNext = false;
     private BinaryOperations lastBinary;
     private UnaryOperations lastUnary;
+    boolean isFirstTimeUnary = false;
     private boolean isPercentLast = false;
     private boolean isEqualsPressed = false;
     private boolean isCommaPressed = false;
@@ -38,10 +39,10 @@ public class MainController implements Initializable {
     private boolean isSignHas = false;
     private String whatOnScreen = "0";
     private String unaryExpression = "";
-    private static final BigDecimal MAX_VALUE = new BigDecimal("9.999999999999999E+9999");
+    private static final BigDecimal MAX_VALUE = new BigDecimal("9.9999999999999995E+9999");
     private static final BigDecimal NEAREST_TO_ZERO_POSITIVE_VALUE = new BigDecimal("1E-9999");
     private static final BigDecimal NEAREST_TO_ZERO_NEGATIVE_VALUE = new BigDecimal("-1E-9999");
-    private static final BigDecimal MIN_VALUE = new BigDecimal("-9.999999999999999E+9999");
+    private static final BigDecimal MIN_VALUE = new BigDecimal("-9.9999999999999995E+9999");
     private static final String DIVISION_BY_ZERO = "Деление на ноль невозможно";
     private static final String NEGATIVE_SQRT = "Неверный ввод";
     private static final String OVERFLOW = "Переполнение";
@@ -279,10 +280,11 @@ public class MainController implements Initializable {
                 setMainLabelText(result);
             }
 
-
-            if (unaryExpression.equals("")) {
-                clearHistory();
-                addToHistory(formatterForHistory(result));
+            if (unaryExpression.equals("") || history.size() > 2 ) {
+               clearHistory();
+               unaryExpression = "";
+               lastUnary = null;
+               addToHistory(formatterForHistory(result));
             } else {
                 unaryExpression = "";
                 lastUnary = null;
@@ -294,15 +296,25 @@ public class MainController implements Initializable {
 
     @FXML
     public void equalsPressed() {
+        isEqualsPressed = true;
         isCommaPressed = false;
         isTypingNew = true;
         isTyping = false;
-        isEqualsPressed = true;
         isNewHistoryForNext = true;
         if (unaryExpression.equals("")) {
             addToHistory(formatterForHistory(buffer));
         }
         showHistory();
+
+        if (history.size() == 3 && historyLabel.getText().contains("=") && !unaryExpression.equals("") && isFirstTimeUnary){
+            history.set(1, lastBinary);
+            history.set(2, formatterForHistory(buffer));
+            history.set(0, formatterForHistory(result));
+            showHistory();
+            isFirstTimeUnary = false;
+            lastUnary = null;
+            unaryExpression = "";
+        }
 
         if (lastBinary != null && !isPercentLast) {
             try {
@@ -330,6 +342,10 @@ public class MainController implements Initializable {
             history.set(1, lastBinary);
             showHistory();
         }
+        if (historyLabel.getText().contains("=")){
+            isFirstTimeUnary = true;
+        }
+
 
     }
 
@@ -439,6 +455,7 @@ public class MainController implements Initializable {
         if (isEqualsPressed) {
             history.clear();
             isEqualsPressed = false;
+            lastBinary = null;
         }
         unaryExpression = lastUnary.sign + "( " + unaryExpression + " )";
         addToHistory(unaryExpression);
@@ -503,6 +520,7 @@ public class MainController implements Initializable {
     public void cePressed() {
         setDisableAllOperations(false);
         isCommaPressed = false;
+        isFirstTimeUnary = false;
         buffer = "0";
         isTyping = true;
         setMainLabelText(buffer);
@@ -800,15 +818,14 @@ public class MainController implements Initializable {
 
     private void showExceptionMessage(String message) {
         setDisableAllOperations(true);
-        setDisableMemButtons(true);
         mainLabel.setText(message);
         ResizeFont.resizeMainLabelFont();
     }
 
     private void checkOverflow(String number) throws OverflowException {
-        if (new BigDecimal(number).compareTo(MAX_VALUE) > 0) {
+        if (new BigDecimal(number).compareTo(MAX_VALUE) >= 0) {
             throw new OverflowException();
-        } else if (new BigDecimal(number).compareTo(MIN_VALUE) < 0) {
+        } else if (new BigDecimal(number).compareTo(MIN_VALUE) <= 0) {
             throw new OverflowException();
         } else if (new BigDecimal(number).compareTo(NEAREST_TO_ZERO_POSITIVE_VALUE) < 0 &&
                 new BigDecimal(number).compareTo(BigDecimal.ZERO) > 0) {

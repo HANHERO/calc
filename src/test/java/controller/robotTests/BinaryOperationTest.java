@@ -9,6 +9,10 @@ import java.awt.*;
 public class BinaryOperationTest extends TestingSandBox {
 
     Clicker clicker;
+    private final String NEAREST_TO_ZERO_POSITIVE_NUMBER = "(0,0000000000000001) sqr * (0,0000001) = sqr sqr sqr sqr sqr sqr sqr sqr * (0,000000000000001) =";
+    private final String MAX_NUMBER = "(1000000000000000) sqr * (1000000000) = sqr sqr sqr sqr sqr sqr sqr sqr * (9999999999999999)" +
+            " = m+ c (1000000000000000) sqr * (1000000000) = sqr sqr sqr sqr sqr sqr sqr sqr m+ c " + NEAREST_TO_ZERO_POSITIVE_NUMBER +
+            " m- c (1000000000000000) sqr * (1000000000) = sqr sqr sqr sqr sqr sqr sqr sqr * (0,5) = m- c m+ mr";
 
     public BinaryOperationTest() throws AWTException {
         clicker = new Clicker();
@@ -17,44 +21,16 @@ public class BinaryOperationTest extends TestingSandBox {
     @Test
     public void plusScenarios() {
         /////////////////////////////////// max/min
-        expressionTest("(10) sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr * (10) sqr sqr sqr sqr sqr sqr " +  //max
-                "sqr sqr sqr sqr * (10) sqr sqr sqr sqr sqr sqr sqr sqr sqr * (10) sqr sqr sqr sqr sqr sqr sqr " +
-                "sqr * (9999999999999999) = m+ c mr mc", "9,999999999999999e+9999", "");
-
-       /* expressionTest("(10) sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr * (10) sqr sqr sqr sqr sqr sqr " +  //max - smallest(1e-9999)
-                "sqr sqr sqr sqr * (10) sqr sqr sqr sqr sqr sqr sqr sqr sqr * (10) sqr sqr sqr sqr sqr sqr sqr " +
-                "sqr * (9999999999999999) = m+ c (10) sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr * (10) sqr sqr sqr sqr sqr sqr " +
-                "sqr sqr sqr sqr * (10) sqr sqr sqr sqr sqr sqr sqr sqr sqr * (10) sqr sqr sqr sqr sqr sqr sqr " +
-                "sqr * (0,4) = m+ c (0,1) sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr * (0,1) sqr sqr sqr sqr sqr " +
-                "sqr sqr sqr sqr sqr * (0,1) sqr sqr sqr sqr sqr sqr sqr sqr sqr * (0,1) sqr sqr sqr sqr sqr sqr sqr sqr " +
-                "* (0,000000000000001) = m- c mr mc", "9,999999999999999e+9999", "");*/
-
-        expressionTest("(10) sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr * (10) sqr sqr sqr sqr sqr sqr " + //min
-                "sqr sqr sqr sqr * (10) sqr sqr sqr sqr sqr sqr sqr sqr sqr * (10) sqr sqr sqr sqr sqr sqr sqr " +
-                "sqr * (9999999999999999) = plusMinus m+ c mr mc", "-9,999999999999999e+9999", "");
-
-        /*expressionTest("(10) sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr * (10) sqr sqr sqr sqr sqr sqr " +  //min + smallest(1e-9999)
-                "sqr sqr sqr sqr * (10) sqr sqr sqr sqr sqr sqr sqr sqr sqr * (10) sqr sqr sqr sqr sqr sqr sqr " +
-                "sqr * (9999999999999999) = m+ c (10) sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr * (10) sqr sqr sqr sqr sqr sqr " +
-                "sqr sqr sqr sqr * (10) sqr sqr sqr sqr sqr sqr sqr sqr sqr * (10) sqr sqr sqr sqr sqr sqr sqr " +
-                "sqr * (0,4) = m+ c mr plusMinus mc m+ c (0,1) sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr * (0,1) sqr sqr sqr sqr sqr " +
-                "sqr sqr sqr sqr sqr * (0,1) sqr sqr sqr sqr sqr sqr sqr sqr sqr * (0,1) sqr sqr sqr sqr sqr sqr sqr sqr " +
-                "* (0,000000000000001) = m+ c mr mc", "-9,999999999999999e+9999", "");*/
-
-        expressionTest("(0,1) sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr * (0,1) sqr sqr sqr sqr sqr " + //smallest positive
-                "sqr sqr sqr sqr sqr * (0,1) sqr sqr sqr sqr sqr sqr sqr sqr sqr * (0,1) sqr sqr sqr sqr sqr sqr sqr sqr " +
-                "* (0,000000000000001) = m+ c mr mc", "1e-9999", "");
-
-        expressionTest("(0,1) sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr * (0,1) sqr sqr sqr sqr sqr " + //smallest negative
-                "sqr sqr sqr sqr sqr * (0,1) sqr sqr sqr sqr sqr sqr sqr sqr sqr * (0,1) sqr sqr sqr sqr sqr sqr sqr sqr " +
-                "* (0,000000000000001) = m+ c mr plusMinus mc", "-1e-9999", "");
+        expressionTest(MAX_NUMBER + " mc", "9,999999999999999e+9999", "");
+        expressionTest(MAX_NUMBER + " plusMinus mc", "-9,999999999999999e+9999", "");
 
 
-        expressionTest("(10) + (15) + (9) =", "34", "25 + 9 = ");
-        expressionTest("(9) + (3) + (17) + (32) + (43) + (1) + (43) + (2) = = =", "154", "152 + 2 = ");
-        expressionTest("(12) + (1) + (100) + (256) + (326) + (100)", "100", "695 + ");
-        expressionTest("(10) + = = = = = = = = =", "100", "90 + 10 = ");
-        expressionTest("(9) + (1) + (5) + (949) + (494) + (231) + (1512) =", "3 201", "1689 + 1512 = ");
+
+        //expressionTest("(10) + (15) + (9) =", "34", "25 + 9 = ");
+        //expressionTest("(9) + (3) + (17) + (32) + (43) + (1) + (43) + (2) = = =", "154", "152 + 2 = ");
+        //expressionTest("(12) + (1) + (100) + (256) + (326) + (100)", "100", "695 + ");
+        //expressionTest("(10) + = = = = = = = = =", "100", "90 + 10 = ");
+        //expressionTest("(9) + (1) + (5) + (949) + (494) + (231) + (1512) =", "3 201", "1689 + 1512 = ");
     }
 
     @Test
