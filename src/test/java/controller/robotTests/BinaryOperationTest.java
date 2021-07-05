@@ -40,39 +40,11 @@ public class BinaryOperationTest extends TestingSandBox {
 
     @Test
     public void exponentScenarios(){
-        //expressionTest(MAX_INPUT + " + (0,5) = ms c " + NEAREST_TO_ZERO_POSITIVE_NUMBER + " m- c mr mc", "9 999 999 999 999 999","");
-        //expressionTest(MAX_INPUT + " + (0,5) =", "1e+16","9999999999999999 + 0,5 = ");
+        expressionTest(MAX_INPUT + " + (0,5) = ms c " + NEAREST_TO_ZERO_POSITIVE_NUMBER + " m- c mr mc", "9 999 999 999 999 999","");
+        expressionTest(MAX_INPUT + " + (0,5) =", "1e+16","9999999999999999 + 0,5 = ");
 
         expressionTest(MAX_INPUT + " plusMinus - (0,5) = ms c " + NEAREST_TO_ZERO_POSITIVE_NUMBER + " m+ c mr mc", "-9 999 999 999 999 999","");
         expressionTest(MAX_INPUT + " plusMinus - (0,5) =", "-1e+16","-9999999999999999 - 0,5 = ");
-    }
-
-    @Test
-    public void plusScenarios() {
-
-    }
-
-    @Test
-    public void minusScenarios() {
-
-    }
-
-    @Test
-    public void multiplyScenarios() {
-
-    }
-
-    @Test
-    public void divideScenarios() {
-
-    }
-
-    @Test
-    public void percentScenarios() {
-        expressionTest("(100) + (20) % =", "120", "100 + 20 = ");
-        expressionTest("(100) - (20) % =", "80", "100 - 20 = ");
-        expressionTest("(100) * (20) % =", "20", "100 × 0,2 = ");
-        expressionTest("(100) / (20) % =", "500", "100 ÷ 0,2 = ");
     }
 
     public void expressionTest(String expression, String mainLabelExcepted, String historyLabelExcepted) {

@@ -491,7 +491,7 @@ public class MainController implements Initializable {
         int historySize = history.size();
         if (historySize == 3 && isEqualsPressed) {
             historyLabel.setText(history.get(0) + ((BinaryOperations) history.get(1)).sign + history.get(2) + " = ");
-        } else if (historySize == 3 && lastUnary != null) {
+        } else if (historySize == 3 && lastUnary != null || isPercentLast) {
             historyLabel.setText(history.get(0).toString() + ((BinaryOperations) history.get(1)).sign + history.get(2).toString());
         } else if (historySize == 3) {
             historyLabel.setText(history.get(0).toString() + ((BinaryOperations) history.get(1)).sign);
@@ -502,7 +502,7 @@ public class MainController implements Initializable {
         } else if (historySize == 1) {
             historyLabel.setText((String) history.get(0));
         }
-        if (historyLabel.getWidth() > 260) {
+        if (historyLabel.getWidth() > stage.getWidth() - 40) {
             historyLeftMover.setVisible(true);
         }
 
@@ -520,6 +520,7 @@ public class MainController implements Initializable {
     public void cePressed() {
         setDisableAllOperations(false);
         isCommaPressed = false;
+        isPercentLast = false;
         isFirstTimeUnary = false;
         buffer = "0";
         isTyping = true;

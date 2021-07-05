@@ -152,6 +152,63 @@ public class InputTests extends TestingSandBox {
         expressionTest("(9) + (1) =", "10", "9 + 1 = ");
         expressionTest("(9) sqrt sqr sqrt sqr sqrt =", "3", "√( sqr( √( sqr( √( 9 ) ) ) ) ) = ");
         expressionTest("(9) sqrt sqr sqrt sqr sqrt = =", "3", "3 = ");
+
+        expressionTest("(100) 1/ 1/ 1/", "0,01", "1/( 1/( 1/( 100 ) ) )");
+        expressionTest("(100) 1/ 1/", "100", "1/( 1/( 100 ) )");
+        expressionTest("(2) 1/", "0,5", "1/( 2 )");
+        expressionTest("(4) 1/", "0,25", "1/( 4 )");
+
+        expressionTest("(2) sqr sqr sqr", "256", "sqr( sqr( sqr( 2 ) ) )");
+        expressionTest("(2) sqr", "4", "sqr( 2 )");
+        expressionTest("(1) sqr sqr sqr", "1", "sqr( sqr( sqr( 1 ) ) )");
+        expressionTest("(0,2) sqr sqr", "0,0016", "sqr( sqr( 0,2 ) )");
+
+        expressionTest("(256) sqrt sqrt sqrt", "2", "√( √( √( 256 ) ) )");
+        expressionTest("(2) sqrt", "1,414213562373095", "√( 2 )");
+        expressionTest("(2) sqrt sqrt", "1,189207115002721", "√( √( 2 ) )");
+        expressionTest("(4) sqrt", "2", "√( 4 )");
+
+        expressionTest("(265) plusMinus", "-265", "");
+        expressionTest("(265) plusMinus plusMinus", "265", "");
+        expressionTest("(0) plusMinus", "0", "");
+        expressionTest("(10) plusMinus =", "-10", "-10 = ");
+
+        expressionTest("(100) + (20) % =", "120", "100 + 20 = ");
+        expressionTest("(100) + (20) % = = =", "160", "140 + 20 = ");
+        expressionTest("(100) + (20) %", "20", "100 + 20");
+        expressionTest("(0,01) + (20) % =", "0,012", "0,01 + 0,002 = ");
+        expressionTest("(0,01) + (20) % = = =", "0,016", "0,014 + 0,002 = ");
+        expressionTest("(0,01) + (20) %", "0,002", "0,01 + 0,002");
+        expressionTest("(0,01) + (0,2) % =", "0,01002", "0,01 + 0,00002 = ");
+        expressionTest("(0,01) + (0,2) % = = =", "0,01006", "0,01004 + 0,00002 = ");
+        expressionTest("(0,01) + (0,2) %", "0,00002", "0,01 + 0,00002");
+        expressionTest("(100) - (20) % =", "80", "100 - 20 = ");
+        expressionTest("(100) - (20) % = = =", "40", "60 - 20 = ");
+        expressionTest("(100) - (20) %", "20", "100 - 20");
+        expressionTest("(0,01) - (20) % =", "0,008", "0,01 - 0,002 = ");
+        expressionTest("(0,01) - (20) % = = =", "0,004", "0,006 - 0,002 = ");
+        expressionTest("(0,01) - (20) %", "0,002", "0,01 - 0,002");
+        expressionTest("(0,01) - (0,2) % =", "0,00998", "0,01 - 0,00002 = ");
+        expressionTest("(0,01) - (0,2) % = = =", "0,00994", "0,00996 - 0,00002 = ");
+        expressionTest("(0,01) - (0,2) %", "0,00002", "0,01 - 0,00002");
+        expressionTest("(100) * (20) % =", "20", "100 × 0,2 = ");
+        expressionTest("(100) * (20) % = = =", "0,8", "4 × 0,2 = ");
+        expressionTest("(100) * (20) %", "0,2", "100 × 0,2");
+        expressionTest("(0,01) * (20) % =", "0,002", "0,01 × 0,2 = ");
+        expressionTest("(0,01) * (20) % = = =", "0,00008", "0,0004 × 0,2 = ");
+        expressionTest("(0,01) * (20) %", "0,2", "0,01 × 0,2");
+        expressionTest("(0,01) * (0,2) % =", "0,00002", "0,01 × 0,002 = ");
+        expressionTest("(0,01) * (0,2) % = = =", "0,00000000008", "0,00000004 × 0,002 = ");
+        expressionTest("(0,01) * (0,2) %", "0,002", "0,01 × 0,002");
+        expressionTest("(100) / (20) % =", "500", "100 ÷ 0,2 = ");
+        expressionTest("(100) / (20) % = = =", "12 500", "2500 ÷ 0,2 = ");
+        expressionTest("(100) / (20) %", "0,2", "100 ÷ 0,2");
+        expressionTest("(0,01) / (20) % =", "0,05", "0,01 ÷ 0,2 = ");
+        expressionTest("(0,01) / (20) % = = =", "1,25", "0,25 ÷ 0,2 = ");
+        expressionTest("(0,01) / (20) %", "0,2", "0,01 ÷ 0,2");
+        expressionTest("(0,01) / (0,2) % =", "5", "0,01 ÷ 0,002 = ");
+        expressionTest("(0,01) / (0,2) % = = =", "1 250 000", "2500 ÷ 0,002 = ");
+        expressionTest("(0,01) / (0,2) %", "0,002", "0,01 ÷ 0,002");
     }
 
     public void expressionTest(String expression, String mainLabelExcepted, String historyLabelExcepted) {
