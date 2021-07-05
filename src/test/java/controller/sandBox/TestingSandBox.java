@@ -31,15 +31,17 @@ public class TestingSandBox extends ApplicationTest {
     }
 
     @Before
-    public void setUpClass() throws Exception{
+    public void setUpClass() throws Exception {
         ApplicationTest.launch(Main.class);
     }
+
     @After
-    public void afterEachTest() throws TimeoutException{
+    public void afterEachTest() throws TimeoutException {
         FxToolkit.hideStage();
         release(new KeyCode[]{});
         release(new MouseButton[]{});
     }
+
     public void mainLabelAndHistoryTest(String mainLabelExcepted, String historyLabelExcepted) {
         FXTestUtils.awaitEvents();
         String mainLabel = "#mainLabel";
@@ -50,6 +52,7 @@ public class TestingSandBox extends ApplicationTest {
         verifyThat(mainLabel, (Label label) -> label.getText().equals("0"));
         verifyThat(historyLabel, (Label label) -> label.getText().equals(""));
     }
+
     public void mainLabelTest(int size) {
         FXTestUtils.awaitEvents();
         String mainLabel = "#mainLabel";

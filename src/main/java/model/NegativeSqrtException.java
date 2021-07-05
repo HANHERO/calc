@@ -1,4 +1,4 @@
 package model;
 
-public class NegativeSqrtException extends Exception{
+public class NegativeSqrtException extends Exception {
 }

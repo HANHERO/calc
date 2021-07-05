@@ -280,11 +280,11 @@ public class MainController implements Initializable {
                 setMainLabelText(result);
             }
 
-            if (unaryExpression.equals("") || history.size() > 2 ) {
-               clearHistory();
-               unaryExpression = "";
-               lastUnary = null;
-               addToHistory(formatterForHistory(result));
+            if (unaryExpression.equals("") || history.size() > 2) {
+                clearHistory();
+                unaryExpression = "";
+                lastUnary = null;
+                addToHistory(formatterForHistory(result));
             } else {
                 unaryExpression = "";
                 lastUnary = null;
@@ -306,7 +306,7 @@ public class MainController implements Initializable {
         }
         showHistory();
 
-        if (history.size() == 3 && historyLabel.getText().contains("=") && !unaryExpression.equals("") && isFirstTimeUnary){
+        if (history.size() == 3 && historyLabel.getText().contains("=") && !unaryExpression.equals("") && isFirstTimeUnary) {
             history.set(1, lastBinary);
             history.set(2, formatterForHistory(buffer));
             history.set(0, formatterForHistory(result));
@@ -342,7 +342,7 @@ public class MainController implements Initializable {
             history.set(1, lastBinary);
             showHistory();
         }
-        if (historyLabel.getText().contains("=")){
+        if (historyLabel.getText().contains("=")) {
             isFirstTimeUnary = true;
         }
 

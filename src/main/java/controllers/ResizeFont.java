@@ -36,7 +36,7 @@ public class ResizeFont {
             while (fm.stringWidth(mainLabel.getText()) > maxTextSizeInPx) {
                 fm = img.getGraphics().getFontMetrics(new Font("Segoe UI Semibold", Font.PLAIN, (int) --size));
             }
-            mainLabel.setFont(new javafx.scene.text.Font("Segoe UI Semibold",(int) size));
+            mainLabel.setFont(new javafx.scene.text.Font("Segoe UI Semibold", (int) size));
         } else {
             mainLabel.setFont(new javafx.scene.text.Font("Segoe UI Semibold", 72));
         }

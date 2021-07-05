@@ -94,6 +94,7 @@ public class FontSizeTest extends TestingSandBox {
         expressionTest("(111111111111111)", 41);
         expressionTest("(1111111111111111)", 38);
     }
+
     public void expressionTest(String expression, int mainLabelExcepted) {
         clicker.clickExpression(expression);
         mainLabelTest(mainLabelExcepted);
