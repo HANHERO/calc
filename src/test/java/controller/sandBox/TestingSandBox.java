@@ -17,6 +17,15 @@ import static org.testfx.api.FxAssert.verifyThat;
 
 public class TestingSandBox extends ApplicationTest {
     Clicker clicker = new Clicker();
+    protected static final String OVERFLOW = "Переполнение";
+    protected static final String DIVISION_BY_ZERO = "Деление на ноль невозможно";
+    protected static final String NEGATIVE_SQRT = "Неверный ввод";
+    protected static final String MAX_INPUT = "(9999999999999999)";
+    protected static final String MIN_INPUT = "(0,0000000000000001)";
+    protected static final String NEAREST_TO_ZERO_POSITIVE_NUMBER = MIN_INPUT + " sqr * (0,0000001) = sqr sqr sqr sqr sqr sqr sqr sqr * (0,000000000000001) =";
+    protected static final String MAX_NUMBER = "(1000000000000000) sqr * (1000000000) = sqr sqr sqr sqr sqr sqr sqr sqr * " + MAX_INPUT +
+            " = m+ c (1000000000000000) sqr * (1000000000) = sqr sqr sqr sqr sqr sqr sqr sqr m+ c " + NEAREST_TO_ZERO_POSITIVE_NUMBER +
+            " m- c (1000000000000000) sqr * (1000000000) = sqr sqr sqr sqr sqr sqr sqr sqr * (0,5) = m- c mr";
 
     public TestingSandBox() throws AWTException {
     }
