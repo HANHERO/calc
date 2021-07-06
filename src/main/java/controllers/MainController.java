@@ -383,73 +383,49 @@ public class MainController implements Initializable {
         setMainLabelText(buffer);
     }
 
-    private void sendToUnary() {
+    private void sendToUnary(UnaryOperations unary) {
+        isTypingNew = true;
+        isTyping = false;
+        if (isEqualsPressed) {
+            isSignHas = false;
+        }
         if (isNewHistoryForNext) {
             unaryExpression = formatterForHistory(whatOnScreen);
             isNewHistoryForNext = false;
         }
-        if (unaryExpression.equals("")) {
+        if (isTyping || (isSignHas && unaryExpression.equals(""))) {
+            unaryExpression = formatterForHistory(whatOnScreen);
+        } else if (unaryExpression.equals("")) {
             unaryExpression = formatterForHistory(buffer);
         }
-        if (isTyping) {
-            unaryExpression = formatterForHistory(whatOnScreen);
+
+        try {
+            buffer = model.calculate(new BigDecimal(whatOnScreen), unary).toString();
+            setMainLabelText(buffer);
+        } catch (DivisionByZeroException e) {
+            showExceptionMessage(DIVISION_BY_ZERO);
+        } catch (NegativeSqrtException e) {
+            showExceptionMessage(NEGATIVE_SQRT);
         }
+        lastUnary = unary;
+        createUnaryExpression();
+        showHistory();
     }
 
     @FXML
     public void oneDividedXPressed() {
-        isTypingNew = true;
-        isTyping = false;
-        sendToUnary();
-        try {
-            buffer = model.calculate(new BigDecimal(whatOnScreen), UnaryOperations.ONE_DIVIDED_X).toString();
-            setMainLabelText(buffer);
-        } catch (DivisionByZeroException e) {
-            showExceptionMessage(DIVISION_BY_ZERO);
-        } catch (NegativeSqrtException e) {
-            showExceptionMessage(NEGATIVE_SQRT);
-        }
-        lastUnary = UnaryOperations.ONE_DIVIDED_X;
-        createUnaryExpression();
-        showHistory();
+        sendToUnary(UnaryOperations.ONE_DIVIDED_X);
     }
 
     @FXML
     public void squarePressed() {
-        isTypingNew = true;
-        isTyping = false;
-        sendToUnary();
-        try {
-            buffer = model.calculate(new BigDecimal(whatOnScreen), UnaryOperations.SQUARE).toString();
-            setMainLabelText(buffer);
-        } catch (DivisionByZeroException e) {
-            showExceptionMessage(DIVISION_BY_ZERO);
-        } catch (NegativeSqrtException e) {
-            showExceptionMessage(NEGATIVE_SQRT);
-        }
-        lastUnary = UnaryOperations.SQUARE;
-        createUnaryExpression();
-        showHistory();
+        sendToUnary(UnaryOperations.SQUARE);
     }
 
     @FXML
     public void rootPressed() {
-        isTypingNew = true;
-        isTyping = false;
-        sendToUnary();
-        try {
-            buffer = model.calculate(new BigDecimal(whatOnScreen), UnaryOperations.SQRT).toString();
-            setMainLabelText(buffer);
-        } catch (DivisionByZeroException e) {
-            showExceptionMessage(DIVISION_BY_ZERO);
-        } catch (NegativeSqrtException e) {
-            showExceptionMessage(NEGATIVE_SQRT);
-        }
-        lastUnary = UnaryOperations.SQRT;
-        createUnaryExpression();
-        showHistory();
+        sendToUnary(UnaryOperations.SQRT);
     }
-
 
     private void createUnaryExpression() {
         if (isEqualsPressed) {

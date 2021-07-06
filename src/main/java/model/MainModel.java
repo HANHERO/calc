@@ -92,7 +92,6 @@ public class MainModel {
 
     public void memoryPlus(BigDecimal buffer) throws DivisionByZeroException {
         memoryValue = calculate(memoryValue, buffer, BinaryOperations.PLUS);
-        //System.out.println(memoryValue);
     }
 
     public BigDecimal getMemoryValue() {

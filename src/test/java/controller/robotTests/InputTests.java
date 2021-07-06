@@ -86,7 +86,7 @@ public class InputTests extends TestingSandBox {
         expressionTest("(1,00000000000001)", "1,00000000000001", "");
         expressionTest("(1,00000000000000123456)", "1,000000000000001", "");
         expressionTest("(0,00000000000000123456)", "0,0000000000000012", "");
-        expressionTest("(0,99999999999999123456)", "0,9999999999999912", "");
+        expressionTest("(0,99999999999999983456)", "0,9999999999999998", "");
 
         expressionTest("del", "0", "");
         expressionTest(MAX_INPUT + " del del del del del del del del del del del del del del del del", "0", "");
