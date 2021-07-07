@@ -270,6 +270,7 @@ public class MainController implements Initializable {
                     showExceptionMessage(DIVISION_BY_ZERO);
                 }
             } else if (isPercentLast) {
+                setMainLabelText(result);
                 isPercentLast = false;
             } else {
                 result = whatOnScreen;
