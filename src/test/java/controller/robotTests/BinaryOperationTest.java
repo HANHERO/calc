@@ -15,7 +15,7 @@ public class BinaryOperationTest extends TestingSandBox {
     }
 
     @Test
-    public void boundariesScenarios() {
+    public void boundaryScenarios() {
         /*min/max*/
         expressionTest(MAX_NUMBER + " mc", "9,999999999999999e+9999", "");
         expressionTest(MAX_NUMBER + " plusMinus mc", "-9,999999999999999e+9999", "");
@@ -45,7 +45,7 @@ public class BinaryOperationTest extends TestingSandBox {
         //expressionTest(NEAREST_TO_ZERO_POSITIVE_NUMBER + " * (5) =", "5e-9999", "1e-9999 × 5 = ");
 
         //expressionTest(NEAREST_TO_ZERO_POSITIVE_NUMBER + " * (9,999999999999999) =", "9,999999999999999e-9999", "1e-9999 × 9,999999999999999 = ");
-        //expressionTest(NEAREST_TO_ZERO_POSITIVE_NUMBER + " * (10)  =", "1e-9998", "1e-9999 × 10 = ");
+        //expressionTest(NEAREST_TO_ZERO_POSITIVE_NUMBER + " * (10) =", "1e-9998", "1e-9999 × 10 = ");
         //expressionTest(NEAREST_TO_ZERO_POSITIVE_NUMBER + " * (10,00000000000001) =", "1,000000000000001e-9998", "1e-9999 × 10,00000000000001 = ");
 
 
@@ -66,20 +66,56 @@ public class BinaryOperationTest extends TestingSandBox {
 
         //expressionTest(MIN_INPUT + " * (0,5) = ms c mr mc", "5e-17", "");
 
-        //expressionTest(MIN_INPUT + " ms c (0,000000000000001) * (0,000000000000001) * (0,005) = m- c " + NEAREST_TO_ZERO_POSITIVE_NUMBER +" m- c " + NEAREST_TO_ZERO_POSITIVE_NUMBER +" m- c mr mc", "9,999999999999999e-17", "");
-        //expressionTest(MIN_INPUT + " ms c (0,000000000000001) * (0,000000000000001) * (0,005) = m- c " + NEAREST_TO_ZERO_POSITIVE_NUMBER +" m- c mr mc", "9,999999999999999e-17", ""); //0.0000000000000000999999999999999949....9
+        //expressionTest(MIN_INPUT + " ms * (0,0000000000000001) * (0,5) = m- c " + NEAREST_TO_ZERO_POSITIVE_NUMBER +" m- c " + NEAREST_TO_ZERO_POSITIVE_NUMBER +" m- c mr mc", "9,999999999999999e-17", "");
+        //expressionTest(MIN_INPUT + " ms * (0,0000000000000001) * (0,5) = m- c " + NEAREST_TO_ZERO_POSITIVE_NUMBER +" m- c mr mc", "9,999999999999999e-17", ""); //0.0000000000000000999999999999999949....9
 
-        expressionTest(MIN_INPUT + " ms c (0,000000000000001) * (0,000000000000001) * (0,005) = m- c mr mc", "0,0000000000000001", ""); //максимально малое до экспоненты 0.000000000000000099999999999999995
+        //expressionTest(MIN_INPUT + " ms * (0,0000000000000001) * (5) = m+ c mr mc", "1,000000000000001e-16", "");
+        //expressionTest(MIN_INPUT + " ms * (0,0000000000000001) * (5) = m+ c " + NEAREST_TO_ZERO_POSITIVE_NUMBER + " m- c mr mc", "0,0000000000000001", "");
 
+        //expressionTest(MIN_INPUT + " ms * (0,000000000000005) * (5) = m+ c mr mc", "1,000000000000025e-16", "");
+        //expressionTest(MIN_INPUT + " ms * (0,000000000000005) * (5) = m+ c " + MIN_INPUT + " * (0,000000000000005) * (5) = m- c mr mc", "0,0000000000000001", "");
 
+        //expressionTest("(0,0000000000000005) ms * (0,0000000000000001) = m+ c mr mc", "5,000000000000001e-16", "");
+        //expressionTest("(0,0000000000000005) ms * (0,0000000000000001) = m+ c (0,0000000000000005) * (0,0000000000000001) = m- c mr mc", "0,0000000000000005", "");
 
+        //expressionTest(MAX_INPUT + " + (0,5) = ms c " + NEAREST_TO_ZERO_POSITIVE_NUMBER + " m- c mr * (0,0000000000000001) * (0,001) = ", "9,999999999999999e-4", "0,9999999999999999 × 0,001 = ");
+        //expressionTest(MAX_INPUT + " + (0,5) = * (0,0000000000000001) * (0,001) = ", "0,001", "1 × 0,001 = ");
+
+        //expressionTest( MIN_INPUT + " * (0,1) + (0,001) = ", "0,001", "1e-17 + 0,001 = ");
+        //expressionTest( MIN_INPUT + " * (0,5) + (0,001) = ", "0,0010000000000001", "5e-17 + 0,001 = ");
+        //expressionTest( MIN_INPUT + " * (0,5) + (0,001) = ms c " + NEAREST_TO_ZERO_POSITIVE_NUMBER + " m- c mr mc", "0,001", "");
+
+        //expressionTest( MIN_INPUT + " * (0,1) + (0,47) = ", "0,47", "1e-17 + 0,47 = ");
+        //expressionTest( MIN_INPUT + " * (0,5) + (0,47) = ", "0,4700000000000001", "5e-17 + 0,47 = ");
+        //expressionTest( MIN_INPUT + " * (0,5) + (0,47) = ms c " + NEAREST_TO_ZERO_POSITIVE_NUMBER + " m- c mr mc", "0,47", "");
+
+        //expressionTest("(0,1) + (5000000000000000) = ", "5 000 000 000 000 000", "0,1 + 5000000000000000 = ");
+        //expressionTest("(0,5) + (5000000000000000) = ", "5 000 000 000 000 001", "0,5 + 5000000000000000 = ");
+        //expressionTest("(0,5) + (5000000000000000) = ms c " + NEAREST_TO_ZERO_POSITIVE_NUMBER + " m- c mr mc", "5 000 000 000 000 000", "");
+
+        //expressionTest("(0,1) + (9999999999999999) = ", "9 999 999 999 999 999", "0,1 + 9999999999999999 = ");
 
         //expressionTest(MAX_INPUT + " + (0,5) = ms c " + NEAREST_TO_ZERO_POSITIVE_NUMBER + " m- c mr mc", "9 999 999 999 999 999", "");    //маскимальное до экспоненты  9 999 999 999 999 999,49...9
         //expressionTest(MAX_INPUT + " + (0,5) =", "1e+16", "9999999999999999 + 0,5 = ");
+        //expressionTest(MAX_INPUT + " + (6) = ms c " + NEAREST_TO_ZERO_POSITIVE_NUMBER + " m- c mr mc", "1e+16", "");
+        //expressionTest(MAX_INPUT + " + (6) =", "1,000000000000001e+16", "9999999999999999 + 6 = ");
+
+        //expressionTest(MAX_INPUT + " + (1) * (5) = ", "5e+16", "1e+16 × 5 = ");
+
+        //expressionTest(MAX_INPUT + " + (1) * (5) = ms * (0,0000000000000001) = m- c " + NEAREST_TO_ZERO_POSITIVE_NUMBER + " m- c mr mc", "4,999999999999999e+16", "");
+        //expressionTest(MAX_INPUT + " + (1) * (5) = ms * (0,0000000000000001) = m+ c mr mc", "5,000000000000001e+16", "");
+
+        //expressionTest(MAX_INPUT + " + (1) * (10) = ms * (0,0000000000000001) = m- c " + NEAREST_TO_ZERO_POSITIVE_NUMBER + " m- c mr mc", "9,999999999999999e+16", "");
+        //expressionTest(MAX_INPUT + " + (1) * (10) =", "1e+17", "1e+16 × 10 = ");
+        //expressionTest(MAX_INPUT + " + (1) * (10) = ms * (0,000000000000001) = m+ c mr mc", "1,000000000000001e+17", "");
+
+        //expressionTest("(1000000000000000) sqr * (1000000000) = sqr sqr sqr sqr sqr sqr sqr sqr * (1000000000000000) = m+ c (1000000000000000) sqr * (1000000000) = sqr sqr sqr sqr sqr sqr sqr sqr * (0,05) = m- c mr " + NEAREST_TO_ZERO_POSITIVE_NUMBER + " m- c mr mc", "9,999999999999999e+9998", "");
+        //expressionTest("(1000000000000000) sqr * (1000000000) = sqr sqr sqr sqr sqr sqr sqr sqr * (1000000000000000) = m+ c (1000000000000000) sqr * (1000000000) = sqr sqr sqr sqr sqr sqr sqr sqr * (0,05) = m- c mr mc", "1e+9999", "");
+        //expressionTest("(1000000000000000) sqr * (1000000000) = sqr sqr sqr sqr sqr sqr sqr sqr * (1000000000000000) = m+ c (1000000000000000) sqr * (1000000000) = sqr sqr sqr sqr sqr sqr sqr sqr * (0,05) = m- c mr mc", "1e+9999", "");
 
 
 
-
+        //expressionTest(MAX_NUMBER + " c (1000000000000000) sqr * (1000000000) = sqr sqr sqr sqr sqr sqr sqr sqr = m- c mr", "9,999999999999998e+9999", "");
         //expressionTest(MAX_NUMBER + " mc", "9,999999999999999e+9999", "");
 
 
