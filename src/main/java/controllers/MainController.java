@@ -266,6 +266,7 @@ public class MainController implements Initializable {
                     isTyping = false;
                     isCommaPressed = false;
                     setMainLabelText(result);
+                    buffer = result;
                 } catch (DivisionByZeroException e) {
                     showExceptionMessage(DIVISION_BY_ZERO);
                 }
@@ -379,6 +380,7 @@ public class MainController implements Initializable {
             setMainLabelText(buffer);
             isTypingNew = true;
             isTyping = false;
+            isSignHas = false;
             showHistory();
         }
         setMainLabelText(buffer);

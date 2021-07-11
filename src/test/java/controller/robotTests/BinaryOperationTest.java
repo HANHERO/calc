@@ -23,7 +23,7 @@ public class BinaryOperationTest extends TestingSandBox {
         expressionTest(NEAREST_TO_ZERO_POSITIVE_NUMBER, "1e-9999", "sqr( sqr( sqr( sqr( sqr( sqr( sqr( sqr( 1e-39 ) ) ) ) ) ) ) ) × 0,000000000000001 = ");
         expressionTest(NEAREST_TO_ZERO_POSITIVE_NUMBER + " plusMinus", "-1e-9999", "negate( 1e-9999 )");
 
-        /*left/right steps*/
+        //*left/right steps*/
         expressionTest(MAX_NUMBER + " " + NEAREST_TO_ZERO_POSITIVE_NUMBER + " m- c mr mc", "9,999999999999999e+9999", "");
         expressionTest(MAX_NUMBER + " " + NEAREST_TO_ZERO_POSITIVE_NUMBER + " m+ c mr mc", OVERFLOW, "");
 
@@ -39,146 +39,257 @@ public class BinaryOperationTest extends TestingSandBox {
 
     @Test
     public void equivalenceClassesScenarios() {
-        //expressionTest(NEAREST_TO_ZERO_POSITIVE_NUMBER, "1e-9999", "sqr( sqr( sqr( sqr( sqr( sqr( sqr( sqr( 1e-39 ) ) ) ) ) ) ) ) × 0,000000000000001 = ");
-        //expressionTest(NEAREST_TO_ZERO_POSITIVE_NUMBER + " * (1,000000000000001) =", "1,000000000000001e-9999", "1e-9999 × 1,000000000000001 = ");
+        expressionTest(NEAREST_TO_ZERO_POSITIVE_NUMBER, "1e-9999", "sqr( sqr( sqr( sqr( sqr( sqr( sqr( sqr( 1e-39 ) ) ) ) ) ) ) ) × 0,000000000000001 = ");
+        expressionTest(NEAREST_TO_ZERO_POSITIVE_NUMBER + " * (1,000000000000001) =", "1,000000000000001e-9999", "1e-9999 × 1,000000000000001 = ");
 
-        //expressionTest(NEAREST_TO_ZERO_POSITIVE_NUMBER + " * (5) =", "5e-9999", "1e-9999 × 5 = ");
+        expressionTest(NEAREST_TO_ZERO_POSITIVE_NUMBER + " * (5) =", "5e-9999", "1e-9999 × 5 = ");
 
-        //expressionTest(NEAREST_TO_ZERO_POSITIVE_NUMBER + " * (9,999999999999999) =", "9,999999999999999e-9999", "1e-9999 × 9,999999999999999 = ");
-        //expressionTest(NEAREST_TO_ZERO_POSITIVE_NUMBER + " * (10) =", "1e-9998", "1e-9999 × 10 = ");
-        //expressionTest(NEAREST_TO_ZERO_POSITIVE_NUMBER + " * (10,00000000000001) =", "1,000000000000001e-9998", "1e-9999 × 10,00000000000001 = ");
-
-
-        //expressionTest(NEAREST_TO_ZERO_POSITIVE_NUMBER + " * (10) = sqrt ms * (0,001) * (0,00000000000005) = m- " + NEAREST_TO_ZERO_POSITIVE_NUMBER + " m- c mr mc", "9,999999999999999e-5000", "");
-        //expressionTest(NEAREST_TO_ZERO_POSITIVE_NUMBER + " * (10) = sqrt ms * (0,001) * (0,00000000000005) = m- c mr mc", "1e-4999", "");
-        //expressionTest(NEAREST_TO_ZERO_POSITIVE_NUMBER + " * (10) = sqrt ms * (0,001) * (0,0000000000005) = m+ c mr mc", "1,000000000000001e-4999", "");
-
-        //expressionTest(NEAREST_TO_ZERO_POSITIVE_NUMBER + " * (10) = sqrt * (5) =", "5e-4999", "√( 1e-9998 ) × 5 = ");
-
-        //expressionTest(NEAREST_TO_ZERO_POSITIVE_NUMBER + " * (10) = sqrt * (10) = ms * (0,001) * (0,00000000000005) = m- " + NEAREST_TO_ZERO_POSITIVE_NUMBER + " m- c mr mc", "9,999999999999999e-4999", "");
-        //expressionTest(NEAREST_TO_ZERO_POSITIVE_NUMBER + " * (10) = sqrt * (10) = ms * (0,001) * (0,00000000000005) = m- c mr mc", "1e-4998", "");
-        //expressionTest(NEAREST_TO_ZERO_POSITIVE_NUMBER + " * (10) = sqrt * (10) = ms * (0,001) * (0,0000000000005) = m+ c mr mc", "1,000000000000001e-4998", "");
+        expressionTest(NEAREST_TO_ZERO_POSITIVE_NUMBER + " * (9,999999999999999) =", "9,999999999999999e-9999", "1e-9999 × 9,999999999999999 = ");
+        expressionTest(NEAREST_TO_ZERO_POSITIVE_NUMBER + " * (10) =", "1e-9998", "1e-9999 × 10 = ");
+        expressionTest(NEAREST_TO_ZERO_POSITIVE_NUMBER + " * (10,00000000000001) =", "1,000000000000001e-9998", "1e-9999 × 10,00000000000001 = ");
 
 
-        //expressionTest(MIN_INPUT + " * (0,1) = ms c " + MIN_INPUT + " * (0,001) * (0,000000000000005) = m- c " + NEAREST_TO_ZERO_POSITIVE_NUMBER + " m- c mr mc", "9,999999999999999e-18", "");
-        //expressionTest(MIN_INPUT + " * (0,1) = ms c " + MIN_INPUT + " * (0,001) * (0,000000000000005) = m- c mr mc", "1e-17", "");
-        //expressionTest(MIN_INPUT + " * (0,1) = ms c " + MIN_INPUT + " * (0,001) * (0,0000000000001) = m+ c mr mc", "1,000000000000001e-17", "");
+        expressionTest(NEAREST_TO_ZERO_POSITIVE_NUMBER + " * (10) = sqrt ms * (0,001) * (0,00000000000005) = m- " + NEAREST_TO_ZERO_POSITIVE_NUMBER + " m- c mr mc", "9,999999999999999e-5000", "");
+        expressionTest(NEAREST_TO_ZERO_POSITIVE_NUMBER + " * (10) = sqrt ms * (0,001) * (0,00000000000005) = m- c mr mc", "1e-4999", "");
+        expressionTest(NEAREST_TO_ZERO_POSITIVE_NUMBER + " * (10) = sqrt ms * (0,001) * (0,0000000000005) = m+ c mr mc", "1,000000000000001e-4999", "");
 
-        //expressionTest(MIN_INPUT + " * (0,5) = ms c mr mc", "5e-17", "");
+        expressionTest(NEAREST_TO_ZERO_POSITIVE_NUMBER + " * (10) = sqrt * (5) =", "5e-4999", "√( 1e-9998 ) × 5 = ");
 
-        //expressionTest(MIN_INPUT + " ms * (0,0000000000000001) * (0,5) = m- c " + NEAREST_TO_ZERO_POSITIVE_NUMBER +" m- c " + NEAREST_TO_ZERO_POSITIVE_NUMBER +" m- c mr mc", "9,999999999999999e-17", "");
-        //expressionTest(MIN_INPUT + " ms * (0,0000000000000001) * (0,5) = m- c " + NEAREST_TO_ZERO_POSITIVE_NUMBER +" m- c mr mc", "9,999999999999999e-17", ""); //0.0000000000000000999999999999999949....9
-
-        //expressionTest(MIN_INPUT + " ms * (0,0000000000000001) * (5) = m+ c mr mc", "1,000000000000001e-16", "");
-        //expressionTest(MIN_INPUT + " ms * (0,0000000000000001) * (5) = m+ c " + NEAREST_TO_ZERO_POSITIVE_NUMBER + " m- c mr mc", "0,0000000000000001", "");
-
-        //expressionTest(MIN_INPUT + " ms * (0,000000000000005) * (5) = m+ c mr mc", "1,000000000000025e-16", "");
-        //expressionTest(MIN_INPUT + " ms * (0,000000000000005) * (5) = m+ c " + MIN_INPUT + " * (0,000000000000005) * (5) = m- c mr mc", "0,0000000000000001", "");
-
-        //expressionTest("(0,0000000000000005) ms * (0,0000000000000001) = m+ c mr mc", "5,000000000000001e-16", "");
-        //expressionTest("(0,0000000000000005) ms * (0,0000000000000001) = m+ c (0,0000000000000005) * (0,0000000000000001) = m- c mr mc", "0,0000000000000005", "");
-
-        //expressionTest(MAX_INPUT + " + (0,5) = ms c " + NEAREST_TO_ZERO_POSITIVE_NUMBER + " m- c mr * (0,0000000000000001) * (0,001) = ", "9,999999999999999e-4", "0,9999999999999999 × 0,001 = ");
-        //expressionTest(MAX_INPUT + " + (0,5) = * (0,0000000000000001) * (0,001) = ", "0,001", "1 × 0,001 = ");
-
-        //expressionTest( MIN_INPUT + " * (0,1) + (0,001) = ", "0,001", "1e-17 + 0,001 = ");
-        //expressionTest( MIN_INPUT + " * (0,5) + (0,001) = ", "0,0010000000000001", "5e-17 + 0,001 = ");
-        //expressionTest( MIN_INPUT + " * (0,5) + (0,001) = ms c " + NEAREST_TO_ZERO_POSITIVE_NUMBER + " m- c mr mc", "0,001", "");
-
-        //expressionTest( MIN_INPUT + " * (0,1) + (0,47) = ", "0,47", "1e-17 + 0,47 = ");
-        //expressionTest( MIN_INPUT + " * (0,5) + (0,47) = ", "0,4700000000000001", "5e-17 + 0,47 = ");
-        //expressionTest( MIN_INPUT + " * (0,5) + (0,47) = ms c " + NEAREST_TO_ZERO_POSITIVE_NUMBER + " m- c mr mc", "0,47", "");
-
-        //expressionTest("(0,1) + (5000000000000000) = ", "5 000 000 000 000 000", "0,1 + 5000000000000000 = ");
-        //expressionTest("(0,5) + (5000000000000000) = ", "5 000 000 000 000 001", "0,5 + 5000000000000000 = ");
-        //expressionTest("(0,5) + (5000000000000000) = ms c " + NEAREST_TO_ZERO_POSITIVE_NUMBER + " m- c mr mc", "5 000 000 000 000 000", "");
-
-        //expressionTest("(0,1) + (9999999999999999) = ", "9 999 999 999 999 999", "0,1 + 9999999999999999 = ");
-
-        //expressionTest(MAX_INPUT + " + (0,5) = ms c " + NEAREST_TO_ZERO_POSITIVE_NUMBER + " m- c mr mc", "9 999 999 999 999 999", "");    //маскимальное до экспоненты  9 999 999 999 999 999,49...9
-        //expressionTest(MAX_INPUT + " + (0,5) =", "1e+16", "9999999999999999 + 0,5 = ");
-        //expressionTest(MAX_INPUT + " + (6) = ms c " + NEAREST_TO_ZERO_POSITIVE_NUMBER + " m- c mr mc", "1e+16", "");
-        //expressionTest(MAX_INPUT + " + (6) =", "1,000000000000001e+16", "9999999999999999 + 6 = ");
-
-        //expressionTest(MAX_INPUT + " + (1) * (5) = ", "5e+16", "1e+16 × 5 = ");
-
-        //expressionTest(MAX_INPUT + " + (1) * (5) = ms * (0,0000000000000001) = m- c " + NEAREST_TO_ZERO_POSITIVE_NUMBER + " m- c mr mc", "4,999999999999999e+16", "");
-        //expressionTest(MAX_INPUT + " + (1) * (5) = ms * (0,0000000000000001) = m+ c mr mc", "5,000000000000001e+16", "");
-
-        //expressionTest(MAX_INPUT + " + (1) * (10) = ms * (0,0000000000000001) = m- c " + NEAREST_TO_ZERO_POSITIVE_NUMBER + " m- c mr mc", "9,999999999999999e+16", "");
-        //expressionTest(MAX_INPUT + " + (1) * (10) =", "1e+17", "1e+16 × 10 = ");
-        //expressionTest(MAX_INPUT + " + (1) * (10) = ms * (0,000000000000001) = m+ c mr mc", "1,000000000000001e+17", "");
-
-        //expressionTest("(1000000000000000) sqr * (1000000000) = sqr sqr sqr sqr sqr sqr sqr sqr * (1000000000000000) = m+ c (1000000000000000) sqr * (1000000000) = sqr sqr sqr sqr sqr sqr sqr sqr * (0,05) = m- c mr " + NEAREST_TO_ZERO_POSITIVE_NUMBER + " m- c mr mc", "9,999999999999999e+9998", "");
-        //expressionTest("(1000000000000000) sqr * (1000000000) = sqr sqr sqr sqr sqr sqr sqr sqr * (1000000000000000) = m+ c (1000000000000000) sqr * (1000000000) = sqr sqr sqr sqr sqr sqr sqr sqr * (0,05) = m- c mr mc", "1e+9999", "");
-        //expressionTest("(1000000000000000) sqr * (1000000000) = sqr sqr sqr sqr sqr sqr sqr sqr * (1000000000000000) = m+ c (1000000000000000) sqr * (1000000000) = sqr sqr sqr sqr sqr sqr sqr sqr * (0,05) = m- c mr mc", "1e+9999", "");
+        expressionTest(NEAREST_TO_ZERO_POSITIVE_NUMBER + " * (10) = sqrt * (10) = ms * (0,001) * (0,00000000000005) = m- " + NEAREST_TO_ZERO_POSITIVE_NUMBER + " m- c mr mc", "9,999999999999999e-4999", "");
+        expressionTest(NEAREST_TO_ZERO_POSITIVE_NUMBER + " * (10) = sqrt * (10) = ms * (0,001) * (0,00000000000005) = m- c mr mc", "1e-4998", "");
+        expressionTest(NEAREST_TO_ZERO_POSITIVE_NUMBER + " * (10) = sqrt * (10) = ms * (0,001) * (0,0000000000005) = m+ c mr mc", "1,000000000000001e-4998", "");
 
 
+        expressionTest(MIN_INPUT + " * (0,1) = ms c " + MIN_INPUT + " * (0,001) * (0,000000000000005) = m- c " + NEAREST_TO_ZERO_POSITIVE_NUMBER + " m- c mr mc", "9,999999999999999e-18", "");
+        expressionTest(MIN_INPUT + " * (0,1) = ms c " + MIN_INPUT + " * (0,001) * (0,000000000000005) = m- c mr mc", "1e-17", "");
+        expressionTest(MIN_INPUT + " * (0,1) = ms c " + MIN_INPUT + " * (0,001) * (0,0000000000001) = m+ c mr mc", "1,000000000000001e-17", "");
 
-        //expressionTest(MAX_NUMBER + " c (1000000000000000) sqr * (1000000000) = sqr sqr sqr sqr sqr sqr sqr sqr = m- c mr", "9,999999999999998e+9999", "");
-        //expressionTest(MAX_NUMBER + " mc", "9,999999999999999e+9999", "");
+        expressionTest(MIN_INPUT + " * (0,5) = ms c mr mc", "5e-17", "");
 
+        expressionTest(MIN_INPUT + " ms * (0,0000000000000001) * (0,5) = m- c " + NEAREST_TO_ZERO_POSITIVE_NUMBER + " m- c " + NEAREST_TO_ZERO_POSITIVE_NUMBER + " m- c mr mc", "9,999999999999999e-17", "");
+        expressionTest(MIN_INPUT + " ms * (0,0000000000000001) * (0,5) = m- c " + NEAREST_TO_ZERO_POSITIVE_NUMBER + " m- c mr mc", "9,999999999999999e-17", ""); //0.0000000000000000999999999999999949....9
 
+        expressionTest(MIN_INPUT + " ms * (0,0000000000000001) * (5) = m+ c mr mc", "1,000000000000001e-16", "");
+        expressionTest(MIN_INPUT + " ms * (0,0000000000000001) * (5) = m+ c " + NEAREST_TO_ZERO_POSITIVE_NUMBER + " m- c mr mc", "0,0000000000000001", "");
 
+        expressionTest(MIN_INPUT + " ms * (0,000000000000005) * (5) = m+ c mr mc", "1,000000000000025e-16", "");
+        expressionTest(MIN_INPUT + " ms * (0,000000000000005) * (5) = m+ c " + MIN_INPUT + " * (0,000000000000005) * (5) = m- c mr mc", "0,0000000000000001", "");
 
-        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        expressionTest("(0,0000000000000005) ms * (0,0000000000000001) = m+ c mr mc", "5,000000000000001e-16", "");
+        expressionTest("(0,0000000000000005) ms * (0,0000000000000001) = m+ c (0,0000000000000005) * (0,0000000000000001) = m- c mr mc", "0,0000000000000005", "");
 
-        //expressionTest(MAX_INPUT + " + (0,5) = ms c " + NEAREST_TO_ZERO_POSITIVE_NUMBER + " m+ c mr mc", "1e+16", "");
+        expressionTest(MAX_INPUT + " + (0,5) = ms c " + NEAREST_TO_ZERO_POSITIVE_NUMBER + " m- c mr * (0,0000000000000001) * (0,001) = ", "9,999999999999999e-4", "0,9999999999999999 × 0,001 = ");
+        expressionTest(MAX_INPUT + " + (0,5) = * (0,0000000000000001) * (0,001) = ", "0,001", "1 × 0,001 = ");
 
-        //expressionTest(MAX_INPUT + " + (1) + (5) = ms c " + NEAREST_TO_ZERO_POSITIVE_NUMBER + " m- c mr mc ", "1e+16", "");
-        //expressionTest(MAX_INPUT + " + (1) + (5) =", "1,000000000000001e+16", "1e+16 + 5 = ");
+        expressionTest(MIN_INPUT + " * (0,1) + (0,001) = ", "0,001", "1e-17 + 0,001 = ");
+        expressionTest(MIN_INPUT + " * (0,5) + (0,001) = ", "0,0010000000000001", "5e-17 + 0,001 = ");
+        expressionTest(MIN_INPUT + " * (0,5) + (0,001) = ms c " + NEAREST_TO_ZERO_POSITIVE_NUMBER + " m- c mr mc", "0,001", "");
 
-        //expressionTest(MAX_INPUT + " + (1) * (10) - (5) = ms c " + NEAREST_TO_ZERO_POSITIVE_NUMBER + " m- c mr mc ", "9,999999999999999e+16", "");
-        //expressionTest(MAX_INPUT + " + (1) * (10) - (5) =", "1e+17", "1e+17 - 5 = ");
+        expressionTest(MIN_INPUT + " * (0,1) + (0,47) = ", "0,47", "1e-17 + 0,47 = ");
+        expressionTest(MIN_INPUT + " * (0,5) + (0,47) = ", "0,4700000000000001", "5e-17 + 0,47 = ");
+        expressionTest(MIN_INPUT + " * (0,5) + (0,47) = ms c " + NEAREST_TO_ZERO_POSITIVE_NUMBER + " m- c mr mc", "0,47", "");
 
-        //expressionTest(MAX_NUMBER + " c (1000000000000000) sqr * (1000000000) = sqr sqr sqr sqr sqr sqr sqr sqr = m- c mr", "9,999999999999998e+9999", "");
+        expressionTest("(0,1) + (5000000000000000) = ", "5 000 000 000 000 000", "0,1 + 5000000000000000 = ");
+        expressionTest("(0,5) + (5000000000000000) = ", "5 000 000 000 000 001", "0,5 + 5000000000000000 = ");
+        expressionTest("(0,5) + (5000000000000000) = ms c " + NEAREST_TO_ZERO_POSITIVE_NUMBER + " m- c mr mc", "5 000 000 000 000 000", "");
 
-        //expressionTest("(1000000000000000) sqr * (1000000000) = sqr sqr sqr sqr sqr sqr sqr sqr * (1000000000000000) = m+ c (1000000000000000) sqr * (1000000000) = sqr sqr sqr sqr sqr sqr sqr sqr * (0,05) = m- c mr mc", "1e+9999", "");
-        //expressionTest("(1000000000000000) sqr * (1000000000) = sqr sqr sqr sqr sqr sqr sqr sqr * (1000000000000000) = m+ c (1000000000000000) sqr * (1000000000) = sqr sqr sqr sqr sqr sqr sqr sqr * (0,05) = m- c mr " + NEAREST_TO_ZERO_POSITIVE_NUMBER + " m- c mr mc", "9,999999999999999e+9998", "");
+        expressionTest("(0,1) + (9999999999999999) = ", "9 999 999 999 999 999", "0,1 + 9999999999999999 = ");
 
+        expressionTest(MAX_INPUT + " + (0,5) = ms c " + NEAREST_TO_ZERO_POSITIVE_NUMBER + " m- c mr mc", "9 999 999 999 999 999", "");    //маскимальное до экспоненты  9 999 999 999 999 999,49...9
+        expressionTest(MAX_INPUT + " + (0,5) =", "1e+16", "9999999999999999 + 0,5 = ");
+        expressionTest(MAX_INPUT + " + (6) = ms c " + NEAREST_TO_ZERO_POSITIVE_NUMBER + " m- c mr mc", "1e+16", "");
+        expressionTest(MAX_INPUT + " + (6) =", "1,000000000000001e+16", "9999999999999999 + 6 = ");
 
+        expressionTest(MAX_INPUT + " + (1) * (5) = ", "5e+16", "1e+16 × 5 = ");
 
+        expressionTest(MAX_INPUT + " + (1) * (5) = ms * (0,0000000000000001) = m- c " + NEAREST_TO_ZERO_POSITIVE_NUMBER + " m- c mr mc", "4,999999999999999e+16", "");
+        expressionTest(MAX_INPUT + " + (1) * (5) = ms * (0,0000000000000001) = m+ c mr mc", "5,000000000000001e+16", "");
 
-        //expressionTest("(594845151) + (484951155698) = ", "485 546 000 849", "594845151 + 484951155698 = ");
-        //expressionTest("(36214) * (51155698) = ", "1 852 552 447 372", "36214 × 51155698 = ");
-        //expressionTest("(845682) / (42694848) = ", "0,0198075889624903", "845682 ÷ 42694848 = ");
-        //expressionTest("(48,4951155698) - (594845151) = ", "-594 845 102,5048844", "48,4951155698 - 594845151 = ");
-        //expressionTest("(10) + (2547) = ", "2 557", "10 + 2547 = ");
-        //expressionTest("(23655454) * (484958) = ", "11 471 901 660 932", "23655454 × 484958 = ");
-        //expressionTest("(100000000000000) / (4849,5115698) = ", "20 620 633 348,46815", "100000000000000 ÷ 4849,5115698 = ");
-        //expressionTest("(54543,39878) - (8654213312355) = ", "-8 654 213 257 811,601", "54543,39878 - 8654213312355 = ");
-        //expressionTest("(534532132354) + (3578654234568) = ", "4 113 186 366 922", "534532132354 + 3578654234568 = ");
-        //expressionTest("(34323) * (564345) = ", "19 370 013 435", "34323 × 564345 = ");
-        //expressionTest("(231248678995) / (51155698) = ", "4 520,487219136371", "231248678995 ÷ 51155698 = ");
-        //expressionTest("(0,112454867) - (484951155698) = ", "-484 951 155 697,8875", "0,112454867 - 484951155698 = ");
-        //expressionTest("(21238786864) + (231451155345) = ", "252 689 942 209", "21238786864 + 231451155345 = ");
-        //expressionTest("(23456867776) * (5698) = ", "133 657 232 587 648", "23456867776 × 5698 = ");
-        //expressionTest("(997845233265) / (48495698) = ", "20 575,95362922707", "997845233265 ÷ 48495698 = ");
-        //expressionTest("(1231514) - (48495548) = ", "-47 264 034", "1231514 - 48495548 = ");
-        //expressionTest("(423452211) + (484,58877445) = ", "423 452 695,5887745", "423452211 + 484,58877445 = ");
-        //expressionTest("(421431231) * (0,155698) = ", "65 615 999,804238", "421431231 × 0,155698 = ");
-        //expressionTest("(5948451512132) / (4951155698) = ", "1 201,426873837729", "5948451512132 ÷ 4951155698 = ");
-        //expressionTest("(594845151) - (1231553231) = ", "-636 708 080", "594845151 - 1231553231 = ");
-        //expressionTest("(2) sqr", "4", "sqr( 2 )");
-        //expressionTest("(4) sqrt", "2", "√( 4 )");
-        //expressionTest("(4) 1/", "0,25", "1/( 4 )");
-        //expressionTest("(5) plusMinus", "-5", "");
-        //expressionTest("(8484959) sqr", "71 994 529 231 681", "sqr( 8484959 )");
-        //expressionTest("(999,9999999) sqrt", "31,62277660010265", "√( 999,9999999 )");
-        //expressionTest("(625) 1/", "0,0016", "1/( 625 )");
-        //expressionTest("(595958,4845194) plusMinus", "-595 958,4845194", "");
-        //expressionTest("(595115) sqr", "354 161 863 225", "sqr( 595115 )");
-        //expressionTest("(595484136) sqrt", "24 402,54363790791", "√( 595484136 )");
-        //expressionTest("(8,4965) 1/", "0,1176955216853999", "1/( 8,4965 )");
-        //expressionTest("(95977845144) plusMinus", "-95 977 845 144", "");
-        //expressionTest("(59841652) sqr", "3 581 023 314 089 104", "sqr( 59841652 )");
-        //expressionTest("(8496584,11985) sqrt", "2 914,890069942604", "√( 8496584,11985 )");
-        //expressionTest("(12,55259884754265) 1/", "0,0796647779591685", "1/( 12,55259884754265 )");
-        //expressionTest("(999999999,8888777) plusMinus", "-999 999 999,8888777", "");
-        //expressionTest("(99,98887) sqr", "9 997,7741238769", "sqr( 99,98887 )");
-        //expressionTest("(46894125648425) sqrt", "6 847 928,566247241", "√( 46894125648425 )");
-        //expressionTest("(487,2136) 1/", "0,0020524878615868", "1/( 487,2136 )");
-        //expressionTest("(4915,88784447485) plusMinus", "-4 915,88784447485", "");
+        expressionTest(MAX_INPUT + " + (1) * (10) = ms * (0,0000000000000001) = m- c " + NEAREST_TO_ZERO_POSITIVE_NUMBER + " m- c mr mc", "9,999999999999999e+16", "");
+        expressionTest(MAX_INPUT + " + (1) * (10) =", "1e+17", "1e+16 × 10 = ");
+        expressionTest(MAX_INPUT + " + (1) * (10) = ms * (0,000000000000001) = m+ c mr mc", "1,000000000000001e+17", "");
+
+        expressionTest(MAX_NUMBER + " sqrt mc ms * (0,0000000000000001) * (0,5) = m- c mr mc", "9,999999999999999e+4999", "");
+        expressionTest(MAX_NUMBER + " sqrt mc", "1e+5000", "√( 9,999999999999999e+9999 )");
+        expressionTest(MAX_NUMBER + " sqrt mc ms * (0,0000000000000001) * (6) = m+ c " + NEAREST_TO_ZERO_POSITIVE_NUMBER + " m- c mr mc", "1,000000000000001e+5000", "");
+
+        expressionTest("(1000000000000000) sqr * (1000000000) = sqr sqr sqr sqr sqr sqr sqr sqr * (1000000000000000) = m+ c (1000000000000000) sqr * (1000000000) = sqr sqr sqr sqr sqr sqr sqr sqr * (0,05) = m- c mr " + NEAREST_TO_ZERO_POSITIVE_NUMBER + " m- c mr mc", "9,999999999999999e+9998", "");
+        expressionTest("(1000000000000000) sqr * (1000000000) = sqr sqr sqr sqr sqr sqr sqr sqr * (1000000000000000) = m+ c (1000000000000000) sqr * (1000000000) = sqr sqr sqr sqr sqr sqr sqr sqr * (0,05) = m- c mr mc", "1e+9999", "");
+        expressionTest("(1000000000000000) sqr * (1000000000) = sqr sqr sqr sqr sqr sqr sqr sqr * (1000000000000000) = m+ c (1000000000000000) sqr * (1000000000) = sqr sqr sqr sqr sqr sqr sqr sqr * (0,5) = m+ c mr mc", "1,000000000000001e+9999", "");
+
+        expressionTest("(1000000000000000) sqr * (1000000000) = sqr sqr sqr sqr sqr sqr sqr sqr * (5000000000000000) = m+ c (1000000000000000) sqr * (1000000000) = sqr sqr sqr sqr sqr sqr sqr sqr * (0,5) = m- c mr " + NEAREST_TO_ZERO_POSITIVE_NUMBER + " m- c mr mc", "4,999999999999999e+9999", "");
+        expressionTest("(1000000000000000) sqr * (1000000000) = sqr sqr sqr sqr sqr sqr sqr sqr * (5000000000000000) = m+ c (1000000000000000) sqr * (1000000000) = sqr sqr sqr sqr sqr sqr sqr sqr * (0,05) = m- c mr mc", "5e+9999", "");
+        expressionTest("(1000000000000000) sqr * (1000000000) = sqr sqr sqr sqr sqr sqr sqr sqr * (5000000000000000) = m+ c (1000000000000000) sqr * (1000000000) = sqr sqr sqr sqr sqr sqr sqr sqr * (0,5) = m+ c mr mc", "5,000000000000001e+9999", "");
+
+        expressionTest(MAX_NUMBER + " c (1000000000000000) sqr * (1000000000) = sqr sqr sqr sqr sqr sqr sqr sqr = m- c mr mc", "9,999999999999998e+9999", "");
+        expressionTest(MAX_NUMBER + " mc", "9,999999999999999e+9999", "");
+    }
+
+    @Test
+    public void randomEquivalenceClassesScenarios() {
+        expressionTest("(0,0000000000000005) * (0,0000000000000231) ms c (0,000000000000032) sqr m+ mr mc", "2,310000000000102e-14", "sqr( 0,000000000000032 )");
+        expressionTest("(0,0000000000000001) * (0,0000000000000001) =", "1e-32", "0,0000000000000001 × 0,0000000000000001 = ");
+        expressionTest(MIN_INPUT + " / " + MAX_INPUT + " =", "1e-32", "0,0000000000000001 ÷ 9999999999999999 = ");
+        expressionTest(MIN_INPUT + " * (0,0000001) - = = = = =", "-4e-23", "-3e-23 - 1e-23 = ");
+        expressionTest("(0,00000025) sqr sqr sqr sqr", "2,328306436538696e-106", "sqr( sqr( sqr( sqr( 0,00000025 ) ) ) )");
+        expressionTest("(0,000000069) * (0,00000002) = = = = =", "2,208e-46", "1,104e-38 × 0,00000002 = ");
+        expressionTest("(0,000000000956) * (0,000025) % =", "2,39e-16", "0,000000000956 × 0,00000025 = ");
+        expressionTest("(0,00000000000956) / (2532242) % =", "3,775310574581734e-16", "0,00000000000956 ÷ 25322,42 = ");
+        expressionTest(MIN_INPUT + " * " + MIN_INPUT + " - = = = = = ", "-4e-32", "-3e-32 - 1e-32 = ");
+        expressionTest(MIN_INPUT + " * = = = =", "1e-80", "1e-64 × 0,0000000000000001 = ");
+        expressionTest("(0,000000000021578) / (9585847859985,58) =", "2,251026754771848e-24", "0,000000000021578 ÷ 9585847859985,58 = ");
+        expressionTest(MIN_INPUT + " * (0,0000000324412) - = = = = =", "-1,297648e-23", "-9,73236e-24 - 3,24412e-24 = ");
+        expressionTest("(0,0000000000000003) * (0,0000000000004326) * (0,00000000021) = ms c (0,000000000009584) sqr m+ mr mc", "9,185305600000003e-23", "sqr( 0,000000000009584 )");
+        expressionTest("(0,000000002) * = = = = = = / (10000) =", "1,28e-65", "1,28e-61 ÷ 10000 = ");
+        expressionTest("(0,0000231) / (0,5) = = = = sqr sqr sqr", "3,482215949588381e-28", "sqr( sqr( sqr( 0,0003696 ) ) )");
+        expressionTest("- (0,05484) / (48468915) = = = = = sqr", "4,203024415375744e-80", "sqr( -2,050127902199213e-40 )");
+        expressionTest("(72346744532) 1/ sqr", "1,910565860169429e-22", "sqr( 1/( 72346744532 ) )");
+        expressionTest("(33333) 1/ * = = = =", "2,430121503645085e-23", "8,100324008100162e-19 × 3,000030000300003e-5 = ");
+        expressionTest("(9584484) / (0,000000256) = = = 1/", "1,750455840919553e-27", "1/( 5,71279764175415e+26 )");
+        expressionTest("- (9999999999999) * (99999) = 1/ sqr sqrt", "1,000010000100101e-18", "√( sqr( 1/( -9,999899999999e+17 ) ) )");
+        expressionTest("(0,0000005) * (0,05875) % = * = = = =", "2,187204427719116e-48", "7,445802307128906e-39 × 0,00000000029375 = ");
+        expressionTest("(0,0000001) * (0,31) = = = / (3213) = = =", "8,981583356246147e-20", "2,885782732361887e-16 ÷ 3213 = ");
+        expressionTest("(999) sqr sqr sqr 1/", "1,008036120330794e-24", "1/( sqr( sqr( sqr( 999 ) ) ) )");
+        expressionTest("(0,4342) 1/ sqr sqr sqr sqr 1/ sqr sqr", "6,488561473854825e-24", "sqr( sqr( 1/( sqr( sqr( sqr( sqr( 1/( 0,4342 ) ) ) ) ) ) ) )");
+        expressionTest("(999999) sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr 1/", "1,001024524979528e-6144", "1/( sqr( sqr( sqr( sqr( sqr( sqr( sqr( sqr( sqr( sqr( 999999 ) ) ) ) ) ) ) ) ) ) )");
+        expressionTest("(768756463574) + (442553232) % = = = = 1/", "7,348279842819386e-20", "1/( 1,360862707177902e+19 )");
+        expressionTest("(99999999999) * (99999999) * (999999999) sqr sqr = = 1/", "1,00000001801e-91", "1/( 9,999999819900001e+90 )");
+        expressionTest("(,4865258684) * (,0000000778) sqr sqr sqr sqr = = =", "2,845290357002842e-342", "1,57925783490972e-228 × 1,801662967317491e-114 = ");
+        expressionTest("(,0002569) sqr sqr sqr sqr sqr sqr - = = = plusMinus", "3,356855668527379e-230", "negate( -3,356855668527379e-230 )");
+        expressionTest("(0,0000000002) * = = = = sqr", "1,024e-97", "sqr( 3,2e-49 )");
+        expressionTest("(423423535) sqr sqr sqr sqr * = 1/", "8,774052023437409e-277", "1/( 1,139724265742648e+276 )");
+        expressionTest("(,000000342) * (0,3123134) * (0,00000000000321) = sqr", "1,175556517206523e-37", "sqr( 3,42863896788e-19 )");
+        expressionTest(MIN_INPUT + " / " + MAX_INPUT + " = = =", "1e-64", "1e-48 ÷ 9999999999999999 = ");
+        expressionTest("(0,000000000052578) / (95858478529985,5) =", "5,484960830413459e-25", "0,000000000052578 ÷ 95858478529985,5 = ");
+        expressionTest("(523122) sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr 1/", "1,414306747728418e-5856", "1/( sqr( sqr( sqr( sqr( sqr( sqr( sqr( sqr( sqr( sqr( 523122 ) ) ) ) ) ) ) ) ) ) )");
+        expressionTest("(0,0000001) * (0,31132) = = = / (32213) = = =", "9,026669623453742e-23", "2,907761085803154e-18 ÷ 32213 = ");
+        expressionTest("(0,00001123) / (0,511) = = = = sqr sqr sqr", "5,414635742824431e-31", "sqr( sqr( sqr( 1,6470096953913e-4 ) ) )");
+        expressionTest("(71323123435) sqr sqr sqr sqr * = 1/", "4,97311699471495e-348", "1/( 2,010811330324068e+347 )");
+        expressionTest("(0,0000000000000002) * (0,0000000000002326) * (0,000000000211111) = ms c (0,0000000000095184) sqr m+ mr mc", "9,059993856000001e-23", "sqr( 0,0000000000095184 )");
+        expressionTest("- (0,05484) / (48468915) = = = = = sqr", "4,203024415375744e-80", "sqr( -2,050127902199213e-40 )");
+
+        expressionTest(MIN_INPUT + " * (0,1) + (0,0009999999999999) =", "9,9999999999991e-4", "1e-17 + 0,0009999999999999 = ");
+        expressionTest(MIN_INPUT + " ms * (0,98595123) = m+ mr mc", "1,98595123e-16", "0,0000000000000001 × 0,98595123 = ");
+        expressionTest("(0,00004746) ms * (0,00000000914) = m+ mr mc", "4,74600004337844e-5", "0,00004746 × 0,00000000914 = ");
+        expressionTest(MIN_INPUT + " * (0,1) + (0,0000003) =", "3,0000000001e-7", "1e-17 + 0,0000003 = ");
+        expressionTest("(0,00031) sqr ms sqr m+ mr mc", "9,610000923521e-8", "sqr( sqr( 0,00031 ) )");
+        expressionTest("(32100) 1/", "3,115264797507788e-5", "1/( 32100 )");
+        expressionTest("(0,00005321) ms * (0,00000000543) = m+ mr mc", "5,32100002889303e-5", "0,00005321 × 0,00000000543 = ");
+        expressionTest("(0,000252) sqr ms sqr m+ mr mc", "6,350400403275802e-8", "sqr( sqr( 0,000252 ) )");
+        expressionTest(MIN_INPUT + " * (0,2) + (0,00000064) =", "6,4000000002e-7", "2e-17 + 0,00000064 = ");
+        expressionTest("(76400) 1/", "1,308900523560209e-5", "1/( 76400 )");
+        expressionTest("(0,00007643) ms * (0,00000000231) = m+ mr mc", "7,64300001765533e-5", "0,00007643 × 0,00000000231 = ");
+        expressionTest(MIN_INPUT + " * (0,5) + (0,000000234) =", "2,3400000005e-7", "5e-17 + 0,000000234 = ");
+        expressionTest("(523100) 1/", "1,91168036704263e-6", "1/( 523100 )");
+        expressionTest("(0,000731) sqr ms sqr m+ mr mc", "5,343612855416783e-7", "sqr( sqr( 0,000731 ) )");
+        expressionTest("(0,000061231) ms * (0,00000000614) = m+ mr mc", "6,123100037595834e-5", "0,000061231 × 0,00000000614 = ");
+        expressionTest("(734800) 1/", "1,360914534567229e-6", "1/( 734800 )");
+        expressionTest("(0,000231) sqr ms sqr m+ mr mc", "5,336100284739632e-8", "sqr( sqr( 0,000231 ) )");
+        expressionTest("(878000) 1/", "1,138952164009112e-6", "1/( 878000 )");
+        expressionTest(MIN_INPUT + " * (0,11) + (0,00000031) =", "3,10000000011e-7", "1,1e-17 + 0,00000031 = ");
+        expressionTest("(0,000005231) ms * (0,0000000322) = m+ mr mc", "5,2310001684382e-6", "0,000005231 × 0,0000000322 = ");
+        expressionTest("(767000) 1/", "1,303780964797914e-6", "1/( 767000 )");
+        expressionTest("(0,00008588) ms * (0,00000002311) = m+ mr mc", "8,58800019846868e-5", "0,00008588 × 0,00000002311 = ");
+        expressionTest("(434200) 1/", "2,303086135421465e-6", "1/( 434200 )");
+        expressionTest("(8675000) 1/", "1,152737752161383e-7", "1/( 8675000 )");
+        expressionTest(MIN_INPUT + " * (0,42) + (0,0000003) =", "3,00000000042e-7", "4,2e-17 + 0,0000003 = ");
+        expressionTest(MIN_INPUT + " * (0,123) + (0,0000026) =", "2,6000000000123e-6", "1,23e-17 + 0,0000026 = ");
+        expressionTest("(123100) 1/", "8,123476848090983e-6", "1/( 123100 )");
+        expressionTest("(0,000512) sqr ms sqr m+ mr mc", "2,621440687194767e-7", "sqr( sqr( 0,000512 ) )");
+        expressionTest("(0,00005234) ms * (0,00000000121) = m+ mr mc", "5,23400000633314e-5", "0,00005234 × 0,00000000121 = ");
+        expressionTest("(63400) 1/", "1,577287066246057e-5", "1/( 63400 )");
+        expressionTest(MIN_INPUT + " * (0,2) + (0,0000011) =", "1,10000000002e-6", "2e-17 + 0,0000011 = ");
+        expressionTest("(0,00006643) ms * (0,00000000421) = m+ mr mc", "6,64300002796703e-5", "0,00006643 × 0,00000000421 = ");
+        expressionTest("(776800) 1/", "1,287332646755922e-6", "1/( 776800 )");
+        expressionTest("(0,000341) sqr ms sqr m+ mr mc", "1,16281013521271e-7", "sqr( sqr( 0,000341 ) )");
+        expressionTest("(0,00004234) ms * (0,00000000412) = m+ mr mc", "4,23400001744408e-5", "0,00004234 × 0,00000000412 = ");
+        expressionTest(MIN_INPUT + " * (0,2) + (0,0000002) =", "2,0000000002e-7", "2e-17 + 0,0000002 = ");
+        expressionTest("(512200) 1/", "1,952362358453729e-6", "1/( 512200 )");
+        expressionTest("(23100) 1/", "4,329004329004329e-5", "1/( 23100 )");
+        expressionTest("(0,00004231) ms * (0,00000000521) = m+ mr mc", "4,23100002204351e-5", "0,00004231 × 0,00000000521 = ");
+        expressionTest("(0,00051) sqr ms sqr m+ mr mc", "2,6010006765201e-7", "sqr( sqr( 0,00051 ) )");
+
+        expressionTest("(594845151) + (484951155698) = ", "485 546 000 849", "594845151 + 484951155698 = ");
+        expressionTest("(36214) * (51155698) = ", "1 852 552 447 372", "36214 × 51155698 = ");
+        expressionTest("(845682) / (42694848) = ", "0,0198075889624903", "845682 ÷ 42694848 = ");
+        expressionTest("(48,4951155698) - (594845151) = ", "-594 845 102,5048844", "48,4951155698 - 594845151 = ");
+        expressionTest("(10) + (2547) = ", "2 557", "10 + 2547 = ");
+        expressionTest("(23655454) * (484958) = ", "11 471 901 660 932", "23655454 × 484958 = ");
+        expressionTest("(100000000000000) / (4849,5115698) = ", "20 620 633 348,46815", "100000000000000 ÷ 4849,5115698 = ");
+        expressionTest("(54543,39878) - (8654213312355) = ", "-8 654 213 257 811,601", "54543,39878 - 8654213312355 = ");
+        expressionTest("(534532132354) + (3578654234568) = ", "4 113 186 366 922", "534532132354 + 3578654234568 = ");
+        expressionTest("(34323) * (564345) = ", "19 370 013 435", "34323 × 564345 = ");
+        expressionTest("(231248678995) / (51155698) = ", "4 520,487219136371", "231248678995 ÷ 51155698 = ");
+        expressionTest("(0,112454867) - (484951155698) = ", "-484 951 155 697,8875", "0,112454867 - 484951155698 = ");
+        expressionTest("(21238786864) + (231451155345) = ", "252 689 942 209", "21238786864 + 231451155345 = ");
+        expressionTest("(23456867776) * (5698) = ", "133 657 232 587 648", "23456867776 × 5698 = ");
+        expressionTest("(997845233265) / (48495698) = ", "20 575,95362922707", "997845233265 ÷ 48495698 = ");
+        expressionTest("(1231514) - (48495548) = ", "-47 264 034", "1231514 - 48495548 = ");
+        expressionTest("(423452211) + (484,58877445) = ", "423 452 695,5887745", "423452211 + 484,58877445 = ");
+        expressionTest("(421431231) * (0,155698) = ", "65 615 999,804238", "421431231 × 0,155698 = ");
+        expressionTest("(5948451512132) / (4951155698) = ", "1 201,426873837729", "5948451512132 ÷ 4951155698 = ");
+        expressionTest("(594845151) - (1231553231) = ", "-636 708 080", "594845151 - 1231553231 = ");
+        expressionTest("(2) sqr", "4", "sqr( 2 )");
+        expressionTest("(4) sqrt", "2", "√( 4 )");
+        expressionTest("(4) 1/", "0,25", "1/( 4 )");
+        expressionTest("(5) plusMinus", "-5", "");
+        expressionTest("(8484959) sqr", "71 994 529 231 681", "sqr( 8484959 )");
+        expressionTest("(999,9999999) sqrt", "31,62277660010265", "√( 999,9999999 )");
+        expressionTest("(625) 1/", "0,0016", "1/( 625 )");
+        expressionTest("(595958,4845194) plusMinus", "-595 958,4845194", "");
+        expressionTest("(595115) sqr", "354 161 863 225", "sqr( 595115 )");
+        expressionTest("(595484136) sqrt", "24 402,54363790791", "√( 595484136 )");
+        expressionTest("(8,4965) 1/", "0,1176955216853999", "1/( 8,4965 )");
+        expressionTest("(95977845144) plusMinus", "-95 977 845 144", "");
+        expressionTest("(59841652) sqr", "3 581 023 314 089 104", "sqr( 59841652 )");
+        expressionTest("(8496584,11985) sqrt", "2 914,890069942604", "√( 8496584,11985 )");
+        expressionTest("(12,55259884754265) 1/", "0,0796647779591685", "1/( 12,55259884754265 )");
+        expressionTest("(999999999,8888777) plusMinus", "-999 999 999,8888777", "");
+        expressionTest("(99,98887) sqr", "9 997,7741238769", "sqr( 99,98887 )");
+        expressionTest("(46894125648425) sqrt", "6 847 928,566247241", "√( 46894125648425 )");
+        expressionTest("(487,2136) 1/", "0,0020524878615868", "1/( 487,2136 )");
+        expressionTest("(4915,88784447485) plusMinus", "-4 915,88784447485", "");
+
+        expressionTest("(5000000000000000) * (2310000000000000) ms c (320000000000000) sqr m+ mr mc", "1,024000000000023e+29", "sqr( 320000000000000 )");
+        expressionTest("(1000000000000000) * (1000000000000000) =", "1e+30", "1000000000000000 × 1000000000000000 = ");
+        expressionTest(MIN_INPUT + " / " + MAX_INPUT + " = 1/", "9,999999999999999e+31", "1/( 1e-32 )");
+        expressionTest(MIN_INPUT + " * (0,0000001) - = = = = = 1/", "-2,5e+22", "1/( -4e-23 )");
+        expressionTest("(25000000) sqr sqr sqr sqr", "2,328306436538696e+118", "sqr( sqr( sqr( sqr( 25000000 ) ) ) )");
+        expressionTest("(690000000) * (20000000) = = = = =", "2,208e+45", "1,104e+38 × 20000000 = ");
+        expressionTest("(956000000000) / (0,000025) % =", "3,824e+18", "956000000000 ÷ 0,00000025 = ");
+        expressionTest("(95600000000000) * (2532242) % =", "2,420823352e+18", "95600000000000 × 25322,42 = ");
+        expressionTest(MIN_INPUT + " * " + MIN_INPUT + " - = = = = = 1/", "-2,5e+31", "1/( -4e-32 )");
+        expressionTest(MIN_INPUT + " * = = = = 1/", "1e+80", "1/( 1e-80 )");
+        expressionTest("(215780000000000) * (9585847859985,58) =", "2,068434251227688e+27", "215780000000000 × 9585847859985,58 = ");
+        expressionTest(MIN_INPUT + " * (0,0000000324412) - = = = = = 1/", "-7,706250077062501e+22", "1/( -1,297648e-23 )");
+        expressionTest("(3000000000000000) / (4326000000000000) * (21000000000) = ms c (958400000000000) sqr m+ mr mc", "9,1853056e+29", "sqr( 958400000000000 )");
+        expressionTest("(200000000) * = = = = = = / (0,00001) =", "1,28e+63", "1,28e+58 ÷ 0,00001 = ");
+        expressionTest("(2310000) / (0,5) = = = = sqr sqr sqr", "3,482215949588381e+60", "sqr( sqr( sqr( 36960000 ) ) )");
+        expressionTest("- (54840) * (48468915) = = = = = sqr", "2,151928669852084e+86", "sqr( -1,466945353396671e+43 )");
+        expressionTest("(72346744532) sqr", "5,234051444378472e+21", "sqr( 72346744532 )");
+        expressionTest("(33333) * = = = =", "4,115020580246872e+22", "1,234518519259254e+18 × 33333 = ");
+        expressionTest("(9584484) / (0,000000256) = = = ", "5,71279764175415e+26", "1,462476196289063e+20 ÷ 0,000000256 = ");
+        expressionTest("- (9999999999999) * (99999) = sqr sqrt", "9,999899999999e+17", "√( sqr( -9,999899999999e+17 ) )");
+        expressionTest("(5495848) / (0,05875) % = * = = = =", "7,16364753231495e+49", "7,657859033283004e+39 × 9354634893,617021 = ");
+        expressionTest("(0,0000001) * (0,31) = = = / (3213) = = = 1/", "1,113389432949549e+19", "1/( 8,981583356246147e-20 )");
+        expressionTest("(999) sqr sqr sqr ", "9,92027944069944e+23", "sqr( sqr( sqr( 999 ) ) )");
+        expressionTest("(0,4342) sqr sqr sqr sqr 1/ sqr sqr", "1,541173654637358e+23", "sqr( sqr( 1/( sqr( sqr( sqr( sqr( 0,4342 ) ) ) ) ) ) )");
+        expressionTest("(999999) sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr", "9,989765235976125e+6143", "sqr( sqr( sqr( sqr( sqr( sqr( sqr( sqr( sqr( sqr( 999999 ) ) ) ) ) ) ) ) ) )");
+        expressionTest("(768756463574) + (442553232) % = = = =", "1,360862707177902e+19", "1,020647049602338e+19 + 3,40215657575564e+18 = ");
+        expressionTest("(99999999999) * (99999999) * (999999999) sqr sqr = =", "9,999999819900001e+90", "9,9999998599e+54 × 9,99999996e+35 = ");
+        expressionTest("(,4865258684) * (,0000000778) sqr sqr sqr sqr = = = 1/", "3,514579795129855e+341", "1/( 2,845290357002842e-342 )");
+        expressionTest("(0,0002569) sqr sqr sqr sqr sqr sqr - = = = plusMinus 1/", "2,978978242572731e+229", "1/( negate( -3,356855668527379e-230 ) )");
+        expressionTest("(0,0000000002) * = = = = sqr 1/", "9,765625e+96", "1/( sqr( 3,2e-49 ) )");
+        expressionTest("(423423535) sqr sqr sqr sqr * =", "1,139724265742648e+276", "sqr( sqr( sqr( sqr( 423423535 ) ) ) ) × 1,067578692997686e+138 = ");
+        expressionTest("(,000000342) * (0,3123134) * (0,00000000000321) = sqr 1/", "8,506609298345788e+36", "1/( sqr( 3,42863896788e-19 ) )");
+        expressionTest(MIN_INPUT + " / " + MAX_INPUT + " = = = 1/", "9,999999999999997e+63", "1/( 1e-64 )");
+        expressionTest("(0,000000000052578) / (95858478529985,5) = 1/", "1,823167076153249e+24", "1/( 5,484960830413459e-25 )");
+        expressionTest("(523122) sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr", "7,070601915787683e+5855", "sqr( sqr( sqr( sqr( sqr( sqr( sqr( sqr( sqr( sqr( 523122 ) ) ) ) ) ) ) ) ) )");
+        expressionTest("(0,0000001) * (0,31132) = = = / (32213) = = = 1/", "1,107828292952838e+22", "1/( 9,026669623453742e-23 )");
+        expressionTest("(11230000) / (5110) = = = = sqr sqr sqr", "5,414635742824431e-63", "sqr( sqr( sqr( 1,6470096953913e-8 ) ) )");
+        expressionTest("(71323123435) sqr sqr sqr sqr * = 1/", "4,97311699471495e-348", "1/( 2,010811330324068e+347 )");
+        expressionTest("(2000000000000000) * (2326) =", "4,652e+18", "2000000000000000 × 2326 = ");
+        expressionTest("- (0,05484) / (48468915) = = = = = sqr 1/", "2,379239093500725e+79", "1/( sqr( -2,050127902199213e-40 ) )");
     }
 
     public void expressionTest(String expression, String mainLabelExcepted, String historyLabelExcepted) {

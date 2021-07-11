@@ -49,6 +49,7 @@ public class TestingSandBox extends ApplicationTest {
         verifyThat(historyLabel, (Label label) -> label.getText().equals(historyLabelExcepted));
         verifyThat(mainLabel, (Label label) -> label.getText().equals(mainLabelExcepted));
         clicker.click("c");
+        clicker.click("mc");
         verifyThat(mainLabel, (Label label) -> label.getText().equals("0"));
         verifyThat(historyLabel, (Label label) -> label.getText().equals(""));
     }
