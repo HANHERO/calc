@@ -126,6 +126,142 @@ public class BinaryOperationTest extends TestingSandBox {
     }
 
     @Test
+    public void subjectAreaScenarios(){
+        expressionTest("(1234) + (265) =", "1 499", "1234 + 265 = ");
+        expressionTest("(421,87) + (0,42) =", "422,29", "421,87 + 0,42 = ");
+        expressionTest("(2341) + (54) =", "2 395", "2341 + 54 = ");
+        expressionTest("(0,421) + (0,353) =", "0,774", "0,421 + 0,353 = ");
+        expressionTest("(57899) + (543213) =", "601 112", "57899 + 543213 = ");
+        expressionTest("(5456,74) + (532,34) =", "5 989,08", "5456,74 + 532,34 = ");
+        expressionTest("(65,432) + (322) =", "387,432", "65,432 + 322 = ");
+        expressionTest("(543) + (5432) =", "5 975", "543 + 5432 = ");
+        expressionTest("(324,43) + (56,64) =", "381,07", "324,43 + 56,64 = ");
+        expressionTest("(245,6) + (1212222) =", "1 212 467,6", "245,6 + 1212222 = ");
+
+        expressionTest("(254) - (68) =", "186", "254 - 68 = ");
+        expressionTest("(6841,5) - (651) =", "6 190,5", "6841,5 - 651 = ");
+        expressionTest("(695,45) - (365,4) =", "330,05", "695,45 - 365,4 = ");
+        expressionTest("(698854) - (869541) =", "-170 687", "698854 - 869541 = ");
+        expressionTest("(1547) - (8561,5) =", "-7 014,5", "1547 - 8561,5 = ");
+        expressionTest("(3254) - (65985) =", "-62 731", "3254 - 65985 = ");
+        expressionTest("(854,55) - (785,4) =", "69,15", "854,55 - 785,4 = ");
+        expressionTest("(0,5897) - (0,85751) =", "-0,26781", "0,5897 - 0,85751 = ");
+        expressionTest("(2,74) - (1,77) =", "0,97", "2,74 - 1,77 = ");
+        expressionTest("(123587458) - (9581) =", "123 577 877", "123587458 - 9581 = ");
+
+        expressionTest("(0,54) * (0,057) =", "0,03078", "0,54 × 0,057 = ");
+        expressionTest("(324) * (0,26) =", "84,24", "324 × 0,26 = ");
+        expressionTest("(362) * (17) =", "6 154", "362 × 17 = ");
+        expressionTest("(5981) * (0,7) =", "4 186,7", "5981 × 0,7 = ");
+        expressionTest("(3,14) * (24) =", "75,36", "3,14 × 24 = ");
+        expressionTest("(231) * (211) =", "48 741", "231 × 211 = ");
+        expressionTest("(74) * (0,5) =", "37", "74 × 0,5 = ");
+        expressionTest("(0,78) * (85) =", "66,3", "0,78 × 85 = ");
+        expressionTest("(14,7) * (21) =", "308,7", "14,7 × 21 = ");
+        expressionTest("(69,58) * (47,58) =", "3 310,6164", "69,58 × 47,58 = ");
+
+        expressionTest("(0,533) / (0,057) =", "9,350877192982456", "0,533 ÷ 0,057 = ");
+        expressionTest("(324) / (0,26) =", "1 246,153846153846", "324 ÷ 0,26 = ");
+        expressionTest("(362) / (17) =", "21,29411764705882", "362 ÷ 17 = ");
+        expressionTest("(5981) / (0,7) =", "8 544,285714285714", "5981 ÷ 0,7 = ");
+        expressionTest("(26) / (24) =", "1,083333333333333", "26 ÷ 24 = ");
+        expressionTest("(231) / (211) =", "1,09478672985782", "231 ÷ 211 = ");
+        expressionTest("(74) / (0,5) =", "148", "74 ÷ 0,5 = ");
+        expressionTest("(0,78) / (3,14) =", "0,2484076433121019", "0,78 ÷ 3,14 = ");
+        expressionTest("(14,7) / (21) =", "0,7", "14,7 ÷ 21 = ");
+        expressionTest("(69,58) / (47,58) =", "1,462379150903741", "69,58 ÷ 47,58 = ");
+
+        expressionTest("(15) sqr", "225", "sqr( 15 )");
+        expressionTest("(74) sqr", "5 476", "sqr( 74 )");
+        expressionTest("(34,44) sqr", "1 186,1136", "sqr( 34,44 )");
+        expressionTest("(98,4) sqr", "9 682,56", "sqr( 98,4 )");
+        expressionTest("(0,07) sqr", "0,0049", "sqr( 0,07 )");
+        expressionTest("(0,25) sqr", "0,0625", "sqr( 0,25 )");
+        expressionTest("(3,14) sqr", "9,8596", "sqr( 3,14 )");
+        expressionTest("(9) sqr", "81", "sqr( 9 )");
+        expressionTest("(25) sqr", "625", "sqr( 25 )");
+        expressionTest("(812322) sqr", "659 867 031 684", "sqr( 812322 )");
+
+        expressionTest("(15) sqrt", "3,872983346207417", "√( 15 )");
+        expressionTest("(74) sqrt", "8,602325267042627", "√( 74 )");
+        expressionTest("(34,44) sqrt", "5,868560300448484", "√( 34,44 )");
+        expressionTest("(98,4) sqrt", "9,919677414109796", "√( 98,4 )");
+        expressionTest("(0,07) sqrt", "0,2645751311064591", "√( 0,07 )");
+        expressionTest("(0,25) sqrt", "0,5", "√( 0,25 )");
+        expressionTest("(411) sqrt", "20,27313493271329", "√( 411 )");
+        expressionTest("(9) sqrt", "3", "√( 9 )");
+        expressionTest("(25) sqrt", "5", "√( 25 )");
+        expressionTest("(812322) sqrt", "901,2890768227473", "√( 812322 )");
+
+        expressionTest("(42) 1/", "0,0238095238095238", "1/( 42 )");
+        expressionTest("(654) 1/", "0,0015290519877676", "1/( 654 )");
+        expressionTest("(11) 1/", "0,0909090909090909", "1/( 11 )");
+        expressionTest("(0,32) 1/", "3,125", "1/( 0,32 )");
+        expressionTest("(0,666) 1/", "1,501501501501502", "1/( 0,666 )");
+        expressionTest("(453) 1/", "0,0022075055187638", "1/( 453 )");
+        expressionTest("(1,321) 1/", "0,757002271006813", "1/( 1,321 )");
+        expressionTest("(98) 1/", "0,0102040816326531", "1/( 98 )");
+        expressionTest("(3,14) 1/", "0,3184713375796178", "1/( 3,14 )");
+        expressionTest("(325) 1/", "0,0030769230769231", "1/( 325 )");
+
+        expressionTest("(42) + (17) % =", "49,14", "42 + 7,14 = ");
+        expressionTest("(42) + (17) %", "7,14", "42 + 7,14");
+        expressionTest("(123) + (124) % =", "275,52", "123 + 152,52 = ");
+        expressionTest("(123) + (124) %", "152,52", "123 + 152,52");
+        expressionTest("(0,24) + (2,4) % =", "0,24576", "0,24 + 0,00576 = ");
+        expressionTest("(0,24) + (2,4) %", "0,00576", "0,24 + 0,00576");
+
+        expressionTest("(42) - (17) % =", "34,86", "42 - 7,14 = ");
+        expressionTest("(42) - (17) %", "7,14", "42 - 7,14");
+        expressionTest("(123) - (124) % =", "-29,52", "123 - 152,52 = ");
+        expressionTest("(123) - (124) %", "152,52", "123 - 152,52");
+        expressionTest("(0,24) - (2,4) % =", "0,23424", "0,24 - 0,00576 = ");
+        expressionTest("(0,24) - (2,4) %", "0,00576", "0,24 - 0,00576");
+
+        expressionTest("(42) / (17) % =", "247,0588235294118", "42 ÷ 0,17 = ");
+        expressionTest("(42) / (17) %", "0,17", "42 ÷ 0,17");
+        expressionTest("(123) / (124) % =", "99,19354838709677", "123 ÷ 1,24 = ");
+        expressionTest("(123) / (124) %", "1,24", "123 ÷ 1,24");
+        expressionTest("(0,24) / (2,4) % =", "10", "0,24 ÷ 0,024 = ");
+        expressionTest("(0,24) / (2,4) %", "0,024", "0,24 ÷ 0,024");
+
+        expressionTest("(42) * (17) % =", "7,14", "42 × 0,17 = ");
+        expressionTest("(42) * (17) %", "0,17", "42 × 0,17");
+        expressionTest("(123) * (124) % =", "152,52", "123 × 1,24 = ");
+        expressionTest("(123) * (124) %", "1,24", "123 × 1,24");
+        expressionTest("(0,24) * (2,4) % =", "0,00576", "0,24 × 0,024 = ");
+        expressionTest("(0,24) * (2,4) %", "0,024", "0,24 × 0,024");
+
+        expressionTest("(435) plusMinus", "-435", "");
+        expressionTest("(0,32) plusMinus", "-0,32", "");
+        expressionTest("(342) plusMinus", "-342", "");
+        expressionTest("(0,06) plusMinus", "-0,06", "");
+        expressionTest("(435) plusMinus plusMinus", "435", "");
+        expressionTest("(0,32) plusMinus plusMinus", "0,32", "");
+        expressionTest("(342) plusMinus plusMinus", "342", "");
+        expressionTest("(0,06) plusMinus plusMinus", "0,06", "");
+        expressionTest("(2) + (2) = plusMinus", "-4", "negate( 4 )");
+        expressionTest("(2) - (2) = plusMinus", "0", "negate( 0 )");
+        expressionTest("(2) / (2) = plusMinus", "-1", "negate( 1 )");
+        expressionTest("(2) * (2) = plusMinus", "-4", "negate( 4 )");
+        expressionTest("(2) sqr plusMinus", "-4", "negate( sqr( 2 ) )");
+        expressionTest("(2) sqrt plusMinus", "-1,414213562373095", "negate( √( 2 ) )");
+        expressionTest("(2) 1/ plusMinus", "-0,5", "negate( 1/( 2 ) )");
+        expressionTest("(2) + (2) = plusMinus plusMinus", "4", "negate( negate( 4 ) )");
+        expressionTest("(2) - (2) = plusMinus plusMinus", "0", "negate( negate( 0 ) )");
+        expressionTest("(2) / (2) = plusMinus plusMinus", "1", "negate( negate( 1 ) )");
+        expressionTest("(2) * (2) = plusMinus plusMinus", "4", "negate( negate( 4 ) )");
+        expressionTest("(2) sqr plusMinus plusMinus", "4", "negate( negate( sqr( 2 ) ) )");
+        expressionTest("(2) sqrt plusMinus plusMinus", "1,414213562373095", "negate( negate( √( 2 ) ) )");
+        expressionTest("(2) 1/ plusMinus plusMinus", "0,5", "negate( negate( 1/( 2 ) ) )");
+    }
+
+    @Test
+    public void realizationScenarios(){
+        
+    }
+
+    @Test
     public void randomEquivalenceClassesScenarios() {
         expressionTest("(0,0000000000000005) * (0,0000000000000231) ms c (0,000000000000032) sqr m+ mr mc", "2,310000000000102e-14", "sqr( 0,000000000000032 )");
         expressionTest("(0,0000000000000001) * (0,0000000000000001) =", "1e-32", "0,0000000000000001 × 0,0000000000000001 = ");
