@@ -42,7 +42,9 @@ public class BinaryOperationTest extends TestingSandBox {
         expressionTest(NEAREST_TO_ZERO_POSITIVE_NUMBER, "1e-9999", "sqr( sqr( sqr( sqr( sqr( sqr( sqr( sqr( 1e-39 ) ) ) ) ) ) ) ) × 0,000000000000001 = ");
         expressionTest(NEAREST_TO_ZERO_POSITIVE_NUMBER + " * (1,000000000000001) =", "1,000000000000001e-9999", "1e-9999 × 1,000000000000001 = ");
 
+        expressionTest(NEAREST_TO_ZERO_POSITIVE_NUMBER + " * (4,999999999999999) =", "4,999999999999999e-9999", "1e-9999 × 4,999999999999999 = ");
         expressionTest(NEAREST_TO_ZERO_POSITIVE_NUMBER + " * (5) =", "5e-9999", "1e-9999 × 5 = ");
+        expressionTest(NEAREST_TO_ZERO_POSITIVE_NUMBER + " * (5,000000000000001) =", "5,000000000000001e-9999", "1e-9999 × 5,000000000000001 = ");
 
         expressionTest(NEAREST_TO_ZERO_POSITIVE_NUMBER + " * (9,999999999999999) =", "9,999999999999999e-9999", "1e-9999 × 9,999999999999999 = ");
         expressionTest(NEAREST_TO_ZERO_POSITIVE_NUMBER + " * (10) =", "1e-9998", "1e-9999 × 10 = ");
@@ -53,7 +55,9 @@ public class BinaryOperationTest extends TestingSandBox {
         expressionTest(NEAREST_TO_ZERO_POSITIVE_NUMBER + " * (10) = sqrt ms * (0,001) * (0,00000000000005) = m- c mr mc", "1e-4999", "");
         expressionTest(NEAREST_TO_ZERO_POSITIVE_NUMBER + " * (10) = sqrt ms * (0,001) * (0,0000000000005) = m+ c mr mc", "1,000000000000001e-4999", "");
 
+        expressionTest(NEAREST_TO_ZERO_POSITIVE_NUMBER + " * (10) = sqrt * (4,999999999999999) =", "4,999999999999999e-4999", "√( 1e-9998 ) × 4,999999999999999 = ");
         expressionTest(NEAREST_TO_ZERO_POSITIVE_NUMBER + " * (10) = sqrt * (5) =", "5e-4999", "√( 1e-9998 ) × 5 = ");
+        expressionTest(NEAREST_TO_ZERO_POSITIVE_NUMBER + " * (10) = sqrt * (5,000000000000001) =", "5,000000000000001e-4999", "√( 1e-9998 ) × 5,000000000000001 = ");
 
         expressionTest(NEAREST_TO_ZERO_POSITIVE_NUMBER + " * (10) = sqrt * (10) = ms * (0,001) * (0,00000000000005) = m- " + NEAREST_TO_ZERO_POSITIVE_NUMBER + " m- c mr mc", "9,999999999999999e-4999", "");
         expressionTest(NEAREST_TO_ZERO_POSITIVE_NUMBER + " * (10) = sqrt * (10) = ms * (0,001) * (0,00000000000005) = m- c mr mc", "1e-4998", "");
