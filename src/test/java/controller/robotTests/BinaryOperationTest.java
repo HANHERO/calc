@@ -73,8 +73,11 @@ public class BinaryOperationTest extends TestingSandBox {
         expressionTest(MIN_INPUT + " ms * (0,0000000000000001) * (0,5) = m- c " + NEAREST_TO_ZERO_POSITIVE_NUMBER + " m- c " + NEAREST_TO_ZERO_POSITIVE_NUMBER + " m- c mr mc", "9,999999999999999e-17", "");
         expressionTest(MIN_INPUT + " ms * (0,0000000000000001) * (0,5) = m- c " + NEAREST_TO_ZERO_POSITIVE_NUMBER + " m- c mr mc", "9,999999999999999e-17", ""); //0.0000000000000000999999999999999949....9
 
-        expressionTest(MIN_INPUT + " ms * (0,0000000000000001) * (5) = m+ c mr mc", "1,000000000000001e-16", "");
+
+
+        expressionTest(MIN_INPUT + " ms * (0,0000000000000001) * (0,5000000000000001) = m- c mr mc", "9,999999999999999e-17", "");
         expressionTest(MIN_INPUT + " ms * (0,0000000000000001) * (5) = m+ c " + NEAREST_TO_ZERO_POSITIVE_NUMBER + " m- c mr mc", "0,0000000000000001", "");
+        expressionTest(MIN_INPUT + " ms * (0,0000000000000001) * (5) = m+ c mr mc", "1,000000000000001e-16", "");
 
         expressionTest(MIN_INPUT + " ms * (0,000000000000005) * (5) = m+ c mr mc", "1,000000000000025e-16", "");
         expressionTest(MIN_INPUT + " ms * (0,000000000000005) * (5) = m+ c " + MIN_INPUT + " * (0,000000000000005) * (5) = m- c mr mc", "0,0000000000000001", "");
