@@ -263,7 +263,6 @@ public class MainController implements Initializable {
             if (lastBinary != null && !isPercentLast) {
                 try {
                     result = model.calculate(new BigDecimal(result), new BigDecimal(buffer), lastBinary).toString();
-                    System.out.println(result);
                     isTypingNew = true;
                     isTyping = false;
                     isCommaPressed = false;
