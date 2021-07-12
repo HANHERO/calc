@@ -70,10 +70,10 @@ public class Clicker {
     public void clickExpression(String expression) {
         String[] mass = expression.split(" ");
         for (String s : mass) {
-            if (s.charAt(0) == '(' && s.charAt(s.length() - 1) == ')') {
-                clickNumber(s.substring(1, s.length() - 1));
-            } else {
+            if (mapOfKeysCoordinates.containsKey(s)) {
                 click(s);
+            } else {
+                clickNumber(s);
             }
         }
     }
