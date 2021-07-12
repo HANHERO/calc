@@ -326,6 +326,7 @@ public class BinaryOperationTest extends TestingSandBox {
         expressionTest("(1) del", "0", "");
         expressionTest("(1) del del del del", "0", "");
         expressionTest("(1) plusMinus del", "0", "");
+        expressionTest("(4324) plusMinus del del", "43", "");
 
         expressionTest("(1234) del", "123", "");
         expressionTest("(1234) del del", "12", "");
