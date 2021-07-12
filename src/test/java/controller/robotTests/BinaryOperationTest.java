@@ -39,6 +39,7 @@ public class BinaryOperationTest extends TestingSandBox {
 
     @Test
     public void equivalenceClassesScenarios() {
+        expressionTest(NEAREST_TO_ZERO_POSITIVE_NUMBER + " * 0,9999999999999999 =", OVERFLOW, "1e-9999 × 0,9999999999999999 = ");
         expressionTest(NEAREST_TO_ZERO_POSITIVE_NUMBER, "1e-9999", "sqr( sqr( sqr( sqr( sqr( sqr( sqr( sqr( 1e-39 ) ) ) ) ) ) ) ) × 0,000000000000001 = ");
         expressionTest(NEAREST_TO_ZERO_POSITIVE_NUMBER + " * 1,000000000000001 =", "1,000000000000001e-9999", "1e-9999 × 1,000000000000001 = ");
 
@@ -130,6 +131,7 @@ public class BinaryOperationTest extends TestingSandBox {
 
         expressionTest(MAX_NUMBER + " c 1000000000000000 sqr * 1000000000 = sqr sqr sqr sqr sqr sqr sqr sqr = m- c mr mc", "9,999999999999998e+9999", "");
         expressionTest(MAX_NUMBER + " mc", "9,999999999999999e+9999", "");
+        expressionTest(MAX_NUMBER + " mc m+ c " + NEAREST_TO_ZERO_POSITIVE_NUMBER + " m+ c mr mc", OVERFLOW, "");
     }
 
     @Test
