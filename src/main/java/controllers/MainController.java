@@ -43,6 +43,7 @@ public class MainController implements Initializable {
     private static final BigDecimal NEAREST_TO_ZERO_POSITIVE_VALUE = new BigDecimal("1E-9999");
     private static final BigDecimal NEAREST_TO_ZERO_NEGATIVE_VALUE = new BigDecimal("-1E-9999");
     private static final BigDecimal MIN_VALUE = new BigDecimal("-9.9999999999999995E+9999");
+    private static final String RESULT_UNDEFINED = "Результат неопределен";
     private static final String DIVISION_BY_ZERO = "Деление на ноль невозможно";
     private static final String NEGATIVE_SQRT = "Неверный ввод";
     private static final String OVERFLOW = "Переполнение";
@@ -262,6 +263,7 @@ public class MainController implements Initializable {
             if (lastBinary != null && !isPercentLast) {
                 try {
                     result = model.calculate(new BigDecimal(result), new BigDecimal(buffer), lastBinary).toString();
+                    System.out.println(result);
                     isTypingNew = true;
                     isTyping = false;
                     isCommaPressed = false;
@@ -323,7 +325,11 @@ public class MainController implements Initializable {
                 result = model.calculate(new BigDecimal(result), new BigDecimal(buffer), lastBinary).toString();
                 setMainLabelText(result);
             } catch (DivisionByZeroException e) {
-                showExceptionMessage(DIVISION_BY_ZERO);
+                if (result.equals("0")){
+                    showExceptionMessage(RESULT_UNDEFINED);
+                }else {
+                    showExceptionMessage(DIVISION_BY_ZERO);
+                }
             }
 
         } else if (isPercentLast) {
