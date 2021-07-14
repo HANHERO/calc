@@ -24,9 +24,8 @@ public class TestingSandBox extends ApplicationTest {
     protected static final String MAX_INPUT = "9999999999999999";
     protected static final String MIN_INPUT = "0,0000000000000001";
     protected static final String NEAREST_TO_ZERO_POSITIVE_NUMBER = MIN_INPUT + " sqr * 0,0000001 = sqr sqr sqr sqr sqr sqr sqr sqr * 0,000000000000001 =";
-    protected static final String MAX_NUMBER = "1000000000000000 sqr * 1000000000 = sqr sqr sqr sqr sqr sqr sqr sqr * " + MAX_INPUT +
-            " = m+ c 1000000000000000 sqr * 1000000000 = sqr sqr sqr sqr sqr sqr sqr sqr m+ c " + NEAREST_TO_ZERO_POSITIVE_NUMBER +
-            " m- c 1000000000000000 sqr * 1000000000 = sqr sqr sqr sqr sqr sqr sqr sqr * 0,5 = m- c mr";
+    protected static final String MAX_NUMBER = "1000000000000000 sqr * 1000000000 = sqr sqr sqr sqr sqr sqr sqr sqr * 9999999999999999 =" +
+            " ms / 9999999999999999 * 0,5 = m+ / 5000000000000000 / 100 = m- c mr";
 
     public TestingSandBox() throws AWTException {
     }

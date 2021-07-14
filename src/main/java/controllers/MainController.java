@@ -37,6 +37,7 @@ public class MainController implements Initializable {
     private boolean isTypingNew = true;
     private boolean isTyping = true;
     private boolean isSignHas = false;
+    private boolean isNegatePressed = false;
     private String whatOnScreen = "0";
     private String unaryExpression = "";
     private static final BigDecimal MAX_VALUE = new BigDecimal("9.9999999999999995E+9999");
@@ -358,6 +359,7 @@ public class MainController implements Initializable {
 
     @FXML
     public void plusMinusPressed() {
+        isNegatePressed = true;
         try {
             buffer = model.calculate(new BigDecimal(buffer), UnaryOperations.NEGATIVE).toString();
         } catch (DivisionByZeroException e) {
@@ -503,6 +505,7 @@ public class MainController implements Initializable {
     @FXML
     public void cePressed() {
         setDisableAllOperations(false);
+        isNegatePressed = false;
         isCommaPressed = false;
         isPercentLast = false;
         isFirstTimeUnary = false;
@@ -702,7 +705,7 @@ public class MainController implements Initializable {
 
     private void setMainLabelText(String text) {
         whatOnScreen = text;
-        if (isTyping) {
+        if (isTyping && !isNegatePressed) {
             mainLabel.setText(InputFormatter.formatter(text));
         } else {
             try {

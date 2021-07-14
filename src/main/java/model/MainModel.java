@@ -33,7 +33,7 @@ public class MainModel {
     }
 
     private BigDecimal negative(BigDecimal firstValue) {
-        return firstValue.negate();
+        return firstValue.negate(MathContext.DECIMAL128);
     }
 
     private BigDecimal oneDividedX(BigDecimal firstValue) throws DivisionByZeroException {
@@ -48,29 +48,27 @@ public class MainModel {
     }
 
     private BigDecimal square(BigDecimal firstValue) {
-        return firstValue.pow(2);
+        return firstValue.pow(2, MathContext.DECIMAL128);
     }
 
     private BigDecimal plus(BigDecimal firstValue, BigDecimal secondValue) {
-        return firstValue.add(secondValue);
+        return firstValue.add(secondValue, MathContext.DECIMAL128);
     }
 
     private BigDecimal minus(BigDecimal firstValue, BigDecimal secondValue) {
-        return firstValue.subtract(secondValue);
+        return firstValue.subtract(secondValue, MathContext.DECIMAL128);
     }
 
     private BigDecimal multiply(BigDecimal firstValue, BigDecimal secondValue) {
-        return firstValue.multiply(secondValue);
+        return firstValue.multiply(secondValue, MathContext.DECIMAL128);
     }
 
     private BigDecimal divide(BigDecimal firstValue, BigDecimal secondValue) throws DivisionByZeroException {
-        BigDecimal result;
         if (!secondValue.equals(BigDecimal.ZERO)) {
-            result = firstValue.divide(secondValue, MathContext.DECIMAL128);
+            return firstValue.divide(secondValue, MathContext.DECIMAL128);
         } else {
             throw new DivisionByZeroException();
         }
-        return result;
     }
 
     public BigDecimal percent(BigDecimal firstValue, BigDecimal percentValue, BinaryOperations lastOperation) throws DivisionByZeroException {
