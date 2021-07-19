@@ -15,8 +15,8 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="500.0" minWidth="320.0" onMouseClicked="#clicked" prefHeight="500.0" prefWidth="320.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
-   <GridPane layoutY="65.0" prefHeight="435.0" prefWidth="320.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="73.0">
+<AnchorPane fx:id="main" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="500.0" minWidth="320.0" onMouseClicked="#clicked" prefHeight="500.0" prefWidth="320.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
+   <GridPane layoutY="65.0" prefHeight="435.0" prefWidth="320.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="73.0">
      <columnConstraints>
        <ColumnConstraints hgrow="SOMETIMES" />
      </columnConstraints>
@@ -259,8 +259,11 @@
                       <Insets bottom="2.0" left="1.0" right="4.0" top="2.0" />
                   </GridPane.margin>
               </Button>
+            <GridPane.margin>
+               <Insets right="3.0" />
+            </GridPane.margin>
           </GridPane>
-          <GridPane prefHeight="27.0" prefWidth="320.0" GridPane.rowIndex="2">
+          <GridPane prefHeight="26.0" prefWidth="314.0" GridPane.rowIndex="2">
               <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="98.0" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="98.0" />
@@ -304,12 +307,18 @@
                           <Insets bottom="2.0" />
                       </GridPane.margin>
                   </Button>
-                  <Button fx:id="mOption" focusTraversable="false" maxHeight="68.0" maxWidth="98.0" mnemonicParsing="false" onMouseClicked="#clicked" styleClass="memButton" GridPane.columnIndex="5">
+                  <Button fx:id="mOption" focusTraversable="false" maxHeight="68.0" maxWidth="98.0" mnemonicParsing="false" onMouseClicked="#clicked" prefWidth="49.0" styleClass="memButton" GridPane.columnIndex="5">
                       <GridPane.margin>
                           <Insets bottom="2.0" />
                       </GridPane.margin>
                   </Button>
               </children>
+            <GridPane.margin>
+               <Insets right="5.0" />
+            </GridPane.margin>
+            <opaqueInsets>
+               <Insets />
+            </opaqueInsets>
           </GridPane>
           <ScrollPane fx:id="scrollPaneHistory" cache="true" fitToHeight="true" hbarPolicy="NEVER" minHeight="20.0" minWidth="320.0" nodeOrientation="RIGHT_TO_LEFT" pannable="true" prefHeight="20.0" prefWidth="320.0" vbarPolicy="NEVER" vmax="0.0">
               <padding>
@@ -345,16 +354,16 @@
             <Label fx:id="calcLabel" text="Калькулятор" />
         </children>
     </HBox>
-    <Button fx:id="closeButton" focusTraversable="false" mnemonicParsing="false" onAction="#close" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-    <Button fx:id="fullScreenButton" focusTraversable="false" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#fullScreen" AnchorPane.rightAnchor="46.0" AnchorPane.topAnchor="0.0" />
-    <Button fx:id="minimizeButton" focusTraversable="false" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#minimize" AnchorPane.rightAnchor="92.0" AnchorPane.topAnchor="0.0" />
-    <Button fx:id="history" focusTraversable="false" layoutX="280.0" layoutY="32.0" mnemonicParsing="false" onMouseClicked="#clicked" styleClass="squareButton" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="33.0" />
-    <ImageView fitHeight="40.0" fitWidth="111.0" layoutX="-60.0" layoutY="-23.0" onMouseClicked="#clicked" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="82.0" AnchorPane.topAnchor="33.0">
+    <Button fx:id="closeButton" focusTraversable="false" mnemonicParsing="false" onAction="#close" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0" />
+    <Button fx:id="fullScreenButton" focusTraversable="false" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#fullScreen" AnchorPane.rightAnchor="47.0" AnchorPane.topAnchor="1.0" />
+    <Button fx:id="minimizeButton" focusTraversable="false" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#minimize" AnchorPane.rightAnchor="93.0" AnchorPane.topAnchor="1.0" />
+    <Button fx:id="history" focusTraversable="false" layoutX="280.0" layoutY="32.0" mnemonicParsing="false" onMouseClicked="#clicked" styleClass="squareButton" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="34.0" />
+    <ImageView fitHeight="40.0" fitWidth="111.0" layoutX="-60.0" layoutY="-23.0" onMouseClicked="#clicked" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="41.0" AnchorPane.rightAnchor="82.0" AnchorPane.topAnchor="33.0">
         <image>
             <Image url="@buttons/casual.png" />
         </image>
     </ImageView>
-    <Button fx:id="changeSize" focusTraversable="false" layoutX="135.0" layoutY="32.0" mnemonicParsing="false" onMouseClicked="#clicked" styleClass="squareButton" AnchorPane.leftAnchor="151.0" AnchorPane.topAnchor="33.0" />
+    <Button fx:id="changeSize" focusTraversable="false" layoutX="135.0" layoutY="32.0" mnemonicParsing="false" onMouseClicked="#clicked" styleClass="squareButton" AnchorPane.leftAnchor="152.0" AnchorPane.topAnchor="33.0" />
     <AnchorPane fx:id="menu" layoutX="-80.0" layoutY="-47.0" minWidth="254.0" prefHeight="200.0" prefWidth="254.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="33.0">
         <children>
             <Button id="about" mnemonicParsing="false" styleClass="buttInMenu" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
@@ -388,7 +397,7 @@
             </ScrollPane>
         </children>
     </AnchorPane>
-    <Button fx:id="option" focusTraversable="false" layoutY="32.0" mnemonicParsing="false" onAction="#optionOpenOrClose" styleClass="squareButton" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="33.0" />
+    <Button fx:id="option" focusTraversable="false" layoutY="32.0" mnemonicParsing="false" onAction="#optionOpenOrClose" styleClass="squareButton" AnchorPane.leftAnchor="1.0" AnchorPane.topAnchor="33.0" />
     <Button fx:id="historyLeftMover" focusTraversable="false" maxHeight="15.0" maxWidth="14.0" minHeight="15.0" minWidth="14.0" mnemonicParsing="false" onAction="#moveHistoryLeft" prefHeight="15.0" prefWidth="14.0" styleClass="historyMover" visible="false" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="76.0" />
     <Button fx:id="historyRightMover" focusTraversable="false" maxHeight="16.0" maxWidth="14.0" minHeight="16.0" minWidth="14.0" mnemonicParsing="false" onAction="#moveHistoryRight" prefHeight="16.0" prefWidth="14.0" styleClass="historyMover" visible="false" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="76.0" />
 </AnchorPane>

@@ -30,7 +30,7 @@ public class MainController implements Initializable {
     private boolean isNewHistoryForNext = false;
     private BinaryOperations lastBinary;
     private UnaryOperations lastUnary;
-    boolean isFirstTimeUnary = false;
+    private boolean isFirstTimeUnary = false;
     private boolean isPercentLast = false;
     private boolean isEqualsPressed = false;
     private boolean isCommaPressed = false;
@@ -38,6 +38,7 @@ public class MainController implements Initializable {
     private boolean isTyping = true;
     private boolean isSignHas = false;
     private boolean isNegatePressed = false;
+    private boolean isMemoryUsed = false;
     private String whatOnScreen = "0";
     private String unaryExpression = "";
     private static final BigDecimal MAX_VALUE = new BigDecimal("9.9999999999999995E+9999");
@@ -125,7 +126,7 @@ public class MainController implements Initializable {
 
     @FXML
     public void dragged(MouseEvent event) {
-        if (stage.getScene().getCursor() != Cursor.N_RESIZE) {
+        if (stage.getScene().getCursor() == Cursor.DEFAULT) {
             stage.setX(event.getScreenX() + x);
             stage.setY(event.getScreenY() + y);
         }
@@ -176,6 +177,7 @@ public class MainController implements Initializable {
     public void digitButtonPressed(ActionEvent actionEvent) {
         String source = actionEvent.getSource().toString();
         String digitButton = source.substring(source.length() - 2, source.length() - 1);
+        isMemoryUsed = false;
         isTyping = true;
         if (isEqualsPressed) {
             cPressed();
@@ -325,9 +327,9 @@ public class MainController implements Initializable {
                 result = model.calculate(new BigDecimal(result), new BigDecimal(buffer), lastBinary).toString();
                 setMainLabelText(result);
             } catch (DivisionByZeroException e) {
-                if (result.equals("0")){
+                if (result.equals("0")) {
                     showExceptionMessage(RESULT_UNDEFINED);
-                }else {
+                } else {
                     showExceptionMessage(DIVISION_BY_ZERO);
                 }
             }
@@ -367,13 +369,13 @@ public class MainController implements Initializable {
         } catch (NegativeSqrtException e) {
             showExceptionMessage(NEGATIVE_SQRT);
         }
-        if (isEqualsPressed || !unaryExpression.equals("")) {
+        if (isEqualsPressed || !unaryExpression.equals("") || isMemoryUsed) {
             if (isNewHistoryForNext) {
                 unaryExpression = formatterForHistory(whatOnScreen);
                 isNewHistoryForNext = false;
             }
             if (unaryExpression.equals("")) {
-                unaryExpression = formatterForHistory(buffer);
+                unaryExpression = formatterForHistory(whatOnScreen);
             }
             try {
                 buffer = model.calculate(new BigDecimal(whatOnScreen), UnaryOperations.NEGATIVE).toString();
@@ -505,6 +507,7 @@ public class MainController implements Initializable {
     @FXML
     public void cePressed() {
         setDisableAllOperations(false);
+        isMemoryUsed = false;
         isNegatePressed = false;
         isCommaPressed = false;
         isPercentLast = false;
@@ -572,12 +575,14 @@ public class MainController implements Initializable {
 
     @FXML
     public void mcPressed() {
+        isMemoryUsed = true;
         setDisableMemButtons(true);
         model.clearMemoryValue();
     }
 
     @FXML
     public void mrPressed() {
+        isMemoryUsed = true;
         buffer = model.getMemoryValue().toString();
         isTyping = false;
         setMainLabelText(buffer);
@@ -586,6 +591,7 @@ public class MainController implements Initializable {
     @FXML
     public void mMinusPressed() {
         setDisableMemButtons(false);
+        isMemoryUsed = true;
         try {
             model.memoryMinus(new BigDecimal(whatOnScreen));
         } catch (DivisionByZeroException e) {
@@ -598,6 +604,7 @@ public class MainController implements Initializable {
     @FXML
     public void mPlusPressed() {
         setDisableMemButtons(false);
+        isMemoryUsed = true;
         try {
             model.memoryPlus(new BigDecimal(whatOnScreen));
         } catch (DivisionByZeroException e) {
@@ -609,6 +616,7 @@ public class MainController implements Initializable {
 
     @FXML
     public void msPressed() {
+        isMemoryUsed = true;
         setDisableMemButtons(false);
         model.setMemoryValue(new BigDecimal(whatOnScreen));
         isTypingNew = true;
@@ -789,14 +797,14 @@ public class MainController implements Initializable {
     public void fullScreen() {
         if (stage.isMaximized()) {
             stage.setMaximized(false);
-            fullScreenButton.setStyle("-fx-background-image: url('buttons/fullScreen.png')");
+            fullScreenButton.setStyle("-fx-background-image: url('../../../test/resources/buttons/fullScreen.png')");
             for (Button textButton : textButtons) {
                 textButton.setStyle("-fx-font-size: 16px");
             }
             ResizeFont.resizeMainLabelFont();
         } else {
             stage.setMaximized(true);
-            fullScreenButton.setStyle("-fx-background-image: url('buttons/notFullScreen.png')");
+            fullScreenButton.setStyle("-fx-background-image: url('../../../test/resources/buttons/notFullScreen.png')");
             ResizeFont.resizeMainLabelFont();
             for (Button textButton : textButtons) {
                 textButton.setStyle("-fx-font-size: 24px");

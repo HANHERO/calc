@@ -15,7 +15,6 @@
 }
 
 .button {
-    -fx-cursor: default;
     -fx-pref-width: 46px;
     -fx-pref-height: 32px;
     -fx-background-repeat: no-repeat;
