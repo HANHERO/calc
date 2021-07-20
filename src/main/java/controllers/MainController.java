@@ -136,6 +136,8 @@ public class MainController implements Initializable {
     public void pressed(MouseEvent event) {
         x = stage.getX() - event.getScreenX();
         y = stage.getY() - event.getScreenY();
+        System.out.println(CE.getFont().getSize());
+        System.out.println(one.getFont().getSize());
     }
 
     private void fillTextButtonsArray() {
@@ -632,7 +634,7 @@ public class MainController implements Initializable {
         menu.setVisible(false);
         setDisableMemButtons(true);
         fillTextButtonsArray();
-        ResizeFont.init(stage, mainLabel);
+        ResizeFont.init(stage, mainLabel, textButtons);
         this.stage.getScene().setOnKeyPressed(keyEvent -> {
             switch (keyEvent.getCode()) {
                 case NUMPAD0, DIGIT0 -> zero.fire();
@@ -797,14 +799,12 @@ public class MainController implements Initializable {
     public void fullScreen() {
         if (stage.isMaximized()) {
             stage.setMaximized(false);
-            fullScreenButton.setStyle("-fx-background-image: url('../../../test/resources/buttons/fullScreen.png')");
-            for (Button textButton : textButtons) {
-                textButton.setStyle("-fx-font-size: 16px");
-            }
+            fullScreenButton.setStyle("-fx-background-image: url('/buttons/fullScreen.png')");
+            ResizeFont.resizeButtonFonts();
             ResizeFont.resizeMainLabelFont();
         } else {
             stage.setMaximized(true);
-            fullScreenButton.setStyle("-fx-background-image: url('../../../test/resources/buttons/notFullScreen.png')");
+            fullScreenButton.setStyle("-fx-background-image: url('/buttons/notFullScreen.png')");
             ResizeFont.resizeMainLabelFont();
             for (Button textButton : textButtons) {
                 textButton.setStyle("-fx-font-size: 24px");

@@ -77,10 +77,7 @@ public class ResizeWindow implements EventHandler<MouseEvent> {
         }
         stage.setHeight(newHeight);
         stage.setY(newY);
-        double textButtonsFontSize = 18 + (stage.getHeight() - 500) * 0.016;
-        for (Button textButton : textButtons) {
-            textButton.setStyle("-fx-font-size: " + textButtonsFontSize + "px");
-        }
+        ResizeFont.resizeButtonFonts();
     }
 
     private void changeWidth(MouseEvent event) {

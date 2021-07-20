@@ -48,6 +48,8 @@ public class Clicker {
         mapOfKeysCoordinates.put("m+", "745 288");
         mapOfKeysCoordinates.put("m-", "799 288");
         mapOfKeysCoordinates.put("ms", "850 288");
+
+        mapOfKeysCoordinates.put("close", "904 125");
     }
 
     public void click(String whatToClick) {

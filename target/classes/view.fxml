@@ -349,7 +349,7 @@
           </Label>
       </children>
    </GridPane>
-    <HBox layoutY="2.0" onMouseClicked="#clicked" onMouseDragged="#dragged" onMousePressed="#pressed" prefHeight="31.0" prefWidth="320.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <HBox fx:id="systemPane" layoutY="2.0" onMouseClicked="#clicked" onMouseDragged="#dragged" onMousePressed="#pressed" prefHeight="31.0" prefWidth="320.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <children>
             <Label fx:id="calcLabel" text="Калькулятор" />
         </children>

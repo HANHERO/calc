@@ -23,7 +23,7 @@ public class EquivalenceClassesTest extends TestingSandBox {
         test(NEAREST_TO_ZERO_POSITIVE_NUMBER, "1e-9999", "sqr( sqr( sqr( sqr( sqr( sqr( sqr( sqr( 1e-39 ) ) ) ) ) ) ) ) × 0,000000000000001 = ");
         test(NEAREST_TO_ZERO_POSITIVE_NUMBER + " plusMinus", "-1e-9999", "negate( 1e-9999 )");
 
-        //*left/right steps*/
+        /*left/right steps*/
         test(MAX_NUMBER + " 1000000000000000 sqr * 1000000000 = sqr sqr sqr sqr sqr sqr sqr sqr / 1000000000000000 / 1000 = m- c mr mc", "9,999999999999999e+9999", "");
         test(MAX_NUMBER + " 1000000000000000 sqr * 1000000000 = sqr sqr sqr sqr sqr sqr sqr sqr / 1000000000000000 / 1000 = m+ c mr mc", OVERFLOW, "");
 
