@@ -2,8 +2,8 @@
     src: url('font.ttf');
 }
 * {
--fx-background-color: e6e6e6;
--fx-background-size: contain;
+    -fx-background-color: e6e6e6;
+    -fx-background-size: contain;
 }
 
 .typeOfCalc {
@@ -15,6 +15,7 @@
 }
 
 .button {
+    -fx-cursor: default;
     -fx-pref-width: 46px;
     -fx-pref-height: 32px;
     -fx-background-repeat: no-repeat;
@@ -31,7 +32,7 @@
     -fx-background-color: #d1d1d1;
 }
 
-.button:pressed:hover {
+.button:pressed:hover, .button:armed{
     -fx-background-color: #bbbbbb;
 }
 
@@ -102,14 +103,12 @@
 
 .whiteButton {
     -fx-background-color: #fafafa;
-    /*-fx-font-family: "Segoe UI Semibold";*/
     -fx-font-family: 'Calculator MDL2 Assets';
     -fx-font-size: 18px;
 }
 
 .greyButton {
     -fx-background-color: #f0f0f0;
-    /*-fx-font-family: "Segoe UI Symbol";*/
     -fx-font-size: 15px;
     -fx-font-family: 'Calculator MDL2 Assets'
 }
@@ -123,9 +122,10 @@
     -fx-background-color: #717171;
 }
 
-.dkGreyButton:pressed:hover {
+.dkGreyButton:pressed:hover, .dkGreyButton:armed{
     -fx-background-color: #404040;
 }
+
 
 #secondaryLabel {
     -fx-font-family: "Segoe UI Historic";

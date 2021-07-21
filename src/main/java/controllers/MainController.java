@@ -1,22 +1,27 @@
 package controllers;
 
+import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import model.*;
 
 import java.math.BigDecimal;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
@@ -624,6 +629,13 @@ public class MainController implements Initializable {
         isTypingNew = true;
         isTyping = false;
     }
+    private void clickOnButton(Button button) {
+        button.arm();
+        button.fire();
+        PauseTransition pause = new PauseTransition(Duration.seconds(0.1));
+        pause.setOnFinished(e -> button.disarm());
+        pause.play();
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -636,26 +648,9 @@ public class MainController implements Initializable {
         fillTextButtonsArray();
         ResizeFont.init(stage, mainLabel, textButtons);
         this.stage.getScene().setOnKeyPressed(keyEvent -> {
-            switch (keyEvent.getCode()) {
-                case NUMPAD0, DIGIT0 -> zero.fire();
-                case NUMPAD1, DIGIT1 -> one.fire();
-                case NUMPAD2, DIGIT2 -> two.fire();
-                case NUMPAD3, DIGIT3 -> three.fire();
-                case NUMPAD4, DIGIT4 -> four.fire();
-                case NUMPAD5, DIGIT5 -> five.fire();
-                case NUMPAD6, DIGIT6 -> six.fire();
-                case NUMPAD7, DIGIT7 -> seven.fire();
-                case NUMPAD8, DIGIT8 -> eight.fire();
-                case NUMPAD9, DIGIT9 -> nine.fire();
-                case MULTIPLY -> multiply.fire();
-                case ADD -> plus.fire();
-                case SUBTRACT -> minus.fire();
-                case DIVIDE -> divide.fire();
-                case DECIMAL -> comma.fire();
-                case BACK_SPACE -> del.fire();
-                case ENTER -> equals.fire();
-                case ESCAPE -> C.fire();
-                case DELETE -> CE.fire();
+            CalcButton button = CalcButton.searchButtonByEvent(keyEvent);
+            if (Objects.nonNull(button)) {
+                clickOnButton((Button) stage.getScene().lookup(button.getFXId()));
             }
         });
         ResizeWindow r = new ResizeWindow(stage, textButtons);

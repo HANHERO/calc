@@ -35,7 +35,7 @@ public class SystemButtons extends ViewTestsSandbox {
     public void closeTest() throws AWTException, InterruptedException {
         Assert.assertTrue(stage.isShowing());
         Thread.sleep(250);
-        new Clicker().click("close");
+        new Clicker().clickMouse("close");
         Thread.sleep(250);
         Assert.assertFalse(stage.isShowing());
     }

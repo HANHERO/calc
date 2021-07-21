@@ -3,7 +3,7 @@ package view;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class ViewTests extends ViewTestsSandbox{
+public class ResizeMoveMenuTests extends ViewTestsSandbox{
     @Test
     public void moveTest() {
         moveTest(150, 100);

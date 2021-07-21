@@ -17,7 +17,7 @@ public class Main extends Application {
         Parent root = loader.load();
         primaryStage.setTitle("Калькулятор");
         primaryStage.setScene(new Scene(root, 320, 500));
-        primaryStage.initStyle(StageStyle.TRANSPARENT);
+        //primaryStage.initStyle(StageStyle.TRANSPARENT);
         primaryStage.setResizable(true);
         primaryStage.getIcons().add(new Image("buttons/icon.png"));
         MainController controller = loader.getController();

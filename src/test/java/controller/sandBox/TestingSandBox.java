@@ -16,7 +16,16 @@ import java.util.concurrent.TimeoutException;
 import static org.testfx.api.FxAssert.verifyThat;
 
 public class TestingSandBox extends ApplicationTest {
-    Clicker clicker = new Clicker();
+    Clicker clicker;
+
+    {
+        try {
+            clicker = new Clicker();
+        } catch (AWTException e) {
+            e.printStackTrace();
+        }
+    }
+
     protected static final String OVERFLOW = "Переполнение";
     protected static final String DIVISION_BY_ZERO = "Деление на ноль невозможно";
     protected static final String NEGATIVE_SQRT = "Неверный ввод";
@@ -27,7 +36,7 @@ public class TestingSandBox extends ApplicationTest {
     protected static final String MAX_NUMBER = "1000000000000000 sqr * 1000000000 = sqr sqr sqr sqr sqr sqr sqr sqr * 9999999999999999 =" +
             " ms / 9999999999999999 * 0,5 = m+ / 5000000000000000 / 100 = m- c mr";
 
-    public TestingSandBox() throws AWTException {
+    public TestingSandBox() {
     }
 
     @Before
@@ -42,21 +51,45 @@ public class TestingSandBox extends ApplicationTest {
         release(new MouseButton[]{});
     }
 
-    public void mainLabelAndHistoryTest(String mainLabelExcepted, String historyLabelExcepted) {
+    public void mouseInputTest(String expression, String mainLabelExcepted, String historyLabelExcepted) {
         FXTestUtils.awaitEvents();
         String mainLabel = "#mainLabel";
         String historyLabel = "#historyLabel";
-
+        clicker.mouseClickExpression(expression);
+        FXTestUtils.awaitEvents();
         verifyThat(historyLabel, (Label label) -> label.getText().equals(historyLabelExcepted));
         verifyThat(mainLabel, (Label label) -> label.getText().equals(mainLabelExcepted));
-        clicker.click("mc");
-        clicker.click("c");
+        clicker.clickMouse("mc");
+        clicker.clickMouse("c");
     }
 
-    public void mainLabelTest(int size) {
+    public void mainLabelTest(String expression, int size) {
         FXTestUtils.awaitEvents();
         String mainLabel = "#mainLabel";
+        clicker.mouseClickExpression(expression);
+        FXTestUtils.awaitEvents();
         verifyThat(mainLabel, (javafx.scene.control.Label label) -> label.getFont().getSize() == size);
-        clicker.click("c");
+        clicker.clickMouse("c");
+    }
+    public void keyboardInputTest(String expression, String mainLabelExcepted, String historyLabelExcepted) {
+        FXTestUtils.awaitEvents();
+        String mainLabel = "#mainLabel";
+        String historyLabel = "#historyLabel";
+        clicker.keyboardClickExpression(expression);
+        verifyThat(historyLabel, (Label label) -> label.getText().equals(historyLabelExcepted));
+        verifyThat(mainLabel, (Label label) -> label.getText().equals(mainLabelExcepted));
+        clicker.clickKeyboard("mc");
+        clicker.clickKeyboard("c");
+    }
+
+    public void alternativeKeyboardInputTest(String expression, String mainLabelExcepted, String historyLabelExcepted) {
+        FXTestUtils.awaitEvents();
+        String mainLabel = "#mainLabel";
+        String historyLabel = "#historyLabel";
+        clicker.alternativeKeyboardClickExpression(expression);
+        verifyThat(historyLabel, (Label label) -> label.getText().equals(historyLabelExcepted));
+        verifyThat(mainLabel, (Label label) -> label.getText().equals(mainLabelExcepted));
+        clicker.clickAlternativeKeyboard("mc");
+        clicker.clickAlternativeKeyboard("c");
     }
 }
