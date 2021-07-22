@@ -6,7 +6,7 @@ import org.junit.Test;
 public class KeyboardInputTest extends TestingSandBox {
     @Test
     public void test() {
-        test("1234567890,26", "1 234 567 890,26", "");
+        test("1234567890,012345", "1 234 567 890,012345", "");
 
         test("32 - 4 =", "28", "32 - 4 = ");
         test("1234 + 4321 -", "5 555", "5555 - ");
