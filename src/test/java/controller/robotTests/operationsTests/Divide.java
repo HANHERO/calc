@@ -123,16 +123,16 @@ public class Divide extends TestingSandBox {
 
     @Test
     public void divisionByZeroScenarios() {
-        mouseInputTest("0 / 0=", RESULT_UNDEFINED, "0 ÷ 0 = ");
-        mouseInputTest("23 / 0=", DIVISION_BY_ZERO, "23 ÷ 0 = ");
-        mouseInputTest("53 / 0=", DIVISION_BY_ZERO, "53 ÷ 0 = ");
-        mouseInputTest("218 / 0=", DIVISION_BY_ZERO, "218 ÷ 0 = ");
-        mouseInputTest("564 / 0=", DIVISION_BY_ZERO, "564 ÷ 0 = ");
-        mouseInputTest("654 / 0=", DIVISION_BY_ZERO, "654 ÷ 0 = ");
-        mouseInputTest("5434 / 0=", DIVISION_BY_ZERO, "5434 ÷ 0 = ");
-        mouseInputTest("6658 / 0=", DIVISION_BY_ZERO, "6658 ÷ 0 = ");
-        mouseInputTest("6665,43 / 0=", DIVISION_BY_ZERO, "6665,43 ÷ 0 = ");
-        mouseInputTest("665,437 / 0=", DIVISION_BY_ZERO, "665,437 ÷ 0 = ");
+        mouseInputTest("0 / 0 =", RESULT_UNDEFINED, "0 ÷ 0 = ");
+        mouseInputTest("23 / 0 =", DIVISION_BY_ZERO, "23 ÷ 0 = ");
+        mouseInputTest("53 / 0 =", DIVISION_BY_ZERO, "53 ÷ 0 = ");
+        mouseInputTest("218 / 0 =", DIVISION_BY_ZERO, "218 ÷ 0 = ");
+        mouseInputTest("564 / 0 =", DIVISION_BY_ZERO, "564 ÷ 0 = ");
+        mouseInputTest("654 / 0 =", DIVISION_BY_ZERO, "654 ÷ 0 = ");
+        mouseInputTest("5434 / 0 =", DIVISION_BY_ZERO, "5434 ÷ 0 = ");
+        mouseInputTest("6658 / 0 =", DIVISION_BY_ZERO, "6658 ÷ 0 = ");
+        mouseInputTest("6665,43 / 0 =", DIVISION_BY_ZERO, "6665,43 ÷ 0 = ");
+        mouseInputTest("665,437 / 0 =", DIVISION_BY_ZERO, "665,437 ÷ 0 = ");
     }
 
     @Test
