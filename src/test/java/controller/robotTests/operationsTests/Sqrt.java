@@ -31,6 +31,7 @@ public class Sqrt extends TestingSandBox {
         mouseInputTest("2,1 sqrt", "1,449137674618944", "√( 2,1 )");
         mouseInputTest("0,42 sqrt", "0,648074069840786", "√( 0,42 )");
         mouseInputTest("7,9 sqrt", "2,810693864511039", "√( 7,9 )");
+        mouseInputTest("- 9999999999999 * 99999 = sqr sqrt", "9,999899999999e+17", "√( sqr( -9,999899999999e+17 ) )");
     }
 
     @Test

@@ -70,6 +70,7 @@ public class Negate extends TestingSandBox {
 
     @Test
     public void randomNegateScenarios() {
+        mouseInputTest(NEAREST_TO_ZERO_POSITIVE_NUMBER + " plusMinus", "-1e-9999", "negate( 1e-9999 )");
         mouseInputTest("5822499848481556 plusMinus", "-5 822 499 848 481 556", "");
         mouseInputTest("1244855,4448569 plusMinus", "-1 244 855,4448569", "");
         mouseInputTest("26558745878,5688 plusMinus", "-26 558 745 878,5688", "");
@@ -90,6 +91,9 @@ public class Negate extends TestingSandBox {
         mouseInputTest("2658,1448877154 plusMinus", "-2 658,1448877154", "");
         mouseInputTest("3265487412355221 plusMinus", "-3 265 487 412 355 221", "");
         mouseInputTest("95244,2558775265 plusMinus", "-95 244,2558775265", "");
+        mouseInputTest(",0002569 sqr sqr sqr sqr sqr sqr - = = = plusMinus", "3,356855668527379e-230", "negate( -3,356855668527379e-230 )");
+        mouseInputTest("0,0002569 sqr sqr sqr sqr sqr sqr - = = = plusMinus 1/", "2,978978242572731e+229", "1/( negate( -3,356855668527379e-230 ) )");
+
     }
 
     @Test

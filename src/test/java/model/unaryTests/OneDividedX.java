@@ -15,7 +15,7 @@ public class OneDividedX {
     MainModel testModel = new MainModel();
 
     @Test
-    public void oneDividedXScenarios() throws OverflowException, DivisionByZeroException, NegativeSqrtException {
+    public void oneDividedXScenarios() throws DivisionByZeroException, NegativeSqrtException {
         assertOneDividedX("1", "1");
         assertOneDividedX("2", "0.5");
         assertOneDividedX("3", "0.3333333333333333333333333333333333");

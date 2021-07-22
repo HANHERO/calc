@@ -19,7 +19,6 @@ public class MainModel {
             case DIVIDE -> divide(firstValue, secondValue);
             case MULTIPLY -> multiply(firstValue, secondValue);
         };
-        System.out.println(result);
         return result;
     }
 
@@ -30,7 +29,6 @@ public class MainModel {
             case ONE_DIVIDED_X -> oneDividedX(firstValue);
             case NEGATIVE -> negative(firstValue);
         };
-        System.out.println(result);
         return result;
     }
 

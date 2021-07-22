@@ -87,6 +87,27 @@ public class Sqr extends TestingSandBox {
         mouseInputTest("434353,543665654 sqr", "188 663 000 894,9112", "sqr( 434353,543665654 )");
         mouseInputTest("31234565445,34234 sqr", "9,755980785593737e+20", "sqr( 31234565445,34234 )");
         mouseInputTest("5453,234565654432 sqr", "29 737 767,22804828", "sqr( 5453,234565654432 )");
+        mouseInputTest("0,00000025 sqr sqr sqr sqr", "2,328306436538696e-106", "sqr( sqr( sqr( sqr( 0,00000025 ) ) ) )");
+        mouseInputTest("0,0000231 / 0,5 = = = = sqr sqr sqr", "3,482215949588381e-28", "sqr( sqr( sqr( 0,0003696 ) ) )");
+        mouseInputTest("999 sqr sqr sqr 1/", "1,008036120330794e-24", "1/( sqr( sqr( sqr( 999 ) ) ) )");
+        mouseInputTest("999999 sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr 1/", "1,001024524979528e-6144", "1/( sqr( sqr( sqr( sqr( sqr( sqr( sqr( sqr( sqr( sqr( 999999 ) ) ) ) ) ) ) ) ) ) )");
+        mouseInputTest("423423535 sqr sqr sqr sqr * = 1/", "8,774052023437409e-277", "1/( 1,139724265742648e+276 )");
+        mouseInputTest("523122 sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr 1/", "1,414306747728418e-5856", "1/( sqr( sqr( sqr( sqr( sqr( sqr( sqr( sqr( sqr( sqr( 523122 ) ) ) ) ) ) ) ) ) ) )");
+        mouseInputTest("0,0000001 * 0,31132 = = = / 32213 = = =", "9,026669623453742e-23", "2,907761085803154e-18 ÷ 32213 = ");
+        mouseInputTest("71323123435 sqr sqr sqr sqr * = 1/", "4,97311699471495e-348", "1/( 2,010811330324068e+347 )");
+        mouseInputTest("0,00031 sqr ms sqr m+ mr mc", "9,610000923521e-8", "sqr( sqr( 0,00031 ) )");
+        mouseInputTest("0,000252 sqr ms sqr m+ mr mc", "6,350400403275802e-8", "sqr( sqr( 0,000252 ) )");
+        mouseInputTest("0,000231 sqr ms sqr m+ mr mc", "5,336100284739632e-8", "sqr( sqr( 0,000231 ) )");
+        mouseInputTest("0,000512 sqr ms sqr m+ mr mc", "2,621440687194767e-7", "sqr( sqr( 0,000512 ) )");
+        mouseInputTest("0,000341 sqr ms sqr m+ mr mc", "1,16281013521271e-7", "sqr( sqr( 0,000341 ) )");
+        mouseInputTest("99,98887 sqr", "9 997,7741238769", "sqr( 99,98887 )");
+        mouseInputTest("46894125648425 sqrt", "6 847 928,566247241", "√( 46894125648425 )");
+        mouseInputTest("25000000 sqr sqr sqr sqr", "2,328306436538696e+118", "sqr( sqr( sqr( sqr( 25000000 ) ) ) )");
+        mouseInputTest("999999 sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr", "9,989765235976125e+6143", "sqr( sqr( sqr( sqr( sqr( sqr( sqr( sqr( sqr( sqr( 999999 ) ) ) ) ) ) ) ) ) )");
+        mouseInputTest("0,0002569 sqr sqr sqr sqr sqr sqr - = = = plusMinus 1/", "2,978978242572731e+229", "1/( negate( -3,356855668527379e-230 ) )");
+        mouseInputTest("523122 sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr", "7,070601915787683e+5855", "sqr( sqr( sqr( sqr( sqr( sqr( sqr( sqr( sqr( sqr( 523122 ) ) ) ) ) ) ) ) ) )");
+        mouseInputTest("71323123435 sqr sqr sqr sqr * = 1/", "4,97311699471495e-348", "1/( 2,010811330324068e+347 )");
+        mouseInputTest("- 0,05484 / 48468915 = = = = = sqr 1/", "2,379239093500725e+79", "1/( sqr( -2,050127902199213e-40 ) )");
     }
 
     @Test
