@@ -1,4 +1,4 @@
-package controller.robotTests.buttonsTests;
+package controller.robotTests;
 
 import controller.sandBox.TestingSandBox;
 import org.junit.Test;
