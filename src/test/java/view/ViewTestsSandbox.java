@@ -16,7 +16,6 @@ import java.awt.*;
 
 public class ViewTestsSandbox {
     private static final int MIN_WINDOW_WIDTH = 320;
-    private static final int FRAME_WIGHT = 1;
     private static final int MIN_WINDOW_HEIGHT = 500;
     private static final int MAX_WINDOW_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width;
     private static final int MAX_WINDOW_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height;
@@ -103,44 +102,44 @@ public class ViewTestsSandbox {
 
         switch (pos) {
             case "E" -> {
-                x += beforeWidth - FRAME_WIGHT;
+                x += beforeWidth - 1;
                 y += Math.random() * beforeHeight;
                 expectedWidth = beforeWidth + dx;
             }
             case "W" -> {
-                x += FRAME_WIGHT;
+                x += 1;
                 y += Math.random() * beforeHeight;
                 expectedWidth = beforeWidth - dx;
             }
             case "N" -> {
                 x += Math.random() * beforeWidth;
-                y += FRAME_WIGHT;
+                y += 1;
                 expectedHeight = beforeHeight - dy;
             }
             case "S" -> {
                 x += Math.random() * beforeWidth;
-                y += beforeHeight - FRAME_WIGHT;
+                y += beforeHeight - 1;
                 expectedHeight = beforeHeight + dy;
             }
             case "NE" -> {
-                x += beforeWidth - FRAME_WIGHT;
+                x += beforeWidth - 1;
                 expectedWidth = beforeWidth + dx;
                 expectedHeight = beforeHeight - dy;
             }
             case "SE" -> {
-                x += beforeWidth - FRAME_WIGHT;
-                y += beforeHeight - FRAME_WIGHT;
+                x += beforeWidth - 1;
+                y += beforeHeight - 1;
                 expectedWidth = beforeWidth + dx;
                 expectedHeight = beforeHeight + dy;
             }
             case "SW" -> {
-                y += beforeHeight - FRAME_WIGHT;
+                y += beforeHeight - 1;
                 expectedWidth = beforeWidth - dx;
                 expectedHeight = beforeHeight + dy;
             }
             case "NW" -> {
-                x += FRAME_WIGHT;
-                y += FRAME_WIGHT;
+                x += 1;
+                y += 1;
                 expectedWidth = beforeWidth - dx;
                 expectedHeight = beforeHeight - dy;
             }
