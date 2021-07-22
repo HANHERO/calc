@@ -57,7 +57,7 @@ public class Add extends TestingSandBox {
         mouseInputTest("147 + 29 =", "176", "147 + 29 = ");
         mouseInputTest("513 + 936 =", "1 449", "513 + 936 = ");
         mouseInputTest("347 + 802 =", "1 149", "347 + 802 = ");
-        mouseInputTest("89* + 63 =", "152", "89 + 63 = ");
+        mouseInputTest("89 + 63 =", "152", "89 + 63 = ");
         mouseInputTest("229 + 370 =", "599", "229 + 370 = ");
         mouseInputTest("52 + 472 =", "524", "52 + 472 = ");
         mouseInputTest("966 + 133 =", "1 099", "966 + 133 = ");
