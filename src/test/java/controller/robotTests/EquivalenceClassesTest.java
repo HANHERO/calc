@@ -422,6 +422,7 @@ public class EquivalenceClassesTest extends TestingSandBox {
         mouseInputTest("71323123435 sqr sqr sqr sqr * = 1/", "4,97311699471495e-348", "1/( 2,010811330324068e+347 )");
         mouseInputTest("0,0000000000000002 * 0,0000000000002326 * 0,000000000211111 = ms c 0,0000000000095184 sqr m+ mr mc", "9,059993856000001e-23", "sqr( 0,0000000000095184 )");
         mouseInputTest("- 0,05484 / 48468915 = = = = = sqr", "4,203024415375744e-80", "sqr( -2,050127902199213e-40 )");
+
         mouseInputTest(MIN_INPUT + " * 0,1 + 0,0009999999999999 =", "9,9999999999991e-4", "1e-17 + 0,0009999999999999 = ");
         mouseInputTest(MIN_INPUT + " ms * 0,98595123 = m+ mr mc", "1,98595123e-16", "0,0000000000000001 × 0,98595123 = ");
         mouseInputTest("0,00004746 ms * 0,00000000914 = m+ mr mc", "4,74600004337844e-5", "0,00004746 × 0,00000000914 = ");
@@ -462,6 +463,7 @@ public class EquivalenceClassesTest extends TestingSandBox {
         mouseInputTest("23100 1/", "4,329004329004329e-5", "1/( 23100 )");
         mouseInputTest("0,00004231 ms * 0,00000000521 = m+ mr mc", "4,23100002204351e-5", "0,00004231 × 0,00000000521 = ");
         mouseInputTest("0,00051 sqr ms sqr m+ mr mc", "2,6010006765201e-7", "sqr( sqr( 0,00051 ) )");
+
         mouseInputTest("594845151 + 484951155698 = ", "485 546 000 849", "594845151 + 484951155698 = ");
         mouseInputTest("36214 * 51155698 = ", "1 852 552 447 372", "36214 × 51155698 = ");
         mouseInputTest("845682 / 42694848 = ", "0,0198075889624903", "845682 ÷ 42694848 = ");
@@ -502,6 +504,7 @@ public class EquivalenceClassesTest extends TestingSandBox {
         mouseInputTest("46894125648425 sqrt", "6 847 928,566247241", "√( 46894125648425 )");
         mouseInputTest("487,2136 1/", "0,0020524878615868", "1/( 487,2136 )");
         mouseInputTest("4915,88784447485 plusMinus", "-4 915,88784447485", "");
+
         mouseInputTest("5000000000000000 * 2310000000000000 ms c 320000000000000 sqr m+ mr mc", "1,024000000000023e+29", "sqr( 320000000000000 )");
         mouseInputTest("1000000000000000 * 1000000000000000 =", "1e+30", "1000000000000000 × 1000000000000000 = ");
         mouseInputTest(MIN_INPUT + " / " + MAX_INPUT + " = 1/", "9,999999999999999e+31", "1/( 1e-32 )");
