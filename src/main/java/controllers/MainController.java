@@ -141,8 +141,6 @@ public class MainController implements Initializable {
     public void pressed(MouseEvent event) {
         x = stage.getX() - event.getScreenX();
         y = stage.getY() - event.getScreenY();
-        System.out.println(CE.getFont().getSize());
-        System.out.println(one.getFont().getSize());
     }
 
     private void fillTextButtonsArray() {
