@@ -31,7 +31,6 @@ public class Sqrt extends TestingSandBox {
         mouseInputTest("2,1 sqrt", "1,449137674618944", "√( 2,1 )");
         mouseInputTest("0,42 sqrt", "0,648074069840786", "√( 0,42 )");
         mouseInputTest("7,9 sqrt", "2,810693864511039", "√( 7,9 )");
-        mouseInputTest("- 9999999999999 * 99999 = sqr sqrt", "9,999899999999e+17", "√( sqr( -9,999899999999e+17 ) )");
     }
 
     @Test
@@ -101,6 +100,8 @@ public class Sqrt extends TestingSandBox {
         mouseInputTest("424829,1425462811 sqrt", "651,789185662267", "√( 424829,1425462811 )");
         mouseInputTest("91372893827,42341 sqrt", "302 279,4962074395", "√( 91372893827,42341 )");
         mouseInputTest("192344743,9417238 sqrt", "13 868,84075695311", "√( 192344743,9417238 )");
+        mouseInputTest("- 9999999999999 * 99999 = sqrt", "9,999899999999e+17", "√( sqr( -9,999899999999e+17 ) )");
+
     }
 
     @Test
@@ -124,5 +125,4 @@ public class Sqrt extends TestingSandBox {
         mouseInputTest("1234 * 23,42 sqr sqr sqr 1/ sqrt =", "0,0041017349829314", "1234 × √( 1/( sqr( sqr( sqr( 23,42 ) ) ) ) ) = ");
         mouseInputTest("123,42 / 23,231 sqr sqr sqr 1/ sqrt =", "35 946 545,56212184", "123,42 ÷ √( 1/( sqr( sqr( sqr( 23,231 ) ) ) ) ) = ");
     }
-
 }

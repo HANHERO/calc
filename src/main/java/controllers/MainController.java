@@ -5,12 +5,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -495,10 +493,7 @@ public class MainController implements Initializable {
         } else if (historySize == 1) {
             historyLabel.setText((String) history.get(0));
         }
-        if (historyLabel.getWidth() > stage.getWidth() - 40) {
-            historyLeftMover.setVisible(true);
-        }
-
+        historyLeftMover.setVisible(historyLabel.getWidth() > stage.getWidth() - (historyLeftMover.getWidth() * 2));
     }
 
     private void clearHistory() {
