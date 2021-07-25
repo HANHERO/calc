@@ -61,6 +61,8 @@ public class Clicker {
         mapOfKeysCoordinates.put("ms", "850 288");
 
         mapOfKeysCoordinates.put("close", "904 125");
+        mapOfKeysCoordinates.put("<","615 190");
+        mapOfKeysCoordinates.put(">","922 190");
     }
 
     private void fillTheMapOfKayCodes() {

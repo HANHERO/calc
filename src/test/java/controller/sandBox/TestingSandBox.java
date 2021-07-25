@@ -16,7 +16,7 @@ import java.util.concurrent.TimeoutException;
 import static org.testfx.api.FxAssert.verifyThat;
 
 public class TestingSandBox extends ApplicationTest {
-    Clicker clicker;
+    protected Clicker clicker;
 
     {
         try {

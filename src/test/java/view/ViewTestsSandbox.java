@@ -1,5 +1,6 @@
 package view;
 
+import controller.sandBox.TestingSandBox;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
@@ -20,10 +21,7 @@ public class ViewTestsSandbox {
     private static final int MAX_WINDOW_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width;
     private static final int MAX_WINDOW_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height;
     protected final FxRobot robot = new FxRobot();
-    protected static Button fullScreenButton;
-    protected static Button minimizeButton;
-    protected static Button optionButton;
-    protected static Button closeButton;
+    protected static Button fullScreenButton, minimizeButton, optionButton, closeButton, historyLeftMover, historyRightMover;
     protected static Stage stage;
     protected static AnchorPane menuPane;
     protected static javafx.scene.control.Label title;
@@ -46,6 +44,8 @@ public class ViewTestsSandbox {
             fullScreenButton = (Button) scene.lookup("#fullScreenButton");
             minimizeButton = (Button) scene.lookup("#minimizeButton");
             closeButton = (Button) scene.lookup("#closeButton");
+            historyLeftMover = (Button) scene.lookup("#historyLeftMover");
+            historyRightMover = (Button) scene.lookup("#historyRightMover");
         });
         WaitForAsyncUtils.waitForFxEvents();
     }
