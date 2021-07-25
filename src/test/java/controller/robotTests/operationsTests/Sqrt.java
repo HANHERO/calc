@@ -100,8 +100,21 @@ public class Sqrt extends TestingSandBox {
         mouseInputTest("424829,1425462811 sqrt", "651,789185662267", "√( 424829,1425462811 )");
         mouseInputTest("91372893827,42341 sqrt", "302 279,4962074395", "√( 91372893827,42341 )");
         mouseInputTest("192344743,9417238 sqrt", "13 868,84075695311", "√( 192344743,9417238 )");
-        mouseInputTest("- 9999999999999 * 99999 = sqrt", "9,999899999999e+17", "√( sqr( -9,999899999999e+17 ) )");
-
+        mouseInputTest("9999999999999 * 99999 = sqrt", "999 994 999,9874499", "√( 9,999899999999e+17 )");
+        mouseInputTest(MAX_NUMBER + " sqrt", "1e+5000", "√( 9,999999999999999e+9999 )");
+        mouseInputTest(NEAREST_TO_ZERO_POSITIVE_NUMBER + " sqrt", "3,162277660168379e-5000", "√( 1e-9999 )");
+        mouseInputTest("543877634 * 342476537 * 324576542 * 323452367 = sqrt", "1,398394614789797e+17", "√( 1,955507498673106e+34 )");
+        mouseInputTest("5345 sqr sqr sqr sqr sqr sqrt", "4,437755314008478e+59", "√( sqr( sqr( sqr( sqr( sqr( 5345 ) ) ) ) ) )");
+        mouseInputTest("0,0000000053321 sqr sqr sqr sqr sqrt sqr sqr sqr sqrt", "1,82282570032309e-265", "√( sqr( sqr( sqr( √( sqr( sqr( sqr( sqr( 0,0000000053321 ) ) ) ) ) ) ) ) )");
+        mouseInputTest("0,00000000000321 sqr sqr sqr sqr sqrt sqr sqr sqr sqrt", "1,614957274064188e-368", "√( sqr( sqr( sqr( √( sqr( sqr( sqr( sqr( 0,00000000000321 ) ) ) ) ) ) ) ) )");
+        mouseInputTest("847372847 * 85736374627 = sqr sqr sqr sqr sqrt", "7,760992623762234e+158", "√( sqr( sqr( sqr( sqr( 7,265067585913955e+19 ) ) ) ) )");
+        mouseInputTest("0,0000000437 * 0,00000003217 = sqr sqr sqr sqr sqrt", "1,525667809338484e-119", "√( sqr( sqr( sqr( sqr( 1,405829e-15 ) ) ) ) )");
+        mouseInputTest("2342342567 * 275647648 = sqr sqr / 0,000002 sqr sqr = sqrt", "1,04219602560511e+47", "√( 1,086172555787086e+94 )");
+        mouseInputTest("987654678 * 34567889998 = sqr sqr sqr / 0,000000012 sqr sqr sqr = sqrt sqrt", "8,094564736372493e+54", "√( √( 4,293129636587996e+219 ) )");
+        mouseInputTest("0,00096857 / 867596868 * 0,00000543 / 42354646534 = = = sqr sqr sqrt", "6,365307141451468e-99", "√( sqr( sqr( 7,978287498863066e-50 ) ) )");
+        mouseInputTest("9983495839 * 23467484456 * 565765535 / 0,0000000032 * 53464543 = = = = sqrt", "1,839710820449678e+34", "√( 3,384535902879628e+68 )");
+        mouseInputTest("2 sqr sqr sqr sqr * = sqr sqr * = sqr sqr sqrt", "1,34078079299426e+154", "√( sqr( sqr( 1,157920892373162e+77 ) ) )");
+        mouseInputTest("0,0000000000000001 1/ sqr sqr sqr sqr sqr sqrt", "1e+256", "√( sqr( sqr( sqr( sqr( sqr( 1/( 0,0000000000000001 ) ) ) ) ) ) )");
     }
 
     @Test

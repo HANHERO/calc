@@ -116,6 +116,9 @@ public class Subtract extends TestingSandBox {
         mouseInputTest("- 9999999999999 * 99999 = sqr sqrt", "9,999899999999e+17", "√( sqr( -9,999899999999e+17 ) )");
         mouseInputTest("0,0002569 sqr sqr sqr sqr sqr sqr - = = = plusMinus 1/", "2,978978242572731e+229", "1/( negate( -3,356855668527379e-230 ) )");
         mouseInputTest("- 0,05484 / 48468915 = = = = = sqr 1/", "2,379239093500725e+79", "1/( sqr( -2,050127902199213e-40 ) )");
+        mouseInputTest("9847564736475643 sqr sqr sqr sqr plusMinus - 93122131231 = sqr sqr sqr sqr + = = = = =", "1,175805364502728e+4095", "9,798378037522735e+4094 + 1,959675607504547e+4094 = ");
+        mouseInputTest("0,000000000000014 sqr sqr sqr plusMinus - 0,000000000000014 sqr sqr sqr = = =", "-5,903156224e-111", "-4,427367168e-111 - 1,475789056e-111 = ");
+        mouseInputTest("0,0000345654756734 sqr sqr sqr plusMinus - 0,0025484 sqr sqr sqr plusMinus = = = =", "7,115423644532373e-21", "5,336567733399279e-21 - -1,778855911133094e-21 = ");
     }
 
     @Test
