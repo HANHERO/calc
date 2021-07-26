@@ -69,6 +69,7 @@ public enum CalcButton {
         keys.put(new KeyCodeCombination(KeyCode.DIGIT9), NINE);
         keys.put(new KeyCodeCombination(KeyCode.NUMPAD9), NINE);
         keys.put(new KeyCodeCombination(KeyCode.COMMA), COMMA);
+        keys.put(new KeyCodeCombination(KeyCode.DECIMAL), COMMA);
         keys.put(new KeyCodeCombination(KeyCode.F9), PLUS_MINUS);
         keys.put(new KeyCodeCombination(KeyCode.EQUALS), EQUALS);
         keys.put(new KeyCodeCombination(KeyCode.ENTER), EQUALS);

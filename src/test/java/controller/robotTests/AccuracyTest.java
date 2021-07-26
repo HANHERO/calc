@@ -18,12 +18,19 @@ public class AccuracyTest extends TestingSandBox {
         mouseInputTest("2" + SQRT_SQR, "2", START_HISTORY + "2" + END_HISTORY);
         mouseInputTest(MAX_INPUT + SQRT_SQR, "9 999 999 999 999 999", START_HISTORY + "9999999999999999" + END_HISTORY);
         mouseInputTest(MIN_INPUT + SQRT_SQR, "0,0000000000000001", START_HISTORY + "0,0000000000000001" + END_HISTORY);
-        mouseInputTest(MAX_NUMBER + SQRT_SQR, "9,999999999999999e+9999", START_HISTORY + "9,999999999999999e+9999" + END_HISTORY);
         mouseInputTest(NEAREST_TO_ZERO_POSITIVE_NUMBER + SQRT_SQR, "1e-9999", START_HISTORY + "1e-9999" + END_HISTORY);
+        mouseInputTest(MAX_NUMBER + SQRT_SQR, "9,999999999999999e+9999", START_HISTORY + "9,999999999999999e+9999" + END_HISTORY);
+
+        mouseInputTest("3,1415" + " sqrt" + SQRT_SQR + " sqr", "3,1415", "sqr( " + START_HISTORY + "√( " + "3,1415" + END_HISTORY + " ) )");
+        mouseInputTest("2" + " sqrt" + SQRT_SQR + " sqr", "2", "sqr( " + START_HISTORY + "√( " +  "2" + END_HISTORY + " ) )");
+        mouseInputTest(MAX_INPUT + " sqrt" + SQRT_SQR + " sqr", "9 999 999 999 999 999", "sqr( " + START_HISTORY + "√( " + "9999999999999999" + END_HISTORY + " ) )");
+        mouseInputTest(MIN_INPUT + " sqrt" + SQRT_SQR + " sqr", "0,0000000000000001", "sqr( " + START_HISTORY + "√( " + "0,0000000000000001" + END_HISTORY + " ) )");
+        mouseInputTest(NEAREST_TO_ZERO_POSITIVE_NUMBER + " sqrt" + SQRT_SQR + " sqr", "1e-9999", "sqr( " + START_HISTORY + "√( " + "1e-9999" + END_HISTORY + " ) )");
+        mouseInputTest(MAX_NUMBER + " sqrt" + SQRT_SQR + " sqr", "Переполнение", "sqr( " + START_HISTORY + "√( " + "9,999999999999999e+9999" + END_HISTORY + " ) )");
     }
 
     @Test
-    public void accuracyDivideMultiplyScenarios(){
+    public void accuracyDivideMultiplyScenarios() {
         mouseInputTest("3,1415 / 15 = = = = = = = = = = = = = = = = = = = * 15 = = = = = = = = = = = = = = = = = = =", "3,1415", "0,2094333333333333 × 15 = ");
         mouseInputTest("3,1415 / 0,15 = = = = = = = = = = = = = = = = = = = * 0,15 = = = = = = = = = = = = = = = = = = =", "3,1415", "20,94333333333333 × 0,15 = ");
         mouseInputTest(MAX_INPUT + " / 54332 = = = = = = = = = = = = = = = = = = = * 54332 = = = = = = = = = = = = = = = = = = =", "9 999 999 999 999 999", "184053596407,2738 × 54332 = ");

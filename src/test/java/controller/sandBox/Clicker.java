@@ -68,7 +68,7 @@ public class Clicker {
     private void fillTheMapOfKayCodes() {
         keyCodesMap.put("plusMinus", Collections.singletonList(KeyCode.F9));
         keyCodesMap.put("0", Collections.singletonList(KeyCode.NUMPAD0));
-        keyCodesMap.put(",", Collections.singletonList(KeyCode.COMMA));
+        keyCodesMap.put(",", Collections.singletonList(KeyCode.DECIMAL));
         keyCodesMap.put("=", Collections.singletonList(KeyCode.EQUALS));
 
         keyCodesMap.put("1", Collections.singletonList(KeyCode.NUMPAD1));
