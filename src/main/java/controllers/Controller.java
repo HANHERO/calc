@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class MainController implements Initializable {
+public class Controller implements Initializable {
     @FXML
     private final List<Object> history = new ArrayList<>();
     private final List<Button> textButtons = new ArrayList<>();
@@ -54,76 +54,17 @@ public class MainController implements Initializable {
     private static final String OVERFLOW = "Переполнение";
 
     @FXML
-    public Button historyLeftMover;
-    @FXML
-    public Button historyRightMover;
+    public Button historyLeftMover, historyRightMover, plusMinus, zero, comma, equals, one, two, three, plus, four,
+            seven, eight, minus, six, five, oneDividedX, multiply, nine, square, sqrt, divide, CE, percent, C, del,
+            mc, mr, mPlus, mMinus, ms, mOption;
+
     @FXML
     public Label mainLabel;
-    @FXML
-    public Button plusMinus;
-    @FXML
-    public Button zero;
-    @FXML
-    public Button comma;
-    @FXML
-    public Button equals;
-    @FXML
-    public Button one;
-    @FXML
-    public Button two;
-    @FXML
-    public Button three;
-    @FXML
-    public Button plus;
-    @FXML
-    public Button four;
-    @FXML
-    public Button seven;
-    @FXML
-    public Button eight;
-    @FXML
-    public Button minus;
-    @FXML
-    public Button six;
-    @FXML
-    public Button five;
-    @FXML
-    public Button oneDividedX;
-    @FXML
-    public Button multiply;
-    @FXML
-    public Button nine;
-    @FXML
-    public Button square;
-    @FXML
-    public Button sqrt;
-    @FXML
-    public Button divide;
-    @FXML
-    public Button CE;
-    @FXML
-    public Button percent;
-    @FXML
-    public Button C;
-    @FXML
-    public Button del;
-    @FXML
-    public Button mc;
-    @FXML
-    public Button mr;
-    @FXML
-    public Button mPlus;
-    @FXML
-    public Button mMinus;
-    @FXML
-    public Button ms;
-    @FXML
-    public Button mOption;
     @FXML
     public AnchorPane menu;
 
     private Stage stage;
-    MainModel model = new MainModel();
+    Calculator model = new Calculator();
     String result = "0";
     double x, y;
 
@@ -276,6 +217,8 @@ public class MainController implements Initializable {
                     buffer = result;
                 } catch (DivisionByZeroException e) {
                     showExceptionMessage(DIVISION_BY_ZERO);
+                } catch (UnexpectedException e) {
+                    showExceptionMessage(e.getMessage());
                 }
             } else if (isPercentLast) {
                 setMainLabelText(result);
@@ -335,6 +278,8 @@ public class MainController implements Initializable {
                 } else {
                     showExceptionMessage(DIVISION_BY_ZERO);
                 }
+            } catch (UnexpectedException e) {
+                showExceptionMessage(e.getMessage());
             }
 
         } else if (isPercentLast) {
@@ -371,6 +316,8 @@ public class MainController implements Initializable {
             showExceptionMessage(DIVISION_BY_ZERO);
         } catch (NegativeSqrtException e) {
             showExceptionMessage(NEGATIVE_SQRT);
+        } catch (UnexpectedException e) {
+            showExceptionMessage(e.getMessage());
         }
         if (isEqualsPressed || !unaryExpression.equals("") || isMemoryUsed) {
             if (isNewHistoryForNext) {
@@ -386,6 +333,8 @@ public class MainController implements Initializable {
                 showExceptionMessage(DIVISION_BY_ZERO);
             } catch (NegativeSqrtException e) {
                 showExceptionMessage(NEGATIVE_SQRT);
+            } catch (UnexpectedException e) {
+                showExceptionMessage(e.getMessage());
             }
             lastUnary = UnaryOperations.NEGATIVE;
             createUnaryExpression();
@@ -421,6 +370,8 @@ public class MainController implements Initializable {
             showExceptionMessage(DIVISION_BY_ZERO);
         } catch (NegativeSqrtException e) {
             showExceptionMessage(NEGATIVE_SQRT);
+        } catch (UnexpectedException e) {
+            showExceptionMessage(e.getMessage());
         }
         lastUnary = unary;
         createUnaryExpression();
@@ -537,6 +488,8 @@ public class MainController implements Initializable {
                 setMainLabelText(buffer);
             } catch (DivisionByZeroException e) {
                 showExceptionMessage(DIVISION_BY_ZERO);
+            } catch (UnexpectedException e) {
+                showExceptionMessage(e.getMessage());
             }
         }
     }
@@ -596,6 +549,8 @@ public class MainController implements Initializable {
             model.memoryMinus(new BigDecimal(whatOnScreen));
         } catch (DivisionByZeroException e) {
             showExceptionMessage(DIVISION_BY_ZERO);
+        } catch (UnexpectedException e) {
+            showExceptionMessage(e.getMessage());
         }
         isTypingNew = true;
         isTyping = false;
@@ -609,6 +564,8 @@ public class MainController implements Initializable {
             model.memoryPlus(new BigDecimal(whatOnScreen));
         } catch (DivisionByZeroException e) {
             showExceptionMessage(DIVISION_BY_ZERO);
+        } catch (UnexpectedException e) {
+            showExceptionMessage(e.getMessage());
         }
         isTypingNew = true;
         isTyping = false;
@@ -622,6 +579,7 @@ public class MainController implements Initializable {
         isTypingNew = true;
         isTyping = false;
     }
+
     private void clickOnButton(Button button) {
         button.arm();
         button.fire();

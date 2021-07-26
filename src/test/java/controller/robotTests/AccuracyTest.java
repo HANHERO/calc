@@ -26,6 +26,7 @@ public class AccuracyTest extends TestingSandBox {
         mouseInputTest(MAX_INPUT + " sqrt" + SQRT_SQR + " sqr", "9 999 999 999 999 999", "sqr( " + START_HISTORY + "√( " + "9999999999999999" + END_HISTORY + " ) )");
         mouseInputTest(MIN_INPUT + " sqrt" + SQRT_SQR + " sqr", "0,0000000000000001", "sqr( " + START_HISTORY + "√( " + "0,0000000000000001" + END_HISTORY + " ) )");
         mouseInputTest(NEAREST_TO_ZERO_POSITIVE_NUMBER + " sqrt" + SQRT_SQR + " sqr", "1e-9999", "sqr( " + START_HISTORY + "√( " + "1e-9999" + END_HISTORY + " ) )");
+        //Out of bounds accuracy.
         mouseInputTest(MAX_NUMBER + " sqrt" + SQRT_SQR + " sqr", "Переполнение", "sqr( " + START_HISTORY + "√( " + "9,999999999999999e+9999" + END_HISTORY + " ) )");
     }
 

@@ -1,10 +1,7 @@
 package model.unaryTests;
 
-import model.DivisionByZeroException;
-import model.MainModel;
+import model.*;
 import controllers.OverflowException;
-import model.NegativeSqrtException;
-import model.UnaryOperations;
 import org.junit.Test;
 
 import java.math.BigDecimal;
@@ -12,9 +9,9 @@ import java.math.BigDecimal;
 import static org.junit.Assert.assertEquals;
 
 public class Negate {
-    MainModel testModel = new MainModel();
+    Calculator testModel = new Calculator();
     @Test
-    public void negateScenarios() throws OverflowException, DivisionByZeroException, NegativeSqrtException {
+    public void negateScenarios() throws OverflowException, DivisionByZeroException, NegativeSqrtException, UnexpectedException {
         zeroAssertNegate();
         assertNegate("1");
         assertNegate("2");
@@ -199,12 +196,12 @@ public class Negate {
         assertNegate("1E-9999");
     }
 
-    private void zeroAssertNegate() throws DivisionByZeroException, NegativeSqrtException {
+    private void zeroAssertNegate() throws DivisionByZeroException, NegativeSqrtException, UnexpectedException {
         assertEquals("0", testModel.calculate(new BigDecimal("0"), UnaryOperations.NEGATIVE).toString());
         assertEquals("0", testModel.calculate(new BigDecimal( "-0"), UnaryOperations.NEGATIVE).toString());
     }
 
-    private void assertNegate(String number) throws DivisionByZeroException, NegativeSqrtException {
+    private void assertNegate(String number) throws DivisionByZeroException, NegativeSqrtException, UnexpectedException {
         assertEquals("-" + number, testModel.calculate(new BigDecimal(number), UnaryOperations.NEGATIVE).toString());
         assertEquals(number, testModel.calculate(new BigDecimal("-" + number), UnaryOperations.NEGATIVE).toString());
 

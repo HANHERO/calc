@@ -1,6 +1,6 @@
 package view;
 
-import controllers.MainController;
+import controllers.Controller;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -20,7 +20,7 @@ public class Main extends Application {
         primaryStage.initStyle(StageStyle.TRANSPARENT);
         primaryStage.setResizable(true);
         primaryStage.getIcons().add(new Image("buttons/icon.png"));
-        MainController controller = loader.getController();
+        Controller controller = loader.getController();
         controller.initialize(primaryStage);
         primaryStage.show();
     }

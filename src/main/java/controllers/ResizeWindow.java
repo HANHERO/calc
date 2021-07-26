@@ -4,11 +4,9 @@ import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-import java.util.List;
 
 public class ResizeWindow implements EventHandler<MouseEvent> {
     private static final double BORDER = 10;

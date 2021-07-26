@@ -3,7 +3,10 @@ package model;
 import java.math.BigDecimal;
 import java.math.MathContext;
 
-public class MainModel {
+import static model.BinaryOperations.*;
+import static model.UnaryOperations.*;
+
+public class Calculator {
     private BigDecimal memoryValue = BigDecimal.ZERO;
     private BigDecimal percentCoef;
     private BigDecimal result;
@@ -12,23 +15,34 @@ public class MainModel {
         return percentCoef;
     }
 
-    public BigDecimal calculate(BigDecimal firstValue, BigDecimal secondValue, BinaryOperations operation) throws DivisionByZeroException {
-        result = switch (operation) {
-            case PLUS -> plus(firstValue, secondValue);
-            case MINUS -> minus(firstValue, secondValue);
-            case DIVIDE -> divide(firstValue, secondValue);
-            case MULTIPLY -> multiply(firstValue, secondValue);
-        };
+    public BigDecimal calculate(BigDecimal firstValue, BigDecimal secondValue, BinaryOperations operation) throws DivisionByZeroException, UnexpectedException {
+        if (operation.equals(PLUS)) {
+            result = plus(firstValue, secondValue);
+        } else if (operation.equals(MINUS)) {
+            result = minus(firstValue, secondValue);
+        } else if (operation.equals(DIVIDE)) {
+            result = divide(firstValue, secondValue);
+        } else if (operation.equals(MULTIPLY)) {
+            result = multiply(firstValue, secondValue);
+        } else {
+            throw new UnexpectedException("Incorrect binary operation");
+        }
         return result;
+
     }
 
-    public BigDecimal calculate(BigDecimal firstValue, UnaryOperations operation) throws DivisionByZeroException, NegativeSqrtException {
-        result = switch (operation) {
-            case SQUARE -> square(firstValue);
-            case SQRT -> sqrt(firstValue);
-            case ONE_DIVIDED_X -> oneDividedX(firstValue);
-            case NEGATIVE -> negative(firstValue);
-        };
+    public BigDecimal calculate(BigDecimal firstValue, UnaryOperations operation) throws NegativeSqrtException, DivisionByZeroException, UnexpectedException {
+        if (operation.equals(SQUARE)){
+            result = square(firstValue);
+        }else if(operation.equals(SQRT)){
+            result = sqrt(firstValue);
+        }else if(operation.equals(ONE_DIVIDED_X)){
+            result = oneDividedX(firstValue);
+        }else if(operation.equals(NEGATIVE)){
+            result = negative(firstValue);
+        }else {
+            throw new UnexpectedException("Incorrect unary operation");
+        }
         return result;
     }
 
@@ -71,8 +85,8 @@ public class MainModel {
         }
     }
 
-    public BigDecimal percent(BigDecimal firstValue, BigDecimal percentValue, BinaryOperations lastOperation) throws DivisionByZeroException {
-        if (lastOperation == BinaryOperations.PLUS || lastOperation == BinaryOperations.MINUS) {
+    public BigDecimal percent(BigDecimal firstValue, BigDecimal percentValue, BinaryOperations lastOperation) throws DivisionByZeroException, UnexpectedException {
+        if (lastOperation == PLUS || lastOperation == BinaryOperations.MINUS) {
             percentCoef = divide(percentValue, new BigDecimal("100")).multiply(firstValue);
             firstValue = calculate(firstValue, percentCoef, lastOperation);
         } else if (lastOperation == BinaryOperations.MULTIPLY || lastOperation == BinaryOperations.DIVIDE) {
@@ -82,12 +96,12 @@ public class MainModel {
         return firstValue;
     }
 
-    public void memoryMinus(BigDecimal buffer) throws DivisionByZeroException {
+    public void memoryMinus(BigDecimal buffer) throws DivisionByZeroException, UnexpectedException {
         memoryValue = calculate(memoryValue, buffer, BinaryOperations.MINUS);
     }
 
-    public void memoryPlus(BigDecimal buffer) throws DivisionByZeroException {
-        memoryValue = calculate(memoryValue, buffer, BinaryOperations.PLUS);
+    public void memoryPlus(BigDecimal buffer) throws DivisionByZeroException, UnexpectedException {
+        memoryValue = calculate(memoryValue, buffer, PLUS);
     }
 
     public BigDecimal getMemoryValue() {

@@ -1,6 +1,5 @@
 package view;
 
-import controller.sandBox.TestingSandBox;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;

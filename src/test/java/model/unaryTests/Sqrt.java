@@ -1,10 +1,7 @@
 package model.unaryTests;
 
-import model.DivisionByZeroException;
-import model.MainModel;
+import model.*;
 import controllers.OverflowException;
-import model.NegativeSqrtException;
-import model.UnaryOperations;
 import org.junit.Test;
 
 import java.math.BigDecimal;
@@ -12,10 +9,10 @@ import java.math.BigDecimal;
 import static org.junit.Assert.*;
 
 public class Sqrt {
-    MainModel testModel = new MainModel();
+    Calculator testModel = new Calculator();
 
     @Test
-    public void sqrtScenarios() throws OverflowException, DivisionByZeroException, NegativeSqrtException {
+    public void sqrtScenarios() throws OverflowException, DivisionByZeroException, NegativeSqrtException, UnexpectedException {
         assertSQRT("0", "0");
         assertSQRT("1", "1");
         assertSQRT("2", "1.414213562373095048801688724209698");
@@ -457,7 +454,7 @@ public class Sqrt {
         
     }
 
-    private void assertSQRT(String number, String expectedAnswer) throws DivisionByZeroException, NegativeSqrtException {
+    private void assertSQRT(String number, String expectedAnswer) throws DivisionByZeroException, NegativeSqrtException, UnexpectedException {
         assertEquals(expectedAnswer, testModel.calculate(new BigDecimal(number), UnaryOperations.SQRT).toString());
     }
 }

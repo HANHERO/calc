@@ -2,8 +2,8 @@
     src: url('font.ttf');
 }
 * {
-    -fx-background-color: e6e6e6;
-    -fx-background-size: contain;
+-fx-background-color: e6e6e6;
+-fx-background-size: contain;
 }
 
 .typeOfCalc {
