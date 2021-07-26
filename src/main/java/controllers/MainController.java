@@ -646,7 +646,7 @@ public class MainController implements Initializable {
                 clickOnButton((Button) stage.getScene().lookup(button.getFXId()));
             }
         });
-        ResizeWindow r = new ResizeWindow(stage, textButtons);
+        ResizeWindow r = new ResizeWindow(stage);
         Scene scene = stage.getScene();
         scene.setOnMouseMoved(r);
         scene.setOnMousePressed(r);

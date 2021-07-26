@@ -22,13 +22,10 @@ public class ResizeWindow implements EventHandler<MouseEvent> {
     private boolean isResizeVertical;
     private final Scene scene;
     private final Stage stage;
-    private final List<Button> textButtons;
-    private Cursor cursor;
 
-    public ResizeWindow(Stage stage, List<Button> textButtons) {
+    public ResizeWindow(Stage stage) {
         this.stage = stage;
         this.scene = stage.getScene();
-        this.textButtons = textButtons;
     }
 
     @Override
@@ -116,6 +113,7 @@ public class ResizeWindow implements EventHandler<MouseEvent> {
         double eventY = event.getY();
         double width = scene.getWidth();
         double height = scene.getHeight();
+        Cursor cursor;
 
         if (eventX < BORDER && eventY < BORDER) {
             cursor = Cursor.NW_RESIZE;
