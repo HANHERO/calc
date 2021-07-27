@@ -7,6 +7,9 @@ import static model.BinaryOperations.*;
 import static model.UnaryOperations.*;
 
 public class Calculator {
+    private static final String RESULT_UNDEFINED = "Результат неопределен";
+    private static final String DIVISION_BY_ZERO = "Деление на ноль невозможно";
+    private static final String NEGATIVE_SQRT = "Неверный ввод";
     private BigDecimal memoryValue = BigDecimal.ZERO;
     private BigDecimal percentCoef;
     private BigDecimal result;
@@ -56,7 +59,7 @@ public class Calculator {
 
     private BigDecimal sqrt(BigDecimal firstValue) throws NegativeSqrtException {
         if (firstValue.compareTo(BigDecimal.ZERO) < 0) {
-            throw new NegativeSqrtException();
+            throw new NegativeSqrtException(NEGATIVE_SQRT);
         }
         return firstValue.sqrt(MathContext.DECIMAL128);
     }
@@ -80,8 +83,10 @@ public class Calculator {
     private BigDecimal divide(BigDecimal firstValue, BigDecimal secondValue) throws DivisionByZeroException {
         if (!secondValue.equals(BigDecimal.ZERO)) {
             return firstValue.divide(secondValue, MathContext.DECIMAL128);
+        } else if (firstValue.equals(BigDecimal.ZERO)){
+            throw new DivisionByZeroException(RESULT_UNDEFINED);
         } else {
-            throw new DivisionByZeroException();
+            throw new DivisionByZeroException(DIVISION_BY_ZERO);
         }
     }
 

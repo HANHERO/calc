@@ -48,9 +48,6 @@ public class Controller implements Initializable {
     private static final BigDecimal NEAREST_TO_ZERO_POSITIVE_VALUE = new BigDecimal("1E-9999");
     private static final BigDecimal NEAREST_TO_ZERO_NEGATIVE_VALUE = new BigDecimal("-1E-9999");
     private static final BigDecimal MIN_VALUE = new BigDecimal("-9.9999999999999995E+9999");
-    private static final String RESULT_UNDEFINED = "Результат неопределен";
-    private static final String DIVISION_BY_ZERO = "Деление на ноль невозможно";
-    private static final String NEGATIVE_SQRT = "Неверный ввод";
     private static final String OVERFLOW = "Переполнение";
 
     @FXML
@@ -215,9 +212,7 @@ public class Controller implements Initializable {
                     isCommaPressed = false;
                     setMainLabelText(result);
                     buffer = result;
-                } catch (DivisionByZeroException e) {
-                    showExceptionMessage(DIVISION_BY_ZERO);
-                } catch (UnexpectedException e) {
+                } catch (DivisionByZeroException | UnexpectedException e) {
                     showExceptionMessage(e.getMessage());
                 }
             } else if (isPercentLast) {
@@ -272,14 +267,9 @@ public class Controller implements Initializable {
             try {
                 result = model.calculate(new BigDecimal(result), new BigDecimal(buffer), lastBinary).toString();
                 setMainLabelText(result);
-            } catch (DivisionByZeroException e) {
-                if (result.equals("0")) {
-                    showExceptionMessage(RESULT_UNDEFINED);
-                } else {
-                    showExceptionMessage(DIVISION_BY_ZERO);
-                }
-            } catch (UnexpectedException e) {
+            } catch (DivisionByZeroException | UnexpectedException e) {
                 showExceptionMessage(e.getMessage());
+
             }
 
         } else if (isPercentLast) {
@@ -312,11 +302,7 @@ public class Controller implements Initializable {
         isNegatePressed = true;
         try {
             buffer = model.calculate(new BigDecimal(buffer), UnaryOperations.NEGATIVE).toString();
-        } catch (DivisionByZeroException e) {
-            showExceptionMessage(DIVISION_BY_ZERO);
-        } catch (NegativeSqrtException e) {
-            showExceptionMessage(NEGATIVE_SQRT);
-        } catch (UnexpectedException e) {
+        } catch (DivisionByZeroException | NegativeSqrtException | UnexpectedException e) {
             showExceptionMessage(e.getMessage());
         }
         if (isEqualsPressed || !unaryExpression.equals("") || isMemoryUsed) {
@@ -329,11 +315,7 @@ public class Controller implements Initializable {
             }
             try {
                 buffer = model.calculate(new BigDecimal(whatOnScreen), UnaryOperations.NEGATIVE).toString();
-            } catch (DivisionByZeroException e) {
-                showExceptionMessage(DIVISION_BY_ZERO);
-            } catch (NegativeSqrtException e) {
-                showExceptionMessage(NEGATIVE_SQRT);
-            } catch (UnexpectedException e) {
+            } catch (DivisionByZeroException | NegativeSqrtException | UnexpectedException e) {
                 showExceptionMessage(e.getMessage());
             }
             lastUnary = UnaryOperations.NEGATIVE;
@@ -366,11 +348,7 @@ public class Controller implements Initializable {
         try {
             buffer = model.calculate(new BigDecimal(whatOnScreen), unary).toString();
             setMainLabelText(buffer);
-        } catch (DivisionByZeroException e) {
-            showExceptionMessage(DIVISION_BY_ZERO);
-        } catch (NegativeSqrtException e) {
-            showExceptionMessage(NEGATIVE_SQRT);
-        } catch (UnexpectedException e) {
+        } catch (DivisionByZeroException | NegativeSqrtException | UnexpectedException e) {
             showExceptionMessage(e.getMessage());
         }
         lastUnary = unary;
@@ -486,9 +464,7 @@ public class Controller implements Initializable {
                 history.add(formatterForHistory(buffer));
                 showHistory();
                 setMainLabelText(buffer);
-            } catch (DivisionByZeroException e) {
-                showExceptionMessage(DIVISION_BY_ZERO);
-            } catch (UnexpectedException e) {
+            } catch (DivisionByZeroException | UnexpectedException e) {
                 showExceptionMessage(e.getMessage());
             }
         }
@@ -547,9 +523,7 @@ public class Controller implements Initializable {
         isMemoryUsed = true;
         try {
             model.memoryMinus(new BigDecimal(whatOnScreen));
-        } catch (DivisionByZeroException e) {
-            showExceptionMessage(DIVISION_BY_ZERO);
-        } catch (UnexpectedException e) {
+        } catch (DivisionByZeroException | UnexpectedException e) {
             showExceptionMessage(e.getMessage());
         }
         isTypingNew = true;
@@ -562,9 +536,7 @@ public class Controller implements Initializable {
         isMemoryUsed = true;
         try {
             model.memoryPlus(new BigDecimal(whatOnScreen));
-        } catch (DivisionByZeroException e) {
-            showExceptionMessage(DIVISION_BY_ZERO);
-        } catch (UnexpectedException e) {
+        } catch (DivisionByZeroException | UnexpectedException e) {
             showExceptionMessage(e.getMessage());
         }
         isTypingNew = true;
@@ -766,15 +738,15 @@ public class Controller implements Initializable {
 
     private void checkOverflow(String number) throws OverflowException {
         if (new BigDecimal(number).compareTo(MAX_VALUE) >= 0) {
-            throw new OverflowException();
+            throw new OverflowException(OVERFLOW);
         } else if (new BigDecimal(number).compareTo(MIN_VALUE) <= 0) {
-            throw new OverflowException();
+            throw new OverflowException(OVERFLOW);
         } else if (new BigDecimal(number).compareTo(NEAREST_TO_ZERO_POSITIVE_VALUE) < 0 &&
                 new BigDecimal(number).compareTo(BigDecimal.ZERO) > 0) {
-            throw new OverflowException();
+            throw new OverflowException(OVERFLOW);
         } else if (new BigDecimal(number).compareTo(NEAREST_TO_ZERO_NEGATIVE_VALUE) > 0 &&
                 new BigDecimal(number).compareTo(BigDecimal.ZERO) < 0) {
-            throw new OverflowException();
+            throw new OverflowException(OVERFLOW);
         }
     }
 }
