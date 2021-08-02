@@ -1,5 +1,7 @@
 package controllers;
 
+import controllers.formatters.InputFormatter;
+import controllers.formatters.OutputFormatter;
 import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,6 +24,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+import static controllers.formatters.InputFormatter.*;
+
 public class Controller implements Initializable {
     @FXML
     private final List<Object> history = new ArrayList<>();
@@ -29,28 +33,29 @@ public class Controller implements Initializable {
     public ScrollPane scrollPaneHistory;
     public Button fullScreenButton;
     public Label historyLabel;
-    private String buffer = "0";
-    private boolean isNewHistoryForNext = false;
+    private BigDecimal result = BigDecimal.ZERO;
+    private BigDecimal buffer = BigDecimal.ZERO;
+    private BigDecimal whatOnScreen = BigDecimal.ZERO;
     private BinaryOperations lastBinary;
     private UnaryOperations lastUnary;
+    private boolean isNewHistoryForNext = false;
     private boolean isFirstTimeUnary = false;
     private boolean isPercentLast = false;
     private boolean isEqualsPressed = false;
     private boolean isCommaPressed = false;
-    private boolean isTypingNew = true;
+    private boolean isTypingNew = false;
     private boolean isTyping = true;
     private boolean isSignHas = false;
-    private boolean isNegatePressed = false;
+    public static boolean isNegatePressed = false;
     private boolean isMemoryUsed = false;
-    private String whatOnScreen = "0";
     private String unaryExpression = "";
+    private static final String COMMA_SYMBOL = ",";
     private static final BigDecimal MAX_VALUE = new BigDecimal("9.9999999999999995E+9999");
     private static final BigDecimal NEAREST_TO_ZERO_POSITIVE_VALUE = new BigDecimal("1E-9999");
     private static final BigDecimal NEAREST_TO_ZERO_NEGATIVE_VALUE = new BigDecimal("-1E-9999");
     private static final BigDecimal MIN_VALUE = new BigDecimal("-9.9999999999999995E+9999");
     private static final String OVERFLOW = "Переполнение";
 
-    @FXML
     public Button historyLeftMover, historyRightMover, plusMinus, zero, comma, equals, one, two, three, plus, four,
             seven, eight, minus, six, five, oneDividedX, multiply, nine, square, sqrt, divide, CE, percent, C, del,
             mc, mr, mPlus, mMinus, ms, mOption;
@@ -62,7 +67,6 @@ public class Controller implements Initializable {
 
     private Stage stage;
     Calculator model = new Calculator();
-    String result = "0";
     double x, y;
 
     @FXML
@@ -116,41 +120,31 @@ public class Controller implements Initializable {
 
     @FXML
     public void digitButtonPressed(ActionEvent actionEvent) {
-        String source = actionEvent.getSource().toString();
-        String digitButton = source.substring(source.length() - 2, source.length() - 1);
+        String digitButton = ((Button) actionEvent.getSource()).getText();
         isMemoryUsed = false;
         isTyping = true;
         if (isEqualsPressed) {
             cPressed();
             isEqualsPressed = false;
         }
-        if (digitButton.equals("0")) {
-            if (!buffer.equals("0") || isCommaPressed) {
-                addToBuffer(digitButton);
-            } else {
-                buffer = "0";
-            }
-        } else {
-            addToBuffer(digitButton);
-        }
+        appendNumeric(digitButton);
+        buffer = InputFormatter.getInput();
+        isTypingNew = false;
+        isSignHas = false;
+        setMainLabelText();
     }
 
     @FXML
     public void commaPressed() {
+        if (isEqualsPressed) {
+            cPressed();
+            isEqualsPressed = false;
+        }
         if (!isCommaPressed) {
             isCommaPressed = true;
             isTyping = true;
-            if (isEqualsPressed) {
-                cPressed();
-                isEqualsPressed = false;
-            }
-            if (isTypingNew || buffer.equals("")) {
-                addToBuffer("0.");
-            } else if (!buffer.equals("0")) {
-                addToBuffer(".");
-            } else {
-                addToBuffer("0.");
-            }
+            addPointToInput();
+            setMainLabelText();
         }
     }
 
@@ -196,17 +190,10 @@ public class Controller implements Initializable {
             isEqualsPressed = false;
             buffer = result;
         }
-        if (buffer.contains(".")) {
-            buffer = removeZeros(buffer);
-        }
         if (!isSignHas) {
-            if (isEqualsPressed) {
-                buffer = result;
-                lastBinary = null;
-            }
             if (lastBinary != null && !isPercentLast) {
                 try {
-                    result = model.calculate(new BigDecimal(result), new BigDecimal(buffer), lastBinary).toString();
+                    result = model.calculate(result, buffer, lastBinary);
                     isTypingNew = true;
                     isTyping = false;
                     isCommaPressed = false;
@@ -231,13 +218,13 @@ public class Controller implements Initializable {
                 clearHistory();
                 unaryExpression = "";
                 lastUnary = null;
-                addToHistory(formatterForHistory(result));
+                addToHistory(formatterForHistory(result.toString()));
             } else {
                 unaryExpression = "";
                 lastUnary = null;
             }
-
         }
+        clearInput();
         isSignHas = true;
     }
 
@@ -249,14 +236,14 @@ public class Controller implements Initializable {
         isTyping = false;
         isNewHistoryForNext = true;
         if (unaryExpression.equals("")) {
-            addToHistory(formatterForHistory(buffer));
+            addToHistory(formatterForHistory(buffer.toString()));
         }
         showHistory();
 
         if (history.size() == 3 && historyLabel.getText().contains("=") && !unaryExpression.equals("") && isFirstTimeUnary) {
             history.set(1, lastBinary);
-            history.set(2, formatterForHistory(buffer));
-            history.set(0, formatterForHistory(result));
+            history.set(2, formatterForHistory(buffer.toString()));
+            history.set(0, formatterForHistory(result.toString()));
             showHistory();
             isFirstTimeUnary = false;
             lastUnary = null;
@@ -265,13 +252,12 @@ public class Controller implements Initializable {
 
         if (lastBinary != null && !isPercentLast) {
             try {
-                result = model.calculate(new BigDecimal(result), new BigDecimal(buffer), lastBinary).toString();
+                result = model.calculate(result, buffer, lastBinary);
                 setMainLabelText(result);
             } catch (DivisionByZeroException | UnexpectedException e) {
                 showExceptionMessage(e.getMessage());
 
             }
-
         } else if (isPercentLast) {
             setMainLabelText(result);
             isPercentLast = false;
@@ -280,12 +266,12 @@ public class Controller implements Initializable {
             setMainLabelText(result);
         }
         if (history.size() == 1) {
-            history.set(0, formatterForHistory(result));
+            history.set(0, formatterForHistory(result.toString()));
         } else if (history.size() == 3 && unaryExpression.equals("")) {
             history.set(1, lastBinary);
-            history.set(2, formatterForHistory(buffer));
+            history.set(2, formatterForHistory(buffer.toString()));
             showHistory();
-            history.set(0, formatterForHistory(result));
+            history.set(0, formatterForHistory(result.toString()));
         } else {
             history.set(1, lastBinary);
             showHistory();
@@ -293,28 +279,26 @@ public class Controller implements Initializable {
         if (historyLabel.getText().contains("=")) {
             isFirstTimeUnary = true;
         }
-
-
     }
 
     @FXML
     public void plusMinusPressed() {
         isNegatePressed = true;
         try {
-            buffer = model.calculate(new BigDecimal(buffer), UnaryOperations.NEGATIVE).toString();
+            buffer = model.calculate(buffer, UnaryOperations.NEGATIVE);
         } catch (DivisionByZeroException | NegativeSqrtException | UnexpectedException e) {
             showExceptionMessage(e.getMessage());
         }
         if (isEqualsPressed || !unaryExpression.equals("") || isMemoryUsed) {
             if (isNewHistoryForNext) {
-                unaryExpression = formatterForHistory(whatOnScreen);
+                unaryExpression = formatterForHistory(whatOnScreen.toString());
                 isNewHistoryForNext = false;
             }
             if (unaryExpression.equals("")) {
-                unaryExpression = formatterForHistory(whatOnScreen);
+                unaryExpression = formatterForHistory(whatOnScreen.toString());
             }
             try {
-                buffer = model.calculate(new BigDecimal(whatOnScreen), UnaryOperations.NEGATIVE).toString();
+                buffer = model.calculate(whatOnScreen, UnaryOperations.NEGATIVE);
             } catch (DivisionByZeroException | NegativeSqrtException | UnexpectedException e) {
                 showExceptionMessage(e.getMessage());
             }
@@ -336,17 +320,17 @@ public class Controller implements Initializable {
             isSignHas = false;
         }
         if (isNewHistoryForNext) {
-            unaryExpression = formatterForHistory(whatOnScreen);
+            unaryExpression = formatterForHistory(whatOnScreen.toString());
             isNewHistoryForNext = false;
         }
         if (isTyping || (isSignHas && unaryExpression.equals(""))) {
-            unaryExpression = formatterForHistory(whatOnScreen);
+            unaryExpression = formatterForHistory(whatOnScreen.toString());
         } else if (unaryExpression.equals("")) {
-            unaryExpression = formatterForHistory(buffer);
+            unaryExpression = formatterForHistory(buffer.toString());
         }
 
         try {
-            buffer = model.calculate(new BigDecimal(whatOnScreen), unary).toString();
+            buffer = model.calculate(whatOnScreen, unary);
             setMainLabelText(buffer);
         } catch (DivisionByZeroException | NegativeSqrtException | UnexpectedException e) {
             showExceptionMessage(e.getMessage());
@@ -400,10 +384,8 @@ public class Controller implements Initializable {
             } else if (historySize == 3) {
                 history.set(2, expression);
             }
-        } else if (isEqualsPressed) {
-            if (historySize == 2) {
-                history.add(2, expression);
-            }
+        } else if (isEqualsPressed && historySize == 2) {
+            history.add(2, expression);
         }
     }
 
@@ -441,9 +423,9 @@ public class Controller implements Initializable {
         isCommaPressed = false;
         isPercentLast = false;
         isFirstTimeUnary = false;
-        buffer = "0";
         isTyping = true;
-        setMainLabelText(buffer);
+        clearInput();
+        setMainLabelText(InputFormatter.getInput());
     }
 
     @FXML
@@ -451,17 +433,17 @@ public class Controller implements Initializable {
         if (!isPercentLast) {
             if (lastBinary == null) {
                 historyLabel.setText("0");
-                setMainLabelText("0");
+                setMainLabelText(BigDecimal.ZERO);
                 isTypingNew = true;
                 return;
             }
             try {
                 isPercentLast = true;
-                result = model.percent(new BigDecimal(result), new BigDecimal(buffer), lastBinary).toString();
+                result = model.percent(result, buffer, lastBinary);
                 isTypingNew = true;
                 isTyping = false;
-                buffer = model.getPercentCoef().toString();
-                history.add(formatterForHistory(buffer));
+                buffer = model.getPercentCoef();
+                history.add(formatterForHistory(buffer.toString()));
                 showHistory();
                 setMainLabelText(buffer);
             } catch (DivisionByZeroException | UnexpectedException e) {
@@ -472,7 +454,7 @@ public class Controller implements Initializable {
 
     @FXML
     public void cPressed() {
-        result = "0";
+        result = BigDecimal.ZERO;
         unaryExpression = "";
         isSignHas = false;
         isEqualsPressed = false;
@@ -485,20 +467,11 @@ public class Controller implements Initializable {
     @FXML
     public void delPressed() {
         if (!isTypingNew) {
-            if (buffer.endsWith(".")) {
-                isCommaPressed = false;
-            }
-            if (buffer.length() == 2 && buffer.contains("-")) {
-                buffer = "0";
-                isTyping = false;
-            }
-            if (!buffer.equals("") && buffer.length() != 1) {
-                buffer = buffer.substring(0, buffer.length() - 1);
-            } else {
-                buffer = "0";
-                isTyping = false;
-            }
-            setMainLabelText(buffer);
+            backspaceInput();
+            isCommaPressed = isInputPointSet();
+            buffer = BigDecimal.ZERO;
+            isTyping = false;
+            setMainLabelText();
         }
     }
 
@@ -512,7 +485,7 @@ public class Controller implements Initializable {
     @FXML
     public void mrPressed() {
         isMemoryUsed = true;
-        buffer = model.getMemoryValue().toString();
+        buffer = model.getMemoryValue();
         isTyping = false;
         setMainLabelText(buffer);
     }
@@ -522,7 +495,7 @@ public class Controller implements Initializable {
         setDisableMemButtons(false);
         isMemoryUsed = true;
         try {
-            model.memoryMinus(new BigDecimal(whatOnScreen));
+            model.memoryMinus(whatOnScreen);
         } catch (DivisionByZeroException | UnexpectedException e) {
             showExceptionMessage(e.getMessage());
         }
@@ -535,7 +508,7 @@ public class Controller implements Initializable {
         setDisableMemButtons(false);
         isMemoryUsed = true;
         try {
-            model.memoryPlus(new BigDecimal(whatOnScreen));
+            model.memoryPlus(whatOnScreen);
         } catch (DivisionByZeroException | UnexpectedException e) {
             showExceptionMessage(e.getMessage());
         }
@@ -547,7 +520,7 @@ public class Controller implements Initializable {
     public void msPressed() {
         isMemoryUsed = true;
         setDisableMemButtons(false);
-        model.setMemoryValue(new BigDecimal(whatOnScreen));
+        model.setMemoryValue(whatOnScreen);
         isTypingNew = true;
         isTyping = false;
     }
@@ -603,80 +576,26 @@ public class Controller implements Initializable {
         mOption.setDisable(isDisable);
     }
 
-    private void addToBuffer(String s) {
-        int digitsAfterComma = 16;
-        if (isTypingNew) {
-            buffer = "0";
-            isTypingNew = false;
-        }
-
-        if (buffer.contains(".")) {
-            if (new BigDecimal(buffer.split("\\.")[0]).equals(BigDecimal.ZERO)) {
-                digitsAfterComma = 17;
-            }
-        }
-        if (((countDigitsBeforeDecimalPoint(buffer) + countDigitsAfterDecimalPoint(buffer)) < digitsAfterComma) || s.equals(".")) {
-            if (buffer.equals("0")) {
-                buffer = s;
-            } else {
-                buffer += s;
-            }
-            isSignHas = false;
-
-            setMainLabelText(buffer);
-        }
-    }
-
     private String formatterForHistory(String text) {
-        return OutputFormatter.format(text).replace(" ", "");
+        whatOnScreen = parseInput(text);
+        return OutputFormatter.format(new BigDecimal(text), false);
     }
 
-    private void setMainLabelText(String text) {
-        whatOnScreen = text;
-        if (isTyping && !isNegatePressed) {
-            mainLabel.setText(InputFormatter.formatter(text));
-        } else {
-            try {
-                checkOverflow(text);
-                mainLabel.setText(OutputFormatter.format(text));
-            } catch (OverflowException e) {
-                showExceptionMessage(OVERFLOW);
-            }
+    private void setMainLabelText(BigDecimal number) {
+        whatOnScreen = parseInput(number.toString());
+        try {
+            checkOverflow(number);
+            mainLabel.setText(OutputFormatter.format(number, true));
+        } catch (OverflowException e) {
+            showExceptionMessage(OVERFLOW);
         }
-
         ResizeFont.resizeMainLabelFont();
     }
 
-    private int countDigitsBeforeDecimalPoint(String number) {
-        int result = 0;
-        if (number.contains(".")) {
-            try {
-                result = number.split("\\.")[0].length();
-            } catch (ArrayIndexOutOfBoundsException ignored) {
-            }
-        } else {
-            result = number.length();
-        }
-        return result;
-    }
-
-    private int countDigitsAfterDecimalPoint(String number) {
-        int result = 0;
-        if (number.contains(".")) {
-            try {
-                result = number.split("\\.")[1].length();
-            } catch (ArrayIndexOutOfBoundsException ignored) {
-            }
-        }
-        return result;
-    }
-
-    private String removeZeros(String number) {
-        String noZero = number;
-        while ((noZero.endsWith("0") || noZero.endsWith(".")) && number.contains(".")) {
-            noZero = noZero.substring(0, noZero.length() - 1);
-        }
-        return noZero;
+    private void setMainLabelText() {
+        mainLabel.setText(getStringForMainLabel());
+        whatOnScreen = parseInput(mainLabel.getText());
+        ResizeFont.resizeMainLabelFont();
     }
 
     public void optionOpenOrClose() {
@@ -736,17 +655,24 @@ public class Controller implements Initializable {
         ResizeFont.resizeMainLabelFont();
     }
 
-    private void checkOverflow(String number) throws OverflowException {
-        if (new BigDecimal(number).compareTo(MAX_VALUE) >= 0) {
+    private void checkOverflow(BigDecimal number) throws OverflowException {
+        if (number.compareTo(MAX_VALUE) >= 0) {
             throw new OverflowException(OVERFLOW);
-        } else if (new BigDecimal(number).compareTo(MIN_VALUE) <= 0) {
+        } else if (number.compareTo(MIN_VALUE) <= 0) {
             throw new OverflowException(OVERFLOW);
-        } else if (new BigDecimal(number).compareTo(NEAREST_TO_ZERO_POSITIVE_VALUE) < 0 &&
-                new BigDecimal(number).compareTo(BigDecimal.ZERO) > 0) {
+        } else if (number.compareTo(NEAREST_TO_ZERO_POSITIVE_VALUE) < 0 &&
+                number.compareTo(BigDecimal.ZERO) > 0) {
             throw new OverflowException(OVERFLOW);
-        } else if (new BigDecimal(number).compareTo(NEAREST_TO_ZERO_NEGATIVE_VALUE) > 0 &&
-                new BigDecimal(number).compareTo(BigDecimal.ZERO) < 0) {
+        } else if (number.compareTo(NEAREST_TO_ZERO_NEGATIVE_VALUE) > 0 &&
+                number.compareTo(BigDecimal.ZERO) < 0) {
             throw new OverflowException(OVERFLOW);
         }
+    }
+
+    private BigDecimal parseInput(String number) {
+        number = number.replace(",", ".");
+        number = number.replace("+", "");
+        number = number.replace(" ", "");
+        return new BigDecimal(number);
     }
 }

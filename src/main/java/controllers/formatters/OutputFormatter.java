@@ -1,4 +1,4 @@
-package controllers;
+package controllers.formatters;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -6,6 +6,7 @@ import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.Format;
+import java.util.Objects;
 
 public class OutputFormatter {
     private static final int MAX_PLAIN_SCALE = 16;
@@ -16,6 +17,8 @@ public class OutputFormatter {
     private static final MathContext MAX_OUTPUT_PRECISION_DOWN = new MathContext(MAX_OUTPUT_PRECISION, RoundingMode.DOWN);
     private static final MathContext MIN_OUTPUT_PRECISION_DOWN = new MathContext(MAX_PLAIN_SCALE, RoundingMode.DOWN);
     private static final String BIG_DECIMAL_EXPONENTIAL_MARK = "E";
+    static final String BIG_DECIMAL_SEPARATOR = ".";
+    static final String VIEW_SEPARATOR = ",";
     private static final char SPACE = ' ';
     private static final String NUMBER_PATTERN = "###,###.###################";
     private static final String MINUS = "-";
@@ -28,8 +31,10 @@ public class OutputFormatter {
         OUTPUT_FORMAT = new DecimalFormat(NUMBER_PATTERN, symbols);
     }
 
-    public static String format(String text) {
-        BigDecimal resultNumber = new BigDecimal(text);
+    public static String format(BigDecimal resultNumber, boolean separator) {
+        if(Objects.isNull(resultNumber)){
+            resultNumber = BigDecimal.ZERO;
+        }
         resultNumber = resultNumber.stripTrailingZeros();
         resultNumber = rounding(resultNumber);
 
@@ -40,9 +45,12 @@ public class OutputFormatter {
         if ((scale < 0 && (Math.abs(scale) + precision > MAX_PLAIN_SCALE)) ||
                 (scale > MAX_PLAIN_SCALE && (scale - precision) >= MAX_OUTPUT_PRECISION - MAX_PLAIN_SCALE)) {
             result = exponentialForm(resultNumber);
-        } else {
+        } else if (separator) {
             result = OUTPUT_FORMAT.format(resultNumber);
+        } else {
+            result = resultNumber.toPlainString().replace(BIG_DECIMAL_SEPARATOR, VIEW_SEPARATOR);
         }
+
         return result;
     }
 
@@ -60,13 +68,15 @@ public class OutputFormatter {
         } else {
             round = MAX_PLAIN_SCALE;
         }
+
         return resultNumber.round(new MathContext(round, HALF_UP_16.getRoundingMode())).stripTrailingZeros();
     }
 
     private static String exponentialForm(BigDecimal resultNumber) {
         return EXPONENTIAL_FORMAT.format(resultNumber.round(MIN_OUTPUT_PRECISION_DOWN)
                 .stripTrailingZeros())
-                .replace(BIG_DECIMAL_EXPONENTIAL_MARK + MINUS, EXHIBITOR_SYMBOL + MINUS)
+                .replace(BIG_DECIMAL_EXPONENTIAL_MARK + MINUS,
+                        EXHIBITOR_SYMBOL + MINUS)
                 .replace(BIG_DECIMAL_EXPONENTIAL_MARK, EXHIBITOR_SYMBOL + PLUS);
     }
 
