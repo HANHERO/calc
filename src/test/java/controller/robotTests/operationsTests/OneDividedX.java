@@ -102,7 +102,7 @@ public class OneDividedX extends TestingSandBox {
         mouseInputTest("0,0000001 * 0,31 = = = / 3213 = = = 1/", "1,113389432949549e+19", "1/( 8,981583356246147e-20 )");
         mouseInputTest("0,4342 sqr sqr sqr sqr 1/ sqr sqr", "1,541173654637358e+23", "sqr( sqr( 1/( sqr( sqr( sqr( sqr( 0,4342 ) ) ) ) ) ) )");
         mouseInputTest(",4865258684 * ,0000000778 sqr sqr sqr sqr = = = 1/", "3,514579795129855e+341", "1/( 2,845290357002842e-342 )");
-        mouseInputTest("0,0002569 sqr sqr sqr sqr sqr sqr - = = = plusMinus 1/", "2,978978242572731e+229", "1/( negate( -3,356855668527379e-230 ) )");
+        mouseInputTest("0,0002569 sqr sqr sqr sqr sqr sqr - = = = plusMinus 1/", "2,978978242572731e+229", "1/( 3,356855668527379e-230 )");
         mouseInputTest("0,0000000002 * = = = = sqr 1/", "9,765625e+96", "1/( sqr( 3,2e-49 ) )");
         mouseInputTest(",000000342 * 0,3123134 * 0,00000000000321 = sqr 1/", "8,506609298345788e+36", "1/( sqr( 3,42863896788e-19 ) )");
         mouseInputTest(MIN_INPUT + " / " + MAX_INPUT + " = = = 1/", "9,999999999999997e+63", "1/( 1e-64 )");

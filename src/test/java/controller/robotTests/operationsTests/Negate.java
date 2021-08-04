@@ -90,27 +90,27 @@ public class Negate extends TestingSandBox {
         mouseInputTest("2658,1448877154 plusMinus", "-2 658,1448877154", "");
         mouseInputTest("3265487412355221 plusMinus", "-3 265 487 412 355 221", "");
         mouseInputTest("95244,2558775265 plusMinus", "-95 244,2558775265", "");
-        mouseInputTest(",0002569 sqr sqr sqr sqr sqr sqr - = = = plusMinus", "3,356855668527379e-230", "negate( -3,356855668527379e-230 )");
-        mouseInputTest("0,0002569 sqr sqr sqr sqr sqr sqr - = = = plusMinus 1/", "2,978978242572731e+229", "1/( negate( -3,356855668527379e-230 ) )");
+        mouseInputTest(",0002569 sqr sqr sqr sqr sqr sqr - = = = plusMinus", "3,356855668527379e-230", "");
+        mouseInputTest("0,0002569 sqr sqr sqr sqr sqr sqr - = = = plusMinus 1/", "2,978978242572731e+229", "1/( 3,356855668527379e-230 )");
         mouseInputTest("0,0002569 sqr sqr sqr sqr sqr sqr - = = = plusMinus 1/ - 0,0002569 sqr sqr sqr sqr sqr sqr - = = =", "-5,957956485145461e+229", "-2,978978242572731e+229 - 2,978978242572731e+229 = ");
         mouseInputTest("0,0002569 sqr sqr sqr sqr sqr sqr plusMinus 1/ - 2,05 sqr sqr sqr sqr sqr sqr plusMinus = = =", "-5,957956485145461e+229", "-5,957956485145461e+229 - -8,958743607104719e+19 = ");
-        mouseInputTest(MAX_NUMBER + " plusMinus", "-9,999999999999999e+9999", "negate( 9,999999999999999e+9999 )");
-        mouseInputTest(NEAREST_TO_ZERO_POSITIVE_NUMBER + " plusMinus", "-1e-9999", "negate( 1e-9999 )");
+        mouseInputTest(MAX_NUMBER + " plusMinus", "-9,999999999999999e+9999", "");
+        mouseInputTest(NEAREST_TO_ZERO_POSITIVE_NUMBER + " plusMinus", "-1e-9999", "");
     }
 
     @Test
     public void formatterNegateScenarios() {
-        mouseInputTest("2 + 2 = plusMinus", "-4", "negate( 4 )");
-        mouseInputTest("2 - 2 = plusMinus", "0", "negate( 0 )");
-        mouseInputTest("2 / 2 = plusMinus", "-1", "negate( 1 )");
-        mouseInputTest("2 * 2 = plusMinus", "-4", "negate( 4 )");
+        mouseInputTest("2 + 2 = plusMinus", "-4", "");
+        mouseInputTest("2 - 2 = plusMinus", "0", "");
+        mouseInputTest("2 / 2 = plusMinus", "-1", "");
+        mouseInputTest("2 * 2 = plusMinus", "-4", "");
         mouseInputTest("2 sqr plusMinus", "-4", "negate( sqr( 2 ) )");
         mouseInputTest("2 sqrt plusMinus", "-1,414213562373095", "negate( √( 2 ) )");
         mouseInputTest("2 1/ plusMinus", "-0,5", "negate( 1/( 2 ) )");
-        mouseInputTest("2 + 2 = plusMinus plusMinus", "4", "negate( negate( 4 ) )");
-        mouseInputTest("2 - 2 = plusMinus plusMinus", "0", "negate( negate( 0 ) )");
-        mouseInputTest("2 / 2 = plusMinus plusMinus", "1", "negate( negate( 1 ) )");
-        mouseInputTest("2 * 2 = plusMinus plusMinus", "4", "negate( negate( 4 ) )");
+        mouseInputTest("2 + 2 = plusMinus plusMinus", "4", "");
+        mouseInputTest("2 - 2 = plusMinus plusMinus", "0", "");
+        mouseInputTest("2 / 2 = plusMinus plusMinus", "1", "");
+        mouseInputTest("2 * 2 = plusMinus plusMinus", "4", "");
         mouseInputTest("2 sqr plusMinus plusMinus", "4", "negate( negate( sqr( 2 ) ) )");
         mouseInputTest("2 sqrt plusMinus plusMinus", "1,414213562373095", "negate( negate( √( 2 ) ) )");
         mouseInputTest("2 1/ plusMinus plusMinus", "0,5", "negate( negate( 1/( 2 ) ) )");

@@ -114,7 +114,7 @@ public class Subtract extends TestingSandBox {
         mouseInputTest(MIN_INPUT + " * " + MIN_INPUT + " - = = = = = 1/", "-2,5e+31", "1/( -4e-32 )");
         mouseInputTest(MIN_INPUT + " * 0,0000000324412 - = = = = = 1/", "-7,706250077062501e+22", "1/( -1,297648e-23 )");
         mouseInputTest("- 9999999999999 * 99999 = sqr sqrt", "9,999899999999e+17", "√( sqr( -9,999899999999e+17 ) )");
-        mouseInputTest("0,0002569 sqr sqr sqr sqr sqr sqr - = = = plusMinus 1/", "2,978978242572731e+229", "1/( negate( -3,356855668527379e-230 ) )");
+        mouseInputTest("0,0002569 sqr sqr sqr sqr sqr sqr - = = = plusMinus 1/", "2,978978242572731e+229", "1/( 3,356855668527379e-230 )");
         mouseInputTest("- 0,05484 / 48468915 = = = = = sqr 1/", "2,379239093500725e+79", "1/( sqr( -2,050127902199213e-40 ) )");
         mouseInputTest("9847564736475643 sqr sqr sqr sqr plusMinus - 93122131231 = sqr sqr sqr sqr + = = = = =", "1,175805364502728e+4095", "9,798378037522735e+4094 + 1,959675607504547e+4094 = ");
         mouseInputTest("0,000000000000014 sqr sqr sqr plusMinus - 0,000000000000014 sqr sqr sqr = = =", "-5,903156224e-111", "-4,427367168e-111 - 1,475789056e-111 = ");

@@ -104,7 +104,7 @@ public class Sqr extends TestingSandBox {
         mouseInputTest("46894125648425 sqrt", "6 847 928,566247241", "√( 46894125648425 )");
         mouseInputTest("25000000 sqr sqr sqr sqr", "2,328306436538696e+118", "sqr( sqr( sqr( sqr( 25000000 ) ) ) )");
         mouseInputTest("999999 sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr", "9,989765235976125e+6143", "sqr( sqr( sqr( sqr( sqr( sqr( sqr( sqr( sqr( sqr( 999999 ) ) ) ) ) ) ) ) ) )");
-        mouseInputTest("0,0002569 sqr sqr sqr sqr sqr sqr - = = = plusMinus 1/", "2,978978242572731e+229", "1/( negate( -3,356855668527379e-230 ) )");
+        mouseInputTest("0,0002569 sqr sqr sqr sqr sqr sqr - = = = plusMinus 1/", "2,978978242572731e+229", "1/( 3,356855668527379e-230 )");
         mouseInputTest("523122 sqr sqr sqr sqr sqr sqr sqr sqr sqr sqr", "7,070601915787683e+5855", "sqr( sqr( sqr( sqr( sqr( sqr( sqr( sqr( sqr( sqr( 523122 ) ) ) ) ) ) ) ) ) )");
         mouseInputTest("71323123435 sqr sqr sqr sqr * = 1/", "4,97311699471495e-348", "1/( 2,010811330324068e+347 )");
         mouseInputTest("- 0,05484 / 48468915 = = = = = sqr 1/", "2,379239093500725e+79", "1/( sqr( -2,050127902199213e-40 ) )");
