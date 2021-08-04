@@ -2,8 +2,6 @@ package controllers.formatters;
 
 import java.math.BigDecimal;
 
-import static controllers.Controller.isNegatePressed;
-
 public class InputFormatter {
 
     private InputFormatter() {
@@ -58,9 +56,9 @@ public class InputFormatter {
         } else {
             input = input.divideToIntegralValue(BigDecimal.TEN);
         }
-        if (stringForMainLabel.length() != 0){
+        if (stringForMainLabel.length() > 1){
             stringForMainLabel = stringForMainLabel.substring(0, stringForMainLabel.length() - 1);
-        } if (stringForMainLabel.length() == 0) {
+        } else  {
             stringForMainLabel = "0";
         }
     }

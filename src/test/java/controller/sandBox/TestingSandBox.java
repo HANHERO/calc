@@ -61,6 +61,7 @@ public class TestingSandBox extends ApplicationTest {
         verifyThat(mainLabel, (Label label) -> label.getText().equals(mainLabelExcepted));
         clicker.clickMouse("mc");
         clicker.clickMouse("c");
+        FXTestUtils.awaitEvents();
     }
 
     public void mainLabelTest(String expression, int size) {
