@@ -25,3 +25,19 @@ h
 8src/main/java/controllers/formatters/InputFormatter.java,c\7\c7db2bfc8209b4a9b3bf99c5f0dc67d168c97432
 X
 (src/main/java/model/UnaryOperations.java,3\7\37632db2aaa276a5f87d6a61fe3222a18d6fc8b1
+l
+<src/test/java/controller/robotTests/operationsTests/Add.java,4\6\46b4584895efd145d11b4a34b12b941dd6e31943
+o
+?src/test/java/controller/robotTests/operationsTests/Divide.java,5\4\5436acb945755c76ee0993231b530c3d59051ecf
+q
+Asrc/test/java/controller/robotTests/operationsTests/Multiply.java,8\7\8788d0a26edb2b575fa19cf1784fe9da8f5a0551
+j
+:src/main/java/controllers/formatters/HistoryFormatter.java,6\0\6080b9b195e76e2d9e0626211e2321c71cdcfd05
+P
+ src/main/java/model/History.java,1\1\112b1d88330f72e556a9afa537cb4a37e813944a
+d
+4src/test/java/controller/sandBox/TestingSandBox.java,c\c\cc0483f0636ad34d29d832e3a66d6abfcff7d927
+]
+-src/test/java/controller/sandBox/Clicker.java,2\d\2d0ab5621203e8bbdc744ff753f3552f3165d979
+t
+Dsrc/test/java/controller/robotTests/operationsTests/OneDividedX.java,3\1\3140946b9396451def020de90d393d98d59bc0ec

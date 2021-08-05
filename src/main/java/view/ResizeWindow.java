@@ -1,4 +1,4 @@
-package controllers;
+package view;
 
 import javafx.event.EventHandler;
 import javafx.event.EventType;

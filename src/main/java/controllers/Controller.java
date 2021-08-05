@@ -16,6 +16,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.*;
+import view.ResizeFont;
+import view.ResizeWindow;
 
 import java.math.BigDecimal;
 import java.net.URL;
