@@ -45,11 +45,6 @@ public class History {
         operation = null;
     }
 
-    public void cleanEntry() {
-        secondHistory.clear();
-        second = BigDecimal.ZERO;
-    }
-
     public void setFirst(BigDecimal first) {
         this.first = first;
     }
