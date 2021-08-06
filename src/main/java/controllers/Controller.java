@@ -33,7 +33,7 @@ import static controllers.formatters.InputFormatter.*;
 public class Controller implements Initializable {
     @FXML
     private final List<Button> textButtons = new ArrayList<>();
-    private History history = new History();
+    private final History history = new History();
     public ScrollPane scrollPaneHistory;
     public Button fullScreenButton;
     public Label historyLabel;
@@ -44,14 +44,9 @@ public class Controller implements Initializable {
     private boolean isPercentLast = false;
     private boolean isEqualsPressed = false;
     private boolean isCommaPressed = false;
-    private boolean isTypingNew = false;
-    private boolean isCanNegateToHistory = false;
     private boolean isTyping = true;
     private boolean isException = false;
     private boolean isSignHas = false;
-    public static boolean isNegatePressed = false;
-    private boolean isMemoryUsed = false;
-    private static final String COMMA_SYMBOL = ",";
     private static final BigDecimal MAX_VALUE = new BigDecimal("9.9999999999999995E+9999");
     private static final BigDecimal NEAREST_TO_ZERO_POSITIVE_VALUE = new BigDecimal("1E-9999");
     private static final BigDecimal NEAREST_TO_ZERO_NEGATIVE_VALUE = new BigDecimal("-1E-9999");
@@ -123,12 +118,10 @@ public class Controller implements Initializable {
     @FXML
     public void digitButtonPressed(ActionEvent actionEvent) {
         String digitButton = ((Button) actionEvent.getSource()).getText();
-        isMemoryUsed = false;
-        isTyping = true;
-        if (isTypingNew && !isCommaPressed) {
+        if (!isTyping && !isCommaPressed) {
             clearInput();
             buffer = BigDecimal.ZERO;
-            isTypingNew = false;
+            isTyping = true;
         }
         if (isEqualsPressed || isException) {
             cPressed();
@@ -145,45 +138,37 @@ public class Controller implements Initializable {
 
     @FXML
     public void commaPressed() {
-        isCommaPressed = true;
-        isTyping = true;
-        addPointToInput();
-        setMainLabelText();
         if (isEqualsPressed) {
             cPressed();
-            isEqualsPressed = false;
-            history.setEqual(false);
         }
+        isCommaPressed = true;
+        addPointToInput();
+        setMainLabelText();
     }
 
     @FXML
     public void plusPressed() {
-        sendToCalculate();
-        lastBinary = BinaryOperations.PLUS;
-        history.setOperation(lastBinary);
-        updateHistoryLabel();
+        sendToBinary(BinaryOperations.PLUS);
     }
 
     @FXML
     public void minusPressed() {
-        sendToCalculate();
-        lastBinary = BinaryOperations.MINUS;
-        history.setOperation(lastBinary);
-        updateHistoryLabel();
+        sendToBinary(BinaryOperations.MINUS);
     }
 
     @FXML
     public void dividePressed() {
-        sendToCalculate();
-        lastBinary = BinaryOperations.DIVIDE;
-        history.setOperation(lastBinary);
-        updateHistoryLabel();
+        sendToBinary(BinaryOperations.DIVIDE);
     }
 
     @FXML
     public void multiplyPressed() {
+        sendToBinary(BinaryOperations.MULTIPLY);
+    }
+
+    private void sendToBinary(BinaryOperations operation) {
         sendToCalculate();
-        lastBinary = BinaryOperations.MULTIPLY;
+        lastBinary = operation;
         history.setOperation(lastBinary);
         updateHistoryLabel();
     }
@@ -199,7 +184,6 @@ public class Controller implements Initializable {
             if (lastBinary != null && !isPercentLast) {
                 try {
                     result = model.calculate(result, buffer, lastBinary);
-                    isTypingNew = true;
                     isTyping = false;
                     isCommaPressed = false;
                     if (history.getFirstHistory().isEmpty()) {
@@ -217,7 +201,6 @@ public class Controller implements Initializable {
             } else {
                 result = whatOnScreen;
                 buffer = result;
-                isTypingNew = true;
                 isTyping = false;
                 isCommaPressed = false;
                 if (history.getFirstHistory().isEmpty()) {
@@ -235,7 +218,6 @@ public class Controller implements Initializable {
     public void equalsPressed() {
         isEqualsPressed = true;
         isCommaPressed = false;
-        isTypingNew = true;
         isTyping = false;
         history.setEqual(true);
 
@@ -252,7 +234,7 @@ public class Controller implements Initializable {
             isPercentLast = false;
         } else {
             result = buffer;
-            if(history.getFirstHistory().isEmpty()) {
+            if (history.getFirstHistory().isEmpty()) {
                 history.setFirst(result);
             }
         }
@@ -261,17 +243,10 @@ public class Controller implements Initializable {
         history.clearFirstHistory();
         history.clearSecondHistory();
         history.setFirst(result);
-
-    }
-
-    @FXML
-    public void plusMinusPressed() {
-        sendToUnary(UnaryOperations.NEGATIVE);
     }
 
     private void sendToUnary(UnaryOperations unary) {
         if (unary != UnaryOperations.NEGATIVE) {
-            isTypingNew = true;
             isTyping = false;
         }
         if (isEqualsPressed) {
@@ -291,6 +266,11 @@ public class Controller implements Initializable {
     }
 
     @FXML
+    public void plusMinusPressed() {
+        sendToUnary(UnaryOperations.NEGATIVE);
+    }
+
+    @FXML
     public void oneDividedXPressed() {
         sendToUnary(UnaryOperations.ONE_DIVIDED_X);
     }
@@ -306,25 +286,12 @@ public class Controller implements Initializable {
     }
 
     @FXML
-    public void cePressed() {
-        setDisableAllOperations(false);
-        isException = false;
-        isMemoryUsed = false;
-        isNegatePressed = false;
-        isCommaPressed = false;
-        isPercentLast = false;
-        isTyping = true;
-        clearInput();
-        setMainLabelText(InputFormatter.getInput());
-    }
-
-    @FXML
     public void percentPressed() {
         if (!isPercentLast) {
             if (lastBinary == null) {
                 historyLabel.setText("0");
                 setMainLabelText(BigDecimal.ZERO);
-                isTypingNew = true;
+                isTyping = false;
                 return;
             }
             try {
@@ -332,7 +299,6 @@ public class Controller implements Initializable {
                 result = model.percent(result, buffer, lastBinary);
                 buffer = model.getPercentCoef();
                 history.addHistory(lastBinary != null, UnaryOperations.PERCENT, buffer);
-                isTypingNew = true;
                 isTyping = false;
                 setMainLabelText(buffer);
                 updateHistoryLabel();
@@ -350,7 +316,6 @@ public class Controller implements Initializable {
         history.setEqual(false);
         history.cleanAll();
         lastBinary = null;
-        isCanNegateToHistory = false;
         updateHistoryLabel();
         historyLeftMover.setVisible(false);
         historyRightMover.setVisible(false);
@@ -358,63 +323,63 @@ public class Controller implements Initializable {
     }
 
     @FXML
+    public void cePressed() {
+        setDisableAllOperations(false);
+        isException = false;
+        isCommaPressed = false;
+        isPercentLast = false;
+        clearInput();
+        setMainLabelText(InputFormatter.getInput());
+    }
+
+    @FXML
     public void delPressed() {
-        if (!isTypingNew) {
+        if (isTyping) {
             backspaceInput();
             isCommaPressed = isInputPointSet();
             buffer = getInput();
-            isTyping = false;
             setMainLabelText();
         }
     }
 
     @FXML
     public void mcPressed() {
-        isMemoryUsed = true;
         setDisableMemButtons(true);
         model.clearMemoryValue();
     }
 
     @FXML
     public void mrPressed() {
-        isMemoryUsed = true;
         buffer = model.getMemoryValue();
-        isTyping = false;
         setMainLabelText(buffer);
     }
 
     @FXML
     public void mMinusPressed() {
         setDisableMemButtons(false);
-        isMemoryUsed = true;
         try {
             model.memoryMinus(whatOnScreen);
         } catch (DivisionByZeroException | UnexpectedException e) {
             showExceptionMessage(e.getMessage());
         }
-        isTypingNew = true;
         isTyping = false;
     }
 
     @FXML
     public void mPlusPressed() {
         setDisableMemButtons(false);
-        isMemoryUsed = true;
         try {
             model.memoryPlus(whatOnScreen);
         } catch (DivisionByZeroException | UnexpectedException e) {
             showExceptionMessage(e.getMessage());
         }
-        isTypingNew = true;
         isTyping = false;
     }
 
     @FXML
     public void msPressed() {
-        isMemoryUsed = true;
         setDisableMemButtons(false);
         model.setMemoryValue(whatOnScreen);
-        isTypingNew = true;
         isTyping = false;
     }
 
@@ -473,7 +438,7 @@ public class Controller implements Initializable {
         whatOnScreen = parseInput(number.toString());
         try {
             checkOverflow(number);
-            if(!isException) {
+            if (!isException) {
                 mainLabel.setText(OutputFormatter.format(number, true));
             }
         } catch (OverflowException e) {
@@ -555,14 +520,15 @@ public class Controller implements Initializable {
                 number.compareTo(BigDecimal.ZERO) > 0) {
             throw new OverflowException(OVERFLOW);
         } else if (number.compareTo(NEAREST_TO_ZERO_NEGATIVE_VALUE) > 0 &&
-                number.compareTo(BigDecimal.ZERO) < 0) throw new OverflowException(OVERFLOW);
+                number.compareTo(BigDecimal.ZERO) < 0) {
+            throw new OverflowException(OVERFLOW);
+        }
     }
 
     private void updateHistoryLabel() {
         historyLabel.setText(formatHistory(history));
         historyLeftMover.setVisible(historyLabel.getWidth() > stage.getWidth() - (historyLeftMover.getWidth() * 2));
     }
-
 
     private BigDecimal parseInput(String number) {
         number = number.replace(",", ".");

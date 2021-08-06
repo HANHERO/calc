@@ -12,13 +12,13 @@ public class Calculator {
     private static final String NEGATIVE_SQRT = "Неверный ввод";
     private BigDecimal memoryValue = BigDecimal.ZERO;
     private BigDecimal percentCoef;
-    private BigDecimal result;
 
     public BigDecimal getPercentCoef() {
         return percentCoef;
     }
 
     public BigDecimal calculate(BigDecimal firstValue, BigDecimal secondValue, BinaryOperations operation) throws DivisionByZeroException, UnexpectedException {
+        BigDecimal result;
         if (operation.equals(PLUS)) {
             result = plus(firstValue, secondValue);
         } else if (operation.equals(MINUS)) {
@@ -35,6 +35,7 @@ public class Calculator {
     }
 
     public BigDecimal calculate(BigDecimal firstValue, UnaryOperations operation) throws NegativeSqrtException, DivisionByZeroException, UnexpectedException {
+        BigDecimal result;
         if (operation.equals(SQUARE)){
             result = square(firstValue);
         }else if(operation.equals(SQRT)){

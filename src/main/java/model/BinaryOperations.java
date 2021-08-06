@@ -5,5 +5,4 @@ public enum BinaryOperations {
     MINUS,
     MULTIPLY,
     DIVIDE
-
 }

@@ -6,6 +6,4 @@ public enum UnaryOperations {
     ONE_DIVIDED_X,
     NEGATIVE,
     PERCENT
-
-
 }

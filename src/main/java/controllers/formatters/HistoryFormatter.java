@@ -40,12 +40,9 @@ public class HistoryFormatter {
             formatHistory = formatHistoryWithEqual(history, formatHistory);
         } else {
             if (history.isOperator()) {
-                if (history.getSecondHistory().isEmpty()) {
-                    formatHistory = formatHistory + formatHistoryNumber(history.getFirst(), history.getFirstHistory());
-                    formatHistory = formatHistory + binaryMap.get(history.getOperation());
-                } else {
-                    formatHistory = formatHistory + formatHistoryNumber(history.getFirst(), history.getFirstHistory());
-                    formatHistory = formatHistory + binaryMap.get(history.getOperation());
+                formatHistory = formatHistory + formatHistoryNumber(history.getFirst(), history.getFirstHistory());
+                formatHistory = formatHistory + binaryMap.get(history.getOperation());
+                if (!history.getSecondHistory().isEmpty()) {
                     formatHistory = formatHistory + formatHistoryNumber(history.getSecond(), history.getSecondHistory());
                 }
             } else {

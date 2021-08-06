@@ -17,8 +17,8 @@ public class OutputFormatter {
     private static final MathContext MAX_OUTPUT_PRECISION_DOWN = new MathContext(MAX_OUTPUT_PRECISION, RoundingMode.DOWN);
     private static final MathContext MIN_OUTPUT_PRECISION_DOWN = new MathContext(MAX_PLAIN_SCALE, RoundingMode.DOWN);
     private static final String BIG_DECIMAL_EXPONENTIAL_MARK = "E";
-    static final String BIG_DECIMAL_SEPARATOR = ".";
-    static final String VIEW_SEPARATOR = ",";
+    private static final String BIG_DECIMAL_SEPARATOR = ".";
+    private static final String VIEW_SEPARATOR = ",";
     private static final char SPACE = ' ';
     private static final String NUMBER_PATTERN = "###,###.###################";
     private static final String MINUS = "-";
