@@ -2,7 +2,7 @@ package model;
 
 /**
  * The enum of binary operations.
- * Binary operations are performed with two numbers.
+ * <br>Binary operations are performed with two numbers.
  * @author  Pilipenko Mihail
  * @version 1.0
  */

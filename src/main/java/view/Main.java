@@ -9,6 +9,13 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+/**
+ * The {@code Main} class
+ * launcher of calculator application.
+ *
+ * @author Pilipenko Mihail
+ * @version 1.0
+ */
 public class Main extends Application {
 
     @Override
@@ -25,6 +32,11 @@ public class Main extends Application {
         primaryStage.show();
     }
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
         launch(args);
     }

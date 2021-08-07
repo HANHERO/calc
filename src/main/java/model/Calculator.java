@@ -7,15 +7,28 @@ import static model.BinaryOperations.*;
 import static model.UnaryOperations.*;
 
 /**
- * The type Calculator.
- * @author  Pilipenko Mihail
+ * The {@code Calculator} class
+ * Consist main calculator operations such as
+ * add, subtract, multiply, divide,
+ * negate, percent, inverse, sqr, sqrt and memory operations.
+ *
+ * @author Pilipenko Mihail
  * @version 1.0
  */
 public class Calculator {
+    /** An exception message if the user divides zero by zero. */
     private static final String RESULT_UNDEFINED = "Результат неопределен";
+    /** An exception message if the user divides any number by zero. */
     private static final String DIVISION_BY_ZERO = "Деление на ноль невозможно";
+    /** An exception message if the user takes the root of a negative number. */
     private static final String NEGATIVE_SQRT = "Неверный ввод";
+    /** The number in memory. */
     private BigDecimal memoryValue = BigDecimal.ZERO;
+    /** The coefficient of the operation with percents.
+     * <br>for example:
+     * <br>coefficient in (150 + 17%) equals 25.5
+     * <br>coefficient in (150 ÷ 17%) equals 0.17
+     * */
     private BigDecimal percentCoef;
 
     /**
@@ -28,12 +41,12 @@ public class Calculator {
     }
 
     /**
-     * Calculate big decimal.
+     * Calculation of a binary operation.
      *
      * @param firstValue  the first value
      * @param secondValue the second value
-     * @param operation   the operation
-     * @return the big decimal
+     * @param operation   the binary operation
+     * @return the result of binary operation.
      * @throws DivisionByZeroException the division by zero exception
      * @throws UnexpectedException     the unexpected exception
      */
@@ -55,11 +68,11 @@ public class Calculator {
     }
 
     /**
-     * Calculate big decimal.
+     * Calculation of a unary operation.
      *
      * @param firstValue the first value
      * @param operation  the operation
-     * @return the big decimal
+     * @return the result of unary operation.
      * @throws NegativeSqrtException   the negative sqrt exception
      * @throws DivisionByZeroException the division by zero exception
      * @throws UnexpectedException     the unexpected exception
@@ -122,12 +135,12 @@ public class Calculator {
     }
 
     /**
-     * Percent big decimal.
+     * Calculate of operation with percent.
      *
      * @param firstValue    the first value
      * @param percentValue  the percent value
      * @param lastOperation the last operation
-     * @return the big decimal
+     * @return the result of operation with percent.
      * @throws DivisionByZeroException the division by zero exception
      * @throws UnexpectedException     the unexpected exception
      */
@@ -143,25 +156,25 @@ public class Calculator {
     }
 
     /**
-     * Memory minus.
+     * Memory minus operation.
      *
-     * @param buffer the buffer
+     * @param value the value
      * @throws DivisionByZeroException the division by zero exception
      * @throws UnexpectedException     the unexpected exception
      */
-    public void memoryMinus(BigDecimal buffer) throws DivisionByZeroException, UnexpectedException {
-        memoryValue = calculate(memoryValue, buffer, BinaryOperations.MINUS);
+    public void memoryMinus(BigDecimal value) throws DivisionByZeroException, UnexpectedException {
+        memoryValue = calculate(memoryValue, value, BinaryOperations.MINUS);
     }
 
     /**
-     * Memory plus.
+     * Memory operation.
      *
-     * @param buffer the buffer
+     * @param value the value
      * @throws DivisionByZeroException the division by zero exception
      * @throws UnexpectedException     the unexpected exception
      */
-    public void memoryPlus(BigDecimal buffer) throws DivisionByZeroException, UnexpectedException {
-        memoryValue = calculate(memoryValue, buffer, PLUS);
+    public void memoryPlus(BigDecimal value) throws DivisionByZeroException, UnexpectedException {
+        memoryValue = calculate(memoryValue, value, PLUS);
     }
 
     /**
@@ -176,14 +189,14 @@ public class Calculator {
     /**
      * Sets memory value.
      *
-     * @param currentValue the current value
+     * @param value the current value
      */
-    public void setMemoryValue(BigDecimal currentValue) {
-        memoryValue = currentValue;
+    public void setMemoryValue(BigDecimal value) {
+        memoryValue = value;
     }
 
     /**
-     * Clear memory value.
+     * Memory clear operation.
      */
     public void clearMemoryValue() {
         memoryValue = BigDecimal.ZERO;

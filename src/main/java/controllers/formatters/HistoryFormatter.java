@@ -10,12 +10,34 @@ import java.util.List;
 
 import static controllers.formatters.OutputFormatter.format;
 
+/**
+ * The {@code HistoryFormatter} class allows transform
+ * a set of inputs to a custom history representation pattern.
+ * <br> Consist set of method for work with history.
+ * <p/>
+ * for example:
+ * <br> √( sqr( -42 ) ) × 1/( sqr( 12 ) ) =
+ * <br> There are
+ * <br> The first number = 42,
+ * <br> The second number = 12,
+ * <br> The binary operation = MULTIPLY,
+ * <br> The list of unary operations of the first number = {SQRT, SQR, NEGATE},
+ * <br> The list of unary operations of the second number = {INVERSE, SQR}.
+ * @author  Pilipenko Mihail
+ * @version 1.0
+ */
 public class HistoryFormatter {
+    /** Default history value */
     private static final String DEFAULT_VALUE = "";
+    /** Symbol equals */
     private static final String EQUALS = " = ";
+    /** Symbol left bracket */
     private static final String OPEN_PARENTHESIS = "( ";
+    /** Symbol right bracket */
     private static final String CLOSE_PARENTHESIS = " )";
+    /** History representation of binary operations */
     private static final EnumMap<BinaryOperations, String> binaryMap = new EnumMap<>(BinaryOperations.class);
+    /** History representation of unary operations */
     private static final EnumMap<UnaryOperations, String> unaryMap = new EnumMap<>(UnaryOperations.class);
 
     static {
@@ -34,6 +56,13 @@ public class HistoryFormatter {
     private HistoryFormatter() {
     }
 
+    /**
+     * Return string representation of current history.
+     * History is contained in given {@link History} object
+     *
+     * @param history given statement of history
+     * @return string representation of history
+     */
     public static String formatHistory(History history) {
         String formatHistory = DEFAULT_VALUE;
         if (history.isEqual()) {

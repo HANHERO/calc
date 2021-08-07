@@ -9,35 +9,134 @@ import java.util.HashMap;
 import static javafx.scene.input.KeyCombination.CONTROL_DOWN;
 import static javafx.scene.input.KeyCombination.SHIFT_DOWN;
 
+/**
+ * Enum of calculator buttons.
+ * <br/>
+ * Store id buttons from view.fxml,
+ * and setup keycode combinations.
+ * There are methods for working with {@code CalcButton} enum:
+ *  - getFXId,
+ *  - searchButtonByEvent.
+ *
+ * @author Pilipenko Mihail
+ * @version 1.0
+ */
 public enum CalcButton {
+    /**
+     * Zero calc button.
+     */
     ZERO("#zero"),
+    /**
+     * One calc button.
+     */
     ONE("#one"),
+    /**
+     * Two calc button.
+     */
     TWO("#two"),
+    /**
+     * Three calc button.
+     */
     THREE("#three"),
+    /**
+     * Four calc button.
+     */
     FOUR("#four"),
+    /**
+     * Five calc button.
+     */
     FIVE("#five"),
+    /**
+     * Six calc button.
+     */
     SIX("#six"),
+    /**
+     * Seven calc button.
+     */
     SEVEN("#seven"),
+    /**
+     * Eight calc button.
+     */
     EIGHT("#eight"),
+    /**
+     * Nine calc button.
+     */
     NINE("#nine"),
+    /**
+     * Comma calc button.
+     */
     COMMA("#comma"),
+    /**
+     * Plus minus calc button.
+     */
     PLUS_MINUS("#plusMinus"),
+    /**
+     * Equals calc button.
+     */
     EQUALS("#equals"),
+    /**
+     * Plus calc button.
+     */
     PLUS("#plus"),
+    /**
+     * Minus calc button.
+     */
     MINUS("#minus"),
+    /**
+     * Divide calc button.
+     */
     DIVIDE("#divide"),
+    /**
+     * Multiply calc button.
+     */
     MULTIPLY("#multiply"),
+    /**
+     * One divided x calc button.
+     */
     ONE_DIVIDED_X("#oneDividedX"),
+    /**
+     * Sqr calc button.
+     */
     SQR("#square"),
+    /**
+     * Sqrt calc button.
+     */
     SQRT("#sqrt"),
+    /**
+     * Percent calc button.
+     */
     PERCENT("#percent"),
+    /**
+     * C calc button.
+     */
     C("#C"),
+    /**
+     * Ce calc button.
+     */
     CE("#CE"),
+    /**
+     * Del calc button.
+     */
     DEL("#del"),
+    /**
+     * Mc calc button.
+     */
     MC("#mc"),
+    /**
+     * Mr calc button.
+     */
     MR("#mr"),
+    /**
+     * M minus calc button.
+     */
     M_MINUS("#mMinus"),
+    /**
+     * M plus calc button.
+     */
     M_PLUS("#mPlus"),
+    /**
+     * Ms calc button.
+     */
     MS("#ms");
 
     private final String fxId;
@@ -95,10 +194,18 @@ public enum CalcButton {
         keys.put(new KeyCodeCombination(KeyCode.M, CONTROL_DOWN), MS);
     }
 
+    /**
+     * Return fx:id of given button
+     */
     public String getFXId() {
         return fxId;
     }
 
+    /**
+     * Search button with given keycode combination
+     *
+     * @param event given keycode combination
+     */
     public static CalcButton searchButtonByEvent(KeyEvent event) {
         CalcButton button = null;
         for (KeyCodeCombination code : keys.keySet()) {

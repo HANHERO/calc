@@ -243,7 +243,7 @@
                       <Insets bottom="2.0" right="1.0" top="2.0" />
                   </GridPane.margin>
               </Button>
-              <Button fx:id="del" focusTraversable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#delPressed" onMouseClicked="#clicked" text="" GridPane.columnIndex="3">
+              <Button fx:id="del" focusTraversable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#backspacePressed" onMouseClicked="#clicked" text="" GridPane.columnIndex="3">
                   <styleClass>
                       <String fx:value="bigButton" />
                       <String fx:value="greyButton" />

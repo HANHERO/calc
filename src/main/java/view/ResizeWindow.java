@@ -8,19 +8,52 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 
+/**
+ * The {@code ResizeWindow} class resize window.
+ *
+ * @author Pilipenko Mihail
+ * @version 1.0
+ */
 public class ResizeWindow implements EventHandler<MouseEvent> {
+
+    /** Border width */
     private static final double BORDER = 10;
+
+    /** Minimal window width */
     private static final double MIN_WIDTH = 320;
+
+    /** Minimal window height */
     private static final double MIN_HEIGHT = 500;
+
+    /** Offset of X coordinate */
     private double dx;
+
+    /** Offset of Y coordinate */
     private double dy;
+
+    /** True, if besides resize window almost must be moved in horizontal projection. Aries when resize have left direction */
     private boolean isMoveH;
+
+    /** True, if besides resize window almost must be moved in vertical projection. Aries when resize have top direction */
     private boolean isMoveV;
+
+    /** True, if window must be resize in horizontal projection */
     private boolean isResizeHorizontal;
+
+    /** True, if window must be resize in vertical projection */
     private boolean isResizeVertical;
+
+    /** Main window scene */
     private final Scene scene;
+
+    /** Main window stage */
     private final Stage stage;
 
+    /**
+     * Instantiates a new Resize window.
+     *
+     * @param stage the stage
+     */
     public ResizeWindow(Stage stage) {
         this.stage = stage;
         this.scene = stage.getScene();

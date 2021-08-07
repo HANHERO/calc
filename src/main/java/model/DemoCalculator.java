@@ -2,9 +2,22 @@ package model;
 
 import java.math.BigDecimal;
 
+/**
+ * The {@code DemoCalculator} class
+ * demo of directly using model.
+ *
+ * @author Pilipenko Mihail
+ * @version 1.0
+ */
 public class DemoCalculator {
 
+    /**
+     * Complex example of using model.
+     * <br> √( ( 5 + 3 ) ÷ 2 ) - 4 = -2
+     *
+     */
     public static void main(String[] args) {
+        String input = "√( ( 5 + 3 ) ÷ 2 ) - 4 = ";
         Calculator calc = new Calculator();
 
         BigDecimal two = new BigDecimal("2");
@@ -17,7 +30,7 @@ public class DemoCalculator {
             result = calc.calculate(result, two, BinaryOperations.DIVIDE);
             result = calc.calculate(result, UnaryOperations.SQRT);
             result = calc.calculate(result, four, BinaryOperations.MINUS);
-            System.out.println(result);
+            System.out.println(input + result);
 
         } catch (NegativeSqrtException | DivisionByZeroException | UnexpectedException e) {
             System.out.println(e.getMessage());
