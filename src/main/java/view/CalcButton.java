@@ -1,4 +1,4 @@
-package controllers;
+package view;
 
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;

@@ -16,6 +16,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.*;
+import view.CalcButton;
 import view.ResizeFont;
 import view.ResizeWindow;
 
