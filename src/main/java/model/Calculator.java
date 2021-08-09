@@ -147,12 +147,10 @@ public class Calculator {
     public BigDecimal percent(BigDecimal firstValue, BigDecimal percentValue, BinaryOperations lastOperation) throws DivisionByZeroException, UnexpectedException {
         if (lastOperation == PLUS || lastOperation == BinaryOperations.MINUS) {
             percentCoef = divide(percentValue, new BigDecimal("100")).multiply(firstValue);
-            firstValue = calculate(firstValue, percentCoef, lastOperation);
         } else if (lastOperation == BinaryOperations.MULTIPLY || lastOperation == BinaryOperations.DIVIDE) {
             percentCoef = divide(percentValue, new BigDecimal("100"));
-            firstValue = calculate(firstValue, percentCoef, lastOperation);
         }
-        return firstValue;
+        return calculate(firstValue, percentCoef, lastOperation);
     }
 
     /**
