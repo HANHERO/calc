@@ -13,7 +13,7 @@ public class DemoCalculator {
 
     /**
      * Complex example of using model.
-     * <br> √( ( 5 + 3 ) ÷ 2 ) - 4 = -2
+     * <br> √( ( 5 + 3 ) ÷ 2 ) - 4 =
      *
      */
     public static void main(String[] args) {
