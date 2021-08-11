@@ -23,24 +23,25 @@ import static controllers.formatters.OutputFormatter.format;
  * <br> The binary operation = MULTIPLY,
  * <br> The list of unary operations of the first number = {SQRT, SQR, NEGATE},
  * <br> The list of unary operations of the second number = {INVERSE, SQR}.
- * @author  Pilipenko Mihail
+ *
+ * @author Pilipenko Mihail
  * @version 1.0
  */
 public class HistoryFormatter {
-    /** Default history value */
+    /**
+     * Default history value
+     */
     private static final String DEFAULT_VALUE = "";
-    /** Symbol equals */
-    private static final String EQUALS = " = ";
-    /** Symbol left bracket */
-    private static final String OPEN_PARENTHESIS = "( ";
-    /** Symbol right bracket */
-    private static final String CLOSE_PARENTHESIS = " )";
-    /** History representation of binary operations */
-    private static final EnumMap<BinaryOperations, String> binaryMap = new EnumMap<>(BinaryOperations.class);
-    /** History representation of unary operations */
-    private static final EnumMap<UnaryOperations, String> unaryMap = new EnumMap<>(UnaryOperations.class);
+    /**
+     * History representation of binary operations
+     */
+    private final EnumMap<BinaryOperations, String> binaryMap = new EnumMap<>(BinaryOperations.class);
+    /**
+     * History representation of unary operations
+     */
+    private final EnumMap<UnaryOperations, String> unaryMap = new EnumMap<>(UnaryOperations.class);
 
-    static {
+    public HistoryFormatter(){
         unaryMap.put(UnaryOperations.ONE_DIVIDED_X, "1/");
         unaryMap.put(UnaryOperations.NEGATIVE, "negate");
         unaryMap.put(UnaryOperations.SQUARE, "sqr");
@@ -53,9 +54,6 @@ public class HistoryFormatter {
         binaryMap.put(BinaryOperations.MULTIPLY, " × ");
     }
 
-    private HistoryFormatter() {
-    }
-
     /**
      * Return string representation of current history.
      * History is contained in given {@link History} object
@@ -63,13 +61,13 @@ public class HistoryFormatter {
      * @param history given statement of history
      * @return string representation of history
      */
-    public static String formatHistory(History history) {
-        String formatHistory = DEFAULT_VALUE;
+    public String formatHistory(History history) {
+        String formatHistory;
         if (history.isEqual()) {
-            formatHistory = formatHistoryWithEqual(history, formatHistory);
+            formatHistory = formatHistoryWithEqual(history);
         } else {
             if (history.isOperator()) {
-                formatHistory = formatHistory + formatHistoryNumber(history.getFirst(), history.getFirstHistory());
+                formatHistory = DEFAULT_VALUE + formatHistoryNumber(history.getFirst(), history.getFirstHistory());
                 formatHistory = formatHistory + binaryMap.get(history.getOperation());
                 if (!history.getSecondHistory().isEmpty()) {
                     formatHistory = formatHistory + formatHistoryNumber(history.getSecond(), history.getSecondHistory());
@@ -77,30 +75,29 @@ public class HistoryFormatter {
             } else {
                 if (!history.getFirstHistory().isEmpty()) {
                     formatHistory = formatHistoryNumber(history.getFirst(), history.getFirstHistory());
+                } else {
+                    formatHistory = DEFAULT_VALUE;
                 }
             }
         }
         return formatHistory;
     }
 
-    private static String formatHistoryWithEqual(History history, String formatHistory) {
-        StringBuilder formatHistoryBuilder = new StringBuilder(formatHistory);
+    private String formatHistoryWithEqual(History history) {
+        StringBuilder formatHistoryBuilder = new StringBuilder(DEFAULT_VALUE);
+        String equals = " = ";
+        formatHistoryBuilder.append(formatHistoryNumber(history.getFirst(), history.getFirstHistory()));
         if (history.isOperator()) {
             formatHistoryBuilder
-                    .append(formatHistoryNumber(history.getFirst(), history.getFirstHistory()))
                     .append(binaryMap.get(history.getOperation()))
                     .append(formatHistoryNumber(history.getSecond(), history.getSecondHistory()))
-                    .append(formatHistory)
-                    .append(EQUALS);
-        } else {
-            formatHistoryBuilder
-                    .append(formatHistoryNumber(history.getFirst(), history.getFirstHistory()))
-                    .append(EQUALS);
+                    .append(DEFAULT_VALUE);
         }
+        formatHistoryBuilder.append(equals);
         return formatHistoryBuilder.toString();
     }
 
-    private static String formatHistoryNumber(BigDecimal number, List<UnaryOperations> history) {
+    private String formatHistoryNumber(BigDecimal number, List<UnaryOperations> history) {
         String formatHistoryNumber;
         if (history.isEmpty()) {
             formatHistoryNumber = format(number, false);
@@ -110,13 +107,15 @@ public class HistoryFormatter {
         return formatHistoryNumber;
     }
 
-    private static String formatHistory(BigDecimal number, List<UnaryOperations> history) {
+    private String formatHistory(BigDecimal number, List<UnaryOperations> history) {
         StringBuilder formatNumber = new StringBuilder(format(number, false));
+        String openParenthesis = "( ";
+        String closeParenthesis = " )";
         for (UnaryOperations u : history) {
-            if (u == UnaryOperations.PERCENT) {
+            if (u.equals(UnaryOperations.PERCENT)) {
                 formatNumber.insert(0, unaryMap.get(u));
             } else {
-                formatNumber.append(CLOSE_PARENTHESIS).insert(0, OPEN_PARENTHESIS).insert(0, unaryMap.get(u));
+                formatNumber.append(closeParenthesis).insert(0, openParenthesis).insert(0, unaryMap.get(u));
             }
         }
         return formatNumber.toString();

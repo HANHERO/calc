@@ -11,7 +11,7 @@ import java.awt.*;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class SystemButtons extends ViewTestsSandbox {
+public class SystemButtonsTest extends ViewTestsSandbox {
     @Test
     public void maximizeTest() {
         assertFalse(stage.isMaximized());

@@ -103,13 +103,13 @@
 
 .whiteButton {
     -fx-background-color: #fafafa;
-    -fx-font-family: 'Calculator MDL2 Assets';
-    -fx-font-size: 18px;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 17px;
 }
 
 .greyButton {
     -fx-background-color: #f0f0f0;
-    -fx-font-size: 15px;
+    -fx-font-size: 17px;
     -fx-font-family: 'Calculator MDL2 Assets'
 }
 

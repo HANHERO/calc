@@ -9,8 +9,17 @@ import static model.UnaryOperations.*;
 /**
  * The {@code Calculator} class
  * Consist main calculator operations such as
- * add, subtract, multiply, divide,
- * negate, percent, inverse, sqr, sqrt and memory operations.
+ * <ul>
+ *  <li>Add (+)</li>
+ *  <li>Subtract (-)</li>
+ *  <li>Multiply (×)</li>
+ *  <li>Divide (÷)</li>
+ *  <li>Square (x²)</li>
+ *  <li>Square root (√x)</li>
+ *  <li>One divided (1/x)</li>
+ *  <li>Negate (+/-)</li>
+ *  <li>Percent (%)</li>
+ * </ul>
  *
  * @author Pilipenko Mihail
  * @version 1.0
@@ -19,18 +28,17 @@ public class Calculator {
     /** An exception message if the user divides zero by zero. */
     private static final String RESULT_UNDEFINED = "Результат неопределен";
     /** An exception message if the user divides any number by zero. */
-    private static final String DIVISION_BY_ZERO = "Деление на ноль невозможно";
+    private static final String DIVISION_BY_ZERO = "Деление на ноль невозможноljknkj";
     /** An exception message if the user takes the root of a negative number. */
     private static final String NEGATIVE_SQRT = "Неверный ввод";
-    /** The number in memory. */
-    private BigDecimal memoryValue = BigDecimal.ZERO;
     /** The coefficient of the operation with percents.
      * <br>for example:
      * <br>coefficient in (150 + 17%) equals 25.5
      * <br>coefficient in (150 ÷ 17%) equals 0.17
      * */
     private BigDecimal percentCoef;
-
+    /**One hundred value used for percent.*/
+    private static final BigDecimal ONE_HUNDRED = new BigDecimal("100");
     /**
      * Gets percent coef.
      *
@@ -39,7 +47,6 @@ public class Calculator {
     public BigDecimal getPercentCoef() {
         return percentCoef;
     }
-
     /**
      * Calculation of a binary operation.
      *
@@ -48,9 +55,8 @@ public class Calculator {
      * @param operation   the binary operation
      * @return the result of binary operation.
      * @throws DivisionByZeroException the division by zero exception
-     * @throws UnexpectedException     the unexpected exception
      */
-    public BigDecimal calculate(BigDecimal firstValue, BigDecimal secondValue, BinaryOperations operation) throws DivisionByZeroException, UnexpectedException {
+    public BigDecimal calculate(BigDecimal firstValue, BigDecimal secondValue, BinaryOperations operation) throws DivisionByZeroException {
         BigDecimal result;
         if (operation.equals(PLUS)) {
             result = plus(firstValue, secondValue);
@@ -61,10 +67,9 @@ public class Calculator {
         } else if (operation.equals(MULTIPLY)) {
             result = multiply(firstValue, secondValue);
         } else {
-            throw new UnexpectedException("Incorrect binary operation");
+            throw new IllegalArgumentException("Enter binary operation");
         }
         return result;
-
     }
 
     /**
@@ -75,9 +80,8 @@ public class Calculator {
      * @return the result of unary operation.
      * @throws NegativeSqrtException   the negative sqrt exception
      * @throws DivisionByZeroException the division by zero exception
-     * @throws UnexpectedException     the unexpected exception
      */
-    public BigDecimal calculate(BigDecimal firstValue, UnaryOperations operation) throws NegativeSqrtException, DivisionByZeroException, UnexpectedException {
+    public BigDecimal calculate(BigDecimal firstValue, UnaryOperations operation) throws NegativeSqrtException, DivisionByZeroException {
         BigDecimal result;
         if (operation.equals(SQUARE)){
             result = square(firstValue);
@@ -88,7 +92,7 @@ public class Calculator {
         }else if(operation.equals(NEGATIVE)){
             result = negative(firstValue);
         }else {
-            throw new UnexpectedException("Incorrect unary operation");
+            throw new IllegalArgumentException("Unknown operation " + operation);
         }
         return result;
     }
@@ -139,64 +143,18 @@ public class Calculator {
      *
      * @param firstValue    the first value
      * @param percentValue  the percent value
-     * @param lastOperation the last operation
+     * @param operation the last operation
      * @return the result of operation with percent.
      * @throws DivisionByZeroException the division by zero exception
-     * @throws UnexpectedException     the unexpected exception
      */
-    public BigDecimal percent(BigDecimal firstValue, BigDecimal percentValue, BinaryOperations lastOperation) throws DivisionByZeroException, UnexpectedException {
-        if (lastOperation == PLUS || lastOperation == BinaryOperations.MINUS) {
-            percentCoef = divide(percentValue, new BigDecimal("100")).multiply(firstValue);
-        } else if (lastOperation == BinaryOperations.MULTIPLY || lastOperation == BinaryOperations.DIVIDE) {
-            percentCoef = divide(percentValue, new BigDecimal("100"));
+    public BigDecimal percent(BigDecimal firstValue, BigDecimal percentValue, BinaryOperations operation) throws DivisionByZeroException {
+        if (operation.equals(PLUS) || operation.equals(MINUS)) {
+            percentCoef = divide(percentValue, ONE_HUNDRED).multiply(firstValue);
+        } else if (operation.equals(MULTIPLY) || operation.equals(DIVIDE)) {
+            percentCoef = divide(percentValue, ONE_HUNDRED);
+        } else {
+            throw new IllegalArgumentException("Unknown operation " + operation);
         }
-        return calculate(firstValue, percentCoef, lastOperation);
-    }
-
-    /**
-     * Memory minus operation.
-     *
-     * @param value the value
-     * @throws DivisionByZeroException the division by zero exception
-     * @throws UnexpectedException     the unexpected exception
-     */
-    public void memoryMinus(BigDecimal value) throws DivisionByZeroException, UnexpectedException {
-        memoryValue = calculate(memoryValue, value, BinaryOperations.MINUS);
-    }
-
-    /**
-     * Memory operation.
-     *
-     * @param value the value
-     * @throws DivisionByZeroException the division by zero exception
-     * @throws UnexpectedException     the unexpected exception
-     */
-    public void memoryPlus(BigDecimal value) throws DivisionByZeroException, UnexpectedException {
-        memoryValue = calculate(memoryValue, value, PLUS);
-    }
-
-    /**
-     * Gets memory value.
-     *
-     * @return the memory value
-     */
-    public BigDecimal getMemoryValue() {
-        return memoryValue;
-    }
-
-    /**
-     * Sets memory value.
-     *
-     * @param value the current value
-     */
-    public void setMemoryValue(BigDecimal value) {
-        memoryValue = value;
-    }
-
-    /**
-     * Memory clear operation.
-     */
-    public void clearMemoryValue() {
-        memoryValue = BigDecimal.ZERO;
+        return calculate(firstValue, percentCoef, operation);
     }
 }

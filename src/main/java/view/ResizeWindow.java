@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 
 
 /**
- * The {@code ResizeWindow} class resize window.
+ * The {@code ResizeWindow} class resize window. Used to resize the window.
  *
  * @author Pilipenko Mihail
  * @version 1.0

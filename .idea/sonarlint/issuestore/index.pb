@@ -13,3 +13,5 @@ t
 Dsrc/test/java/controller/robotTests/operationsTests/OneDividedX.java,3\1\3140946b9396451def020de90d393d98d59bc0ec
 L
 .idea/dictionaries/pmixm.xml,4\8\480d87c45eaf1d8c4eb5857484f13c48b6aec48d
+p
+@src/test/java/controller/robotTests/operationsTests/Percent.java,3\9\39bdbe8b99b89c80225f1ca1b6e816120e277915

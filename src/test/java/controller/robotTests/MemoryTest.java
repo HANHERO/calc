@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import java.awt.*;
 
-public class Memory extends TestingSandBox {
+public class MemoryTest extends TestingSandBox {
 
     @Test
     public void simpleScenarios() {

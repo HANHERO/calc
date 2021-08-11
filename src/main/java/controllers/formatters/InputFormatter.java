@@ -7,41 +7,58 @@ import java.math.BigDecimal;
  * represents number which is entered in numeric field.
  * <br/>
  * There are methods for changing the number (removing the last character, appending to the end, adding a comma).
+ * <br> for example:
+ * <br>25454334545 transformed into 25 454 334 545
+ * <br>0.02345675432345676543 transformed into 0,0234567543234568
  *
  * @author Pilipenko Mihail
  * @version 1.0
  */
 public class InputFormatter {
-
-    private InputFormatter() {
-    }
-    /** Maximum digits count */
+    /**
+     * Maximum digits count
+     */
     private static final int MAX_DIGITS = 16;
-    /** Default value for main label*/
-    private static String mainLabel = "0";
-    /** Decimal part */
-    private static int scale;
-    /** Shows if point is present */
-    private static boolean isPointSet;
-    /** Input number */
-    private static BigDecimal input = BigDecimal.ZERO;
+    /**
+     * Default value of main label
+     */
+    private static final String DEFAULT_MAIN_LABEL_TEXT = "0";
+    /**
+     * Comma sign
+     */
+    private static final char COMMA = ',';
+    /**
+     * Default value for main label
+     */
+    private String mainLabel = DEFAULT_MAIN_LABEL_TEXT;
+    /**
+     * Decimal part
+     */
+    private int scale;
+    /**
+     * Shows if point is present
+     */
+    private boolean isPointSet;
+    /**
+     * Input number
+     */
+    private BigDecimal input = BigDecimal.ZERO;
 
     /**
      * Add digit to input number
      *
      * @param numeric input digit
      */
-    public static void appendNumeric(String numeric) {
+    public void appendNumeric(String numeric) {
         if (canInput()) {
             if (isPointSet) {
                 scale++;
             }
-            if (mainLabel.equals("0")){
+            if (mainLabel.equals(DEFAULT_MAIN_LABEL_TEXT)) {
                 mainLabel = numeric;
-            }else {
+            } else {
                 mainLabel += numeric;
             }
-
             input = input.multiply(BigDecimal.TEN).add(new BigDecimal(numeric));
         }
     }
@@ -51,18 +68,16 @@ public class InputFormatter {
      *
      * @return the input
      */
-    public static BigDecimal getInput() {
+    public BigDecimal getInput() {
         return input.movePointLeft(scale);
     }
 
     /**
      * Adds point to input.
      */
-    public static void addPointToInput() {
-        if (mainLabel.equals("")) {
-            mainLabel = "0,";
-        } else if (!mainLabel.contains(",")) {
-            mainLabel += ",";
+    public void addPointToInput() {
+        if (mainLabel.indexOf(COMMA) == -1) {
+            mainLabel += COMMA;
         }
         isPointSet = true;
     }
@@ -72,14 +87,14 @@ public class InputFormatter {
      *
      * @return the boolean
      */
-    public static boolean isInputPointSet() {
+    public boolean isInputPointSet() {
         return isPointSet;
     }
 
     /**
-     *Backspace operation on input number.
+     * Backspace operation on input number.
      */
-    public static void backspaceInput() {
+    public void backspaceInput() {
         if (isPointSet) {
             if (scale > 0) {
                 input = input.divideToIntegralValue(BigDecimal.TEN);
@@ -90,9 +105,9 @@ public class InputFormatter {
         } else {
             input = input.divideToIntegralValue(BigDecimal.TEN);
         }
-        if (mainLabel.length() > 1){
+        if (mainLabel.length() > 1) {
             mainLabel = mainLabel.substring(0, mainLabel.length() - 1);
-        } else  {
+        } else {
             mainLabel = "0";
         }
     }
@@ -102,17 +117,23 @@ public class InputFormatter {
      *
      * @return the string for main label
      */
-    public static String getMainLabelText() {
+    public String getMainLabelText() {
         StringBuilder stringBuilder = new StringBuilder(mainLabel);
-        if (mainLabel.contains(",")) {
-            for (int i = 0; i < mainLabel.indexOf(","); i += 3) {
-                if (i == 0) continue;
-                stringBuilder.insert(mainLabel.indexOf(",") - i, " ");
+        char spaceChar = ' ';
+        int spaceEveryCharacters = 3;
+        if (mainLabel.indexOf(COMMA) != -1) {
+            for (int i = 0; i < mainLabel.indexOf(COMMA); i += spaceEveryCharacters) {
+                if (i == 0) {
+                    continue;
+                }
+                stringBuilder.insert(mainLabel.indexOf(COMMA) - i, spaceChar);
             }
         } else {
-            for (int i = 0; i < mainLabel.length(); i += 3) {
-                if (i == 0) continue;
-                stringBuilder.insert(mainLabel.length() - i, " ");
+            for (int i = 0; i < mainLabel.length(); i += spaceEveryCharacters) {
+                if (i == 0) {
+                    continue;
+                }
+                stringBuilder.insert(mainLabel.length() - i, spaceChar);
             }
         }
         return stringBuilder.toString();
@@ -121,11 +142,11 @@ public class InputFormatter {
     /**
      * Clear input number.
      */
-    public static void clearInput() {
+    public void clearInput() {
         scale = 0;
         input = BigDecimal.ZERO;
         isPointSet = false;
-        mainLabel = "";
+        mainLabel = DEFAULT_MAIN_LABEL_TEXT;
     }
 
     /**
@@ -133,7 +154,7 @@ public class InputFormatter {
      *
      * @return permission for input
      */
-    public static boolean canInput() {
+    public boolean canInput() {
         return input.precision() < MAX_DIGITS && scale < MAX_DIGITS;
     }
 }

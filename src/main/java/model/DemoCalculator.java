@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 /**
  * The {@code DemoCalculator} class
  * demo of directly using model.
+ * @see Calculator
  *
  * @author Pilipenko Mihail
  * @version 1.0
@@ -32,7 +33,7 @@ public class DemoCalculator {
             result = calc.calculate(result, four, BinaryOperations.MINUS);
             System.out.println(input + result);
 
-        } catch (NegativeSqrtException | DivisionByZeroException | UnexpectedException e) {
+        } catch (NegativeSqrtException | DivisionByZeroException e) {
             System.out.println(e.getMessage());
         }
 

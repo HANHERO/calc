@@ -11,7 +11,7 @@ public class OneDividedX {
     Calculator testModel = new Calculator();
 
     @Test
-    public void oneDividedXScenarios() throws DivisionByZeroException, NegativeSqrtException, UnexpectedException {
+    public void oneDividedXScenarios() throws DivisionByZeroException, NegativeSqrtException{
         assertOneDividedX("1", "1");
         assertOneDividedX("2", "0.5");
         assertOneDividedX("3", "0.3333333333333333333333333333333333");
@@ -451,7 +451,7 @@ public class OneDividedX {
         assertOneDividedX("0.0000000000000001", "1E+16");
     }
 
-    private void assertOneDividedX(String number, String expectedAnswer) throws DivisionByZeroException, NegativeSqrtException, UnexpectedException {
+    private void assertOneDividedX(String number, String expectedAnswer) throws DivisionByZeroException, NegativeSqrtException{
         assertEquals(expectedAnswer, testModel.calculate(new BigDecimal(number), UnaryOperations.ONE_DIVIDED_X).toString());
         assertEquals("-" + expectedAnswer, testModel.calculate(new BigDecimal("-" + number), UnaryOperations.ONE_DIVIDED_X).toString());
     }

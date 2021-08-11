@@ -3,6 +3,7 @@ package view;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import javafx.scene.text.Font;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -16,6 +17,7 @@ import java.util.List;
  * @version 1.0
  */
 public class ResizeFont {
+
     /** The stage on which the changes will be made. */
     private static Stage stage;
     /** The main label on which the changes will be made. */
@@ -43,14 +45,13 @@ public class ResizeFont {
      * This method changes the font size of the buttons based on the height of the window.
      */
     public static void resizeButtonFonts(){
+        int defaultFontSize = 17;
+        int defaultStageHeight = 500;
+        double fontSizeFactor = 0.016;
         double textButtonsFontSize;
-        for (int i = 0; i < buttons.size(); i++) {
-            if (i < 11) {
-                textButtonsFontSize = (stage.getHeight() - 500) * 0.016 + 18;
-            }else {
-                textButtonsFontSize = (stage.getHeight() - 500) * 0.016 + 15;
-            }
-            buttons.get(i).setStyle("-fx-font-size: " + textButtonsFontSize + "px");
+        for (Button button : buttons) {
+            textButtonsFontSize = (stage.getHeight() - defaultStageHeight) * fontSizeFactor + defaultFontSize;
+            button.setStyle("-fx-font-size: " + textButtonsFontSize + "px");
         }
     }
 
@@ -62,26 +63,28 @@ public class ResizeFont {
         String font = "Segoe UI Semibold";
         int maximizedTextMainLabelSize = 72;
         int normalTextMainLabelSize = 46;
+        int minimumLeftMargin = 20;
+        String mainLabelText = mainLabel.getText();
         if (!stage.isMaximized()) {
             if (mainLabel.getFont().getSize() == maximizedTextMainLabelSize) {
                 mainLabel.setFont(new javafx.scene.text.Font(font, normalTextMainLabelSize));
             }
             double size = mainLabel.getFont().getSize();
-            double maxTextSizeInPx = mainLabel.getWidth() - 20;
+            double maxTextSizeInPx = mainLabel.getWidth() - minimumLeftMargin;
 
             BufferedImage img = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
-            FontMetrics fm = img.getGraphics().getFontMetrics(new Font(font, Font.PLAIN, (int) size));
+            FontMetrics fm = img.getGraphics().getFontMetrics(new java.awt.Font(font, java.awt.Font.PLAIN, (int) size));
 
-            while (fm.stringWidth(mainLabel.getText()) < maxTextSizeInPx && size < normalTextMainLabelSize) {
-                fm = img.getGraphics().getFontMetrics(new Font(font, Font.PLAIN, (int) ++size));
+            while (fm.stringWidth(mainLabelText) < maxTextSizeInPx && size < normalTextMainLabelSize) {
+                fm = img.getGraphics().getFontMetrics(new java.awt.Font(font, java.awt.Font.PLAIN, (int) ++size));
             }
 
-            while (fm.stringWidth(mainLabel.getText()) > maxTextSizeInPx) {
-                fm = img.getGraphics().getFontMetrics(new Font(font, Font.PLAIN, (int) --size));
+            while (fm.stringWidth(mainLabelText) > maxTextSizeInPx) {
+                fm = img.getGraphics().getFontMetrics(new java.awt.Font(font, java.awt.Font.PLAIN, (int) --size));
             }
-            mainLabel.setFont(new javafx.scene.text.Font(font, (int) size));
+            mainLabel.setFont(new Font(font, (int) size));
         } else {
-            mainLabel.setFont(new javafx.scene.text.Font(font, maximizedTextMainLabelSize));
+            mainLabel.setFont(new Font(font, maximizedTextMainLabelSize));
         }
     }
 }

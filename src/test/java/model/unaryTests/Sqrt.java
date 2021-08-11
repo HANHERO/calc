@@ -12,7 +12,7 @@ public class Sqrt {
     Calculator testModel = new Calculator();
 
     @Test
-    public void sqrtScenarios() throws OverflowException, DivisionByZeroException, NegativeSqrtException, UnexpectedException {
+    public void sqrtScenarios() throws OverflowException, DivisionByZeroException, NegativeSqrtException {
         assertSQRT("0", "0");
         assertSQRT("1", "1");
         assertSQRT("2", "1.414213562373095048801688724209698");
@@ -454,7 +454,7 @@ public class Sqrt {
         
     }
 
-    private void assertSQRT(String number, String expectedAnswer) throws DivisionByZeroException, NegativeSqrtException, UnexpectedException {
+    private void assertSQRT(String number, String expectedAnswer) throws DivisionByZeroException, NegativeSqrtException {
         assertEquals(expectedAnswer, testModel.calculate(new BigDecimal(number), UnaryOperations.SQRT).toString());
     }
 }

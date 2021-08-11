@@ -11,7 +11,7 @@ import static org.junit.Assert.assertEquals;
 public class Negate {
     Calculator testModel = new Calculator();
     @Test
-    public void negateScenarios() throws OverflowException, DivisionByZeroException, NegativeSqrtException, UnexpectedException {
+    public void negateScenarios() throws OverflowException, DivisionByZeroException, NegativeSqrtException {
         zeroAssertNegate();
         assertNegate("1");
         assertNegate("2");
@@ -196,12 +196,12 @@ public class Negate {
         assertNegate("1E-9999");
     }
 
-    private void zeroAssertNegate() throws DivisionByZeroException, NegativeSqrtException, UnexpectedException {
+    private void zeroAssertNegate() throws DivisionByZeroException, NegativeSqrtException {
         assertEquals("0", testModel.calculate(new BigDecimal("0"), UnaryOperations.NEGATIVE).toString());
         assertEquals("0", testModel.calculate(new BigDecimal( "-0"), UnaryOperations.NEGATIVE).toString());
     }
 
-    private void assertNegate(String number) throws DivisionByZeroException, NegativeSqrtException, UnexpectedException {
+    private void assertNegate(String number) throws DivisionByZeroException, NegativeSqrtException {
         assertEquals("-" + number, testModel.calculate(new BigDecimal(number), UnaryOperations.NEGATIVE).toString());
         assertEquals(number, testModel.calculate(new BigDecimal("-" + number), UnaryOperations.NEGATIVE).toString());
 
