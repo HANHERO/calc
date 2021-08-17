@@ -23,3 +23,17 @@ X
 (src/test/java/model/unaryTests/Sqrt.java,0\f\0f5e686f6411b3ab89fbe1aa73afdb06457e12ac
 Y
 )src/test/java/view/SystemButtonsTest.java,e\e\ee1eddb3a9c10e42b771dde06cb9bb116d00b4b4
+d
+4src/test/java/controller/sandBox/TestingSandBox.java,c\c\cc0483f0636ad34d29d832e3a66d6abfcff7d927
+o
+?src/test/java/controller/robotTests/EquivalenceClassesTest.java,c\3\c30d58c738f3cbf592cc08dfd8dc0f158f83e63f
+c
+3src/test/java/controller/robotTests/MemoryTest.java,3\e\3e6f0af9616e9a41d125cc891092a63c74a13e5a
+j
+:src/test/java/controller/robotTests/KeyboardInputTest.java,d\d\dd26a26e66c777108a850b19caadb194dcba819a
+q
+Asrc/test/java/controller/robotTests/operationsTests/Multiply.java,8\7\8788d0a26edb2b575fa19cf1784fe9da8f5a0551
+o
+?src/test/java/controller/robotTests/operationsTests/Divide.java,5\4\5436acb945755c76ee0993231b530c3d59051ecf
+p
+@src/test/java/controller/robotTests/operationsTests/Percent.java,3\9\39bdbe8b99b89c80225f1ca1b6e816120e277915

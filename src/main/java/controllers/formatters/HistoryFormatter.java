@@ -40,6 +40,12 @@ public class HistoryFormatter {
      * History representation of unary operations
      */
     private final EnumMap<UnaryOperations, String> unaryMap = new EnumMap<>(UnaryOperations.class);
+    /**Open parenthesis*/
+    private static final String openParenthesis = "( ";
+    /**Close parenthesis*/
+    private static final String closeParenthesis = " )";
+    /**Equals*/
+    private static final String equals = " = ";
 
     public HistoryFormatter(){
         unaryMap.put(UnaryOperations.ONE_DIVIDED_X, "1/");
@@ -85,7 +91,6 @@ public class HistoryFormatter {
 
     private String formatHistoryWithEqual(History history) {
         StringBuilder formatHistoryBuilder = new StringBuilder(DEFAULT_VALUE);
-        String equals = " = ";
         formatHistoryBuilder.append(formatHistoryNumber(history.getFirst(), history.getFirstHistory()));
         if (history.isOperator()) {
             formatHistoryBuilder
@@ -109,8 +114,6 @@ public class HistoryFormatter {
 
     private String formatHistory(BigDecimal number, List<UnaryOperations> history) {
         StringBuilder formatNumber = new StringBuilder(format(number, false));
-        String openParenthesis = "( ";
-        String closeParenthesis = " )";
         for (UnaryOperations u : history) {
             if (u.equals(UnaryOperations.PERCENT)) {
                 formatNumber.insert(0, unaryMap.get(u));

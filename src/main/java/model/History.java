@@ -57,7 +57,7 @@ public class History {
      *
      * @return the first
      */
-    public synchronized BigDecimal getFirst() {
+    public BigDecimal getFirst() {
         return first;
     }
 
@@ -66,7 +66,7 @@ public class History {
      *
      * @return the second
      */
-    public synchronized BigDecimal getSecond() {
+    public BigDecimal getSecond() {
         return second;
     }
 
@@ -101,7 +101,7 @@ public class History {
      *
      * @param first the first
      */
-    public synchronized void setFirst(BigDecimal first) {
+    public void setFirst(BigDecimal first) {
         this.first = first;
     }
 
@@ -110,7 +110,7 @@ public class History {
      *
      * @param second the second
      */
-    public synchronized void setSecond(BigDecimal second) {
+    public void setSecond(BigDecimal second) {
         this.second = second;
     }
 
@@ -119,7 +119,7 @@ public class History {
      *
      * @return the boolean
      */
-    public synchronized boolean isEqual() {
+    public boolean isEqual() {
         return isEqual;
     }
 
@@ -128,7 +128,7 @@ public class History {
      *
      * @param equal the equal
      */
-    public synchronized void setEqual(boolean equal) {
+    public void setEqual(boolean equal) {
         isEqual = equal;
     }
 

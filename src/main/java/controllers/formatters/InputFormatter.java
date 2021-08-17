@@ -23,6 +23,8 @@ public class InputFormatter {
      * Default value of main label
      */
     private static final String DEFAULT_MAIN_LABEL_TEXT = "0";
+    /**Space char*/
+    private static final char SPACE_CHAR = ' ';
     /**
      * Comma sign
      */
@@ -95,20 +97,18 @@ public class InputFormatter {
      * Backspace operation on input number.
      */
     public void backspaceInput() {
+        input = input.divideToIntegralValue(BigDecimal.TEN);
         if (isPointSet) {
             if (scale > 0) {
-                input = input.divideToIntegralValue(BigDecimal.TEN);
                 scale--;
             } else {
                 isPointSet = false;
             }
-        } else {
-            input = input.divideToIntegralValue(BigDecimal.TEN);
         }
         if (mainLabel.length() > 1) {
             mainLabel = mainLabel.substring(0, mainLabel.length() - 1);
         } else {
-            mainLabel = "0";
+            mainLabel = DEFAULT_MAIN_LABEL_TEXT;
         }
     }
 
@@ -119,21 +119,20 @@ public class InputFormatter {
      */
     public String getMainLabelText() {
         StringBuilder stringBuilder = new StringBuilder(mainLabel);
-        char spaceChar = ' ';
         int spaceEveryCharacters = 3;
         if (mainLabel.indexOf(COMMA) != -1) {
             for (int i = 0; i < mainLabel.indexOf(COMMA); i += spaceEveryCharacters) {
                 if (i == 0) {
                     continue;
                 }
-                stringBuilder.insert(mainLabel.indexOf(COMMA) - i, spaceChar);
+                stringBuilder.insert(mainLabel.indexOf(COMMA) - i, SPACE_CHAR);
             }
         } else {
             for (int i = 0; i < mainLabel.length(); i += spaceEveryCharacters) {
                 if (i == 0) {
                     continue;
                 }
-                stringBuilder.insert(mainLabel.length() - i, spaceChar);
+                stringBuilder.insert(mainLabel.length() - i, SPACE_CHAR);
             }
         }
         return stringBuilder.toString();

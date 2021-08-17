@@ -69,7 +69,7 @@ public class ResizeFont {
         double maxTextSizeInPx = mainLabel.getWidth() - minimumLeftMargin;
         if (!stage.isMaximized()) {
             if (size == maximizedTextMainLabelSize) {
-                mainLabel.setFont(new javafx.scene.text.Font(font, normalTextMainLabelSize));
+                size = normalTextMainLabelSize;
             }
             BufferedImage img = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
             FontMetrics fm = img.getGraphics().getFontMetrics(new java.awt.Font(font, java.awt.Font.PLAIN, (int) size));
@@ -80,7 +80,7 @@ public class ResizeFont {
             while (fm.stringWidth(mainLabelText) > maxTextSizeInPx) {
                 fm = img.getGraphics().getFontMetrics(new java.awt.Font(font, java.awt.Font.PLAIN, (int) --size));
             }
-            mainLabel.setFont(new Font(font, (int) size));
+            mainLabel.setFont(new Font(font, size));
         } else {
             mainLabel.setFont(new Font(font, maximizedTextMainLabelSize));
         }

@@ -1,5 +1,5 @@
 @font-face {
-    src: url('font.ttf');
+    src: url('view/resources/font.ttf');
 }
 * {
 -fx-background-color: e6e6e6;
@@ -9,7 +9,7 @@
 .typeOfCalc {
     -fx-pref-width: 111px;
     -fx-pref-height: 40px;
-    -fx-image: url('buttons/casual.png');
+    -fx-image: url('view/resources/buttons/casual.png');
     -fx-background-position: center;
     -fx-background-repeat: no-repeat;
 }
@@ -42,7 +42,7 @@
 }
 
 #minimizeButton {
-    -fx-background-image: url('buttons/minimize.png');
+    -fx-background-image: url('view/resources/buttons/minimize.png');
 }
 
 #minimizeButton:hover {
@@ -54,7 +54,7 @@
 }
 
 #fullScreenButton {
-    -fx-background-image: url('buttons/fullScreen.png');
+    -fx-background-image: url('view/resources/buttons/fullScreen.png');
 }
 
 #fullScreenButton:hover {
@@ -66,16 +66,16 @@
 }
 
 #closeButton {
-    -fx-background-image: url('buttons/close.png');
+    -fx-background-image: url('view/resources/buttons/close.png');
 }
 
 #closeButton:hover {
-    -fx-background-image: url('buttons/closeHovered.png');
+    -fx-background-image: url('view/resources/buttons/closeHovered.png');
     -fx-background-color: #e81123;
 }
 
 #closeButton:pressed:hover {
-    -fx-background-image: url('buttons/close.png');
+    -fx-background-image: url('view/resources/buttons/close.png');
     -fx-background-color: #f1707a;
 }
 
@@ -137,113 +137,113 @@
 }
 
 #plusMinus {
-    -fx-background-image: url('buttons/plusMinus.png');
+    -fx-background-image: url('view/resources/buttons/plusMinus.png');
 }
 
 #sqrt {
-    -fx-background-image: url("buttons/radical.png");
+    -fx-background-image: url("view/resources/buttons/radical.png");
 }
 
 
 #mOption {
-    -fx-background-image: url("buttons/mOption.png");
+    -fx-background-image: url("view/resources/buttons/mOption.png");
     -fx-background-size: 52px;
 }
 
 #option {
-    -fx-background-image: url("buttons/option.png");
+    -fx-background-image: url("view/resources/buttons/option.png");
 }
 
 #changeSize {
-    -fx-background-image: url("buttons/changeSize.png");
+    -fx-background-image: url("view/resources/buttons/changeSize.png");
 }
 
 #history {
-    -fx-background-image: url("buttons/history.png");
+    -fx-background-image: url("view/resources/buttons/history.png");
 }
 
 #calc {
-    -fx-background-image: url("buttons/options/calc.png");
+    -fx-background-image: url("view/resources/buttons/options/calc.png");
 }
 
 #about {
-    -fx-background-image: url("buttons/options/about.png");
+    -fx-background-image: url("view/resources/buttons/options/about.png");
 }
 
 #casual {
-    -fx-background-image: url("buttons/options/casual.png");
+    -fx-background-image: url("view/resources/buttons/options/casual.png");
 }
 
 #engineering {
-    -fx-background-image: url("buttons/options/engineering.png");
+    -fx-background-image: url("view/resources/buttons/options/engineering.png");
 }
 
 #graph {
-    -fx-background-image: url("buttons/options/graph.png");
+    -fx-background-image: url("view/resources/buttons/options/graph.png");
 }
 
 #programming {
-    -fx-background-image: url("buttons/options/programming.png");
+    -fx-background-image: url("view/resources/buttons/options/programming.png");
 }
 
 #date {
-    -fx-background-image: url("buttons/options/date.png");
+    -fx-background-image: url("view/resources/buttons/options/date.png");
 }
 
 #converter {
-    -fx-background-image: url("buttons/options/converter.png");
+    -fx-background-image: url("view/resources/buttons/options/converter.png");
 }
 
 #currency {
-    -fx-background-image: url("buttons/options/currency.png");
+    -fx-background-image: url("view/resources/buttons/options/currency.png");
 }
 
 #volume {
-    -fx-background-image: url("buttons/options/volume.png");
+    -fx-background-image: url("view/resources/buttons/options/volume.png");
 }
 
 #length {
-    -fx-background-image: url("buttons/options/length.png");
+    -fx-background-image: url("view/resources/buttons/options/length.png");
 }
 
 #weight {
-    -fx-background-image: url("buttons/options/weight.png");
+    -fx-background-image: url("view/resources/buttons/options/weight.png");
 }
 
 #temperature {
-    -fx-background-image: url("buttons/options/temperature.png");
+    -fx-background-image: url("view/resources/buttons/options/temperature.png");
 }
 
 #energy {
-    -fx-background-image: url("buttons/options/energy.png");
+    -fx-background-image: url("view/resources/buttons/options/energy.png");
 }
 
 #area {
-    -fx-background-image: url("buttons/options/area.png");
+    -fx-background-image: url("view/resources/buttons/options/area.png");
 }
 
 #speed {
-    -fx-background-image: url("buttons/options/speed.png");
+    -fx-background-image: url("view/resources/buttons/options/speed.png");
 }
 
 #time {
-    -fx-background-image: url("buttons/options/time.png");
+    -fx-background-image: url("view/resources/buttons/options/time.png");
 }
 
 #power {
-    -fx-background-image: url("buttons/options/power.png");
+    -fx-background-image: url("view/resources/buttons/options/power.png");
 }
 
 #data {
-    -fx-background-image: url("buttons/options/data.png");
+    -fx-background-image: url("view/resources/buttons/options/data.png");
 }
 
 #pressure {
-    -fx-background-image: url("buttons/options/pressure.png");
+    -fx-background-image: url("view/resources/buttons/options/pressure.png");
 }
 
 #angle {
-    -fx-background-image: url("buttons/options/angle.png");
+    -fx-background-image: url("view/resources/buttons/options/angle.png");
 }
 
 .scroll-bar {
@@ -289,17 +289,17 @@
 }
 
 #historyLeftMover:hover, #historyLeftMover:pressed {
-    -fx-background-image: url("buttons/historyLeftMoverHoveredPresed.png");
+    -fx-background-image: url("view/resources/buttons/historyLeftMoverHoveredPresed.png");
 }
 
 #historyRightMover:hover, #historyRightMover:pressed {
-    -fx-background-image: url("buttons/historyRightMoverHoveredPresed.png");
+    -fx-background-image: url("view/resources/buttons/historyRightMoverHoveredPresed.png");
 }
 
 #historyLeftMover {
-    -fx-background-image: url("buttons/historyLeftMover.png");
+    -fx-background-image: url("view/resources/buttons/historyLeftMover.png");
 }
 
 #historyRightMover {
-    -fx-background-image: url("buttons/historyRightMover.png");
+    -fx-background-image: url("view/resources/buttons/historyRightMover.png");
 }

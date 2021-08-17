@@ -23,10 +23,7 @@ import view.ResizeWindow;
 
 import java.math.BigDecimal;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import static model.UnaryOperations.PERCENT;
 
@@ -48,10 +45,6 @@ public class Controller implements Initializable {
      * History formatter of calculator
      */
     private final HistoryFormatter historyFormatter = new HistoryFormatter();
-    /**
-     * List of text buttons [0 - 9, comma, some operations, etc].
-     */
-    private final List<Button> textButtons = new ArrayList<>();
     /**
      * History of calculator
      */
@@ -142,7 +135,10 @@ public class Controller implements Initializable {
     public Button historyLeftMover, historyRightMover, plusMinus, zero, comma, equals, one, two, three, plus, four,
             seven, eight, minus, six, five, oneDividedX, multiply, nine, square, sqrt, divide, CE, percent, C, del,
             mc, mr, mPlus, mMinus, ms, mOption, fullScreenButton;
-
+    /**
+     * List of text buttons [0 - 9, comma, some operations, etc].
+     */
+    private final List<Button> textButtons = new ArrayList<>();
     /**
      * Calculator labels.
      */
@@ -153,31 +149,24 @@ public class Controller implements Initializable {
      */
     @FXML
     public AnchorPane menu;
-
     /**
      * Stage of calculator
      */
     private Stage stage;
-
     /**
      * {@link Calculator} object which consist set of methods
      * of calculation methods
      */
     private final Calculator model = new Calculator();
-
     /**
      * {@link Memory} object which consist set of methods
      * of memory methods
      */
     private final Memory memory = new Memory();
-
-    private final static List<Button> operationButtonsArray = new ArrayList<>();
-
     /**
      * Mouse movement values ​​for moving the window.
      */
     private double x, y;
-
 
     /**
      * Dragged listener.
@@ -203,29 +192,9 @@ public class Controller implements Initializable {
         y = stage.getY() - event.getScreenY();
     }
 
-    private void fillTextButtonsArray() {
-        textButtons.add(one);
-        textButtons.add(two);
-        textButtons.add(three);
-        textButtons.add(four);
-        textButtons.add(five);
-        textButtons.add(six);
-        textButtons.add(seven);
-        textButtons.add(eight);
-        textButtons.add(nine);
-        textButtons.add(comma);
-        textButtons.add(zero);
-        textButtons.add(C);
-        textButtons.add(CE);
-        textButtons.add(del);
-        textButtons.add(oneDividedX);
-        textButtons.add(square);
-        textButtons.add(percent);
-        textButtons.add(divide);
-        textButtons.add(multiply);
-        textButtons.add(minus);
-        textButtons.add(plus);
-        textButtons.add(equals);
+    private void fillButtonsArrays() {
+        Collections.addAll(textButtons, one, two, three, four, five, six, seven,
+                eight, nine, comma, zero, C, CE, del, oneDividedX, square, percent, divide, multiply, minus, plus, equals);
     }
 
     /**
@@ -450,17 +419,17 @@ public class Controller implements Initializable {
             if (lastBinary == null) {
                 historyLabel.setText("0");
                 setMainLabelText(BigDecimal.ZERO);
-                return;
-            }
-            try {
-                isPercentLast = true;
-                buffer = model.percent(result, buffer, lastBinary);
-                result = model.calculate(result, buffer, lastBinary);
-                history.addHistory(lastBinary != null, PERCENT, buffer);
-                setMainLabelText(buffer);
-                updateHistoryLabel();
-            } catch (DivisionByZeroException e) {
-                checkDivisionByZero();
+            } else {
+                try {
+                    isPercentLast = true;
+                    buffer = model.percent(result, buffer, lastBinary);
+                    result = model.calculate(result, buffer, lastBinary);
+                    history.addHistory(lastBinary != null, PERCENT, buffer);
+                    setMainLabelText(buffer);
+                    updateHistoryLabel();
+                } catch (DivisionByZeroException e) {
+                    checkDivisionByZero();
+                }
             }
         }
     }
@@ -594,9 +563,8 @@ public class Controller implements Initializable {
     public void initialize(Stage stage) {
         this.stage = stage;
         menu.setVisible(false);
-        createOperationButtonsArray();
         setDisableMemButtons(true);
-        fillTextButtonsArray();
+        fillButtonsArrays();
         ResizeFont.init(stage, mainLabel, textButtons);
         this.stage.getScene().setOnKeyPressed(keyEvent -> {
             CalcButton button = CalcButton.searchButtonByEvent(keyEvent);
@@ -610,25 +578,13 @@ public class Controller implements Initializable {
         scene.setOnMousePressed(r);
         scene.setOnMouseDragged(r);
     }
-    private void createOperationButtonsArray(){
-        operationButtonsArray.add(percent);
-        operationButtonsArray.add(oneDividedX);
-        operationButtonsArray.add(square);
-        operationButtonsArray.add(sqrt);
-        operationButtonsArray.add(divide);
-        operationButtonsArray.add(multiply);
-        operationButtonsArray.add(minus);
-        operationButtonsArray.add(plus);
-        operationButtonsArray.add(plusMinus);
-        operationButtonsArray.add(comma);
-        operationButtonsArray.add(equals);
-    }
 
     private void setDisableAllOperations(boolean isDisable) {
-        operationButtonsArray.forEach(b -> b.setDisable(isDisable));
+        List.of(percent, oneDividedX, square, sqrt, divide, multiply, minus, plus, plusMinus,
+                comma, equals).forEach(b -> b.setDisable(isDisable));
     }
 
-    private void checkDivisionByZero(){
+    private void checkDivisionByZero() {
         String message;
         if (result.equals(BigDecimal.ZERO)) {
             message = RESULT_UNDEFINED;
@@ -639,9 +595,7 @@ public class Controller implements Initializable {
     }
 
     private void setDisableMemButtons(boolean isDisable) {
-        mc.setDisable(isDisable);
-        mr.setDisable(isDisable);
-        mOption.setDisable(isDisable);
+        List.of(mc, mr, mOption).forEach(b -> b.setDisable(isDisable));
     }
 
     private void setMainLabelText(BigDecimal number) {
@@ -714,19 +668,18 @@ public class Controller implements Initializable {
      * Button to open the calculator in full screen.
      */
     public void fullScreen() {
+        String style;
         if (stage.isMaximized()) {
             stage.setMaximized(false);
-            fullScreenButton.setStyle("-fx-background-image: url('/buttons/fullScreen.png')");
+            style = "-fx-background-image: url('/buttons/fullScreen.png')";
             ResizeFont.resizeButtonFonts();
-            ResizeFont.resizeMainLabelFont();
         } else {
             stage.setMaximized(true);
-            fullScreenButton.setStyle("-fx-background-image: url('/buttons/notFullScreen.png')");
-            ResizeFont.resizeMainLabelFont();
-            for (Button textButton : textButtons) {
-                textButton.setStyle("-fx-font-size: 24px");
-            }
+            style = "-fx-background-image: url('/buttons/notFullScreen.png')";
+            textButtons.forEach(b -> b.setStyle("-fx-font-size: 24px"));
         }
+        ResizeFont.resizeMainLabelFont();
+        fullScreenButton.setStyle(style);
     }
 
     private void showExceptionMessage(String message) {
@@ -737,15 +690,9 @@ public class Controller implements Initializable {
     }
 
     private void checkOverflow(BigDecimal number) throws OverflowException {
-        if (number.compareTo(MAX_VALUE) >= 0) {
-            throw new OverflowException(OVERFLOW);
-        } else if (number.compareTo(MIN_VALUE) <= 0) {
-            throw new OverflowException(OVERFLOW);
-        } else if (number.compareTo(MIN_POSITIVE_VALUE) < 0 &&
-                number.compareTo(BigDecimal.ZERO) > 0) {
-            throw new OverflowException(OVERFLOW);
-        } else if (number.compareTo(MAX_NEGATIVE_VALUE) > 0 &&
-                number.compareTo(BigDecimal.ZERO) < 0) {
+        if (number.compareTo(MAX_VALUE) >= 0 || number.compareTo(MIN_VALUE) <= 0 ||
+                (number.compareTo(MIN_POSITIVE_VALUE) < 0 && number.compareTo(BigDecimal.ZERO) > 0) ||
+                (number.compareTo(MAX_NEGATIVE_VALUE) > 0 && number.compareTo(BigDecimal.ZERO) < 0)) {
             throw new OverflowException(OVERFLOW);
         }
     }
