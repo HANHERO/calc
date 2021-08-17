@@ -18,6 +18,8 @@ public class DemoCalculator {
      *
      */
     public static void main(String[] args) {
+        final String DIVISION_BY_ZERO = "Деление на ноль невозможно";
+        final String NEGATIVE_SQRT = "Неверный ввод";
         String input = "√( ( 5 + 3 ) ÷ 2 ) - 4 = ";
         Calculator calc = new Calculator();
 
@@ -33,8 +35,10 @@ public class DemoCalculator {
             result = calc.calculate(result, four, BinaryOperations.MINUS);
             System.out.println(input + result);
 
-        } catch (NegativeSqrtException | DivisionByZeroException e) {
-            System.out.println(e.getMessage());
+        } catch (DivisionByZeroException e) {
+            System.out.println(DIVISION_BY_ZERO);
+        } catch (NegativeSqrtException e){
+            System.out.println(NEGATIVE_SQRT);
         }
 
     }

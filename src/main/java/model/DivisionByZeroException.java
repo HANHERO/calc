@@ -8,12 +8,4 @@ package model;
  * @version 1.0
  */
 public class DivisionByZeroException extends Exception {
-    /**
-     * Instantiates a new Division by zero exception.
-     *
-     * @param message the message
-     */
-    public DivisionByZeroException(String message) {
-        super(message);
-    }
 }

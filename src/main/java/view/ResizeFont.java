@@ -65,20 +65,18 @@ public class ResizeFont {
         int normalTextMainLabelSize = 46;
         int minimumLeftMargin = 20;
         String mainLabelText = mainLabel.getText();
+        double size = mainLabel.getFont().getSize();
+        double maxTextSizeInPx = mainLabel.getWidth() - minimumLeftMargin;
         if (!stage.isMaximized()) {
-            if (mainLabel.getFont().getSize() == maximizedTextMainLabelSize) {
+            if (size == maximizedTextMainLabelSize) {
                 mainLabel.setFont(new javafx.scene.text.Font(font, normalTextMainLabelSize));
             }
-            double size = mainLabel.getFont().getSize();
-            double maxTextSizeInPx = mainLabel.getWidth() - minimumLeftMargin;
-
             BufferedImage img = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
             FontMetrics fm = img.getGraphics().getFontMetrics(new java.awt.Font(font, java.awt.Font.PLAIN, (int) size));
 
             while (fm.stringWidth(mainLabelText) < maxTextSizeInPx && size < normalTextMainLabelSize) {
                 fm = img.getGraphics().getFontMetrics(new java.awt.Font(font, java.awt.Font.PLAIN, (int) ++size));
             }
-
             while (fm.stringWidth(mainLabelText) > maxTextSizeInPx) {
                 fm = img.getGraphics().getFontMetrics(new java.awt.Font(font, java.awt.Font.PLAIN, (int) --size));
             }

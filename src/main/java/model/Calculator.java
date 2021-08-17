@@ -25,28 +25,11 @@ import static model.UnaryOperations.*;
  * @version 1.0
  */
 public class Calculator {
-    /** An exception message if the user divides zero by zero. */
-    private static final String RESULT_UNDEFINED = "Результат неопределен";
-    /** An exception message if the user divides any number by zero. */
-    private static final String DIVISION_BY_ZERO = "Деление на ноль невозможноljknkj";
-    /** An exception message if the user takes the root of a negative number. */
-    private static final String NEGATIVE_SQRT = "Неверный ввод";
-    /** The coefficient of the operation with percents.
-     * <br>for example:
-     * <br>coefficient in (150 + 17%) equals 25.5
-     * <br>coefficient in (150 ÷ 17%) equals 0.17
-     * */
-    private BigDecimal percentCoef;
-    /**One hundred value used for percent.*/
-    private static final BigDecimal ONE_HUNDRED = new BigDecimal("100");
     /**
-     * Gets percent coef.
-     *
-     * @return the percent coef
+     * One hundred value used for percent.
      */
-    public BigDecimal getPercentCoef() {
-        return percentCoef;
-    }
+    private static final BigDecimal ONE_HUNDRED = new BigDecimal("100");
+
     /**
      * Calculation of a binary operation.
      *
@@ -56,18 +39,18 @@ public class Calculator {
      * @return the result of binary operation.
      * @throws DivisionByZeroException the division by zero exception
      */
-    public BigDecimal calculate(BigDecimal firstValue, BigDecimal secondValue, BinaryOperations operation) throws DivisionByZeroException {
+    public synchronized BigDecimal calculate(BigDecimal firstValue, BigDecimal secondValue, BinaryOperations operation) throws DivisionByZeroException {
         BigDecimal result;
-        if (operation.equals(PLUS)) {
+        if (operation == PLUS) {
             result = plus(firstValue, secondValue);
-        } else if (operation.equals(MINUS)) {
+        } else if (operation == MINUS) {
             result = minus(firstValue, secondValue);
-        } else if (operation.equals(DIVIDE)) {
+        } else if (operation == DIVIDE) {
             result = divide(firstValue, secondValue);
-        } else if (operation.equals(MULTIPLY)) {
+        } else if (operation == MULTIPLY) {
             result = multiply(firstValue, secondValue);
         } else {
-            throw new IllegalArgumentException("Enter binary operation");
+            throw new IllegalArgumentException("Unknown binary operation: " + operation);
         }
         return result;
     }
@@ -81,18 +64,18 @@ public class Calculator {
      * @throws NegativeSqrtException   the negative sqrt exception
      * @throws DivisionByZeroException the division by zero exception
      */
-    public BigDecimal calculate(BigDecimal firstValue, UnaryOperations operation) throws NegativeSqrtException, DivisionByZeroException {
+    public synchronized BigDecimal calculate(BigDecimal firstValue, UnaryOperations operation) throws NegativeSqrtException, DivisionByZeroException {
         BigDecimal result;
-        if (operation.equals(SQUARE)){
+        if (operation == SQUARE) {
             result = square(firstValue);
-        }else if(operation.equals(SQRT)){
+        } else if (operation == SQRT) {
             result = sqrt(firstValue);
-        }else if(operation.equals(ONE_DIVIDED_X)){
+        } else if (operation == ONE_DIVIDED_X) {
             result = oneDividedX(firstValue);
-        }else if(operation.equals(NEGATIVE)){
+        } else if (operation == NEGATIVE) {
             result = negative(firstValue);
-        }else {
-            throw new IllegalArgumentException("Unknown operation " + operation);
+        } else {
+            throw new IllegalArgumentException("Unknown unary operation: " + operation);
         }
         return result;
     }
@@ -107,7 +90,7 @@ public class Calculator {
 
     private BigDecimal sqrt(BigDecimal firstValue) throws NegativeSqrtException {
         if (firstValue.compareTo(BigDecimal.ZERO) < 0) {
-            throw new NegativeSqrtException(NEGATIVE_SQRT);
+            throw new NegativeSqrtException();
         }
         return firstValue.sqrt(MathContext.DECIMAL128);
     }
@@ -131,30 +114,34 @@ public class Calculator {
     private BigDecimal divide(BigDecimal firstValue, BigDecimal secondValue) throws DivisionByZeroException {
         if (!secondValue.equals(BigDecimal.ZERO)) {
             return firstValue.divide(secondValue, MathContext.DECIMAL128);
-        } else if (firstValue.equals(BigDecimal.ZERO)){
-            throw new DivisionByZeroException(RESULT_UNDEFINED);
         } else {
-            throw new DivisionByZeroException(DIVISION_BY_ZERO);
+            throw new DivisionByZeroException();
         }
     }
 
     /**
-     * Calculate of operation with percent.
+     * Calculate percent coefficient.
+     *  <br>Percent coefficient is for example:
+     *  <br>coefficient in (150 + 17%) equals 25.5
+     *  <br>coefficient in (150 / 17%) equals 0.17
      *
-     * @param firstValue    the first value
-     * @param percentValue  the percent value
-     * @param operation the last operation
-     * @return the result of operation with percent.
+     *
+     * @param firstValue   the first value
+     * @param percentValue the percent value
+     * @param operation    the last operation
+     * @return the result is the percentage coefficient.
      * @throws DivisionByZeroException the division by zero exception
      */
     public BigDecimal percent(BigDecimal firstValue, BigDecimal percentValue, BinaryOperations operation) throws DivisionByZeroException {
-        if (operation.equals(PLUS) || operation.equals(MINUS)) {
-            percentCoef = divide(percentValue, ONE_HUNDRED).multiply(firstValue);
-        } else if (operation.equals(MULTIPLY) || operation.equals(DIVIDE)) {
-            percentCoef = divide(percentValue, ONE_HUNDRED);
+        BigDecimal result;
+        if (operation == MULTIPLY || operation == DIVIDE || operation == PLUS || operation == MINUS) {
+            result = divide(percentValue, ONE_HUNDRED);
         } else {
-            throw new IllegalArgumentException("Unknown operation " + operation);
+            throw new IllegalArgumentException("Unknown binary operation: " + operation);
         }
-        return calculate(firstValue, percentCoef, operation);
+        if (operation == PLUS || operation == MINUS) {
+            result = result.multiply(firstValue);
+        }
+        return result;
     }
 }

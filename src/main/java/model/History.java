@@ -57,7 +57,7 @@ public class History {
      *
      * @return the first
      */
-    public BigDecimal getFirst() {
+    public synchronized BigDecimal getFirst() {
         return first;
     }
 
@@ -66,7 +66,7 @@ public class History {
      *
      * @return the second
      */
-    public BigDecimal getSecond() {
+    public synchronized BigDecimal getSecond() {
         return second;
     }
 
@@ -101,7 +101,7 @@ public class History {
      *
      * @param first the first
      */
-    public void setFirst(BigDecimal first) {
+    public synchronized void setFirst(BigDecimal first) {
         this.first = first;
     }
 
@@ -110,7 +110,7 @@ public class History {
      *
      * @param second the second
      */
-    public void setSecond(BigDecimal second) {
+    public synchronized void setSecond(BigDecimal second) {
         this.second = second;
     }
 
@@ -119,7 +119,7 @@ public class History {
      *
      * @return the boolean
      */
-    public boolean isEqual() {
+    public synchronized boolean isEqual() {
         return isEqual;
     }
 
@@ -128,7 +128,7 @@ public class History {
      *
      * @param equal the equal
      */
-    public void setEqual(boolean equal) {
+    public synchronized void setEqual(boolean equal) {
         isEqual = equal;
     }
 
@@ -166,7 +166,7 @@ public class History {
      * @param operation   operation to be added
      * @param bigDecimal  number on which the operation is performed
      */
-    public void addHistory(boolean isOperation, UnaryOperations operation, BigDecimal bigDecimal) {
+    public synchronized void addHistory(boolean isOperation, UnaryOperations operation, BigDecimal bigDecimal) {
         if (!(operation.equals(UnaryOperations.NEGATIVE) && (isOperation && secondHistory.isEmpty() || !isOperation && firstHistory.isEmpty()))) {
             if (isOperation) {
                 if (secondHistory.isEmpty()) {

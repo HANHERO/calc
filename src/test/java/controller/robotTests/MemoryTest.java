@@ -19,7 +19,7 @@ public class MemoryTest extends TestingSandBox {
 
     @Test
     public void addScenarios() {
-        mouseInputTest("23 m+ + 123 = mr", "23", "23 + 123 = ");
+        mouseInputTest("23 m+ + 123 = mr", "23", "");
         mouseInputTest("0,321 m+ m+ m+ mr", "0,963", "");
         mouseInputTest("532 m+ plusMinus m+ mr", "0", "");
         mouseInputTest("678 plusMinus m+ plusMinus m+ mr", "0", "");

@@ -326,7 +326,7 @@ public class EquivalenceClassesTest extends TestingSandBox {
         mouseInputTest("0,01 / 0,2 % = = =", "1 250 000", "2500 ÷ 0,002 = ");
         mouseInputTest("0,01 / 0,2 %", "0,002", "0,01 ÷ 0,002");
 
-        mouseInputTest("0 1/", DIVISION_BY_ZERO, "1/( 0 )");
+        mouseInputTest("0 1/", RESULT_UNDEFINED, "1/( 0 )");
         mouseInputTest("0 / 0 =", RESULT_UNDEFINED, "0 ÷ 0 = ");
         mouseInputTest("1 - 1 / 0 =", RESULT_UNDEFINED, "0 ÷ 0 = ");
 

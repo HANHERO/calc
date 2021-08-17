@@ -390,7 +390,7 @@
             </ScrollPane>
         </children>
     </AnchorPane>
-    <Button fx:id="option" focusTraversable="false" layoutY="32.0" mnemonicParsing="false" onAction="#optionOpenOrClose" styleClass="squareButton" AnchorPane.leftAnchor="1.0" AnchorPane.topAnchor="33.0" />
+    <Button fx:id="option" focusTraversable="false" layoutY="32.0" mnemonicParsing="false" onAction="#optionOpenOrCloseMenu" styleClass="squareButton" AnchorPane.leftAnchor="1.0" AnchorPane.topAnchor="33.0" />
     <Button fx:id="historyLeftMover" focusTraversable="false" maxHeight="15.0" maxWidth="14.0" minHeight="15.0" minWidth="14.0" mnemonicParsing="false" onAction="#moveHistoryLeft" prefHeight="15.0" prefWidth="14.0" styleClass="historyMover" visible="false" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="76.0" />
     <Button fx:id="historyRightMover" focusTraversable="false" maxHeight="16.0" maxWidth="14.0" minHeight="16.0" minWidth="14.0" mnemonicParsing="false" onAction="#moveHistoryRight" prefHeight="16.0" prefWidth="14.0" styleClass="historyMover" visible="false" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="76.0" />
 </AnchorPane>

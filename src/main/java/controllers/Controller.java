@@ -1,5 +1,8 @@
 package controllers;
 
+import controllers.formatters.HistoryFormatter;
+import controllers.formatters.InputFormatter;
+import controllers.formatters.OutputFormatter;
 import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,7 +16,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import controllers.formatters.*;
 import model.*;
 import view.CalcButton;
 import view.ResizeFont;
@@ -26,6 +28,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+import static model.UnaryOperations.PERCENT;
+
 /**
  * The {@code Controller} class
  * processes work of all buttons of calculator.
@@ -36,51 +40,105 @@ import java.util.ResourceBundle;
  * @version 1.0
  */
 public class Controller implements Initializable {
-    /**Input formatter of calculator*/
+    /**
+     * Input formatter of calculator
+     */
     private final InputFormatter input = new InputFormatter();
-    /**History formatter of calculator*/
+    /**
+     * History formatter of calculator
+     */
     private final HistoryFormatter historyFormatter = new HistoryFormatter();
-    /** List of text buttons [0 - 9, comma, some operations, etc].*/
+    /**
+     * List of text buttons [0 - 9, comma, some operations, etc].
+     */
     private final List<Button> textButtons = new ArrayList<>();
-    /**History of calculator*/
+    /**
+     * History of calculator
+     */
     private final History history = new History();
     /**
      * The Scroll pane history.
      */
     public ScrollPane scrollPaneHistory;
-    /** Calculation result */
+    /**
+     * Calculation result
+     */
     private BigDecimal result = BigDecimal.ZERO;
-    /** Temporary storage */
+    /**
+     * Temporary storage
+     */
     private BigDecimal buffer = BigDecimal.ZERO;
-    /**What is currently on the main label.*/
+    /**
+     * What is currently on the main label.
+     */
     private BigDecimal whatOnScreen = BigDecimal.ZERO;
-    /** Last binary operation */
+    /**
+     * Last binary operation
+     */
     private BinaryOperations lastBinary;
-    /** True if the last operation was "percent" */
+    /**
+     * True if the last operation was "percent"
+     */
     private boolean isPercentLast = false;
-    /** True if equals button was pressed. */
+    /**
+     * True if equals button was pressed.
+     */
     private boolean isEqualsPressed = false;
-    /** True if comma button was pressed. */
+    /**
+     * True if comma button was pressed.
+     */
     private boolean isCommaPressed = false;
-    /** True if input is editable. */
+    /**
+     * True if input is editable.
+     */
     private boolean isEditable = true;
-    /** True if an exception was thrown. */
+    /**
+     * True if an exception was thrown.
+     */
     private boolean isException = false;
-    /** True if any binary operation button was pressed*/
+    /**
+     * True if any binary operation button was pressed
+     */
     private boolean isBinaryHas = false;
-    /** Max value. */
+    /**
+     * Max value.
+     */
     private static final BigDecimal MAX_VALUE = new BigDecimal("9.9999999999999995E+9999");
-    /** Minimum positive value. */
+    /**
+     * Minimum positive value.
+     */
     private static final BigDecimal MIN_POSITIVE_VALUE = new BigDecimal("1E-9999");
-    /** Maximum negative value. */
+    /**
+     * Maximum negative value.
+     */
     private static final BigDecimal MAX_NEGATIVE_VALUE = new BigDecimal("-1E-9999");
-    /** Min value. */
+    /**
+     * Min value.
+     */
     private static final BigDecimal MIN_VALUE = new BigDecimal("-9.9999999999999995E+9999");
-    /** Message, which obtained when scale of result is bigger than 10000. */
+    /**
+     * Message, which obtained when scale of result is bigger than 10000.
+     */
     private static final String OVERFLOW = "Переполнение";
-    /**Used for movement history label*/
+    /**
+     * An exception message if the user divides zero by zero.
+     */
+    private static final String RESULT_UNDEFINED = "Результат неопределен";
+    /**
+     * An exception message if the user divides any number by zero.
+     */
+    private static final String DIVISION_BY_ZERO = "Деление на ноль невозможно";
+    /**
+     * An exception message if the user takes the root of a negative number.
+     */
+    private static final String NEGATIVE_SQRT = "Неверный ввод";
+    /**
+     * Used for movement history label
+     */
     private static final double HISTORY_MOVEMENT_FACTOR = 0.35;
-    /** Calculator buttons */
+    /**
+     * Calculator buttons
+     */
     public Button historyLeftMover, historyRightMover, plusMinus, zero, comma, equals, one, two, three, plus, four,
             seven, eight, minus, six, five, oneDividedX, multiply, nine, square, sqrt, divide, CE, percent, C, del,
             mc, mr, mPlus, mMinus, ms, mOption, fullScreenButton;
@@ -96,23 +154,34 @@ public class Controller implements Initializable {
     @FXML
     public AnchorPane menu;
 
-    /** Stage of calculator*/
+    /**
+     * Stage of calculator
+     */
     private Stage stage;
 
-    /** {@link Calculator} object which consist set of methods
-     * of calculation methods*/
+    /**
+     * {@link Calculator} object which consist set of methods
+     * of calculation methods
+     */
     private final Calculator model = new Calculator();
 
-    /** {@link Memory} object which consist set of methods
-     * of memory methods*/
+    /**
+     * {@link Memory} object which consist set of methods
+     * of memory methods
+     */
     private final Memory memory = new Memory();
 
-    /** Mouse movement values ​​for moving the window. */
+    private final static List<Button> operationButtonsArray = new ArrayList<>();
+
+    /**
+     * Mouse movement values ​​for moving the window.
+     */
     private double x, y;
 
 
     /**
      * Dragged listener.
+     *
      * @param event the event
      */
     @FXML
@@ -194,7 +263,6 @@ public class Controller implements Initializable {
             history.setEqual(false);
             history.cleanAll();
         }
-
         input.appendNumeric(digitButton);
         buffer = input.getInput();
         isBinaryHas = false;
@@ -262,32 +330,23 @@ public class Controller implements Initializable {
         }
         if (!isBinaryHas) {
             if (lastBinary != null && !isPercentLast) {
-                try {
-                    result = model.calculate(result, buffer, lastBinary);
-                    isEditable = false;
-                    isCommaPressed = false;
-                    if (history.getFirstHistory().isEmpty()) {
-                        history.setFirst(result);
-                    }
-                    history.setOperation(lastBinary);
-                    setMainLabelText(result);
-                    buffer = result;
-                } catch (DivisionByZeroException e) {
-                    showExceptionMessage(e.getMessage());
-                }
-            } else if (isPercentLast) {
-                setMainLabelText(result);
-                isPercentLast = false;
-            } else {
-                result = whatOnScreen;
-                buffer = result;
                 isEditable = false;
                 isCommaPressed = false;
-                if (history.getFirstHistory().isEmpty()) {
-                    history.setFirst(result);
+                isPercentLast = false;
+                try {
+                    result = model.calculate(result, buffer, lastBinary);
+                    history.setOperation(lastBinary);
+                } catch (DivisionByZeroException e) {
+                    checkDivisionByZero();
                 }
-                setMainLabelText(result);
+            } else {
+                result = whatOnScreen;
             }
+            if (history.getFirstHistory().isEmpty()) {
+                history.setFirst(result);
+            }
+            buffer = result;
+            setMainLabelText(result);
         }
         updateHistoryLabel();
         input.clearInput();
@@ -303,7 +362,6 @@ public class Controller implements Initializable {
         isCommaPressed = false;
         isEditable = false;
         history.setEqual(true);
-
         if (lastBinary != null && !isPercentLast) {
             try {
                 result = model.calculate(result, buffer, lastBinary);
@@ -311,7 +369,7 @@ public class Controller implements Initializable {
                     history.setSecond(buffer);
                 }
             } catch (DivisionByZeroException e) {
-                showExceptionMessage(e.getMessage());
+                checkDivisionByZero();
             }
         } else if (isPercentLast) {
             isPercentLast = false;
@@ -342,8 +400,10 @@ public class Controller implements Initializable {
         try {
             buffer = model.calculate(whatOnScreen, unary);
             setMainLabelText(buffer);
-        } catch (DivisionByZeroException | NegativeSqrtException  e) {
-            showExceptionMessage(e.getMessage());
+        } catch (DivisionByZeroException e) {
+            showExceptionMessage(RESULT_UNDEFINED);
+        } catch (NegativeSqrtException e) {
+            showExceptionMessage(NEGATIVE_SQRT);
         }
         updateHistoryLabel();
     }
@@ -386,22 +446,21 @@ public class Controller implements Initializable {
     @FXML
     public void percentPressed() {
         if (!isPercentLast) {
+            isEditable = false;
             if (lastBinary == null) {
                 historyLabel.setText("0");
                 setMainLabelText(BigDecimal.ZERO);
-                isEditable = false;
                 return;
             }
             try {
                 isPercentLast = true;
-                result = model.percent(result, buffer, lastBinary);
-                buffer = model.getPercentCoef();
-                history.addHistory(lastBinary != null, UnaryOperations.PERCENT, buffer);
-                isEditable = false;
+                buffer = model.percent(result, buffer, lastBinary);
+                result = model.calculate(result, buffer, lastBinary);
+                history.addHistory(lastBinary != null, PERCENT, buffer);
                 setMainLabelText(buffer);
                 updateHistoryLabel();
             } catch (DivisionByZeroException e) {
-                showExceptionMessage(e.getMessage());
+                checkDivisionByZero();
             }
         }
     }
@@ -456,6 +515,8 @@ public class Controller implements Initializable {
     public void mcPressed() {
         setDisableMemButtons(true);
         memory.clearMemoryValue();
+        history.cleanAll();
+        updateHistoryLabel();
     }
 
     /**
@@ -464,6 +525,8 @@ public class Controller implements Initializable {
     @FXML
     public void mrPressed() {
         buffer = memory.getMemoryValue();
+        history.cleanAll();
+        updateHistoryLabel();
         setMainLabelText(buffer);
     }
 
@@ -475,8 +538,10 @@ public class Controller implements Initializable {
         setDisableMemButtons(false);
         try {
             memory.memoryMinus(whatOnScreen);
+            history.cleanAll();
+            updateHistoryLabel();
         } catch (DivisionByZeroException e) {
-            showExceptionMessage(e.getMessage());
+            checkDivisionByZero();
         }
         isEditable = false;
     }
@@ -489,8 +554,10 @@ public class Controller implements Initializable {
         setDisableMemButtons(false);
         try {
             memory.memoryPlus(whatOnScreen);
+            history.cleanAll();
+            updateHistoryLabel();
         } catch (DivisionByZeroException e) {
-            showExceptionMessage(e.getMessage());
+            checkDivisionByZero();
         }
         isEditable = false;
     }
@@ -502,6 +569,8 @@ public class Controller implements Initializable {
     public void msPressed() {
         setDisableMemButtons(false);
         memory.setMemoryValue(whatOnScreen);
+        history.cleanAll();
+        updateHistoryLabel();
         isEditable = false;
     }
 
@@ -525,6 +594,7 @@ public class Controller implements Initializable {
     public void initialize(Stage stage) {
         this.stage = stage;
         menu.setVisible(false);
+        createOperationButtonsArray();
         setDisableMemButtons(true);
         fillTextButtonsArray();
         ResizeFont.init(stage, mainLabel, textButtons);
@@ -540,19 +610,32 @@ public class Controller implements Initializable {
         scene.setOnMousePressed(r);
         scene.setOnMouseDragged(r);
     }
+    private void createOperationButtonsArray(){
+        operationButtonsArray.add(percent);
+        operationButtonsArray.add(oneDividedX);
+        operationButtonsArray.add(square);
+        operationButtonsArray.add(sqrt);
+        operationButtonsArray.add(divide);
+        operationButtonsArray.add(multiply);
+        operationButtonsArray.add(minus);
+        operationButtonsArray.add(plus);
+        operationButtonsArray.add(plusMinus);
+        operationButtonsArray.add(comma);
+        operationButtonsArray.add(equals);
+    }
 
     private void setDisableAllOperations(boolean isDisable) {
-        percent.setDisable(isDisable);
-        oneDividedX.setDisable(isDisable);
-        square.setDisable(isDisable);
-        sqrt.setDisable(isDisable);
-        divide.setDisable(isDisable);
-        multiply.setDisable(isDisable);
-        minus.setDisable(isDisable);
-        plus.setDisable(isDisable);
-        plusMinus.setDisable(isDisable);
-        comma.setDisable(isDisable);
-        equals.setDisable(isDisable);
+        operationButtonsArray.forEach(b -> b.setDisable(isDisable));
+    }
+
+    private void checkDivisionByZero(){
+        String message;
+        if (result.equals(BigDecimal.ZERO)) {
+            message = RESULT_UNDEFINED;
+        } else {
+            message = DIVISION_BY_ZERO;
+        }
+        showExceptionMessage(message);
     }
 
     private void setDisableMemButtons(boolean isDisable) {
@@ -583,7 +666,7 @@ public class Controller implements Initializable {
     /**
      * Left menu open / close button.
      */
-    public void optionOpenOrClose() {
+    public void optionOpenOrCloseMenu() {
         menu.setVisible(!menu.isVisible());
     }
 
