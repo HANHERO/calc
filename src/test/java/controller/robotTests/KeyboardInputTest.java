@@ -23,7 +23,7 @@ public class KeyboardInputTest extends TestingSandBox {
         test("777 plusMinus plusMinus plusMinus", "-777", "");
         test("100 1/ 1/ 1/", "0,01", "1/( 1/( 1/( 100 ) ) )");
 
-        test("91 ms + 12345 mr", "91", "91 + ");
+        test("91 ms + 12345 mr", "91", "");
         test("48 plusMinus m+ plusMinus m+ mr", "0", "");
         test("654,78 m- c mr", "-654,78", "");
         test("653 ms c mc", "0", "");
