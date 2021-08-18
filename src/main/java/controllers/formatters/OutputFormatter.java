@@ -113,8 +113,7 @@ public class OutputFormatter {
         if(Objects.isNull(resultNumber)){
             resultNumber = BigDecimal.ZERO;
         }
-        resultNumber = resultNumber.stripTrailingZeros();
-        resultNumber = rounding(resultNumber);
+        resultNumber = rounding(resultNumber.stripTrailingZeros());
 
         String result;
         int scale = resultNumber.scale();
@@ -153,8 +152,7 @@ public class OutputFormatter {
     private static String exponentialForm(BigDecimal resultNumber) {
         return EXPONENTIAL_FORMAT.format(resultNumber.round(MIN_OUTPUT_PRECISION_DOWN)
                 .stripTrailingZeros())
-                .replace(BIG_DECIMAL_EXPONENTIAL_MARK + MINUS,
-                        EXHIBITOR_SYMBOL + MINUS)
+                .replace(BIG_DECIMAL_EXPONENTIAL_MARK + MINUS, EXHIBITOR_SYMBOL + MINUS)
                 .replace(BIG_DECIMAL_EXPONENTIAL_MARK, EXHIBITOR_SYMBOL + PLUS);
     }
 

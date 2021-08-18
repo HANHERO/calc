@@ -25,7 +25,7 @@ import java.math.BigDecimal;
 import java.net.URL;
 import java.util.*;
 
-import static model.UnaryOperations.PERCENT;
+import static model.UnaryOperations.*;
 
 /**
  * The {@code Controller} class
@@ -167,7 +167,6 @@ public class Controller implements Initializable {
      * Mouse movement values ​​for moving the window.
      */
     private double x, y;
-
     /**
      * Dragged listener.
      *
@@ -180,7 +179,6 @@ public class Controller implements Initializable {
             stage.setY(event.getScreenY() + y);
         }
     }
-
     /**
      * Pressed listener.
      *
@@ -192,11 +190,10 @@ public class Controller implements Initializable {
         y = stage.getY() - event.getScreenY();
     }
 
-    private void fillButtonsArrays() {
+    private void fillTextButtonsArray() {
         Collections.addAll(textButtons, one, two, three, four, five, six, seven,
                 eight, nine, comma, zero, C, CE, del, oneDividedX, square, percent, divide, multiply, minus, plus, equals);
     }
-
     /**
      * Window minimization.
      */
@@ -204,7 +201,6 @@ public class Controller implements Initializable {
     public void minimize() {
         stage.setIconified(true);
     }
-
     /**
      * Window close.
      */
@@ -212,7 +208,6 @@ public class Controller implements Initializable {
     public void close() {
         stage.close();
     }
-
     /**
      * Click on digits buttons processing.
      *
@@ -237,7 +232,6 @@ public class Controller implements Initializable {
         isBinaryHas = false;
         setMainLabelText();
     }
-
     /**
      * Click on comma button processing.
      */
@@ -250,7 +244,6 @@ public class Controller implements Initializable {
         input.addPointToInput();
         setMainLabelText();
     }
-
     /**
      * Click on plus button processing.
      */
@@ -258,7 +251,6 @@ public class Controller implements Initializable {
     public void plusPressed() {
         sendToBinary(BinaryOperations.PLUS);
     }
-
     /**
      * Click on minus button processing.
      */
@@ -266,7 +258,6 @@ public class Controller implements Initializable {
     public void minusPressed() {
         sendToBinary(BinaryOperations.MINUS);
     }
-
     /**
      * Click on divide button processing.
      */
@@ -274,7 +265,6 @@ public class Controller implements Initializable {
     public void dividePressed() {
         sendToBinary(BinaryOperations.DIVIDE);
     }
-
     /**
      * Click on multiply button processing.
      */
@@ -284,18 +274,10 @@ public class Controller implements Initializable {
     }
 
     private void sendToBinary(BinaryOperations operation) {
-        sendToCalculate();
-        lastBinary = operation;
-        history.setOperation(lastBinary);
-        updateHistoryLabel();
-    }
-
-    private void sendToCalculate() {
         if (isEqualsPressed) {
             lastBinary = null;
             isEqualsPressed = false;
             history.setEqual(false);
-            buffer = result;
         }
         if (!isBinaryHas) {
             if (lastBinary != null && !isPercentLast) {
@@ -304,7 +286,6 @@ public class Controller implements Initializable {
                 isPercentLast = false;
                 try {
                     result = model.calculate(result, buffer, lastBinary);
-                    history.setOperation(lastBinary);
                 } catch (DivisionByZeroException e) {
                     checkDivisionByZero();
                 }
@@ -314,12 +295,14 @@ public class Controller implements Initializable {
             if (history.getFirstHistory().isEmpty()) {
                 history.setFirst(result);
             }
-            buffer = result;
             setMainLabelText(result);
         }
-        updateHistoryLabel();
+        buffer = result;
         input.clearInput();
         isBinaryHas = true;
+        lastBinary = operation;
+        history.setOperation(lastBinary);
+        updateHistoryLabel();
     }
 
     /**
@@ -356,7 +339,7 @@ public class Controller implements Initializable {
     }
 
     private void sendToUnary(UnaryOperations unary) {
-        if (unary != UnaryOperations.NEGATIVE) {
+        if (unary != NEGATIVE) {
             isEditable = false;
         }
         if (isEqualsPressed) {
@@ -382,7 +365,7 @@ public class Controller implements Initializable {
      */
     @FXML
     public void plusMinusPressed() {
-        sendToUnary(UnaryOperations.NEGATIVE);
+        sendToUnary(NEGATIVE);
     }
 
     /**
@@ -390,7 +373,7 @@ public class Controller implements Initializable {
      */
     @FXML
     public void oneDividedXPressed() {
-        sendToUnary(UnaryOperations.ONE_DIVIDED_X);
+        sendToUnary(ONE_DIVIDED_X);
     }
 
     /**
@@ -398,7 +381,7 @@ public class Controller implements Initializable {
      */
     @FXML
     public void squarePressed() {
-        sendToUnary(UnaryOperations.SQUARE);
+        sendToUnary(SQUARE);
     }
 
     /**
@@ -406,7 +389,7 @@ public class Controller implements Initializable {
      */
     @FXML
     public void rootPressed() {
-        sendToUnary(UnaryOperations.SQRT);
+        sendToUnary(SQRT);
     }
 
     /**
@@ -484,8 +467,7 @@ public class Controller implements Initializable {
     public void mcPressed() {
         setDisableMemButtons(true);
         memory.clearMemoryValue();
-        history.cleanAll();
-        updateHistoryLabel();
+        memButtonPressed(true);
     }
 
     /**
@@ -494,9 +476,8 @@ public class Controller implements Initializable {
     @FXML
     public void mrPressed() {
         buffer = memory.getMemoryValue();
-        history.cleanAll();
-        updateHistoryLabel();
         setMainLabelText(buffer);
+        memButtonPressed(false);
     }
 
     /**
@@ -507,12 +488,10 @@ public class Controller implements Initializable {
         setDisableMemButtons(false);
         try {
             memory.memoryMinus(whatOnScreen);
-            history.cleanAll();
-            updateHistoryLabel();
         } catch (DivisionByZeroException e) {
             checkDivisionByZero();
         }
-        isEditable = false;
+        memButtonPressed(false);
     }
 
     /**
@@ -523,12 +502,10 @@ public class Controller implements Initializable {
         setDisableMemButtons(false);
         try {
             memory.memoryPlus(whatOnScreen);
-            history.cleanAll();
-            updateHistoryLabel();
         } catch (DivisionByZeroException e) {
             checkDivisionByZero();
         }
-        isEditable = false;
+        memButtonPressed(false);
     }
 
     /**
@@ -538,9 +515,13 @@ public class Controller implements Initializable {
     public void msPressed() {
         setDisableMemButtons(false);
         memory.setMemoryValue(whatOnScreen);
+        memButtonPressed(false);
+    }
+
+    private void memButtonPressed(boolean canEdit){
         history.cleanAll();
         updateHistoryLabel();
-        isEditable = false;
+        isEditable = canEdit;
     }
 
     private void clickOnButton(Button button) {
@@ -564,7 +545,7 @@ public class Controller implements Initializable {
         this.stage = stage;
         menu.setVisible(false);
         setDisableMemButtons(true);
-        fillButtonsArrays();
+        fillTextButtonsArray();
         ResizeFont.init(stage, mainLabel, textButtons);
         this.stage.getScene().setOnKeyPressed(keyEvent -> {
             CalcButton button = CalcButton.searchButtonByEvent(keyEvent);

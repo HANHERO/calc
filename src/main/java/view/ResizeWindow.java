@@ -189,7 +189,6 @@ public class ResizeWindow implements EventHandler<MouseEvent> {
             isMoveH = false;
             isMoveV = false;
         }
-
         scene.setCursor(cursor);
     }
 }
